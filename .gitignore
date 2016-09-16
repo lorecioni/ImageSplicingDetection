@@ -1,0 +1,42 @@
+
+.DS_Store
+
+articles/04766772.pdf
+
+articles/06103844.pdf
+
+articles/11 ijsrm.pdf
+
+articles/Estimating Natural Illumination from a Single Outdoor Image.pdf
+
+articles/Illuminant-Based Transformed Spaces for Image Forensics.pdf
+
+articles/illumination_color_consistency.pdf
+
+articles/Paper_Illuminants_Victor_Tiago.pdf
+
+articles/review_illuminant_methods.pdf
+
+articles/Scene_Illumination_as_an_Indicator_of_Image_Manipu.pdf
+
+inizio_tesi_270_inm.pdf
+
+modulo_inizio_tesi_istruzioni_1.pdf
+
+review/slides.out
+
+review/slides.nav
+
+review/slides.dvi
+
+review/slides.aux
+
+*.log
+
+*.snm
+
+*.toc
+
+*.gz
+
+*.vrb
