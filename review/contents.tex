@@ -24,3 +24,54 @@ The development of methods for verifying \textbf{image authenticity} is a real n
 \end{minipage}
 
 \end{tframe}
+
+%-- Image compositions --%
+
+\begin{tframe}{Forgery detection}
+\vspace{0.2cm}
+Image splicing detection techniques are based on \textit{inconsistencies}:
+\vspace{0.3cm}
+\begin{enumerate}
+\item \textbf{Image resampling, copy-paste}: deduced from image metadata.
+\vspace{0.3cm}
+
+\item \textbf{Compression-based inconsistencies}: JPEG compression introduces blocking artifacts. Manufacturers of digital cameras and image processing software typically use different JPEG quantization tables.
+\vspace{0.3cm}
+
+\item  \textbf{Neighboring pixels relationship inconsistencies}: when an image is spliced some artifacts can be created.
+\vspace{0.3cm}
+\item \textbf{Intrinsic image properties inconsistencies}: e.g. scene lights, shadows or perspective.
+\end{enumerate}
+
+\end{tframe}
+
+%-- Light based detection --%
+
+\begin{tframe}{Lighting-based inconsistencies}
+\vspace{0.2cm}
+Methods based on \textbf{Lighting inconsistencies} are particularly \emph{robus}: a perfect illumination adjustment in a image composition is very hard to achieve.
+\vspace{0.3cm}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/ducks.jpg}
+\vspace{0.1cm}
+\includegraphics[width=0.5\textwidth]{images/cakes.jpg}
+\end{center}
+\end{tframe}
+
+\begin{tframe}{Lighting-based inconsistencies}
+\vspace{0.1cm}
+These methods can be divided into two types of approaches:
+\vspace{0.2cm}
+\begin{enumerate}
+\item \textbf{Object light inconsistencies}: {\small involving light source position estimation or a full illumination model reconstruction. It can be done using \emph{shadows}, \emph{face geometry}, \emph{generic object surfaces}}.
+\vspace{0.2cm}
+
+\item \textbf{Illuminant colors inconsistencies}: {\small assuming that a scene is lit by the same light source, all objects must have the same illuminant colors.}
+\vspace{0.3cm}
+\end{enumerate}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/lighting-based.jpg}
+\end{center}
+\end{tframe}
+
+
