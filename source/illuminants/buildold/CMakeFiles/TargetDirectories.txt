@@ -1,0 +1,17 @@
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/core/shell/CMakeFiles/vole.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/CMakeFiles/common-optional-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/core/shell/CMakeFiles/shell-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/lille/CMakeFiles/lille-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/iic_mask/CMakeFiles/iic_mask-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/CMakeFiles/shell-optional-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/iic_eval/CMakeFiles/iic_eval-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/iic_estimator/CMakeFiles/iic-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/illumestimators/CMakeFiles/illumestimators-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/modules/computational_geometry/CMakeFiles/computational_geometry-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/iic_misc/CMakeFiles/iic_misc-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/modules/superpixels/CMakeFiles/superpixels-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/rbase/CMakeFiles/rbase-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/reflectance/iic_commands/CMakeFiles/iic_commands-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/modules/color_processing/CMakeFiles/color_processing-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/core/storage/CMakeFiles/cache-lib.dir
+/Users/tiagojc/Dropbox/fabio-colaboration/illuminant-transformed-spaces-tifs-source-code/illuminants/build/core/common/CMakeFiles/common-lib.dir

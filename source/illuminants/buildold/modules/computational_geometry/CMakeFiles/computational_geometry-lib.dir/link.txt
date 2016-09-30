@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq libcomputational_geometry-lib.a  CMakeFiles/computational_geometry-lib.dir/graham_scan.cpp.o CMakeFiles/computational_geometry-lib.dir/minimum_enclosing_rectangle.cpp.o CMakeFiles/computational_geometry-lib.dir/geometry_utilities.cpp.o CMakeFiles/computational_geometry-lib.dir/connected_components.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libcomputational_geometry-lib.a
