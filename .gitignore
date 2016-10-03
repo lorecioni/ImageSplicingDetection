@@ -33,4 +33,6 @@ datasets/GGE/*
 datasets/segmented/*
 source/.project
 source/.pydevproject
-
+.project
+.pydevproject
+articles/source/*
