@@ -36,3 +36,4 @@ source/.pydevproject
 .project
 .pydevproject
 articles/source/*
+source/__pycache__/*
