@@ -2,7 +2,7 @@ import sys
 import os
 from subprocess import *
 
-
+#IIC configuration file
 config = "config.txt"
 
 # Extract IlluminantMaps from all images
