@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /Applications/CMake.app/Contents/bin/cmake
+CMAKE_COMMAND = /private/var/folders/jj/w1z3rdg12j36b71376xx6jkm0000gn/T/AppTranslocation/9BDC8AE8-8630-4732-ACAA-DAF6200D0DBB/d/CMake.app/Contents/bin/cmake
 
 # The command to remove a file.
-RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
+RM = /private/var/folders/jj/w1z3rdg12j36b71376xx6jkm0000gn/T/AppTranslocation/9BDC8AE8-8630-4732-ACAA-DAF6200D0DBB/d/CMake.app/Contents/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants"
+CMAKE_SOURCE_DIR = "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build"
+CMAKE_BINARY_DIR = "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magis
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Applications/CMake.app/Contents/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/private/var/folders/jj/w1z3rdg12j36b71376xx6jkm0000gn/T/AppTranslocation/9BDC8AE8-8630-4732-ACAA-DAF6200D0DBB/d/CMake.app/Contents/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -70,7 +70,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CMake.app/Contents/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/private/var/folders/jj/w1z3rdg12j36b71376xx6jkm0000gn/T/AppTranslocation/9BDC8AE8-8630-4732-ACAA-DAF6200D0DBB/d/CMake.app/Contents/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/CMakeFiles" "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps/build/CMakeFiles" "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps/build/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -111,188 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named common-optional-lib
-
-# Build rule for target.
-common-optional-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 common-optional-lib
-.PHONY : common-optional-lib
-
-# fast build rule for target.
-common-optional-lib/fast:
-	$(MAKE) -f CMakeFiles/common-optional-lib.dir/build.make CMakeFiles/common-optional-lib.dir/build
-.PHONY : common-optional-lib/fast
-
-#=============================================================================
-# Target rules for targets named shell-optional-lib
-
-# Build rule for target.
-shell-optional-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 shell-optional-lib
-.PHONY : shell-optional-lib
-
-# fast build rule for target.
-shell-optional-lib/fast:
-	$(MAKE) -f CMakeFiles/shell-optional-lib.dir/build.make CMakeFiles/shell-optional-lib.dir/build
-.PHONY : shell-optional-lib/fast
-
-#=============================================================================
-# Target rules for targets named common-lib
-
-# Build rule for target.
-common-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 common-lib
-.PHONY : common-lib
-
-# fast build rule for target.
-common-lib/fast:
-	$(MAKE) -f core/common/CMakeFiles/common-lib.dir/build.make core/common/CMakeFiles/common-lib.dir/build
-.PHONY : common-lib/fast
-
-#=============================================================================
-# Target rules for targets named cache-lib
-
-# Build rule for target.
-cache-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cache-lib
-.PHONY : cache-lib
-
-# fast build rule for target.
-cache-lib/fast:
-	$(MAKE) -f core/storage/CMakeFiles/cache-lib.dir/build.make core/storage/CMakeFiles/cache-lib.dir/build
-.PHONY : cache-lib/fast
-
-#=============================================================================
-# Target rules for targets named rbase-lib
-
-# Build rule for target.
-rbase-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 rbase-lib
-.PHONY : rbase-lib
-
-# fast build rule for target.
-rbase-lib/fast:
-	$(MAKE) -f reflectance/rbase/CMakeFiles/rbase-lib.dir/build.make reflectance/rbase/CMakeFiles/rbase-lib.dir/build
-.PHONY : rbase-lib/fast
-
-#=============================================================================
-# Target rules for targets named color_processing-lib
-
-# Build rule for target.
-color_processing-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 color_processing-lib
-.PHONY : color_processing-lib
-
-# fast build rule for target.
-color_processing-lib/fast:
-	$(MAKE) -f modules/color_processing/CMakeFiles/color_processing-lib.dir/build.make modules/color_processing/CMakeFiles/color_processing-lib.dir/build
-.PHONY : color_processing-lib/fast
-
-#=============================================================================
-# Target rules for targets named superpixels-lib
-
-# Build rule for target.
-superpixels-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 superpixels-lib
-.PHONY : superpixels-lib
-
-# fast build rule for target.
-superpixels-lib/fast:
-	$(MAKE) -f modules/superpixels/CMakeFiles/superpixels-lib.dir/build.make modules/superpixels/CMakeFiles/superpixels-lib.dir/build
-.PHONY : superpixels-lib/fast
-
-#=============================================================================
-# Target rules for targets named computational_geometry-lib
-
-# Build rule for target.
-computational_geometry-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 computational_geometry-lib
-.PHONY : computational_geometry-lib
-
-# fast build rule for target.
-computational_geometry-lib/fast:
-	$(MAKE) -f modules/computational_geometry/CMakeFiles/computational_geometry-lib.dir/build.make modules/computational_geometry/CMakeFiles/computational_geometry-lib.dir/build
-.PHONY : computational_geometry-lib/fast
-
-#=============================================================================
-# Target rules for targets named illumestimators-lib
-
-# Build rule for target.
-illumestimators-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 illumestimators-lib
-.PHONY : illumestimators-lib
-
-# fast build rule for target.
-illumestimators-lib/fast:
-	$(MAKE) -f reflectance/illumestimators/CMakeFiles/illumestimators-lib.dir/build.make reflectance/illumestimators/CMakeFiles/illumestimators-lib.dir/build
-.PHONY : illumestimators-lib/fast
-
-#=============================================================================
-# Target rules for targets named iic_commands-lib
-
-# Build rule for target.
-iic_commands-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 iic_commands-lib
-.PHONY : iic_commands-lib
-
-# fast build rule for target.
-iic_commands-lib/fast:
-	$(MAKE) -f reflectance/iic_commands/CMakeFiles/iic_commands-lib.dir/build.make reflectance/iic_commands/CMakeFiles/iic_commands-lib.dir/build
-.PHONY : iic_commands-lib/fast
-
-#=============================================================================
-# Target rules for targets named iic_misc-lib
-
-# Build rule for target.
-iic_misc-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 iic_misc-lib
-.PHONY : iic_misc-lib
-
-# fast build rule for target.
-iic_misc-lib/fast:
-	$(MAKE) -f reflectance/iic_misc/CMakeFiles/iic_misc-lib.dir/build.make reflectance/iic_misc/CMakeFiles/iic_misc-lib.dir/build
-.PHONY : iic_misc-lib/fast
-
-#=============================================================================
-# Target rules for targets named iic-lib
-
-# Build rule for target.
-iic-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 iic-lib
-.PHONY : iic-lib
-
-# fast build rule for target.
-iic-lib/fast:
-	$(MAKE) -f reflectance/iic_estimator/CMakeFiles/iic-lib.dir/build.make reflectance/iic_estimator/CMakeFiles/iic-lib.dir/build
-.PHONY : iic-lib/fast
-
-#=============================================================================
-# Target rules for targets named iic_eval-lib
-
-# Build rule for target.
-iic_eval-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 iic_eval-lib
-.PHONY : iic_eval-lib
-
-# fast build rule for target.
-iic_eval-lib/fast:
-	$(MAKE) -f reflectance/iic_eval/CMakeFiles/iic_eval-lib.dir/build.make reflectance/iic_eval/CMakeFiles/iic_eval-lib.dir/build
-.PHONY : iic_eval-lib/fast
-
-#=============================================================================
-# Target rules for targets named iic_mask-lib
-
-# Build rule for target.
-iic_mask-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 iic_mask-lib
-.PHONY : iic_mask-lib
-
-# fast build rule for target.
-iic_mask-lib/fast:
-	$(MAKE) -f reflectance/iic_mask/CMakeFiles/iic_mask-lib.dir/build.make reflectance/iic_mask/CMakeFiles/iic_mask-lib.dir/build
-.PHONY : iic_mask-lib/fast
-
-#=============================================================================
 # Target rules for targets named vole
 
 # Build rule for target.
@@ -302,51 +120,899 @@ vole: cmake_check_build_system
 
 # fast build rule for target.
 vole/fast:
-	$(MAKE) -f core/shell/CMakeFiles/vole.dir/build.make core/shell/CMakeFiles/vole.dir/build
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/build
 .PHONY : vole/fast
 
-#=============================================================================
-# Target rules for targets named shell-lib
+illumestimators/common/color.o: illumestimators/common/color.cpp.o
 
-# Build rule for target.
-shell-lib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 shell-lib
-.PHONY : shell-lib
-
-# fast build rule for target.
-shell-lib/fast:
-	$(MAKE) -f core/shell/CMakeFiles/shell-lib.dir/build.make core/shell/CMakeFiles/shell-lib.dir/build
-.PHONY : shell-lib/fast
-
-optional.o: optional.cpp.o
-
-.PHONY : optional.o
+.PHONY : illumestimators/common/color.o
 
 # target to build an object file
-optional.cpp.o:
-	$(MAKE) -f CMakeFiles/common-optional-lib.dir/build.make CMakeFiles/common-optional-lib.dir/optional.cpp.o
-	$(MAKE) -f CMakeFiles/shell-optional-lib.dir/build.make CMakeFiles/shell-optional-lib.dir/optional.cpp.o
-.PHONY : optional.cpp.o
+illumestimators/common/color.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/color.cpp.o
+.PHONY : illumestimators/common/color.cpp.o
 
-optional.i: optional.cpp.i
+illumestimators/common/color.i: illumestimators/common/color.cpp.i
 
-.PHONY : optional.i
+.PHONY : illumestimators/common/color.i
 
 # target to preprocess a source file
-optional.cpp.i:
-	$(MAKE) -f CMakeFiles/common-optional-lib.dir/build.make CMakeFiles/common-optional-lib.dir/optional.cpp.i
-	$(MAKE) -f CMakeFiles/shell-optional-lib.dir/build.make CMakeFiles/shell-optional-lib.dir/optional.cpp.i
-.PHONY : optional.cpp.i
+illumestimators/common/color.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/color.cpp.i
+.PHONY : illumestimators/common/color.cpp.i
 
-optional.s: optional.cpp.s
+illumestimators/common/color.s: illumestimators/common/color.cpp.s
 
-.PHONY : optional.s
+.PHONY : illumestimators/common/color.s
 
 # target to generate assembly for a file
-optional.cpp.s:
-	$(MAKE) -f CMakeFiles/common-optional-lib.dir/build.make CMakeFiles/common-optional-lib.dir/optional.cpp.s
-	$(MAKE) -f CMakeFiles/shell-optional-lib.dir/build.make CMakeFiles/shell-optional-lib.dir/optional.cpp.s
-.PHONY : optional.cpp.s
+illumestimators/common/color.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/color.cpp.s
+.PHONY : illumestimators/common/color.cpp.s
+
+illumestimators/common/derivative.o: illumestimators/common/derivative.cpp.o
+
+.PHONY : illumestimators/common/derivative.o
+
+# target to build an object file
+illumestimators/common/derivative.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/derivative.cpp.o
+.PHONY : illumestimators/common/derivative.cpp.o
+
+illumestimators/common/derivative.i: illumestimators/common/derivative.cpp.i
+
+.PHONY : illumestimators/common/derivative.i
+
+# target to preprocess a source file
+illumestimators/common/derivative.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/derivative.cpp.i
+.PHONY : illumestimators/common/derivative.cpp.i
+
+illumestimators/common/derivative.s: illumestimators/common/derivative.cpp.s
+
+.PHONY : illumestimators/common/derivative.s
+
+# target to generate assembly for a file
+illumestimators/common/derivative.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/derivative.cpp.s
+.PHONY : illumestimators/common/derivative.cpp.s
+
+illumestimators/common/mask.o: illumestimators/common/mask.cpp.o
+
+.PHONY : illumestimators/common/mask.o
+
+# target to build an object file
+illumestimators/common/mask.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/mask.cpp.o
+.PHONY : illumestimators/common/mask.cpp.o
+
+illumestimators/common/mask.i: illumestimators/common/mask.cpp.i
+
+.PHONY : illumestimators/common/mask.i
+
+# target to preprocess a source file
+illumestimators/common/mask.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/mask.cpp.i
+.PHONY : illumestimators/common/mask.cpp.i
+
+illumestimators/common/mask.s: illumestimators/common/mask.cpp.s
+
+.PHONY : illumestimators/common/mask.s
+
+# target to generate assembly for a file
+illumestimators/common/mask.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/mask.cpp.s
+.PHONY : illumestimators/common/mask.cpp.s
+
+illumestimators/common/statistics.o: illumestimators/common/statistics.cpp.o
+
+.PHONY : illumestimators/common/statistics.o
+
+# target to build an object file
+illumestimators/common/statistics.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/statistics.cpp.o
+.PHONY : illumestimators/common/statistics.cpp.o
+
+illumestimators/common/statistics.i: illumestimators/common/statistics.cpp.i
+
+.PHONY : illumestimators/common/statistics.i
+
+# target to preprocess a source file
+illumestimators/common/statistics.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/statistics.cpp.i
+.PHONY : illumestimators/common/statistics.cpp.i
+
+illumestimators/common/statistics.s: illumestimators/common/statistics.cpp.s
+
+.PHONY : illumestimators/common/statistics.s
+
+# target to generate assembly for a file
+illumestimators/common/statistics.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/common/statistics.cpp.s
+.PHONY : illumestimators/common/statistics.cpp.s
+
+illumestimators/fusion/config_histogram_voting_fusion.o: illumestimators/fusion/config_histogram_voting_fusion.cpp.o
+
+.PHONY : illumestimators/fusion/config_histogram_voting_fusion.o
+
+# target to build an object file
+illumestimators/fusion/config_histogram_voting_fusion.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/config_histogram_voting_fusion.cpp.o
+.PHONY : illumestimators/fusion/config_histogram_voting_fusion.cpp.o
+
+illumestimators/fusion/config_histogram_voting_fusion.i: illumestimators/fusion/config_histogram_voting_fusion.cpp.i
+
+.PHONY : illumestimators/fusion/config_histogram_voting_fusion.i
+
+# target to preprocess a source file
+illumestimators/fusion/config_histogram_voting_fusion.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/config_histogram_voting_fusion.cpp.i
+.PHONY : illumestimators/fusion/config_histogram_voting_fusion.cpp.i
+
+illumestimators/fusion/config_histogram_voting_fusion.s: illumestimators/fusion/config_histogram_voting_fusion.cpp.s
+
+.PHONY : illumestimators/fusion/config_histogram_voting_fusion.s
+
+# target to generate assembly for a file
+illumestimators/fusion/config_histogram_voting_fusion.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/config_histogram_voting_fusion.cpp.s
+.PHONY : illumestimators/fusion/config_histogram_voting_fusion.cpp.s
+
+illumestimators/fusion/fusion.o: illumestimators/fusion/fusion.cpp.o
+
+.PHONY : illumestimators/fusion/fusion.o
+
+# target to build an object file
+illumestimators/fusion/fusion.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/fusion.cpp.o
+.PHONY : illumestimators/fusion/fusion.cpp.o
+
+illumestimators/fusion/fusion.i: illumestimators/fusion/fusion.cpp.i
+
+.PHONY : illumestimators/fusion/fusion.i
+
+# target to preprocess a source file
+illumestimators/fusion/fusion.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/fusion.cpp.i
+.PHONY : illumestimators/fusion/fusion.cpp.i
+
+illumestimators/fusion/fusion.s: illumestimators/fusion/fusion.cpp.s
+
+.PHONY : illumestimators/fusion/fusion.s
+
+# target to generate assembly for a file
+illumestimators/fusion/fusion.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/fusion.cpp.s
+.PHONY : illumestimators/fusion/fusion.cpp.s
+
+illumestimators/fusion/histogramVotingFusion.o: illumestimators/fusion/histogramVotingFusion.cpp.o
+
+.PHONY : illumestimators/fusion/histogramVotingFusion.o
+
+# target to build an object file
+illumestimators/fusion/histogramVotingFusion.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/histogramVotingFusion.cpp.o
+.PHONY : illumestimators/fusion/histogramVotingFusion.cpp.o
+
+illumestimators/fusion/histogramVotingFusion.i: illumestimators/fusion/histogramVotingFusion.cpp.i
+
+.PHONY : illumestimators/fusion/histogramVotingFusion.i
+
+# target to preprocess a source file
+illumestimators/fusion/histogramVotingFusion.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/histogramVotingFusion.cpp.i
+.PHONY : illumestimators/fusion/histogramVotingFusion.cpp.i
+
+illumestimators/fusion/histogramVotingFusion.s: illumestimators/fusion/histogramVotingFusion.cpp.s
+
+.PHONY : illumestimators/fusion/histogramVotingFusion.s
+
+# target to generate assembly for a file
+illumestimators/fusion/histogramVotingFusion.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/fusion/histogramVotingFusion.cpp.s
+.PHONY : illumestimators/fusion/histogramVotingFusion.cpp.s
+
+illumestimators/grayworld/grayworldestimator.o: illumestimators/grayworld/grayworldestimator.cpp.o
+
+.PHONY : illumestimators/grayworld/grayworldestimator.o
+
+# target to build an object file
+illumestimators/grayworld/grayworldestimator.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/grayworld/grayworldestimator.cpp.o
+.PHONY : illumestimators/grayworld/grayworldestimator.cpp.o
+
+illumestimators/grayworld/grayworldestimator.i: illumestimators/grayworld/grayworldestimator.cpp.i
+
+.PHONY : illumestimators/grayworld/grayworldestimator.i
+
+# target to preprocess a source file
+illumestimators/grayworld/grayworldestimator.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/grayworld/grayworldestimator.cpp.i
+.PHONY : illumestimators/grayworld/grayworldestimator.cpp.i
+
+illumestimators/grayworld/grayworldestimator.s: illumestimators/grayworld/grayworldestimator.cpp.s
+
+.PHONY : illumestimators/grayworld/grayworldestimator.s
+
+# target to generate assembly for a file
+illumestimators/grayworld/grayworldestimator.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/grayworld/grayworldestimator.cpp.s
+.PHONY : illumestimators/grayworld/grayworldestimator.cpp.s
+
+illumestimators/iic/config_iebv.o: illumestimators/iic/config_iebv.cpp.o
+
+.PHONY : illumestimators/iic/config_iebv.o
+
+# target to build an object file
+illumestimators/iic/config_iebv.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/config_iebv.cpp.o
+.PHONY : illumestimators/iic/config_iebv.cpp.o
+
+illumestimators/iic/config_iebv.i: illumestimators/iic/config_iebv.cpp.i
+
+.PHONY : illumestimators/iic/config_iebv.i
+
+# target to preprocess a source file
+illumestimators/iic/config_iebv.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/config_iebv.cpp.i
+.PHONY : illumestimators/iic/config_iebv.cpp.i
+
+illumestimators/iic/config_iebv.s: illumestimators/iic/config_iebv.cpp.s
+
+.PHONY : illumestimators/iic/config_iebv.s
+
+# target to generate assembly for a file
+illumestimators/iic/config_iebv.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/config_iebv.cpp.s
+.PHONY : illumestimators/iic/config_iebv.cpp.s
+
+illumestimators/iic/iebv.o: illumestimators/iic/iebv.cpp.o
+
+.PHONY : illumestimators/iic/iebv.o
+
+# target to build an object file
+illumestimators/iic/iebv.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iebv.cpp.o
+.PHONY : illumestimators/iic/iebv.cpp.o
+
+illumestimators/iic/iebv.i: illumestimators/iic/iebv.cpp.i
+
+.PHONY : illumestimators/iic/iebv.i
+
+# target to preprocess a source file
+illumestimators/iic/iebv.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iebv.cpp.i
+.PHONY : illumestimators/iic/iebv.cpp.i
+
+illumestimators/iic/iebv.s: illumestimators/iic/iebv.cpp.s
+
+.PHONY : illumestimators/iic/iebv.s
+
+# target to generate assembly for a file
+illumestimators/iic/iebv.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iebv.cpp.s
+.PHONY : illumestimators/iic/iebv.cpp.s
+
+illumestimators/iic/iebv_estimator.o: illumestimators/iic/iebv_estimator.cpp.o
+
+.PHONY : illumestimators/iic/iebv_estimator.o
+
+# target to build an object file
+illumestimators/iic/iebv_estimator.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iebv_estimator.cpp.o
+.PHONY : illumestimators/iic/iebv_estimator.cpp.o
+
+illumestimators/iic/iebv_estimator.i: illumestimators/iic/iebv_estimator.cpp.i
+
+.PHONY : illumestimators/iic/iebv_estimator.i
+
+# target to preprocess a source file
+illumestimators/iic/iebv_estimator.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iebv_estimator.cpp.i
+.PHONY : illumestimators/iic/iebv_estimator.cpp.i
+
+illumestimators/iic/iebv_estimator.s: illumestimators/iic/iebv_estimator.cpp.s
+
+.PHONY : illumestimators/iic/iebv_estimator.s
+
+# target to generate assembly for a file
+illumestimators/iic/iebv_estimator.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iebv_estimator.cpp.s
+.PHONY : illumestimators/iic/iebv_estimator.cpp.s
+
+illumestimators/iic/iic.o: illumestimators/iic/iic.cpp.o
+
+.PHONY : illumestimators/iic/iic.o
+
+# target to build an object file
+illumestimators/iic/iic.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iic.cpp.o
+.PHONY : illumestimators/iic/iic.cpp.o
+
+illumestimators/iic/iic.i: illumestimators/iic/iic.cpp.i
+
+.PHONY : illumestimators/iic/iic.i
+
+# target to preprocess a source file
+illumestimators/iic/iic.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iic.cpp.i
+.PHONY : illumestimators/iic/iic.cpp.i
+
+illumestimators/iic/iic.s: illumestimators/iic/iic.cpp.s
+
+.PHONY : illumestimators/iic/iic.s
+
+# target to generate assembly for a file
+illumestimators/iic/iic.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/iic/iic.cpp.s
+.PHONY : illumestimators/iic/iic.cpp.s
+
+illumestimators/illuminantestimator.o: illumestimators/illuminantestimator.cpp.o
+
+.PHONY : illumestimators/illuminantestimator.o
+
+# target to build an object file
+illumestimators/illuminantestimator.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/illuminantestimator.cpp.o
+.PHONY : illumestimators/illuminantestimator.cpp.o
+
+illumestimators/illuminantestimator.i: illumestimators/illuminantestimator.cpp.i
+
+.PHONY : illumestimators/illuminantestimator.i
+
+# target to preprocess a source file
+illumestimators/illuminantestimator.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/illuminantestimator.cpp.i
+.PHONY : illumestimators/illuminantestimator.cpp.i
+
+illumestimators/illuminantestimator.s: illumestimators/illuminantestimator.cpp.s
+
+.PHONY : illumestimators/illuminantestimator.s
+
+# target to generate assembly for a file
+illumestimators/illuminantestimator.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/illumestimators/illuminantestimator.cpp.s
+.PHONY : illumestimators/illuminantestimator.cpp.s
+
+lille/commands/command_lgrayworld.o: lille/commands/command_lgrayworld.cpp.o
+
+.PHONY : lille/commands/command_lgrayworld.o
+
+# target to build an object file
+lille/commands/command_lgrayworld.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/commands/command_lgrayworld.cpp.o
+.PHONY : lille/commands/command_lgrayworld.cpp.o
+
+lille/commands/command_lgrayworld.i: lille/commands/command_lgrayworld.cpp.i
+
+.PHONY : lille/commands/command_lgrayworld.i
+
+# target to preprocess a source file
+lille/commands/command_lgrayworld.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/commands/command_lgrayworld.cpp.i
+.PHONY : lille/commands/command_lgrayworld.cpp.i
+
+lille/commands/command_lgrayworld.s: lille/commands/command_lgrayworld.cpp.s
+
+.PHONY : lille/commands/command_lgrayworld.s
+
+# target to generate assembly for a file
+lille/commands/command_lgrayworld.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/commands/command_lgrayworld.cpp.s
+.PHONY : lille/commands/command_lgrayworld.cpp.s
+
+lille/commands/command_liebv.o: lille/commands/command_liebv.cpp.o
+
+.PHONY : lille/commands/command_liebv.o
+
+# target to build an object file
+lille/commands/command_liebv.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/commands/command_liebv.cpp.o
+.PHONY : lille/commands/command_liebv.cpp.o
+
+lille/commands/command_liebv.i: lille/commands/command_liebv.cpp.i
+
+.PHONY : lille/commands/command_liebv.i
+
+# target to preprocess a source file
+lille/commands/command_liebv.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/commands/command_liebv.cpp.i
+.PHONY : lille/commands/command_liebv.cpp.i
+
+lille/commands/command_liebv.s: lille/commands/command_liebv.cpp.s
+
+.PHONY : lille/commands/command_liebv.s
+
+# target to generate assembly for a file
+lille/commands/command_liebv.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/commands/command_liebv.cpp.s
+.PHONY : lille/commands/command_liebv.cpp.s
+
+lille/lgrayworld_config.o: lille/lgrayworld_config.cpp.o
+
+.PHONY : lille/lgrayworld_config.o
+
+# target to build an object file
+lille/lgrayworld_config.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/lgrayworld_config.cpp.o
+.PHONY : lille/lgrayworld_config.cpp.o
+
+lille/lgrayworld_config.i: lille/lgrayworld_config.cpp.i
+
+.PHONY : lille/lgrayworld_config.i
+
+# target to preprocess a source file
+lille/lgrayworld_config.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/lgrayworld_config.cpp.i
+.PHONY : lille/lgrayworld_config.cpp.i
+
+lille/lgrayworld_config.s: lille/lgrayworld_config.cpp.s
+
+.PHONY : lille/lgrayworld_config.s
+
+# target to generate assembly for a file
+lille/lgrayworld_config.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/lgrayworld_config.cpp.s
+.PHONY : lille/lgrayworld_config.cpp.s
+
+lille/liebv_config.o: lille/liebv_config.cpp.o
+
+.PHONY : lille/liebv_config.o
+
+# target to build an object file
+lille/liebv_config.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/liebv_config.cpp.o
+.PHONY : lille/liebv_config.cpp.o
+
+lille/liebv_config.i: lille/liebv_config.cpp.i
+
+.PHONY : lille/liebv_config.i
+
+# target to preprocess a source file
+lille/liebv_config.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/liebv_config.cpp.i
+.PHONY : lille/liebv_config.cpp.i
+
+lille/liebv_config.s: lille/liebv_config.cpp.s
+
+.PHONY : lille/liebv_config.s
+
+# target to generate assembly for a file
+lille/liebv_config.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/liebv_config.cpp.s
+.PHONY : lille/liebv_config.cpp.s
+
+lille/paint_superpixel.o: lille/paint_superpixel.cpp.o
+
+.PHONY : lille/paint_superpixel.o
+
+# target to build an object file
+lille/paint_superpixel.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/paint_superpixel.cpp.o
+.PHONY : lille/paint_superpixel.cpp.o
+
+lille/paint_superpixel.i: lille/paint_superpixel.cpp.i
+
+.PHONY : lille/paint_superpixel.i
+
+# target to preprocess a source file
+lille/paint_superpixel.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/paint_superpixel.cpp.i
+.PHONY : lille/paint_superpixel.cpp.i
+
+lille/paint_superpixel.s: lille/paint_superpixel.cpp.s
+
+.PHONY : lille/paint_superpixel.s
+
+# target to generate assembly for a file
+lille/paint_superpixel.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/lille/paint_superpixel.cpp.s
+.PHONY : lille/paint_superpixel.cpp.s
+
+rbase/color.o: rbase/color.cpp.o
+
+.PHONY : rbase/color.o
+
+# target to build an object file
+rbase/color.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/color.cpp.o
+.PHONY : rbase/color.cpp.o
+
+rbase/color.i: rbase/color.cpp.i
+
+.PHONY : rbase/color.i
+
+# target to preprocess a source file
+rbase/color.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/color.cpp.i
+.PHONY : rbase/color.cpp.i
+
+rbase/color.s: rbase/color.cpp.s
+
+.PHONY : rbase/color.s
+
+# target to generate assembly for a file
+rbase/color.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/color.cpp.s
+.PHONY : rbase/color.cpp.s
+
+rbase/color_space.o: rbase/color_space.cpp.o
+
+.PHONY : rbase/color_space.o
+
+# target to build an object file
+rbase/color_space.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/color_space.cpp.o
+.PHONY : rbase/color_space.cpp.o
+
+rbase/color_space.i: rbase/color_space.cpp.i
+
+.PHONY : rbase/color_space.i
+
+# target to preprocess a source file
+rbase/color_space.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/color_space.cpp.i
+.PHONY : rbase/color_space.cpp.i
+
+rbase/color_space.s: rbase/color_space.cpp.s
+
+.PHONY : rbase/color_space.s
+
+# target to generate assembly for a file
+rbase/color_space.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/color_space.cpp.s
+.PHONY : rbase/color_space.cpp.s
+
+rbase/illum.o: rbase/illum.cpp.o
+
+.PHONY : rbase/illum.o
+
+# target to build an object file
+rbase/illum.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/illum.cpp.o
+.PHONY : rbase/illum.cpp.o
+
+rbase/illum.i: rbase/illum.cpp.i
+
+.PHONY : rbase/illum.i
+
+# target to preprocess a source file
+rbase/illum.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/illum.cpp.i
+.PHONY : rbase/illum.cpp.i
+
+rbase/illum.s: rbase/illum.cpp.s
+
+.PHONY : rbase/illum.s
+
+# target to generate assembly for a file
+rbase/illum.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/illum.cpp.s
+.PHONY : rbase/illum.cpp.s
+
+rbase/img_read.o: rbase/img_read.cpp.o
+
+.PHONY : rbase/img_read.o
+
+# target to build an object file
+rbase/img_read.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/img_read.cpp.o
+.PHONY : rbase/img_read.cpp.o
+
+rbase/img_read.i: rbase/img_read.cpp.i
+
+.PHONY : rbase/img_read.i
+
+# target to preprocess a source file
+rbase/img_read.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/img_read.cpp.i
+.PHONY : rbase/img_read.cpp.i
+
+rbase/img_read.s: rbase/img_read.cpp.s
+
+.PHONY : rbase/img_read.s
+
+# target to generate assembly for a file
+rbase/img_read.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/img_read.cpp.s
+.PHONY : rbase/img_read.cpp.s
+
+rbase/img_read_config.o: rbase/img_read_config.cpp.o
+
+.PHONY : rbase/img_read_config.o
+
+# target to build an object file
+rbase/img_read_config.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/img_read_config.cpp.o
+.PHONY : rbase/img_read_config.cpp.o
+
+rbase/img_read_config.i: rbase/img_read_config.cpp.i
+
+.PHONY : rbase/img_read_config.i
+
+# target to preprocess a source file
+rbase/img_read_config.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/img_read_config.cpp.i
+.PHONY : rbase/img_read_config.cpp.i
+
+rbase/img_read_config.s: rbase/img_read_config.cpp.s
+
+.PHONY : rbase/img_read_config.s
+
+# target to generate assembly for a file
+rbase/img_read_config.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/rbase/img_read_config.cpp.s
+.PHONY : rbase/img_read_config.cpp.s
+
+shell/config.o: shell/config.cpp.o
+
+.PHONY : shell/config.o
+
+# target to build an object file
+shell/config.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/config.cpp.o
+.PHONY : shell/config.cpp.o
+
+shell/config.i: shell/config.cpp.i
+
+.PHONY : shell/config.i
+
+# target to preprocess a source file
+shell/config.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/config.cpp.i
+.PHONY : shell/config.cpp.i
+
+shell/config.s: shell/config.cpp.s
+
+.PHONY : shell/config.s
+
+# target to generate assembly for a file
+shell/config.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/config.cpp.s
+.PHONY : shell/config.cpp.s
+
+shell/main.o: shell/main.cxx.o
+
+.PHONY : shell/main.o
+
+# target to build an object file
+shell/main.cxx.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/main.cxx.o
+.PHONY : shell/main.cxx.o
+
+shell/main.i: shell/main.cxx.i
+
+.PHONY : shell/main.i
+
+# target to preprocess a source file
+shell/main.cxx.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/main.cxx.i
+.PHONY : shell/main.cxx.i
+
+shell/main.s: shell/main.cxx.s
+
+.PHONY : shell/main.s
+
+# target to generate assembly for a file
+shell/main.cxx.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/main.cxx.s
+.PHONY : shell/main.cxx.s
+
+shell/modules.o: shell/modules.cpp.o
+
+.PHONY : shell/modules.o
+
+# target to build an object file
+shell/modules.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/modules.cpp.o
+.PHONY : shell/modules.cpp.o
+
+shell/modules.i: shell/modules.cpp.i
+
+.PHONY : shell/modules.i
+
+# target to preprocess a source file
+shell/modules.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/modules.cpp.i
+.PHONY : shell/modules.cpp.i
+
+shell/modules.s: shell/modules.cpp.s
+
+.PHONY : shell/modules.s
+
+# target to generate assembly for a file
+shell/modules.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/shell/modules.cpp.s
+.PHONY : shell/modules.cpp.s
+
+superpixels/commands/commandfelzenszwalb.o: superpixels/commands/commandfelzenszwalb.cpp.o
+
+.PHONY : superpixels/commands/commandfelzenszwalb.o
+
+# target to build an object file
+superpixels/commands/commandfelzenszwalb.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/commandfelzenszwalb.cpp.o
+.PHONY : superpixels/commands/commandfelzenszwalb.cpp.o
+
+superpixels/commands/commandfelzenszwalb.i: superpixels/commands/commandfelzenszwalb.cpp.i
+
+.PHONY : superpixels/commands/commandfelzenszwalb.i
+
+# target to preprocess a source file
+superpixels/commands/commandfelzenszwalb.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/commandfelzenszwalb.cpp.i
+.PHONY : superpixels/commands/commandfelzenszwalb.cpp.i
+
+superpixels/commands/commandfelzenszwalb.s: superpixels/commands/commandfelzenszwalb.cpp.s
+
+.PHONY : superpixels/commands/commandfelzenszwalb.s
+
+# target to generate assembly for a file
+superpixels/commands/commandfelzenszwalb.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/commandfelzenszwalb.cpp.s
+.PHONY : superpixels/commands/commandfelzenszwalb.cpp.s
+
+superpixels/commands/felzenszwalbconfig.o: superpixels/commands/felzenszwalbconfig.cpp.o
+
+.PHONY : superpixels/commands/felzenszwalbconfig.o
+
+# target to build an object file
+superpixels/commands/felzenszwalbconfig.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/felzenszwalbconfig.cpp.o
+.PHONY : superpixels/commands/felzenszwalbconfig.cpp.o
+
+superpixels/commands/felzenszwalbconfig.i: superpixels/commands/felzenszwalbconfig.cpp.i
+
+.PHONY : superpixels/commands/felzenszwalbconfig.i
+
+# target to preprocess a source file
+superpixels/commands/felzenszwalbconfig.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/felzenszwalbconfig.cpp.i
+.PHONY : superpixels/commands/felzenszwalbconfig.cpp.i
+
+superpixels/commands/felzenszwalbconfig.s: superpixels/commands/felzenszwalbconfig.cpp.s
+
+.PHONY : superpixels/commands/felzenszwalbconfig.s
+
+# target to generate assembly for a file
+superpixels/commands/felzenszwalbconfig.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/felzenszwalbconfig.cpp.s
+.PHONY : superpixels/commands/felzenszwalbconfig.cpp.s
+
+superpixels/commands/patchesconfig.o: superpixels/commands/patchesconfig.cpp.o
+
+.PHONY : superpixels/commands/patchesconfig.o
+
+# target to build an object file
+superpixels/commands/patchesconfig.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/patchesconfig.cpp.o
+.PHONY : superpixels/commands/patchesconfig.cpp.o
+
+superpixels/commands/patchesconfig.i: superpixels/commands/patchesconfig.cpp.i
+
+.PHONY : superpixels/commands/patchesconfig.i
+
+# target to preprocess a source file
+superpixels/commands/patchesconfig.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/patchesconfig.cpp.i
+.PHONY : superpixels/commands/patchesconfig.cpp.i
+
+superpixels/commands/patchesconfig.s: superpixels/commands/patchesconfig.cpp.s
+
+.PHONY : superpixels/commands/patchesconfig.s
+
+# target to generate assembly for a file
+superpixels/commands/patchesconfig.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/commands/patchesconfig.cpp.s
+.PHONY : superpixels/commands/patchesconfig.cpp.s
+
+superpixels/felzenszwalb/felzenszwalbsegmentation.o: superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.o
+
+.PHONY : superpixels/felzenszwalb/felzenszwalbsegmentation.o
+
+# target to build an object file
+superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.o
+.PHONY : superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.o
+
+superpixels/felzenszwalb/felzenszwalbsegmentation.i: superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.i
+
+.PHONY : superpixels/felzenszwalb/felzenszwalbsegmentation.i
+
+# target to preprocess a source file
+superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.i
+.PHONY : superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.i
+
+superpixels/felzenszwalb/felzenszwalbsegmentation.s: superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.s
+
+.PHONY : superpixels/felzenszwalb/felzenszwalbsegmentation.s
+
+# target to generate assembly for a file
+superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.s
+.PHONY : superpixels/felzenszwalb/felzenszwalbsegmentation.cpp.s
+
+superpixels/normal_image.o: superpixels/normal_image.cpp.o
+
+.PHONY : superpixels/normal_image.o
+
+# target to build an object file
+superpixels/normal_image.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/normal_image.cpp.o
+.PHONY : superpixels/normal_image.cpp.o
+
+superpixels/normal_image.i: superpixels/normal_image.cpp.i
+
+.PHONY : superpixels/normal_image.i
+
+# target to preprocess a source file
+superpixels/normal_image.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/normal_image.cpp.i
+.PHONY : superpixels/normal_image.cpp.i
+
+superpixels/normal_image.s: superpixels/normal_image.cpp.s
+
+.PHONY : superpixels/normal_image.s
+
+# target to generate assembly for a file
+superpixels/normal_image.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/normal_image.cpp.s
+.PHONY : superpixels/normal_image.cpp.s
+
+superpixels/patches/patchessegmentation.o: superpixels/patches/patchessegmentation.cpp.o
+
+.PHONY : superpixels/patches/patchessegmentation.o
+
+# target to build an object file
+superpixels/patches/patchessegmentation.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/patches/patchessegmentation.cpp.o
+.PHONY : superpixels/patches/patchessegmentation.cpp.o
+
+superpixels/patches/patchessegmentation.i: superpixels/patches/patchessegmentation.cpp.i
+
+.PHONY : superpixels/patches/patchessegmentation.i
+
+# target to preprocess a source file
+superpixels/patches/patchessegmentation.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/patches/patchessegmentation.cpp.i
+.PHONY : superpixels/patches/patchessegmentation.cpp.i
+
+superpixels/patches/patchessegmentation.s: superpixels/patches/patchessegmentation.cpp.s
+
+.PHONY : superpixels/patches/patchessegmentation.s
+
+# target to generate assembly for a file
+superpixels/patches/patchessegmentation.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/patches/patchessegmentation.cpp.s
+.PHONY : superpixels/patches/patchessegmentation.cpp.s
+
+superpixels/superpixelsegmentation.o: superpixels/superpixelsegmentation.cpp.o
+
+.PHONY : superpixels/superpixelsegmentation.o
+
+# target to build an object file
+superpixels/superpixelsegmentation.cpp.o:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/superpixelsegmentation.cpp.o
+.PHONY : superpixels/superpixelsegmentation.cpp.o
+
+superpixels/superpixelsegmentation.i: superpixels/superpixelsegmentation.cpp.i
+
+.PHONY : superpixels/superpixelsegmentation.i
+
+# target to preprocess a source file
+superpixels/superpixelsegmentation.cpp.i:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/superpixelsegmentation.cpp.i
+.PHONY : superpixels/superpixelsegmentation.cpp.i
+
+superpixels/superpixelsegmentation.s: superpixels/superpixelsegmentation.cpp.s
+
+.PHONY : superpixels/superpixelsegmentation.s
+
+# target to generate assembly for a file
+superpixels/superpixelsegmentation.cpp.s:
+	$(MAKE) -f CMakeFiles/vole.dir/build.make CMakeFiles/vole.dir/superpixels/superpixelsegmentation.cpp.s
+.PHONY : superpixels/superpixelsegmentation.cpp.s
 
 # Help Target
 help:
@@ -354,27 +1020,108 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... common-optional-lib"
+	@echo "... vole"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... shell-optional-lib"
-	@echo "... common-lib"
-	@echo "... cache-lib"
-	@echo "... rbase-lib"
-	@echo "... color_processing-lib"
-	@echo "... superpixels-lib"
-	@echo "... computational_geometry-lib"
-	@echo "... illumestimators-lib"
-	@echo "... iic_commands-lib"
-	@echo "... iic_misc-lib"
-	@echo "... iic-lib"
-	@echo "... iic_eval-lib"
-	@echo "... iic_mask-lib"
-	@echo "... vole"
-	@echo "... shell-lib"
-	@echo "... optional.o"
-	@echo "... optional.i"
-	@echo "... optional.s"
+	@echo "... illumestimators/common/color.o"
+	@echo "... illumestimators/common/color.i"
+	@echo "... illumestimators/common/color.s"
+	@echo "... illumestimators/common/derivative.o"
+	@echo "... illumestimators/common/derivative.i"
+	@echo "... illumestimators/common/derivative.s"
+	@echo "... illumestimators/common/mask.o"
+	@echo "... illumestimators/common/mask.i"
+	@echo "... illumestimators/common/mask.s"
+	@echo "... illumestimators/common/statistics.o"
+	@echo "... illumestimators/common/statistics.i"
+	@echo "... illumestimators/common/statistics.s"
+	@echo "... illumestimators/fusion/config_histogram_voting_fusion.o"
+	@echo "... illumestimators/fusion/config_histogram_voting_fusion.i"
+	@echo "... illumestimators/fusion/config_histogram_voting_fusion.s"
+	@echo "... illumestimators/fusion/fusion.o"
+	@echo "... illumestimators/fusion/fusion.i"
+	@echo "... illumestimators/fusion/fusion.s"
+	@echo "... illumestimators/fusion/histogramVotingFusion.o"
+	@echo "... illumestimators/fusion/histogramVotingFusion.i"
+	@echo "... illumestimators/fusion/histogramVotingFusion.s"
+	@echo "... illumestimators/grayworld/grayworldestimator.o"
+	@echo "... illumestimators/grayworld/grayworldestimator.i"
+	@echo "... illumestimators/grayworld/grayworldestimator.s"
+	@echo "... illumestimators/iic/config_iebv.o"
+	@echo "... illumestimators/iic/config_iebv.i"
+	@echo "... illumestimators/iic/config_iebv.s"
+	@echo "... illumestimators/iic/iebv.o"
+	@echo "... illumestimators/iic/iebv.i"
+	@echo "... illumestimators/iic/iebv.s"
+	@echo "... illumestimators/iic/iebv_estimator.o"
+	@echo "... illumestimators/iic/iebv_estimator.i"
+	@echo "... illumestimators/iic/iebv_estimator.s"
+	@echo "... illumestimators/iic/iic.o"
+	@echo "... illumestimators/iic/iic.i"
+	@echo "... illumestimators/iic/iic.s"
+	@echo "... illumestimators/illuminantestimator.o"
+	@echo "... illumestimators/illuminantestimator.i"
+	@echo "... illumestimators/illuminantestimator.s"
+	@echo "... lille/commands/command_lgrayworld.o"
+	@echo "... lille/commands/command_lgrayworld.i"
+	@echo "... lille/commands/command_lgrayworld.s"
+	@echo "... lille/commands/command_liebv.o"
+	@echo "... lille/commands/command_liebv.i"
+	@echo "... lille/commands/command_liebv.s"
+	@echo "... lille/lgrayworld_config.o"
+	@echo "... lille/lgrayworld_config.i"
+	@echo "... lille/lgrayworld_config.s"
+	@echo "... lille/liebv_config.o"
+	@echo "... lille/liebv_config.i"
+	@echo "... lille/liebv_config.s"
+	@echo "... lille/paint_superpixel.o"
+	@echo "... lille/paint_superpixel.i"
+	@echo "... lille/paint_superpixel.s"
+	@echo "... rbase/color.o"
+	@echo "... rbase/color.i"
+	@echo "... rbase/color.s"
+	@echo "... rbase/color_space.o"
+	@echo "... rbase/color_space.i"
+	@echo "... rbase/color_space.s"
+	@echo "... rbase/illum.o"
+	@echo "... rbase/illum.i"
+	@echo "... rbase/illum.s"
+	@echo "... rbase/img_read.o"
+	@echo "... rbase/img_read.i"
+	@echo "... rbase/img_read.s"
+	@echo "... rbase/img_read_config.o"
+	@echo "... rbase/img_read_config.i"
+	@echo "... rbase/img_read_config.s"
+	@echo "... shell/config.o"
+	@echo "... shell/config.i"
+	@echo "... shell/config.s"
+	@echo "... shell/main.o"
+	@echo "... shell/main.i"
+	@echo "... shell/main.s"
+	@echo "... shell/modules.o"
+	@echo "... shell/modules.i"
+	@echo "... shell/modules.s"
+	@echo "... superpixels/commands/commandfelzenszwalb.o"
+	@echo "... superpixels/commands/commandfelzenszwalb.i"
+	@echo "... superpixels/commands/commandfelzenszwalb.s"
+	@echo "... superpixels/commands/felzenszwalbconfig.o"
+	@echo "... superpixels/commands/felzenszwalbconfig.i"
+	@echo "... superpixels/commands/felzenszwalbconfig.s"
+	@echo "... superpixels/commands/patchesconfig.o"
+	@echo "... superpixels/commands/patchesconfig.i"
+	@echo "... superpixels/commands/patchesconfig.s"
+	@echo "... superpixels/felzenszwalb/felzenszwalbsegmentation.o"
+	@echo "... superpixels/felzenszwalb/felzenszwalbsegmentation.i"
+	@echo "... superpixels/felzenszwalb/felzenszwalbsegmentation.s"
+	@echo "... superpixels/normal_image.o"
+	@echo "... superpixels/normal_image.i"
+	@echo "... superpixels/normal_image.s"
+	@echo "... superpixels/patches/patchessegmentation.o"
+	@echo "... superpixels/patches/patchessegmentation.i"
+	@echo "... superpixels/patches/patchessegmentation.s"
+	@echo "... superpixels/superpixelsegmentation.o"
+	@echo "... superpixels/superpixelsegmentation.i"
+	@echo "... superpixels/superpixelsegmentation.s"
 .PHONY : help
 
 

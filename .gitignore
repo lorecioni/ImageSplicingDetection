@@ -53,4 +53,7 @@ articles/RTTan_JOSA04.pdf
 
 Unifi.potx
 
-database/DSO-1/*
+datasets/DSO-1/*
+datasets/IIC/*
+datasets/GGE/*
+datasets/segmented/*

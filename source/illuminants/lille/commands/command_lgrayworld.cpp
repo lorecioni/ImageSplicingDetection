@@ -1,3 +1,12 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #include "command_lgrayworld.h"
 #include "grayworld/grayworldestimator.h"
 #include "img_read.h"
@@ -86,23 +95,6 @@ int CommandLocalGrayworld::execute()
 	}
 
 	cv::imwrite(config.outputFile, estimated_illuminants);
-
-/*
-	illumestimators::GrayWorldEstimator estimator(config.n, config.p, config.sigma);
-
-	SingleIlluminantPipeline::loadIlluminantEstimator(estimator, config.loadFile);
-
-	MetadataStorage storage(config.metaFiles);
-
-	Illum estimate;
-	double error;
-
-	if (!SingleIlluminantPipeline::runEstimator(estimate, error, estimator, config.inputFile, storage, config.verbosity)) {
-		return -1;
-	}
-
-	SingleIlluminantPipeline::saveIlluminantEstimator(estimator, config.saveFile);
-*/
 
 	return 0;
 }

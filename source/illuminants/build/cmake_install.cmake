@@ -1,4 +1,4 @@
-# Install script for directory: /Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants
+# Install script for directory: /Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,25 +27,6 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/core/common/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/core/storage/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/rbase/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/modules/color_processing/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/modules/superpixels/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/modules/computational_geometry/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/illumestimators/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/iic_commands/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/iic_misc/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/iic_estimator/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/iic_eval/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/iic_mask/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/reflectance/lille/cmake_install.cmake")
-  include("/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/core/shell/cmake_install.cmake")
-
-endif()
-
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()
@@ -54,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illuminants/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/lorenzocioni/Documents/Scuola/Ingegneria/Laurea Magistrale/Tesi/source/illum_maps/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

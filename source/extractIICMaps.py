@@ -11,17 +11,14 @@ config = "config.txt"
 # OUT: illuminant maps
 
 def extractIlluminantMaps(sourcefolder, segmentedfolder, outputfolder):
-    
-    command = "rm ../data-base/IIC/*.png"
-    os.system(command)
-
-    im = os.listdir("../data-base/" + str(segmentedfolder) + "/")
+    im = os.listdir("../datasets/" + str(segmentedfolder) + "/")
     for i in im:
     #try:
-            command = "../illuminants/build/bin/./vole liebv --img.image " + "../data-base/" + str(sourcefolder) + "/" + i + " -S " + "../data-base/" + str(segmentedfolder) + "/" + i + " -O ../data-base/" + str(outputfolder) + "/" + i[:-4] + "_fhs.png --iebv_config ../illuminants/build/bin/" + config
+            command = "illum_maps/build/./vole liebv --img.image " + "../datasets/" + str(sourcefolder) + "/" + i + " -S " + "../datasets/" + str(segmentedfolder) + "/" + i + " -O ../datasets/" + str(outputfolder) + "/" + i[:-4] + "_fhs.png --iebv_config illum_maps/build/" + config
+            print(command)
             os.system(command)
     #except:
     #print("Erro ao processar imagem ",i,"\n")
 
-extractIlluminantMaps("images","segmented","IIC")
+extractIlluminantMaps("DSO-1","segmented","IIC")
 

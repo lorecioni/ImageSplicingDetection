@@ -1,3 +1,12 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #include "grayworldestimator.h"
 #include "common/color.h"
 #include "common/derivative.h"
@@ -116,20 +125,6 @@ Illum GrayWorldEstimator::estimateIlluminant(const cv::Mat_<cv::Vec3d>& image, c
 		std::cerr << "Bad parameters for calling GrayWorldEstimator!" << std::endl;
 	}
 
-//	cv::Mat_<cv::Vec3d> inputImage = image.clone();
-//	cv::Mat_<unsigned char> inputMask = mask.clone();
-
-//	preprocessImage(inputImage, inputMask);
-
-//	if (m_sigma > 0) {
-//		if (m_n == 0) {
-//			const double kernelsize = cvRound(m_sigma * 3 * 2 + 1) | 1;
-//			cv::GaussianBlur(inputImage, inputImage, cv::Size(kernelsize, kernelsize), m_sigma, m_sigma);
-//		} else if (m_n > 0) {
-//			inputImage = Derivative::normDerivativeFilter(inputImage, m_n, m_sigma);
-//		}
-//	}
-
 	const std::vector<cv::Vec3d> pixels = Mask::unmaskedPixels(image, superpixel, mask);
 	if (pixels.size() == 0) return Illum();
 
@@ -145,47 +140,6 @@ Illum GrayWorldEstimator::estimateIlluminant(const cv::Mat_<cv::Vec3d>& image, c
 	return Illum(estimate[2], estimate[1], estimate[0]); // attention: bgr for a rgb constructor
 }
 
-bool GrayWorldEstimator::train(const std::vector<std::string>&, const std::vector<std::string>&, const std::vector<cv::Vec3d>&, const std::vector<std::string>&)
-{
-	return true;
-}
-
-bool GrayWorldEstimator::save(const std::string& filename) const
-{
-	cv::FileStorage	fs(filename, cv::FileStorage::WRITE);
-
-	if (!fs.isOpened()) {
-		return false;
-	}
-
-	fs << "name" << "GrayWorldEstimator";
-	fs << "n" << m_n;
-	fs << "p" << m_p;
-	fs << "sigma" << m_sigma;
-
-	return true;
-}
-
-bool GrayWorldEstimator::load(const std::string& filename)
-{
-	cv::FileStorage	fs(filename, cv::FileStorage::READ);
-
-	if (!fs.isOpened()) {
-		return false;
-	}
-
-	std::string name = fs["name"];
-
-	if (name != "GrayWorldEstimator") {
-		return false;
-	}
-
-	m_n = fs["n"];
-	m_p = fs["p"];
-	m_sigma = fs["sigma"];
-
-	return true;
-}
 
 int GrayWorldEstimator::error() {
 	return 0;

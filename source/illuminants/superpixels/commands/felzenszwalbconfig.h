@@ -1,9 +1,16 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #ifndef SUPERPIXELS_COMMANDS_FELZENSZWALBCONFIG
 #define SUPERPIXELS_COMMANDS_FELZENSZWALBCONFIG
 
 #include "config.h"
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 
 namespace vole {
 
@@ -32,25 +39,6 @@ public:
 	int kThreshold;
 	double sigma;
 	int min_size;
-
-private:
-	friend class boost::serialization::access;
-	// When the class Archive corresponds to an output archive, the
-	// & operator is defined similar to <<.  Likewise, when the class Archive
-	// is a type of input archive the & operator is defined similar to >>.
-	template<class Archive>
-	void serialize(Archive & ar, const unsigned int version)
-	{
-		ar & input_file;
-		ar & input_file_16_bit;
-		ar & max_intensity; // maximum intensity for a pixel
-		ar & min_intensity; // minimum intensity for a pixel
-		ar & output_file;
-		ar & kThreshold;
-		ar & sigma;
-		ar & min_size;
-		ar & isGraphical;
-	}
 };
 
 } // vole

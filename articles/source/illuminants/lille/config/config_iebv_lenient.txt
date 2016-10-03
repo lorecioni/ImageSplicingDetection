@@ -1,0 +1,39 @@
+#[iebv_seg_felz]
+#sigma=0.2
+#k=200
+#min_size=15
+
+[iebv_seg_veks]
+size=100
+lambda=30
+type=0
+iterations=2
+
+[iebv_seg_patches]
+strategy=largest
+size_x=40
+size_y=10
+number_tries=1000
+
+
+[iebv]
+# barnard test run - patch size changed, min_pixels, min_intensity changed
+#isGraphical=false
+#input_file=
+#output_directory=
+#method=
+#verbosity=0
+
+#eval_ciurea_funt=false
+
+number_patches=200
+random_seed=0
+
+max_intensity=.99607843137254901960
+# next param changed
+min_intensity=.00392156862745098039
+# next param changed
+min_pixels=20
+minimum_eigenvalue_ratio=0.1
+minimum_eigenvector_slope=0.0003
+maximum_eigenvector_slope=10.0

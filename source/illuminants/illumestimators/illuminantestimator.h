@@ -1,3 +1,12 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #ifndef ILLUMESTIMATORS_ILLUMINANTESTIMATOR_H
 #define ILLUMESTIMATORS_ILLUMINANTESTIMATOR_H
 
@@ -59,15 +68,6 @@ public:
 	virtual void preprocessImage(const cv::Mat_<cv::Vec3d>& image, const cv::Mat_<unsigned char>& mask, cv::Mat_<cv::Vec3d>& outputImage, cv::Mat_<unsigned char>& outputMask) const = 0;
 
 public:
-	/** Train illuminant estimator with labelled images.
-	 *  \param imageFiles Filenames of training images.
-	 *  \param colorspaces Colorspaces of training images.
-	 *  \param illuminants Illuminant chromaticities vectors of training images.
-	 *  \param maskFiles Filenames of mask images.
-	 */
-	virtual bool train(const std::vector<std::string>& imageFiles, const std::vector<std::string>& colorspaces, const std::vector<cv::Vec3d>& illuminants, const std::vector<std::string>& maskFiles = std::vector<std::string>()) = 0;
-
-public:
 	/** Name of illuminant estimator with current parameters for display purposes.
 	 *  \return Name of illuminant estimator.
 	 */
@@ -76,18 +76,6 @@ public:
 	 *  \return Unique identifier of illuminant estimator.
 	 */
 	virtual std::string identifier() const = 0;
-
-public:
-	/** Save illuminant estimator to file.
-	 *  \param filename Storage filename.
-	 *  \return True if saved successfully.
-	 */
-	virtual bool save(const std::string& filename) const = 0;
-	/** Load illuminant estimator from file.
-	 *  \param filename Storage filename.
-	 *  \return True if loaded successfully.
-	 */
-	virtual bool load(const std::string& filename) = 0;
 
 public:
 	static cv::Mat_<cv::Vec3d> cleanlyReadImage(const std::string &imageFile, const std::string &colorspace, int verbosity = 0);

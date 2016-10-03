@@ -9,7 +9,7 @@ E) Referencing the code
 A) COMPILATION
 --------------
 To compile the code, you require
-- OpenCV (tested with 2.4.9)
+- OpenCV (tested with 2.4.0)
 - Boost (tested with 1.45)
 - cmake (tested with 2.8.2)
 
@@ -28,8 +28,6 @@ OpenCV on your own, cmake probably complains that it did not find OpenCV.
 In this case, set the variable OpenCV_DIR to the directory in your OpenCV
 installation that contains the file OpenCVConfig.cmake . This is typically
 <opencv_install_dir>/share/OpenCV/
-
-Set all switches that are “OFF” to “ON”, except "VOLE_SINGLE_TARGETS"
 
 Press 'c' to configure the build again.
 
