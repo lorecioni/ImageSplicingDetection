@@ -1,1 +1,0 @@
-/* This file was created to trick CMake into createing an empty library.*/
