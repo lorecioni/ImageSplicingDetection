@@ -29,7 +29,7 @@ def extractGGEMap(img, segmentedImg, sigma, n, p):
     print('Extracting GGE map...')
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    command = "illum_maps/build/./vole lgrayworld --img.image " + img + " -S " + "maps/" + filename[:-4] + "_gge_map.png --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
+    command = "illuminants/build/./vole lgrayworld --img.image " + img + " -S maps/" + segmentedImg + " -O maps/" + filename[:-4] + "_gge_map.png --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
     os.system(command)
     print('GGE map extracted')
 
@@ -45,3 +45,5 @@ def extractIICMap(img, segmentedImg):
     os.system(command)
     #print(command)
     print('IIC map extracted')
+
+    
