@@ -12,27 +12,28 @@ max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
 
-def detectSplice(img):
+def detectSplice(img, heat_map, verbose):
     ''' 1. Extracting GGE and IIC illuminant maps '''
     filename = img.split('/')
     filename = filename[len(filename) - 1]
     filename = filename[:-4]
     
     ''' 1.1 Preparing image for illuminant methods '''
-    illuminantMaps.prepareImageIlluminants(img, 0.2, 300, 15, min_intensity, max_intensity)
+    #illuminantMaps.prepareImageIlluminants(img, 0.2, 300, 15, min_intensity, max_intensity, verbose)
     
     ''' 1.2 Extracting GGE illuminant map '''
-    illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3)
-    
-    ''' 1.2 Extracting IIC illuminant map '''
-    illuminantMaps.extractIICMap(img, filename + "_segmented.png")
+    #illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
+
+    ''' 1.3 Extracting IIC illuminant map '''    
+    #illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
     
     ''' 2. Statistical difference between IIC and GGE maps '''
+    
     ''' 2.1 Building heat maps (only for visualizations) '''
-
-    #gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
-    #iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
-    #visualizeHeatMap(gge_map, iic_map)
+    if heat_map:
+        gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
+        iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
+        visualizeHeatMap(gge_map, iic_map)
     
     ''' 2.2 Evaluate statistical difference '''
     
