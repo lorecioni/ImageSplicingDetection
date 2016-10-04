@@ -37,3 +37,4 @@ source/.pydevproject
 .pydevproject
 articles/source/*
 source/__pycache__/*
+source/maps/*
