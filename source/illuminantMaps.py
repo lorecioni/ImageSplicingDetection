@@ -13,7 +13,7 @@ from subprocess import *
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
-'''Preparing image for illuminant methods'''
+#Preparing image for illuminant methods
 def prepareImageIlluminants(img, sigma, k, min_size, max_intensity, min_intensity):
     print('Segmenting image for illuminant methods...')
     filename = img.split('/')
@@ -24,7 +24,7 @@ def prepareImageIlluminants(img, sigma, k, min_size, max_intensity, min_intensit
     print('Image segmented')
     
     
-''' Extracting GGE illuminant map'''
+#Extracting GGE illuminant map
 def extractGGEMap(img, segmentedImg, sigma, n, p):
     print('Extracting GGE map...')
     filename = img.split('/')
@@ -34,7 +34,7 @@ def extractGGEMap(img, segmentedImg, sigma, n, p):
     print('GGE map extracted')
 
     
-''' Extracting IIC illuminant map'''
+#Extracting IIC illuminant map
 config = "config.txt"
 
 def extractIICMap(img, segmentedImg):
