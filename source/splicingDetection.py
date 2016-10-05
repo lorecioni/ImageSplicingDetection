@@ -41,20 +41,17 @@ def detectSplice(img, heat_map, verbose):
     if heat_map:    
         visualizeHeatMap(gge_map, iic_map)
     
-    ''' 2.2 Evaluate statistical difference '''
-    U, s, Vt = np.linalg.svd(gge_map, full_matrices=False)
-    V = Vt.T
+    ''' 2.2 Extract maps principal components '''
+    gge_pcs = extractPrincipalComponents(gge_map)
+    iic_pcs = extractPrincipalComponents(iic_map)
     
-
-    Mhat2 = np.dot(U[:, :20], np.dot(S[:20, :20], V[:,:20].T))
-    ''' 2.2.1 Use a set of different metrics '''
+    ''' 3 Build feature vector '''
     
     # 3 ROI descriptors
     
     # 4 Classifications
     
     return
-    
 
 ''' 
 Builds and visualize the heat map in order to visually evaluate difference
@@ -85,16 +82,18 @@ def visualizeHeatMap(gge, iic):
 PCA analysis on a give map in order to evaluate significant 
 eigenvalues
 '''
-def PCA(X, num = 0):
+def extractPrincipalComponents(X):
     # singular value decomposition of a data matrix such that:  X = U*S*V.T
     # * U and V are the singular matrices
-    # * S is a diagonal matrix 
+    # * S is a diagonal matrix  
     X = X - np.mean(X, axis = 0)
-    [_, _, v] = npl.svd(X, full_matrices = False)
+    [_, s, _] = npl.svd(X, full_matrices = False)
+    
     # PCs are already sorted by descending order  of the singular values
-    # nedd to extract num values
-    v = v.transpose()
-    v = v[:,:num]
-    return np.dot(X, v) 
-    
-    
+    # nedd to extract num values    
+    s = s[:3,:]
+ 
+    pcs = np.array([s[0,0], s[0,1], s[0,2],
+                    s[1,0], s[1,1], s[1,2],
+                    s[2,0], s[2,1], s[2,2]], np.float64)
+    return pcs
