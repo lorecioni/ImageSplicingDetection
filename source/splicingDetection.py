@@ -5,6 +5,7 @@ Created on 03 ott 2016
 '''
 import cv2
 import numpy as np
+import numpy.linalg as npl
 import scipy.spatial
 import illuminantMaps
 
@@ -28,14 +29,16 @@ def detectSplice(img, heat_map, verbose):
     #illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
     
     ''' 2. Statistical difference between IIC and GGE maps '''
+    gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
+    iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
     
-    ''' 2.1 Building heat maps (only for visualizations) '''
-    if heat_map:
-        gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
-        iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
+    ''' 2.1 Building heat map (only for visualizations) '''
+    if heat_map:    
         visualizeHeatMap(gge_map, iic_map)
     
     ''' 2.2 Evaluate statistical difference '''
+    #eigs = npl.eigvals(gge_map)
+    #print(eigs)
     
     ''' 2.2.1 Use a set of different metrics '''
     
@@ -50,13 +53,10 @@ def visualizeHeatMap(gge, iic):
     #Splits all the channels
     gge_b, gge_g, gge_r = cv2.split(gge)
     iic_b, iic_g, iic_r = cv2.split(iic)
-    rows, cols, channels = gge.shape
-  
-    heat_map = np.zeros(shape=(rows, cols))
-    for i in range(rows):
-        for j in range(cols):
-            heat_map[i, j] = np.sqrt(pow(gge_b[i, j] - iic_b[i, j], 2) + pow(gge_g[i, j] - iic_g[i, j], 2) +  pow(gge_r[i, j] - iic_r[i, j], 2))
-            
+    rows, cols, _ = gge.shape
+    heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
+    max_value = np.ndarray.max(heat_map)
+    heat_map = heat_map / max_value    
     heat_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
     cv2.imshow('img', heat_map)
     cv2.waitKey(0)
