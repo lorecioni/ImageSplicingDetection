@@ -6,12 +6,7 @@ Created on 03 ott 2016
 import cv2
 import numpy as np
 import numpy.linalg as npl
-import scipy.spatial
 import illuminantMaps
-
-max_intensity = 0.98823529411764705882
-min_intensity = .05882352941176470588
-
 
 def detectSplice(img, heat_map, verbose):
     ''' 1. Extracting GGE and IIC illuminant maps '''
@@ -20,9 +15,19 @@ def detectSplice(img, heat_map, verbose):
     filename = filename[:-4]
     
     ''' 1.1 Preparing image for illuminant methods '''
-    #illuminantMaps.prepareImageIlluminants(img, 0.2, 300, 15, min_intensity, max_intensity, verbose)
+    #Felzenszwalb algorithm parameters
+    max_intensity = 0.98823529411764705882
+    min_intensity = .05882352941176470588
+    sigma = 0.2
+    k = 300
+    min_size = 15
+    #illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
     
     ''' 1.2 Extracting GGE illuminant map '''
+    #GGE algorithm parameters
+    sigma = 1
+    n = 1
+    p = 3
     #illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
 
     ''' 1.3 Extracting IIC illuminant map '''    
@@ -37,8 +42,8 @@ def detectSplice(img, heat_map, verbose):
         visualizeHeatMap(gge_map, iic_map)
     
     ''' 2.2 Evaluate statistical difference '''
-    #eigs = npl.eigvals(gge_map)
-    #print(eigs)
+    eigs = npl.linalg.svd(gge_map, full_matrices = False)
+    print(eigs)
     
     ''' 2.2.1 Use a set of different metrics '''
     
