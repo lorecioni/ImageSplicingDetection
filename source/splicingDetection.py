@@ -42,9 +42,11 @@ def detectSplice(img, heat_map, verbose):
         visualizeHeatMap(gge_map, iic_map)
     
     ''' 2.2 Evaluate statistical difference '''
-    eigs = npl.linalg.svd(gge_map, full_matrices = False)
-    print(eigs)
+    U, s, Vt = np.linalg.svd(gge_map, full_matrices=False)
+    V = Vt.T
     
+
+    Mhat2 = np.dot(U[:, :20], np.dot(S[:20, :20], V[:,:20].T))
     ''' 2.2.1 Use a set of different metrics '''
     
     # 3 ROI descriptors
@@ -54,6 +56,11 @@ def detectSplice(img, heat_map, verbose):
     return
     
 
+''' 
+Builds and visualize the heat map in order to visually evaluate difference
+between two different maps. Using OpenCV COLORMAP_JET, red values indicates
+a more significant difference, blue values indicates lower difference.
+'''
 def visualizeHeatMap(gge, iic):
     #Splits all the channels
     gge_b, gge_g, gge_r = cv2.split(gge)
@@ -70,8 +77,24 @@ def visualizeHeatMap(gge, iic):
     heat_map = heat_map.astype(np.uint8)
     print(heat_map)   
     #Display color map
-    color_map = cv2.applyColorMap(heat_map, 2)
+    color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
     cv2.imshow('img', color_map)
     cv2.waitKey(0)
+
+''' 
+PCA analysis on a give map in order to evaluate significant 
+eigenvalues
+'''
+def PCA(X, num = 0):
+    # singular value decomposition of a data matrix such that:  X = U*S*V.T
+    # * U and V are the singular matrices
+    # * S is a diagonal matrix 
+    X = X - np.mean(X, axis = 0)
+    [_, _, v] = npl.svd(X, full_matrices = False)
+    # PCs are already sorted by descending order  of the singular values
+    # nedd to extract num values
+    v = v.transpose()
+    v = v[:,:num]
+    return np.dot(X, v) 
     
     
