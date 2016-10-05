@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 import numpy.linalg as npl
 import illuminantMaps
+import distanceMetrics
 
 def detectSplice(img, heat_map, verbose):
     ''' 1. Extracting GGE and IIC illuminant maps '''
@@ -45,11 +46,12 @@ def detectSplice(img, heat_map, verbose):
     gge_pcs = extractPrincipalComponents(gge_map)
     iic_pcs = extractPrincipalComponents(iic_map)
     
-    ''' 3 Build feature vector '''
+    ''' 3 Build feature vectors '''
+    features = buildFeatureVector(gge_pcs, iic_pcs)
+    #Store file for future evaluations
+    np.savetxt('features/' + filename + '.txt', features, delimiter=',')
     
-    # 3 ROI descriptors
-    
-    # 4 Classifications
+    ''' 4 Classification '''
     
     return
 
@@ -78,6 +80,7 @@ def visualizeHeatMap(gge, iic):
     cv2.imshow('img', color_map)
     cv2.waitKey(0)
 
+
 ''' 
 PCA analysis on a give map in order to evaluate significant 
 eigenvalues
@@ -95,5 +98,32 @@ def extractPrincipalComponents(X):
  
     pcs = np.array([s[0,0], s[0,1], s[0,2],
                     s[1,0], s[1,1], s[1,2],
-                    s[2,0], s[2,1], s[2,2]], np.float64)
+                    s[2,0], s[2,1], s[2,2]], np.float32)
     return pcs
+
+''' 
+Builds feature vector given two set of principal
+components 
+'''
+def buildFeatureVector(gge_pcs, iic_pcs, metric = 'logarithmic'):
+    dim = gge_pcs.shape[0]
+    if dim != iic_pcs.shape[0]:
+        print('Error building feature vector: sizes don\'t match')
+    
+    features = np.zeros((dim,), dtype=np.float32)
+    for i in range(dim):
+        if metric == 'linear':
+            features[i] = distanceMetrics.linearDistance(gge_pcs[i], iic_pcs[i])
+        elif metric == 'quadratic':
+            features[i] = distanceMetrics.quadraticDistance(gge_pcs[i], iic_pcs[i])
+        elif metric == 'logarithmic':
+            features[i] = distanceMetrics.logarithmicDistance(gge_pcs[i], iic_pcs[i])
+        elif metric == 'square':
+            features[i] = distanceMetrics.squareRootDistance(gge_pcs[i], iic_pcs[i])
+        elif metric == 'cubic':
+            features[i] = distanceMetrics.cubicRootDistance(gge_pcs[i], iic_pcs[i])
+        else:
+            features[i] = distanceMetrics.logarithmicDistance(gge_pcs[i], iic_pcs[i])
+
+    return features
+
