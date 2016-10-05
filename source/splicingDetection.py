@@ -53,10 +53,15 @@ def visualizeHeatMap(gge, iic):
     #Splits all the channels
     gge_b, gge_g, gge_r = cv2.split(gge)
     iic_b, iic_g, iic_r = cv2.split(iic)
+    #Get maps dimensions
     rows, cols, _ = gge.shape
+    #Building heat map
     heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
+    #Recover heat map max value
     max_value = np.ndarray.max(heat_map)
+    #Normalization
     heat_map = heat_map / max_value    
+    #Display color map
     heat_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
     cv2.imshow('img', heat_map)
     cv2.waitKey(0)
