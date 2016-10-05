@@ -60,10 +60,13 @@ def visualizeHeatMap(gge, iic):
     #Recover heat map max value
     max_value = np.ndarray.max(heat_map)
     #Normalization
-    heat_map = heat_map / max_value    
+    heat_map = heat_map / max_value 
+    heat_map = heat_map * 255
+    heat_map = heat_map.astype(np.uint8)
+    print(heat_map)   
     #Display color map
-    heat_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-    cv2.imshow('img', heat_map)
+    color_map = cv2.applyColorMap(heat_map, 2)
+    cv2.imshow('img', color_map)
     cv2.waitKey(0)
     
     
