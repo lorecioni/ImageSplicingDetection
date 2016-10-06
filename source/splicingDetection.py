@@ -55,6 +55,14 @@ def detectSplice(img, heat_map, verbose):
     
     return
 
+
+''' 
+Train model for further splicing detection
+'''
+def train():
+    
+    return
+
 ''' 
 Builds and visualize the heat map in order to visually evaluate difference
 between two different maps. Using OpenCV COLORMAP_JET, red values indicates
