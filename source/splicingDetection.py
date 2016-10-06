@@ -9,6 +9,11 @@ import numpy.linalg as npl
 import illuminantMaps
 import distanceMetrics
 
+''' 
+Splicing detection main procedure. The result of the output
+will be a number of regions of the image that can be spliced
+over an image
+'''
 def detectSplice(img, heat_map, verbose):
     ''' 1. Extracting GGE and IIC illuminant maps '''
     filename = img.split('/')
@@ -58,8 +63,10 @@ def detectSplice(img, heat_map, verbose):
 
 ''' 
 Train model for further splicing detection
+@param images: the list of images filenames
+@param labels: the list of image labels (0 if pristine, 1 if spliced)
 '''
-def train():
+def train(images, labels, verbose):
     
     return
 
