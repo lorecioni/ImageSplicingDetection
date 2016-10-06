@@ -7,6 +7,7 @@ Created on 03 ott 2016
 import argparse
 import splicingDetection
 import sys
+import os
 
 __version__ = 0.1
 __date__ = '2016-09-28'
@@ -39,7 +40,23 @@ def main():
     
     if args.train:
         #Training the model
-        splicingDetection.train()
+        images = []
+        #Retrieving file list
+        files = os.listdir(args.dataset)
+        for i in files:
+            try:
+                if not i.startswith('.'):
+                    images.append(args.dataset + "/" + i)
+            except:
+                print("Erro ao processar imagem")
+                
+        #Retrieving labels     
+        in_file = open(args.labels, "r")
+        text = in_file.read()
+        labels = [int(s.strip()) for s in text.splitlines()]
+        in_file.close()
+
+        splicingDetection.train(images, labels, args.verbose)
         
     elif args.detect:
         #Detecting splice over a selected image

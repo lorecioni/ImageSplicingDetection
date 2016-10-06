@@ -67,7 +67,37 @@ Train model for further splicing detection
 @param labels: the list of image labels (0 if pristine, 1 if spliced)
 '''
 def train(images, labels, verbose):
-    
+
+    for i in range(len(images)):
+        img = images[i]
+        filename = img.split('/')
+        filename = filename[len(filename) - 1]
+        filename = filename[:-4]
+        
+        print('Processing: ' + filename)
+        
+        max_intensity = 0.98823529411764705882
+        min_intensity = .05882352941176470588
+        sigma = 0.2
+        k = 300
+        min_size = 15
+        illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
+        
+        sigma = 1
+        n = 1
+        p = 3
+        illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
+        illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
+        
+        gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
+        iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
+        
+        gge_pcs = extractPrincipalComponents(gge_map)
+        iic_pcs = extractPrincipalComponents(iic_map)
+        
+        features = buildFeatureVector(gge_pcs, iic_pcs)
+        #Store file for future evaluations
+        np.savetxt('features/' + filename + '.txt', features, delimiter=',')
     return
 
 ''' 
