@@ -20,11 +20,13 @@ over an image
 '''
 def detectSplice(img, heat_map, verbose):
     # Extracting image features
-    extractFeatures(img, verbose, heat_map)
+    features = extractFeatures(img, False, verbose, heat_map)
     
     # Classification
+    classifier = joblib.load('data/model.pkl')
+    prediction = classifier.predict(features)
     
-    # TODO ...
+    print(prediction)
     
     return
 
@@ -38,7 +40,7 @@ def train(images, labels, extract_features = True, verbose = False):
     # Extract image features from each images in training set
     if extract_features:
         for i in range(len(images)):
-            extractFeatures(images[i], verbose)
+            extractFeatures(images[i], True, verbose)
     
     features = []
     files = os.listdir("features/")
@@ -64,7 +66,7 @@ Extracting image features for an image.
 @param img: the path of the image to be processed
 @param verbose: display extended output
 '''
-def extractFeatures(img, verbose = False, heat_map = False):
+def extractFeatures(img, store = False, verbose = False, heat_map = False):
     #Extract filename from image path
     filename = img.split('/')
     filename = filename[len(filename) - 1]
@@ -78,14 +80,17 @@ def extractFeatures(img, verbose = False, heat_map = False):
     k = 300
     min_size = 15
     # 1. Extracting GGE and IIC illuminant maps
+    print('\t-Segmenting image')
     illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
         
     sigma = 1
     n = 1
     p = 3
     # 1.2 Extracting GGE illuminant map
+    print('\t-Extracting GGE map')
     illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
     # 1.3 Extracting IIC illuminant map
+    print('\t-Extracting IIC map')
     illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
     
     # 2. Statistical difference between IIC and GGE maps
@@ -97,13 +102,16 @@ def extractFeatures(img, verbose = False, heat_map = False):
         visualizeHeatMap(gge_map, iic_map)
     
     # 2.2 Extract maps principal components
+    print('\t-Extracting PCs')
     gge_pcs = extractPrincipalComponents(gge_map)
     iic_pcs = extractPrincipalComponents(iic_map)
     
     # 3 Build feature vectors
+    print('\t-Building feature vector')
     features = buildFeatureVector(gge_pcs, iic_pcs)
     # Store file for future evaluations
     np.savetxt('features/' + filename + '.txt', features, delimiter=',')
+    return features
     
 
 ''' 
