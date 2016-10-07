@@ -8,6 +8,7 @@ import numpy as np
 import numpy.linalg as npl
 from sklearn import svm
 import os
+from sklearn.externals import joblib
 import illuminantMaps
 import distanceMetrics
 
@@ -43,11 +44,15 @@ def train(images, labels, extract_features = True, verbose = False):
     files = os.listdir("features/")
     for i in files:
         if not i.startswith('.'):
-            print(i)
-
-    
+            features.append(np.loadtxt('features/' + i))
+            
     classifier = svm.SVC()
-    #classifier.fit(X, y, sample_weight)
+    classifier.fit(features, labels)
+    print(classifier)
+    print('Classification model created correctly')
+    joblib.dump(classifier, 'data/model.pkl')
+    
+    
     
 ''' 
 Extracting image features for an image. 
