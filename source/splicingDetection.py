@@ -15,48 +15,12 @@ will be a number of regions of the image that can be spliced
 over an image
 '''
 def detectSplice(img, heat_map, verbose):
-    ''' 1. Extracting GGE and IIC illuminant maps '''
-    filename = img.split('/')
-    filename = filename[len(filename) - 1]
-    filename = filename[:-4]
+    # Extracting image features
+    extractFeatures(img, heat_map, verbose)
     
-    ''' 1.1 Preparing image for illuminant methods '''
-    #Felzenszwalb algorithm parameters
-    max_intensity = 0.98823529411764705882
-    min_intensity = .05882352941176470588
-    sigma = 0.2
-    k = 300
-    min_size = 15
-    #illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
+    # Classification
     
-    ''' 1.2 Extracting GGE illuminant map '''
-    #GGE algorithm parameters
-    sigma = 1
-    n = 1
-    p = 3
-    #illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
-
-    ''' 1.3 Extracting IIC illuminant map '''    
-    #illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
-    
-    ''' 2. Statistical difference between IIC and GGE maps '''
-    gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
-    iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
-    
-    ''' 2.1 Building heat map (only for visualizations) '''
-    if heat_map:    
-        visualizeHeatMap(gge_map, iic_map)
-    
-    ''' 2.2 Extract maps principal components '''
-    gge_pcs = extractPrincipalComponents(gge_map)
-    iic_pcs = extractPrincipalComponents(iic_map)
-    
-    ''' 3 Build feature vectors '''
-    features = buildFeatureVector(gge_pcs, iic_pcs)
-    #Store file for future evaluations
-    np.savetxt('features/' + filename + '.txt', features, delimiter=',')
-    
-    ''' 4 Classification '''
+    # TODO ...
     
     return
 
@@ -67,38 +31,63 @@ Train model for further splicing detection
 @param labels: the list of image labels (0 if pristine, 1 if spliced)
 '''
 def train(images, labels, verbose):
-
+    # Extract image features from each images in training set
     for i in range(len(images)):
-        img = images[i]
-        filename = img.split('/')
-        filename = filename[len(filename) - 1]
-        filename = filename[:-4]
+        extractFeatures(images[i], verbose)
+    
+''' 
+Extracting image features for an image. 
+- Prepare the image for illuminant methods (segmentation)
+- Extracting GGE illuminant map
+- Extracting IIC illulimant map
+- Evaluate principal components for each maps
+- Build feature vectors
+
+@param img: the path of the image to be processed
+@param verbose: display extended output
+'''
+def extractFeatures(img, heat_map, verbose):
+    #Extract filename from image path
+    filename = img.split('/')
+    filename = filename[len(filename) - 1]
+    filename = filename[:-4]
+    print('Processing: ' + filename)
+
+    #Configuration //TODO move from here
+    max_intensity = 0.98823529411764705882
+    min_intensity = .05882352941176470588
+    sigma = 0.2
+    k = 300
+    min_size = 15
+    
+    # 1. Extracting GGE and IIC illuminant maps
+    illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
         
-        print('Processing: ' + filename)
-        
-        max_intensity = 0.98823529411764705882
-        min_intensity = .05882352941176470588
-        sigma = 0.2
-        k = 300
-        min_size = 15
-        illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
-        
-        sigma = 1
-        n = 1
-        p = 3
-        illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
-        illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
-        
-        gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
-        iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
-        
-        gge_pcs = extractPrincipalComponents(gge_map)
-        iic_pcs = extractPrincipalComponents(iic_map)
-        
-        features = buildFeatureVector(gge_pcs, iic_pcs)
-        #Store file for future evaluations
-        np.savetxt('features/' + filename + '.txt', features, delimiter=',')
-    return
+    sigma = 1
+    n = 1
+    p = 3
+    # 1.2 Extracting GGE illuminant map
+    illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
+    # 1.3 Extracting IIC illuminant map
+    illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
+    
+    # 2. Statistical difference between IIC and GGE maps
+    gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
+    iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
+    
+    # 2.1 Building heat map (only for visualizations) 
+    if heat_map:    
+        visualizeHeatMap(gge_map, iic_map)
+    
+    # 2.2 Extract maps principal components
+    gge_pcs = extractPrincipalComponents(gge_map)
+    iic_pcs = extractPrincipalComponents(iic_map)
+    
+    # 3 Build feature vectors
+    features = buildFeatureVector(gge_pcs, iic_pcs)
+    # Store file for future evaluations
+    np.savetxt('features/' + filename + '.txt', features, delimiter=',')
+    
 
 ''' 
 Builds and visualize the heat map in order to visually evaluate difference
