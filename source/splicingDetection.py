@@ -6,9 +6,11 @@ Created on 03 ott 2016
 import cv2
 import numpy as np
 import numpy.linalg as npl
-from sklearn import svm
+from sklearn import svm, model_selection
 import os
 from sklearn.externals import joblib
+from sklearn.model_selection import LeaveOneOut
+from sklearn.metrics import accuracy_score
 import illuminantMaps
 import distanceMetrics
 
@@ -24,9 +26,12 @@ def detectSplice(img, heat_map, verbose):
     
     # Classification
     classifier = joblib.load('data/model.pkl')
-    prediction = classifier.predict(features)
-    
-    print(prediction)
+    prediction = classifier.predict(features.reshape(1, -1) )
+        
+    if prediction[0] == 0:
+        print('Image is pristine')
+    else:
+        print('Image is fake')
     
     return
 
@@ -36,7 +41,7 @@ Train model for further splicing detection
 @param images: the list of images filenames
 @param labels: the list of image labels (0 if pristine, 1 if spliced)
 '''
-def train(images, labels, extract_features = True, verbose = False):
+def train(images, labels, cross_validate = False, extract_features = True, verbose = False):
     # Extract image features from each images in training set
     if extract_features:
         for i in range(len(images)):
@@ -47,13 +52,59 @@ def train(images, labels, extract_features = True, verbose = False):
     for i in files:
         if not i.startswith('.'):
             features.append(np.loadtxt('features/' + i))
-            
+    
+    features = np.asanyarray(features)
+    labels = np.asanyarray(labels)
+
+
+    if cross_validate:
+        #CROSS VALIDATION 
+        scores = []
+        loo = LeaveOneOut()
+        C_2d_range = np.logspace(-2, 10, 13)
+        gamma_2d_range = np.logspace(-9, 3, 13)
+        
+        #C_2d_range = [1e-2, 1, 1e2]
+        #gamma_2d_range = [1e-1, 1, 1e1]
+        
+        
+        best_index = None
+        c_values = []
+        gamma_values = []
+        classifiers = []
+        index = 0
+        for C in C_2d_range:
+            for gamma in gamma_2d_range:
+                clf = svm.SVC(C=C, gamma=gamma)
+                predicted = model_selection.cross_val_predict(clf, features, labels, cv=loo)
+                score = accuracy_score(labels, predicted)
+                scores.append(score)
+                c_values.append(C)
+                gamma_values.append(gamma)
+                if best_index != None and scores[best_index] < score:
+                    best_index = index
+                    print('Best C: ' + str(C))
+                    print('Best gamma: ' + str(gamma))
+                elif best_index == None:
+                    best_index = index
+                    print('Best C: ' + str(C))
+                    print('Best gamma: ' + str(gamma)) 
+                index = index + 1
+                print('Current score is ' + str(score))
+                
+        
+        print("The best parameters are %s with a score of %0.2f" % ((c_values[best_index], gamma_values[best_index]), scores[best_index]))
+    
+    loo = LeaveOneOut()
     classifier = svm.SVC()
+    predicted = model_selection.cross_val_predict(classifier, features, labels, cv=loo)
+    score = accuracy_score(labels, predicted) 
+
+    classifier = svm.SVC(C = 10000.0, gamma = 0.001)
     classifier.fit(features, labels)
-    print(classifier)
+    
     print('Classification model created correctly')
     joblib.dump(classifier, 'data/model.pkl')
-    
     
     
 ''' 
