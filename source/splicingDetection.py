@@ -6,8 +6,11 @@ Created on 03 ott 2016
 import cv2
 import numpy as np
 import numpy.linalg as npl
+from sklearn import svm
+import os
 import illuminantMaps
 import distanceMetrics
+
 
 ''' 
 Splicing detection main procedure. The result of the output
@@ -30,10 +33,21 @@ Train model for further splicing detection
 @param images: the list of images filenames
 @param labels: the list of image labels (0 if pristine, 1 if spliced)
 '''
-def train(images, labels, verbose):
+def train(images, labels, extract_features = True, verbose = False):
     # Extract image features from each images in training set
-    for i in range(len(images)):
-        extractFeatures(images[i], verbose)
+    if extract_features:
+        for i in range(len(images)):
+            extractFeatures(images[i], verbose)
+    
+    features = []
+    files = os.listdir("features/")
+    for i in files:
+        if not i.startswith('.'):
+            print(i)
+
+    
+    classifier = svm.SVC()
+    #classifier.fit(X, y, sample_weight)
     
 ''' 
 Extracting image features for an image. 
@@ -42,7 +56,6 @@ Extracting image features for an image.
 - Extracting IIC illulimant map
 - Evaluate principal components for each maps
 - Build feature vectors
-
 @param img: the path of the image to be processed
 @param verbose: display extended output
 '''
@@ -59,7 +72,6 @@ def extractFeatures(img, verbose = False, heat_map = False):
     sigma = 0.2
     k = 300
     min_size = 15
-    
     # 1. Extracting GGE and IIC illuminant maps
     illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
         

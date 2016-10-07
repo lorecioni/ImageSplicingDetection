@@ -7,6 +7,7 @@ Created on 03 ott 2016
 import sys
 import os
 from subprocess import *
+import shlex
 
 #Segment image
 
@@ -20,8 +21,8 @@ def prepareImageIlluminants(img, sigma, k, min_size, max_intensity, min_intensit
         print('Segmenting image for illuminant methods...')
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    command = ["illuminants/build/./vole", "felzenszwalb", "-I " + img, "--deterministic_coloring", "-O maps/" + filename[:-4] + "_segmented.png", "--sigma " + str(sigma),  "--k " + str(k), "--min_size " + str(min_size), "--max_intensity " + str(max_intensity), "--min_intensity " + str(min_intensity)]
-    call(command, stdout = devnull, stderr = devnull, shell = True)
+    command = "illuminants/build/./vole felzenszwalb -I " + img + " --deterministic_coloring -O maps/" + filename[:-4] + "_segmented.png --sigma " + str(sigma) + " --k " + str(k) + " --min_size " + str(min_size) + " --max_intensity " + str(max_intensity) + " --min_intensity " + str(min_intensity)    
+    call([command], stdout = devnull, stderr = devnull, shell = True)
     if verbose:
         print('Image segmented')
     
@@ -32,8 +33,8 @@ def extractGGEMap(img, segmentedImg, sigma, n, p, verbose):
         print('Extracting GGE map...')
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    command = ["illuminants/build/./vole", "lgrayworld", "--img.image " + img, "-S maps/" + segmentedImg, "-O maps/" + filename[:-4] + "_gge_map.png",  "--n " +  str(n), "--p " + str(p), "--sigma " + str(sigma)]
-    call(command, stdout = devnull, stderr = devnull, shell = True)
+    command = "illuminants/build/./vole lgrayworld --img.image " + img + " -S maps/" + segmentedImg + " -O maps/" + filename[:-4] + "_gge_map.png --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
+    call([command], stdout = devnull, stderr = devnull, shell = True)
     if verbose:
         print('GGE map extracted')
 
@@ -46,8 +47,8 @@ def extractIICMap(img, segmentedImg, verbose):
         print('Extracting IIC map...')
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    command = ["illuminants/build/./vole", "liebv", "--img.image " + img, "-S maps/" + segmentedImg, "-O maps/"  + filename[:-4] + "_iic_map.png", "--iebv_config illuminants/build/" + config]
-    call(command, stdout = devnull, stderr = devnull, shell = True)
+    command = "illuminants/build/./vole liebv --img.image " + img + " -S maps/" + segmentedImg + " -O maps/"  + filename[:-4] + "_iic_map.png --iebv_config illuminants/build/" + config
+    call([command], stdout = devnull, stderr = devnull, shell = True)
     if verbose:
         print('IIC map extracted')
 
