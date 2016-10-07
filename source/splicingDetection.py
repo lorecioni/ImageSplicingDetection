@@ -16,7 +16,7 @@ over an image
 '''
 def detectSplice(img, heat_map, verbose):
     # Extracting image features
-    extractFeatures(img, heat_map, verbose)
+    extractFeatures(img, verbose, heat_map)
     
     # Classification
     
@@ -46,7 +46,7 @@ Extracting image features for an image.
 @param img: the path of the image to be processed
 @param verbose: display extended output
 '''
-def extractFeatures(img, heat_map, verbose):
+def extractFeatures(img, verbose = False, heat_map = False):
     #Extract filename from image path
     filename = img.split('/')
     filename = filename[len(filename) - 1]
@@ -108,7 +108,6 @@ def visualizeHeatMap(gge, iic):
     heat_map = heat_map / max_value 
     heat_map = heat_map * 255
     heat_map = heat_map.astype(np.uint8)
-    print(heat_map)   
     #Display color map
     color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
     cv2.imshow('img', color_map)
