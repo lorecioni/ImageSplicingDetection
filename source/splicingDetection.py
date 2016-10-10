@@ -13,6 +13,7 @@ from sklearn.model_selection import LeaveOneOut
 from sklearn.metrics import accuracy_score
 import illuminantMaps
 import distanceMetrics
+import config
 
 
 ''' 
@@ -25,7 +26,7 @@ def detectSplice(img, heat_map, verbose):
     features = extractFeatures(img, False, verbose, heat_map)
     
     # Classification
-    classifier = joblib.load('data/model.pkl')
+    classifier = joblib.load(config.svm_model)
     prediction = classifier.predict(features.reshape(1, -1) )
         
     if prediction[0] == 0:
@@ -48,10 +49,10 @@ def train(images, labels, cross_validate = False, extract_features = True, verbo
             extractFeatures(images[i], True, verbose)
     
     features = []
-    files = os.listdir("features/")
+    files = os.listdir(config.features_folder)
     for i in files:
         if not i.startswith('.'):
-            features.append(np.loadtxt('features/' + i))
+            features.append(np.loadtxt(config.features_folder + i))
     
     features = np.asanyarray(features)
     labels = np.asanyarray(labels)
@@ -67,11 +68,9 @@ def train(images, labels, cross_validate = False, extract_features = True, verbo
         #C_2d_range = [1e-2, 1, 1e2]
         #gamma_2d_range = [1e-1, 1, 1e1]
         
-        
         best_index = None
         c_values = []
         gamma_values = []
-        classifiers = []
         index = 0
         for C in C_2d_range:
             for gamma in gamma_2d_range:
@@ -90,8 +89,7 @@ def train(images, labels, cross_validate = False, extract_features = True, verbo
                     print('Best C: ' + str(C))
                     print('Best gamma: ' + str(gamma)) 
                 index = index + 1
-                print('Current score is ' + str(score))
-                
+                print('Current score is ' + str(score))        
         
         print("The best parameters are %s with a score of %0.2f" % ((c_values[best_index], gamma_values[best_index]), scores[best_index]))
     
@@ -104,7 +102,7 @@ def train(images, labels, cross_validate = False, extract_features = True, verbo
     classifier.fit(features, labels)
     
     print('Classification model created correctly')
-    joblib.dump(classifier, 'data/model.pkl')
+    joblib.dump(classifier, config.svm_model)
     
     
 ''' 
@@ -124,29 +122,21 @@ def extractFeatures(img, store = False, verbose = False, heat_map = False):
     filename = filename[:-4]
     print('Processing: ' + filename)
 
-    #Configuration //TODO move from here
-    max_intensity = 0.98823529411764705882
-    min_intensity = .05882352941176470588
-    sigma = 0.2
-    k = 300
-    min_size = 15
     # 1. Extracting GGE and IIC illuminant maps
     print('\t-Segmenting image')
-    illuminantMaps.prepareImageIlluminants(img, sigma, k, min_size, min_intensity, max_intensity, verbose)
+    illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
         
-    sigma = 1
-    n = 1
-    p = 3
     # 1.2 Extracting GGE illuminant map
     print('\t-Extracting GGE map')
-    illuminantMaps.extractGGEMap(img, filename + "_segmented.png", 1, 1, 3, verbose)
+    illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+    
     # 1.3 Extracting IIC illuminant map
     print('\t-Extracting IIC map')
     illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
     
     # 2. Statistical difference between IIC and GGE maps
-    gge_map = cv2.imread('maps/' + filename + '_gge_map.png')
-    iic_map = cv2.imread('maps/' + filename + '_iic_map.png')
+    gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
+    iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
     
     # 2.1 Building heat map (only for visualizations) 
     if heat_map:    
@@ -161,7 +151,7 @@ def extractFeatures(img, store = False, verbose = False, heat_map = False):
     print('\t-Building feature vector')
     features = buildFeatureVector(gge_pcs, iic_pcs)
     # Store file for future evaluations
-    np.savetxt('features/' + filename + '.txt', features, delimiter=',')
+    np.savetxt(config.features_folder + filename + '.txt', features, delimiter=',')
     return features
     
 
