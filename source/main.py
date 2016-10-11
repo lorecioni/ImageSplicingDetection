@@ -46,7 +46,7 @@ def main():
         sys.exit(1)
         
     
-    detector = splicingDetection.SplicingDetection()
+    detector = splicingDetection.SplicingDetection(args.verbose)
     
     if args.train:
         #Training the model
@@ -66,12 +66,12 @@ def main():
         labels = [int(s.strip()) for s in text.splitlines()]
         in_file.close()
 
-        detector.train(images, labels, args.cross_validation, args.extract_features, args.verbose)
+        detector.train(images, labels, args.cross_validation, args.extract_features)
         
     elif args.detect:
         #Detecting splice over a selected image
         if len(args.img) > 0:
-            detector.detectSplice(args.img, args.heat_map, args.depth, args.verbose)
+            detector.detectSplice(args.img, args.heat_map, args.depth)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
 

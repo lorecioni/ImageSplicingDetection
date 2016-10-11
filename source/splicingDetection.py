@@ -24,12 +24,15 @@ over an image
 '''
 class SplicingDetection:
     
-    def detectSplice(self, img, heat_map, depth, verbose):
+    def __init__(self, verbose):
+        self.verbose = verbose
+        
+    def detectSplice(self, img, heat_map, depth):
         filename = img.split('/')
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
         # Extracting image features
-        self.extractFeatures(img, False, verbose, heat_map)
+        self.extractFeatures(img, False, self.verbose, heat_map)
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
         iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
@@ -38,11 +41,10 @@ class SplicingDetection:
         
         self.detection = np.zeros((rows, cols), dtype=np.uint8)
         
-        for d in range(depth):
-            parts = 2 * depth
-            for p in range(parts):
-                ciao = 1
-            
+        self.depth = depth
+        clf = joblib.load(config.svm_model)
+        self.quadTreeDetection(depth, clf, gge_map, iic_map)
+        
         # Classification
         #classifier = joblib.load(config.svm_model)
         #prediction = classifier.predict(features.reshape(1, -1) )
@@ -55,40 +57,42 @@ class SplicingDetection:
         return
     
     
-    def classifySinglePart(self, depth, clf, gge, iic):
+    def quadTreeDetection(self, depth, clf, gge, iic):
+        if depth == self.depth:
+            gge_pcs = self.extractPrincipalComponents(gge)
+            iic_pcs = self.extractPrincipalComponents(iic)
+            features = self.buildFeatureVector(gge_pcs, iic_pcs)
+            prediction = clf.predict(features.reshape(1, -1))
+            print(prediction)
+            return
+        
         rows, cols, _ = gge.shape
         
         first_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
         first_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        
-        second_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
+        second_gge = gge[math.floor(rows/2):, 0:math.floor(cols/2)]
         second_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        
         third_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
         third_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        
         fourth_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
         fourth_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
         
-        
-        sub_gge = gge[x:x + w, y:y + h]
-        sub_iic = gge[x:x + w, y:y + h]
-        gge_pcs = self.extractPrincipalComponents(sub_gge)
-        iic_pcs = self.extractPrincipalComponents(sub_iic)
-        features = self.buildFeatureVector(gge_pcs, iic_pcs)
-        prediction = clf.predict(features.reshape(1, -1))
-        print(prediction)
+        self.quadTreeDetection(depth - 1, clf, first_gge, first_iic)
+        self.quadTreeDetection(depth - 1, clf, second_gge, second_iic)
+        self.quadTreeDetection(depth - 1, clf, third_gge, third_iic)
+        self.quadTreeDetection(depth - 1, clf, fourth_gge, fourth_iic)
+
     
     ''' 
     Train model for further splicing detection
     @param images: the list of images filenames
     @param labels: the list of image labels (0 if pristine, 1 if spliced)
     '''
-    def train(self, images, labels, cross_validate = False, extract_features = True, verbose = False):
+    def train(self, images, labels, cross_validate = False, extract_features = True):
         # Extract image features from each images in training set
         if extract_features:
             for i in range(len(images)):
-                self.extractFeatures(images[i], True, verbose)
+                self.extractFeatures(images[i], True, self.verbose)
         
         features = []
         files = os.listdir(config.features_folder)
