@@ -6,6 +6,7 @@ Created on 03 ott 2016
 
 import os
 import subprocess
+import config
 
 #Segment image
 devnull = open(os.devnull, 'w')
@@ -35,14 +36,14 @@ def extractGGEMap(img, segmentedImg, sigma, n, p, verbose):
 
     
 #Extracting IIC illuminant map
-config = "config.txt"
+config_iic = "config.txt"
 
 def extractIICMap(img, segmentedImg, verbose):
     if verbose:
         print('Extracting IIC map...')
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    command = "illuminants/build/./vole liebv --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + config.maps_folder + filename[:-4] + "_iic_map.png --iebv_config illuminants/build/" + config
+    command = "illuminants/build/./vole liebv --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + config.maps_folder + filename[:-4] + "_iic_map.png --iebv_config illuminants/build/" + config_iic
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
     if verbose:
         print('IIC map extracted')

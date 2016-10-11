@@ -32,18 +32,20 @@ class SplicingDetection:
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
         # Extracting image features
-        self.extractFeatures(img, False, self.verbose, heat_map)
+        #self.extractFeatures(img, False, self.verbose, heat_map)
+        
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
         iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
         
-        rows, cols,_ = img.shape
+        rows, cols,_ = gge_map.shape
         
         self.detection = np.zeros((rows, cols), dtype=np.uint8)
-        
         self.depth = depth
         clf = joblib.load(config.svm_model)
-        self.quadTreeDetection(depth, clf, gge_map, iic_map)
+        self.quadTreeDetection(0, clf, gge_map, iic_map, 0, 0)
+        
+        print (self.detection)
         
         # Classification
         #classifier = joblib.load(config.svm_model)
@@ -57,30 +59,38 @@ class SplicingDetection:
         return
     
     
-    def quadTreeDetection(self, depth, clf, gge, iic):
+    def quadTreeDetection(self, depth, clf, gge, iic, x, y):
+        print('Depth: ' + str(depth))
+        rows, cols, _ = gge.shape
+        gge_pcs = self.extractPrincipalComponents(gge)
+        iic_pcs = self.extractPrincipalComponents(iic)
+        features = self.buildFeatureVector(gge_pcs, iic_pcs)
+        prediction = clf.predict(features.reshape(1, -1))
+        if(prediction[0] == 1):
+            
+            for i in range(x, x + rows - 1):
+                for j in range(y, y + cols - 1):
+                    self.detection[i, j] = self.detection[i, j] + 1
+        
         if depth == self.depth:
-            gge_pcs = self.extractPrincipalComponents(gge)
-            iic_pcs = self.extractPrincipalComponents(iic)
-            features = self.buildFeatureVector(gge_pcs, iic_pcs)
-            prediction = clf.predict(features.reshape(1, -1))
-            print(prediction)
             return
         
-        rows, cols, _ = gge.shape
-        
+        rows, cols, _ = gge.shape        
         first_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
         first_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
         second_gge = gge[math.floor(rows/2):, 0:math.floor(cols/2)]
-        second_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        third_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        third_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        fourth_gge = gge[0:math.floor(rows/2), 0:math.floor(cols/2)]
-        fourth_iic = iic[0:math.floor(rows/2), 0:math.floor(cols/2)]
+        second_iic = iic[math.floor(rows/2):, 0:math.floor(cols/2)]
+        third_gge = gge[0:math.floor(rows/2), math.floor(cols/2):]
+        third_iic = iic[0:math.floor(rows/2), math.floor(cols/2):]
+        fourth_gge = gge[math.floor(rows/2):, math.floor(cols/2):]
+        fourth_iic = iic[math.floor(rows/2):, math.floor(cols/2):]
         
-        self.quadTreeDetection(depth - 1, clf, first_gge, first_iic)
-        self.quadTreeDetection(depth - 1, clf, second_gge, second_iic)
-        self.quadTreeDetection(depth - 1, clf, third_gge, third_iic)
-        self.quadTreeDetection(depth - 1, clf, fourth_gge, fourth_iic)
+        # Starts recursion dividing image in four
+        rows, cols, _ = first_gge.shape
+        self.quadTreeDetection(depth + 1, clf, first_gge, first_iic, x, y)
+        self.quadTreeDetection(depth + 1, clf, second_gge, second_iic, x + math.floor(rows/2), y)
+        self.quadTreeDetection(depth + 1, clf, third_gge, third_iic,  x, y + math.floor(cols/2))
+        self.quadTreeDetection(depth + 1, clf, fourth_gge, fourth_iic,  x + math.floor(rows/2), y + math.floor(cols/2))
 
     
     ''' 
