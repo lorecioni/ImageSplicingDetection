@@ -255,11 +255,14 @@ class SplicingDetection:
         
         # PCs are already sorted by descending order  of the singular values
         # nedd to extract num values    
-        s = s[:3,:]
-     
-        pcs = np.array([s[0,0], s[0,1], s[0,2],
-                        s[1,0], s[1,1], s[1,2],
-                        s[2,0], s[2,1], s[2,2]], np.float32)
+        #s = s[:3,:]
+        pcs = np.array([], np.float32)
+        for i in range (5):
+            for j in range(3):
+                pcs = np.append(pcs, s[i, j])
+        #pcs = np.array([s[0,0], s[0,1], s[0,2],
+        #                s[1,0], s[1,1], s[1,2],
+        #                s[2,0], s[2,1], s[2,2]], np.float32)
         return pcs
     
     ''' 
