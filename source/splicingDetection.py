@@ -32,7 +32,7 @@ class SplicingDetection:
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
         # Extracting image features
-        #self.extractFeatures(img, False, self.verbose, heat_map)
+        #features = self.extractFeatures(img, False, self.verbose, heat_map)
         
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
@@ -43,6 +43,7 @@ class SplicingDetection:
         self.detection = np.zeros((rows, cols), dtype=np.uint8)
         self.depth = depth
         clf = joblib.load(config.svm_model)
+        
         self.quadTreeDetection(0, clf, gge_map, iic_map, 0, 0)
         
         max_value = np.ndarray.max(self.detection)
@@ -50,23 +51,22 @@ class SplicingDetection:
         heat_map = heat_map * 255
         heat_map = heat_map.astype(np.uint8)
         color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-        r = 800.0 / color_map.shape[1]
-        dim = (800, int(color_map.shape[0] * r))
-         
-        # perform the actual resizing of the image and show it
-        resized = cv2.resize(color_map, dim, interpolation = cv2.INTER_AREA)
-        cv2.imshow('img', resized)
+        
+        orig = cv2.imread(img)
+        out = np.concatenate((self.resizeImage(orig, 600), self.resizeImage(color_map, 600)), axis=1)
+        cv2.imshow('img', out)
         cv2.waitKey(0)
                 
         # Classification
-        #classifier = joblib.load(config.svm_model)
-        #prediction = classifier.predict(features.reshape(1, -1) )
+        '''
+        classifier = joblib.load(config.svm_model)
+        prediction = clf.predict(features.reshape(1, -1) )
             
-        #if prediction[0] == 0:
-        #    print('Image is pristine')
-        #else:
-        #    print('Image is fake')
-        
+        if prediction[0] == 0:
+            print('Image is pristine')
+        else:
+            print('Image is fake')
+        '''
         return
     
     
@@ -93,7 +93,6 @@ class SplicingDetection:
         fourth_iic = iic[math.floor(rows/2):, math.floor(cols/2):]
         
         # Starts recursion dividing image in four
-        rows, cols, _ = first_gge.shape
         self.quadTreeDetection(depth + 1, clf, first_gge, first_iic, x, y)
         self.quadTreeDetection(depth + 1, clf, second_gge, second_iic, x + math.floor(rows/2), y)
         self.quadTreeDetection(depth + 1, clf, third_gge, third_iic,  x, y + math.floor(cols/2))
@@ -288,4 +287,9 @@ class SplicingDetection:
                 features[i] = distanceMetrics.logarithmicDistance(gge_pcs[i], iic_pcs[i])
     
         return features
-
+    
+    def resizeImage(self, img, width):
+        r = width / img.shape[1]
+        dim = (width, int(img.shape[0] * r))   
+        # perform the actual resizing of the image and show it
+        return cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
