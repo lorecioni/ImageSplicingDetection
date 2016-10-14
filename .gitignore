@@ -30,6 +30,7 @@ docs/model_unifi.potx
 datasets/DSO-1/*
 datasets/IIC/*
 datasets/GGE/*
+datasets/NC2016/*
 datasets/segmented/*
 source/.project
 source/.pydevproject
@@ -38,3 +39,5 @@ source/.pydevproject
 articles/source/*
 source/__pycache__/*
 source/maps/*
+
+datasets/NC2016/indexes/NC2016-manipulation-index.csv

@@ -45,8 +45,19 @@ class SplicingDetection:
         clf = joblib.load(config.svm_model)
         self.quadTreeDetection(0, clf, gge_map, iic_map, 0, 0)
         
-        print (self.detection)
-        
+        max_value = np.ndarray.max(self.detection)
+        heat_map = self.detection / max_value 
+        heat_map = heat_map * 255
+        heat_map = heat_map.astype(np.uint8)
+        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
+        r = 800.0 / color_map.shape[1]
+        dim = (800, int(color_map.shape[0] * r))
+         
+        # perform the actual resizing of the image and show it
+        resized = cv2.resize(color_map, dim, interpolation = cv2.INTER_AREA)
+        cv2.imshow('img', resized)
+        cv2.waitKey(0)
+                
         # Classification
         #classifier = joblib.load(config.svm_model)
         #prediction = classifier.predict(features.reshape(1, -1) )
@@ -60,17 +71,13 @@ class SplicingDetection:
     
     
     def quadTreeDetection(self, depth, clf, gge, iic, x, y):
-        print('Depth: ' + str(depth))
         rows, cols, _ = gge.shape
         gge_pcs = self.extractPrincipalComponents(gge)
         iic_pcs = self.extractPrincipalComponents(iic)
         features = self.buildFeatureVector(gge_pcs, iic_pcs)
         prediction = clf.predict(features.reshape(1, -1))
         if(prediction[0] == 1):
-            
-            for i in range(x, x + rows - 1):
-                for j in range(y, y + cols - 1):
-                    self.detection[i, j] = self.detection[i, j] + 1
+            self.detection[x:x + rows -1, y: y + cols - 1] = self.detection[x:x + rows -1, y: y + cols - 1] + 1
         
         if depth == self.depth:
             return
