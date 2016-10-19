@@ -33,7 +33,7 @@ class SplicingDetection:
         filename = filename[:-4]
         # Extracting image features
         #features = self.extractFeatures(img, False, self.verbose, heat_map)
-        
+                
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
         iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
@@ -45,15 +45,20 @@ class SplicingDetection:
         clf = joblib.load(config.svm_model)
         
         self.quadTreeDetection(0, clf, gge_map, iic_map, 0, 0)
-        
+            
+            
         max_value = np.ndarray.max(self.detection)
         heat_map = self.detection / max_value 
         heat_map = heat_map * 255
         heat_map = heat_map.astype(np.uint8)
-        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
+        
+        np.savetxt('out.txt', self.resizeImage(heat_map, 100), fmt='%i')
+        
+        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_SUMMER)
+
         
         orig = cv2.imread(img)
-        out = np.concatenate((self.resizeImage(orig, 600), self.resizeImage(color_map, 600)), axis=1)
+        out = np.concatenate((self.resizeImage(orig, 100), self.resizeImage(color_map, 100)), axis = 1)
         cv2.imshow('img', out)
         cv2.waitKey(0)
                 
@@ -160,7 +165,10 @@ class SplicingDetection:
         predicted = model_selection.cross_val_predict(classifier, features, labels, cv=loo)
         score = accuracy_score(labels, predicted) 
     
-        classifier = svm.SVC(C = 10000.0, gamma = 0.001)
+        #classifier = svm.SVC(C = 10000.0, gamma = 0.001)
+        #classifier.fit(features, labels)
+        
+        classifier = svm.SVR(kernel = 'rbf', C = 10000.0, gamma = 0.001)
         classifier.fit(features, labels)
         
         print('Classification model created correctly')
