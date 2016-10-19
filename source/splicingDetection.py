@@ -46,19 +46,17 @@ class SplicingDetection:
         
         self.quadTreeDetection(0, clf, gge_map, iic_map, 0, 0)
             
-            
         max_value = np.ndarray.max(self.detection)
         heat_map = self.detection / max_value 
         heat_map = heat_map * 255
         heat_map = heat_map.astype(np.uint8)
         
-        np.savetxt('out.txt', self.resizeImage(heat_map, 100), fmt='%i')
+        #np.savetxt('out.txt', self.resizeImage(heat_map, 50), fmt='%i')
         
         color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_SUMMER)
-
         
         orig = cv2.imread(img)
-        out = np.concatenate((self.resizeImage(orig, 100), self.resizeImage(color_map, 100)), axis = 1)
+        out = np.concatenate((self.resizeImage(orig, 500), self.resizeImage(color_map, 500)), axis = 1)
         cv2.imshow('img', out)
         cv2.waitKey(0)
                 
