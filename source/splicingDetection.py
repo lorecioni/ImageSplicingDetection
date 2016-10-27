@@ -11,11 +11,10 @@ import os
 from sklearn.externals import joblib
 from sklearn.model_selection import LeaveOneOut
 from sklearn.metrics import accuracy_score
-import illuminantMaps
 import distanceMetrics
+import illuminantMaps
 import config
 import math
-
 
 ''' 
 Splicing detection main procedure. The result of the output
@@ -107,11 +106,11 @@ class SplicingDetection:
     @param images: the list of images filenames
     @param labels: the list of image labels (0 if pristine, 1 if spliced)
     '''
-    def train(self, images, labels, cross_validate = False, extract_features = True):
+    def train(self, images, labels, cross_validate = False, extract_features = True, heat_map = False):
         # Extract image features from each images in training set
         if extract_features:
             for i in range(len(images)):
-                self.extractFeatures(images[i], True, self.verbose)
+                self.extractFeatures(images[i], True, self.verbose, heat_map)
         
         features = []
         files = os.listdir(config.features_folder)
@@ -205,7 +204,7 @@ class SplicingDetection:
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
         iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
-        
+                
         # 2.1 Building heat map (only for visualizations) 
         if heat_map:    
             self.visualizeHeatMap(gge_map, iic_map)
@@ -244,7 +243,7 @@ class SplicingDetection:
         heat_map = heat_map.astype(np.uint8)
         #Display color map
         color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-        cv2.imshow('img', color_map)
+        cv2.imshow('img', self.resizeImage(color_map, 500))
         cv2.waitKey(0)
     
     
@@ -253,22 +252,15 @@ class SplicingDetection:
     eigenvalues
     '''
     def extractPrincipalComponents(self, X):
+        #Image normalization
+        X = cv2.normalize(X, X, 0, 1, cv2.NORM_MINMAX, cv2.CV_32F)
         # singular value decomposition of a data matrix such that:  X = U*S*V.T
         # * U and V are the singular matrices
         # * S is a diagonal matrix  
-        X = X - np.mean(X, axis = 0)
-        [_, s, _] = npl.svd(X, full_matrices = False)
-        
-        # PCs are already sorted by descending order  of the singular values
-        # nedd to extract num values    
-        #s = s[:3,:]
-        pcs = np.array([], np.float32)
-        for i in range (5):
-            for j in range(3):
-                pcs = np.append(pcs, s[i, j])
-        #pcs = np.array([s[0,0], s[0,1], s[0,2],
-        #                s[1,0], s[1,1], s[1,2],
-        #                s[2,0], s[2,1], s[2,2]], np.float32)
+        grayimg = self.rgb2gray(X)
+        # s has eigenvalues and V columns are eigenvectors
+        _, s, _ = npl.svd(grayimg, full_matrices = False)
+        pcs = s[0:9]
         return pcs
     
     ''' 
@@ -297,6 +289,15 @@ class SplicingDetection:
     
         return features
     
+    ''' 
+    Convert image to grayscale
+    '''
+    def rgb2gray(self, img):
+        return np.dot(img[...,:3], [0.299, 0.587, 0.144])
+    
+    ''' 
+    Resize image maintaining aspect ratio
+    '''
     def resizeImage(self, img, width):
         r = width / img.shape[1]
         dim = (width, int(img.shape[0] * r))   
