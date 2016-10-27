@@ -66,7 +66,7 @@ def main():
         labels = [int(s.strip()) for s in text.splitlines()]
         in_file.close()
 
-        detector.train(images, labels, args.cross_validation, args.extract_features)
+        detector.train(images, labels, args.cross_validation, args.extract_features, args.heat_map)
         
     elif args.detect:
         #Detecting splice over a selected image
