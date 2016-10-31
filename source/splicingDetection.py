@@ -296,6 +296,56 @@ class SplicingDetection:
         return features
     
     ''' 
+    Evaluate Euclidean distances between each image IMs
+    @param images: the list of images filenames
+    '''
+    def evaluateEuclideanDistances(self, images, extract_features = True, visualize_heat_map = False):
+        # Extract image features from each images in training set
+        
+        for i in range(len(images)):
+            img = images[i]
+            if extract_features:
+                self.processImage(img, True, self.verbose, heat_map)
+            
+            print(img)
+            filename = img.split('/')
+            filename = filename[len(filename) - 1]
+            filename = filename[:-4]
+            #Reads IMs
+            gge = cv2.imread(config.maps_folder + filename + '_gge_map.png')
+            iic = cv2.imread(config.maps_folder + filename + '_iic_map.png')
+            gge_b, gge_g, gge_r = cv2.split(gge)
+            iic_b, iic_g, iic_r = cv2.split(iic)
+            #Get maps dimensions
+            rows, cols, _ = gge.shape
+            #Building heat map
+            heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
+            #Recover heat map max value
+            max_value = np.ndarray.max(heat_map)
+            #Normalization
+            heat_map = heat_map / max_value
+            sum = np.sum(heat_map)
+            
+            if visualize_heat_map:
+                heat_map = heat_map * 255
+                heat_map = heat_map.astype(np.uint8)
+                #Display color map
+                color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
+                cv2.imshow('img', self.resizeImage(color_map, 500))
+                cv2.waitKey(0)
+            print(sum)
+        
+        
+        
+        features = []
+        files = os.listdir(config.features_folder)
+        for i in files:
+            if not i.startswith('.'):
+                features.append(np.loadtxt(config.features_folder + i))
+        
+        features = np.asanyarray(features)
+    
+    ''' 
     Convert image to grayscale
     '''
     def rgb2gray(self, img):
