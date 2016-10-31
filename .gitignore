@@ -41,3 +41,23 @@ source/__pycache__/*
 source/maps/*
 
 datasets/NC2016/indexes/NC2016-manipulation-index.csv
+
+articles/GijsenijCVPR2007.pdf
+
+source/illuminants/build/CMakeCache.txt
+
+source/illuminants/build/lgrayworld_estimates-normal.png
+
+source/illuminants/build/lgrayworld_estimates.png
+
+source/illuminants/build/CMakeCache.txt
+
+source/illuminants/build/liebv_estimates-normal.png
+
+source/illuminants/build/CMakeCache.txt
+
+source/illuminants/build/liebv_estimates.png
+
+source/illuminants/build/segmented_tangerines-normal.png
+
+source/illuminants/build/segmented_tangerines.png

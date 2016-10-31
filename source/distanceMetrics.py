@@ -8,7 +8,7 @@ Different matrics for evaluating distances bewteen eigenvalues
 import math
 
 def linearDistance(a, b):
-    return a - b
+    return abs(a - b)
 
 def quadraticDistance(a, b):
     return pow((a - b), 2)

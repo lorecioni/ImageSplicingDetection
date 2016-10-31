@@ -9,6 +9,7 @@ Created on 05 ott 2016
 # Image segmentation
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
+
 seg_sigma = 0.2
 seg_k = 300
 seg_min_size = 15
