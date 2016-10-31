@@ -21,7 +21,8 @@ def main():
     parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
     parser.add_argument("--cross-validate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
-    
+    parser.add_argument("--extract-features", help="extract feature vector for a specific image", dest='extract_features', action='store_true')
+
     parser.add_argument("--dataset", help="the path of the dataset folder containing all the training images")
     parser.add_argument("--labels", help="the path of labels txt file, a list of labels (1, 0) comma separated")
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false') 
@@ -35,6 +36,7 @@ def main():
     parser.set_defaults(verbose = False)
     parser.set_defaults(train = False)
     parser.set_defaults(detect = False)
+    parser.set_defaults(extract_features = False)
     parser.set_defaults(cross_validation = False)
     parser.set_defaults(extract_features = True)
     parser.set_defaults(depth = 3)
@@ -74,6 +76,15 @@ def main():
             detector.detectSplice(args.img, args.heat_map, args.depth)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
-
+            
+    elif args.extract_features:
+        #Extract feature vector for a selected image
+        if len(args.img) > 0:
+            print('Extracting image feature vector froma single image')
+            detector.extractFeatures(args.img, args.heat_map)
+        else:
+            print('No image selected for splicing detection. Must specify the --img argument.')
+        
+        
 if __name__ == '__main__':
     main()
