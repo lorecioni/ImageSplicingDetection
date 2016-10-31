@@ -22,6 +22,7 @@ def main():
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
     parser.add_argument("--cross-validate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-features", help="extract feature vector for a specific image", dest='extract_features', action='store_true')
+    parser.add_argument("--euclidean-distances", help="evaluate euclidean distances between each image IMs", dest='evaluate_eucl_distances', action='store_true')
 
     parser.add_argument("--dataset", help="the path of the dataset folder containing all the training images")
     parser.add_argument("--labels", help="the path of labels txt file, a list of labels (1, 0) comma separated")
@@ -39,6 +40,7 @@ def main():
     parser.set_defaults(extract_features = False)
     parser.set_defaults(cross_validation = False)
     parser.set_defaults(extract_features = True)
+    parser.set_defaults(evaluate_eucl_distances = True)
     parser.set_defaults(depth = 3)
 
     args = parser.parse_args()
@@ -57,7 +59,7 @@ def main():
         files = os.listdir(args.dataset)
         for i in files:
             try:
-                if not i.startswith('.'):
+                if os.path.isfile(i) and not i.startswith('.'):
                     images.append(args.dataset + "/" + i)
             except:
                 print("Error on processing image")
@@ -84,7 +86,21 @@ def main():
             detector.extractFeatures(args.img, args.heat_map)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
-        
+    
+    elif args.evaluate_eucl_distances:
+        #Evaluate euclidean distances between each image IMs
+        images = []
+        #Retrieving file list
+        files = os.listdir(args.dataset)
+        for i in files:
+            try:
+                path = os.path.join(args.dataset, i)
+                if os.path.isfile(path) and not i.startswith('.'):
+                    images.append(args.dataset + "/" + i)
+            except:
+                print("Error on processing image")
+                
+        detector.evaluateEuclideanDistances(images, args.extract_features, args.heat_map)
         
 if __name__ == '__main__':
     main()
