@@ -8,8 +8,8 @@ for file = files'
     out = cat(2, out, C);
 end
 
-valTrue = out(7, 1:46);
-valFalse = out(7, 47:end);
+valTrue = out(3, 1:46);
+valFalse = out(3, 47:end);
 
 roc_analysis(valTrue', valFalse');
 
