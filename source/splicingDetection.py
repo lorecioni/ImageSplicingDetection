@@ -31,7 +31,7 @@ class SplicingDetection:
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
         # Extracting image features
-        #features = self.extractFeatures(img, False, self.verbose, heat_map)
+        #features = self.processImage(img, False, self.verbose, heat_map)
                 
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
@@ -110,7 +110,7 @@ class SplicingDetection:
         # Extract image features from each images in training set
         if extract_features:
             for i in range(len(images)):
-                self.extractFeatures(images[i], True, self.verbose, heat_map)
+                self.processImage(images[i], True, self.verbose, heat_map)
         
         features = []
         files = os.listdir(config.features_folder)
@@ -170,10 +170,16 @@ class SplicingDetection:
         
         print('Classification model created correctly')
         joblib.dump(classifier, config.svm_model)
+    
+    '''
+    Extract feature vector for a selected image
+    '''
+    def extractFeatures(self, img, heat_map = False):
+        self.processImage(img, True, self.verbose, heat_map)
         
         
     ''' 
-    Extracting image features for an image. 
+    Process image for extracting features
     - Prepare the image for illuminant methods (segmentation)
     - Extracting GGE illuminant map
     - Extracting IIC illulimant map
@@ -182,7 +188,7 @@ class SplicingDetection:
     @param img: the path of the image to be processed
     @param verbose: display extended output
     '''
-    def extractFeatures(self, img, store = False, verbose = False, heat_map = False):
+    def processImage(self, img, store = False, verbose = False, heat_map = False):
         #Extract filename from image path
         filename = img.split('/')
         filename = filename[len(filename) - 1]
@@ -191,15 +197,15 @@ class SplicingDetection:
     
         # 1. Extracting GGE and IIC illuminant maps
         print('\t-Segmenting image')
-        illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
+        #illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
             
         # 1.2 Extracting GGE illuminant map
         print('\t-Extracting GGE map')
-        illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+        #illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
         
         # 1.3 Extracting IIC illuminant map
         print('\t-Extracting IIC map')
-        illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
+        #illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
         
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
