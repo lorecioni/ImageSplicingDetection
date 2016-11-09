@@ -61,3 +61,9 @@ source/illuminants/build/liebv_estimates.png
 source/illuminants/build/segmented_tangerines-normal.png
 
 source/illuminants/build/segmented_tangerines.png
+
+modules/modulo_inizio_tesi_complete.pdf
+
+source/felzenszwalb/*.cch
+
+source/illuminants_riess/*
