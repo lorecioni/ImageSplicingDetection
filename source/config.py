@@ -10,6 +10,7 @@ Created on 05 ott 2016
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
+
 seg_sigma = 0.2
 seg_k = 300
 seg_min_size = 15
@@ -19,7 +20,12 @@ gge_sigma = 1
 gge_n = 1
 gge_p = 3
 
+#IIC Map
+config_iic = "illuminants/build/config.txt"
+#config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
+
 # Outputs
 maps_folder = 'maps/'
 features_folder = 'features/'
 svm_model = 'data/model.pkl'
+maps_out_suffix = ''
