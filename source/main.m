@@ -1,15 +1,19 @@
 close all;
 
-files = dir('features/*.txt');
+files = dir('features/*_distances.txt');
 out = [];
 for file = files'
     fileID = fopen(['features/' file.name]);    
     C = cell2mat(textscan(fileID, '%f32'));
+    %out = cat(2, out, C);
     out = cat(2, out, C);
 end
 
-valTrue = out(3, 1:46);
-valFalse = out(3, 47:end);
+%valTrue = out(9, 1:46);
+%valFalse = out(9, 47:end);
+
+valTrue = out(1:46);
+valFalse = out(47:end);
 
 roc_analysis(valTrue', valFalse');
 

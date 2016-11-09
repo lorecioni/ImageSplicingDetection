@@ -21,7 +21,7 @@ def main():
     parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
     parser.add_argument("--cross-validate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
-    parser.add_argument("--extract-features", help="extract feature vector for a specific image", dest='extract_features', action='store_true')
+    parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
     parser.add_argument("--euclidean-distances", help="evaluate euclidean distances between each image IMs", dest='evaluate_eucl_distances', action='store_true')
 
     parser.add_argument("--dataset", help="the path of the dataset folder containing all the training images")
@@ -37,10 +37,10 @@ def main():
     parser.set_defaults(verbose = False)
     parser.set_defaults(train = False)
     parser.set_defaults(detect = False)
-    parser.set_defaults(extract_features = False)
-    parser.set_defaults(cross_validation = False)
     parser.set_defaults(extract_features = True)
-    parser.set_defaults(evaluate_eucl_distances = True)
+    parser.set_defaults(cross_validation = False)
+    parser.set_defaults(extract_single_features = False)
+    parser.set_defaults(evaluate_eucl_distances = False)
     parser.set_defaults(depth = 3)
 
     args = parser.parse_args()
@@ -79,7 +79,7 @@ def main():
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
             
-    elif args.extract_features:
+    elif args.extract_single_features:
         #Extract feature vector for a selected image
         if len(args.img) > 0:
             print('Extracting image feature vector froma single image')

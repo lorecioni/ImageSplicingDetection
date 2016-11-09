@@ -50,9 +50,11 @@ class SplicingDetection:
         heat_map = heat_map * 255
         heat_map = heat_map.astype(np.uint8)
         
+        heat_map = np.absolute(255 - heat_map)
+        
         #np.savetxt('out.txt', self.resizeImage(heat_map, 50), fmt='%i')
         
-        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_SUMMER)
+        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
         
         orig = cv2.imread(img)
         out = np.concatenate((self.resizeImage(orig, 500), self.resizeImage(color_map, 500)), axis = 1)
@@ -73,10 +75,12 @@ class SplicingDetection:
     
     
     def quadTreeDetection(self, depth, clf, gge, iic, x, y):
+        print(depth)
         rows, cols, _ = gge.shape
         gge_pcs = self.extractPrincipalComponents(gge)
         iic_pcs = self.extractPrincipalComponents(iic)
         features = self.buildFeatureVector(gge_pcs, iic_pcs)
+
         prediction = clf.predict(features.reshape(1, -1))
         if(prediction[0] == 1):
             self.detection[x:x + rows -1, y: y + cols - 1] = self.detection[x:x + rows -1, y: y + cols - 1] + 1
@@ -115,7 +119,7 @@ class SplicingDetection:
         features = []
         files = os.listdir(config.features_folder)
         for i in files:
-            if not i.startswith('.'):
+            if not i.startswith('.') :
                 features.append(np.loadtxt(config.features_folder + i))
         
         features = np.asanyarray(features)
@@ -162,11 +166,11 @@ class SplicingDetection:
         predicted = model_selection.cross_val_predict(classifier, features, labels, cv=loo)
         score = accuracy_score(labels, predicted) 
     
-        #classifier = svm.SVC(C = 10000.0, gamma = 0.001)
-        #classifier.fit(features, labels)
-        
-        classifier = svm.SVR(kernel = 'rbf', C = 10000.0, gamma = 0.001)
+        classifier = svm.SVC(C = 10000.0, gamma = 0.001)
         classifier.fit(features, labels)
+        
+        #classifier = svm.SVR(kernel = 'rbf', C = 10000.0, gamma = 0.001)
+        #classifier.fit(features, labels)
         
         print('Classification model created correctly')
         joblib.dump(classifier, config.svm_model)
@@ -197,15 +201,15 @@ class SplicingDetection:
     
         # 1. Extracting GGE and IIC illuminant maps
         print('\t-Segmenting image')
-        #illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
+        illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
             
         # 1.2 Extracting GGE illuminant map
         print('\t-Extracting GGE map')
-        #illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+        illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
         
         # 1.3 Extracting IIC illuminant map
         print('\t-Extracting IIC map')
-        #illuminantMaps.extractIICMap(img, filename + "_segmented.png", verbose)
+        illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
         
         # 2. Statistical difference between IIC and GGE maps
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
@@ -264,6 +268,11 @@ class SplicingDetection:
         # * U and V are the singular matrices
         # * S is a diagonal matrix  
         grayimg = self.rgb2gray(X)
+        
+        heat_map = grayimg * 255
+        heat_map = heat_map.astype(np.uint8)
+        #cv2.imshow('img', heat_map);
+        #cv2.waitKey(0)
         # s has eigenvalues and V columns are eigenvectors
         _, s, _ = npl.svd(grayimg, full_matrices = False)
         pcs = s[0:9]
@@ -305,15 +314,25 @@ class SplicingDetection:
         for i in range(len(images)):
             img = images[i]
             if extract_features:
-                self.processImage(img, True, self.verbose, heat_map)
+                self.processImage(img, True, self.verbose, visualize_heat_map)
             
             print(img)
             filename = img.split('/')
             filename = filename[len(filename) - 1]
             filename = filename[:-4]
+            
             #Reads IMs
-            gge = cv2.imread(config.maps_folder + filename + '_gge_map.png')
-            iic = cv2.imread(config.maps_folder + filename + '_iic_map.png')
+            gge = cv2.imread(config.maps_folder + filename + '_gge_map' + config.maps_out_suffix + '.png')
+            iic = cv2.imread(config.maps_folder + filename + '_iic_map' + config.maps_out_suffix + '.png')
+            #print('../datasets/DSO-1/DSO-1-Grayworld/' + filename + '_fhs.png')
+           # gge = cv2.imread('../datasets/DSO-1/DSO-1-Grayworld/' + filename + '_fhs.png')
+           # iic = cv2.imread('../datasets/DSO-1/DSO-1-Illuminants/' + filename + '_fhs.png')
+            
+            #gge = self.resizeImage(gge, 200)
+            #iic = self.resizeImage(iic, 200)
+            if gge == None or iic == None:
+                continue
+                
             gge_b, gge_g, gge_r = cv2.split(gge)
             iic_b, iic_g, iic_r = cv2.split(iic)
             #Get maps dimensions
@@ -325,7 +344,10 @@ class SplicingDetection:
             #Normalization
             heat_map = heat_map / max_value
             sum = np.sum(heat_map)
+            #if filename.startswith('splicing'):
+            #    sum = sum + 10000;
             
+            print(type(sum))
             if visualize_heat_map:
                 heat_map = heat_map * 255
                 heat_map = heat_map.astype(np.uint8)
@@ -333,6 +355,7 @@ class SplicingDetection:
                 color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
                 cv2.imshow('img', self.resizeImage(color_map, 500))
                 cv2.waitKey(0)
+            #np.savetxt(config.features_folder + filename + '_sum_distances.txt', np.array(sum).reshape(1,), delimiter=' ')
             print(sum)
         
         
