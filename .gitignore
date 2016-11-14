@@ -76,3 +76,5 @@ source/illuminants/build/CMakeFiles/3.5.0/CMakeCCompiler.cmake
 source/illuminants/build/Makefile
 
 datasets/COLUMBIA/4cam_auth/canong3_02_sub_01.tif
+
+datasets/PIVA/*
