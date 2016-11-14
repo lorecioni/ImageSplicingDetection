@@ -24,6 +24,9 @@ gge_p = 3
 config_iic = "illuminants/build/config.txt"
 #config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
 
+#Training
+feature_vector_length = 5
+
 # Outputs
 maps_folder = '../datasets/' + dataset + '/maps/'
 features_folder = '../datasets/' + dataset + '/features/'
