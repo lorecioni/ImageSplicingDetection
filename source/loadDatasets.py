@@ -7,7 +7,6 @@ Created on 14 nov 2016
 import os
 import config
 import cv2
-import numpy as np
 
 def load(imagesPath, labelsPath):
     name = config.dataset
@@ -15,6 +14,7 @@ def load(imagesPath, labelsPath):
     labels = []
     
     if name == 'DSO-1':
+        print('Loaded DSO-1 dataset') 
         #Retrieving file list
         files = os.listdir(imagesPath)
         for i in files:
@@ -30,9 +30,10 @@ def load(imagesPath, labelsPath):
         text = in_file.read()
         labels = [int(s.strip()) for s in text.splitlines()]
         in_file.close()
-        
+        print('Loaded DSO-1 dataset') 
     
     elif name == 'COLUMBIA':
+        print('Loading COLUMBIA dataset') 
         originals = os.listdir(imagesPath + '/4cam_auth')
         spliced = os.listdir(imagesPath + '/4cam_splc')
         
@@ -57,7 +58,7 @@ def load(imagesPath, labelsPath):
                     img_splc = cv2.imread(img)
                     img_orig = cv2.imread(imagesPath + '/4cam_auth/' + originals[index])
                     
-                    if img_splc != None and img_orig != None:
+                    if img_splc is not None and img_orig is not None:
 
                         rows, cols, _ = img_orig.shape
                         
