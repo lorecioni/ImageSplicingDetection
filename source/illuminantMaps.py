@@ -42,7 +42,6 @@ def extractIICMap(img, segmentedImg, verbose):
     filename = img.split('/')
     filename = filename[len(filename) - 1]
     command = "illuminants/build/bin/./vole liebv --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + config.maps_folder + filename[:-4] + "_iic_map" + config.maps_out_suffix + ".png --iebv_config " + config.config_iic
-    print(command)
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
     if verbose:
         print('IIC map extracted')
