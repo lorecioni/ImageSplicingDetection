@@ -49,7 +49,6 @@ class SplicingDetection:
         heat_map = self.detection / max_value 
         heat_map = heat_map * 255
         heat_map = heat_map.astype(np.uint8)
-        
         heat_map = np.absolute(255 - heat_map)
         
         #np.savetxt('out.txt', self.resizeImage(heat_map, 50), fmt='%i')
@@ -120,18 +119,21 @@ class SplicingDetection:
         files = os.listdir(config.features_folder)
         for i in files:
             if not i.startswith('.') :
-                features.append(np.loadtxt(config.features_folder + i))
+                values = np.loadtxt(config.features_folder + i)
+                values = values[0:config.feature_vector_length]
+                if(len(values) != config.feature_vector_length):
+                    values = np.append(values, np.zeros(config.feature_vector_length - len(values)))
+                features.append(values)
         
         features = np.asanyarray(features)
         labels = np.asanyarray(labels)
-    
     
         if cross_validate:
             #CROSS VALIDATION 
             scores = []
             loo = LeaveOneOut()
-            C_2d_range = np.logspace(-2, 10, 13)
-            gamma_2d_range = np.logspace(-9, 3, 13)
+            C_2d_range = range(500, 1200, 100)
+            gamma_2d_range = np.arange(0.0001, 0.01, 0.001)
             
             #C_2d_range = [1e-2, 1, 1e2]
             #gamma_2d_range = [1e-1, 1, 1e1]
