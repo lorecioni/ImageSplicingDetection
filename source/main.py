@@ -8,6 +8,7 @@ import argparse
 import splicingDetection
 import sys
 import os
+import loadDatasets
 
 __version__ = 0.1
 __date__ = '2016-09-28'
@@ -23,7 +24,6 @@ def main():
     parser.add_argument("--cross-validate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
     parser.add_argument("--euclidean-distances", help="evaluate euclidean distances between each image IMs", dest='evaluate_eucl_distances', action='store_true')
-
     parser.add_argument("--dataset", help="the path of the dataset folder containing all the training images")
     parser.add_argument("--labels", help="the path of labels txt file, a list of labels (1, 0) comma separated")
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false') 
@@ -47,30 +47,15 @@ def main():
     
     if len(sys.argv) < 2:
         parser.print_help()
-        sys.exit(1)
-        
+        sys.exit(1) 
     
     detector = splicingDetection.SplicingDetection(args.verbose)
     
     if args.train:
         #Training the model
-        images = []
-        #Retrieving file list
-        files = os.listdir(args.dataset)
-        for i in files:
-            try:
-                if os.path.isfile(i) and not i.startswith('.'):
-                    images.append(args.dataset + "/" + i)
-            except:
-                print("Error on processing image")
-                
-        #Retrieving labels     
-        in_file = open(args.labels, "r")
-        text = in_file.read()
-        labels = [int(s.strip()) for s in text.splitlines()]
-        in_file.close()
-
-        detector.train(images, labels, args.cross_validation, args.extract_features, args.heat_map)
+        images, labels = loadDatasets.load(args.dataset, args.labels);
+        if len(images) > 0:
+            detector.train(images, labels, args.cross_validation, args.extract_features, args.heat_map)
         
     elif args.detect:
         #Detecting splice over a selected image
