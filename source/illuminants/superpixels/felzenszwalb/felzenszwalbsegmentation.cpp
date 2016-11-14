@@ -1,12 +1,3 @@
-/*	
-	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
-	and Johannes Jordan <johannes.jordan@cs.fau.de>.
-
-	This file may be licensed under the terms of of the GNU General Public
-	License, version 3, as published by the Free Software Foundation. You can
-	find it here: http://www.gnu.org/licenses/gpl.html
-*/
-
 #include "felzenszwalbsegmentation.h"
 #include "implementation/segment-image.h"
 #include "implementation/image.h"
@@ -15,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <opencv2/highgui/highgui.hpp>
+#include <boost/serialization/tracking.hpp>
 
 
 namespace superpixels
@@ -43,7 +35,10 @@ FelzenszwalbSegmentation::FelzenszwalbSegmentation(int min_size, int kThreshold,
 {
 	localCfg = new vole::FelzenszwalbConfig();
 
-	localCfg->input_file   = ""; 
+	localCfg->input_file   = ""; // Problem: when hashing over the configuration,
+							  // the hash values differ from runs where input
+							  // and output files are known by using the other
+							  // constructor
 	localCfg->input_file_16_bit = "";
 	localCfg->min_intensity = 0;
 	localCfg->max_intensity = 1;
@@ -63,6 +58,14 @@ FelzenszwalbSegmentation::~FelzenszwalbSegmentation()
 
 std::vector<Superpixel> FelzenszwalbSegmentation::superpixels(const cv::Mat_<cv::Vec3b>& image)
 {
+	unsigned long int hashKey = 0;
+	if (openCache(cache_dir) && isCaching()) {
+		hashKey = localCfg->configHash();
+		readFromCache(hashKey);
+		//std::vector<superpixels::SuperpixelSegmentation::Superpixel> segmentation = readFromCache(hashKey);
+		if (_superpixels.size() > 0) return _superpixels;
+	}
+
 	height = image.rows;
 	width  = image.cols;
 
@@ -127,6 +130,10 @@ std::vector<Superpixel> FelzenszwalbSegmentation::superpixels(const cv::Mat_<cv:
 	delete inputImage;
 	delete segmentation;
 
+	if (isCaching()) {
+		writeToCache(hashKey);
+	}
+
 	return _superpixels;
 }
 
@@ -137,5 +144,59 @@ std::vector<Superpixel> FelzenszwalbSegmentation::superpixels(const cv::Mat_<cv:
 	return superpixels(inputImage);
 }
 
+/*
+std::string FelzenszwalbSegmentation::getCacheIdentifier()
+{
+	return std::string("felzenszwalb");
+}
+*/
+
+/*
+std::string FelzenszwalbSegmentation::getStorageFilename(std::string dir, unsigned long int hashKey)
+{
+	std::stringstream s;
+	s << dir << "/" << "felzenszwalb_" << hashKey << ".png";
+	return s.str();
+//	return localCfg->output_file;
+}
+*/
+
+void FelzenszwalbSegmentation::addCachingInfo(std::string input_file, std::string input_file_16_bit, std::string output_file, bool isGraphical)
+{
+	localCfg->input_file = input_file;
+	localCfg->input_file_16_bit = input_file_16_bit;
+	localCfg->output_file = output_file;
+	localCfg->isGraphical = isGraphical;
+}
+
+bool FelzenszwalbSegmentation::writeToCache(unsigned long int hashKey)
+{
+	// open file streams, serialize
+	std::ofstream out;
+	out.open(getStorageFilename(cache_dir, hashKey).c_str());
+	if (!out.good()) return false;
+
+	{
+		boost::archive::text_oarchive oa(out);
+		oa << *this;
+	} // stream is closed when archive is destructed
+
+	return true;
+}
+
+bool FelzenszwalbSegmentation::readFromCache(unsigned long int hashKey)
+{
+	// open file streams, serialize
+	std::ifstream in;
+	in.open(getStorageFilename(cache_dir, hashKey).c_str());
+	if (!in.good()) return false;
+
+	{
+		boost::archive::text_iarchive ia(in);
+		ia >> *this;
+	} // stream is closed when archive is destructed
+	
+	return true;
+}
 
 } // namespace superpixels

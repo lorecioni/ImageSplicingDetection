@@ -67,3 +67,9 @@ modules/modulo_inizio_tesi_complete.pdf
 source/felzenszwalb/*.cch
 
 source/illuminants_riess/*
+
+source/illuminants/build/*
+
+source/illuminants/build/CMakeFiles/3.5.0/CMakeCCompiler.cmake
+
+source/illuminants/build/Makefile

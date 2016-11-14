@@ -1,12 +1,3 @@
-/*	
-	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
-	and Johannes Jordan <johannes.jordan@cs.fau.de>.
-
-	This file may be licensed under the terms of of the GNU General Public
-	License, version 3, as published by the Free Software Foundation. You can
-	find it here: http://www.gnu.org/licenses/gpl.html
-*/
-
 #include "superpixelsegmentation.h"
 #include "color.h"
 #include <opencv2/highgui/highgui.hpp>
@@ -29,14 +20,14 @@
 namespace superpixels {
 
 SuperpixelSegmentation::SuperpixelSegmentation(std::string descriptor, int height, int width) :
-	height(height), width(width)
+	vole::CacheItem(descriptor), height(height), width(width)
 {
 	config = NULL;
 	caching_activated = false;
 }
 
 SuperpixelSegmentation::SuperpixelSegmentation( const SuperpixelSegmentation& cpy )
-	: height( cpy.height ), width( cpy.width ), _superpixels( cpy._superpixels ), label_image_( cpy.label_image_ )
+	: vole::CacheItem( cpy.cache_identifier ), height( cpy.height ), width( cpy.width ), _superpixels( cpy._superpixels ), label_image_( cpy.label_image_ )
 {}
 
 SuperpixelSegmentation::~SuperpixelSegmentation()
@@ -69,6 +60,121 @@ vole::Config *SuperpixelSegmentation::getConfig()
 {
 	return config;
 }
+
+/*
+bool SuperpixelSegmentation::openCache(std::string cache_file, bool force_file_exists)
+{
+// no caching/ return
+#ifndef SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	return false;
+#else // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	if (cache_file.length() > 0) {
+		this->cache_file = cache_file;
+	}
+	using boost::property_tree::ptree;
+	using namespace boost::property_tree;
+	using namespace boost::property_tree::xml_parser;
+	ptree pt;
+	bool is_initialized = false;
+	try {
+		read_xml(this->cache_file, pt);
+	} catch (const xml_parser_error &e) {
+		if (force_file_exists) {
+			std::cerr << "Error when reading file " << this->cache_file << ":" << std::endl << "  ";
+			std::cerr << e.what() << std::endl;
+			return false;
+		} else {
+			// initialize empty cache: (it is empty, nothing to do)
+			is_initialized = true;
+		}
+	}
+	if (!is_initialized) {
+		caching_activated = true;
+		BOOST_FOREACH(const ptree::value_type &k, pt) {
+			unsigned long int hashkey;
+			std::stringstream s;
+			std::string key = k.first.data();
+			s << key.substr(key.find_last_of('.')+1);
+			s >> hashkey;
+			cache[hashkey] = k.second.data();
+		}
+	}
+	return true;
+#endif // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+}
+*/
+
+/*
+bool SuperpixelSegmentation::writeCache(std::string cache_file)
+{
+// no caching/ return
+#ifndef SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	return false;
+#else // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	std::string write_file = this->cache_file;
+	if (cache_file.length() > 0) write_file = cache_file;
+	using boost::property_tree::ptree;
+	using namespace boost::property_tree;
+	using namespace boost::property_tree::xml_parser;
+	ptree pt;
+
+	typedef std::pair<unsigned long int, std::string> cache_entry;
+	BOOST_FOREACH(const cache_entry &k, cache) {
+		std::stringstream s; s << "cache." << getCacheIdentifier() << "." << k.first;
+		pt.push_back(ptree::value_type(s.str(), ptree(k.second)));
+	}
+
+	// Write the property tree to the XML file.
+	write_xml(write_file, pt);
+	return true;
+#endif // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+}
+
+bool SuperpixelSegmentation::isCaching()
+{
+	return caching_activated;
+}
+*/
+
+/*
+bool SuperpixelSegmentation::writeToCache(unsigned long int hashKey, std::vector<SuperpixelSegmentation::Superpixel> &superpixels, int rows, int cols)
+{
+// no caching/ return
+#ifndef SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	return false;
+#else // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	std::string file_name = getStorageFilename(cache_dir, hashKey);
+	if (file_name.length() < 1) return false;
+
+	// convert image:
+	cv::Mat_<cv::Vec3b> img = superpixelsImage(superpixels, rows, cols, true);
+	if (img.data == NULL) return false;
+	cv::imwrite(file_name, img);
+	cache[hashKey] = file_name;
+	return true;
+#endif // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+}
+
+std::vector<SuperpixelSegmentation::Superpixel> SuperpixelSegmentation::readFromCache(unsigned long int hashKey)
+{
+// no caching/ return
+#ifndef SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	return std::vector<SuperpixelSegmentation::Superpixel>();
+#else // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+	// look for the key
+	if (cache.find(hashKey) == cache.end()) return std::vector<SuperpixelSegmentation::Superpixel>(); // no entry :(
+
+	std::string image_file_name = cache[hashKey];
+	cv::Mat_<cv::Vec3b> img = cv::imread(image_file_name);
+
+	if (img.data == NULL) return std::vector<SuperpixelSegmentation::Superpixel>(); // weird error - cache outdated?
+
+	std::vector<SuperpixelSegmentation::Superpixel> tmp;
+	imageToSuperpixels(img, tmp);
+	return tmp;
+#endif // SUPERPIXEL_SEGMENTATION_WITH_CACHING
+}
+*/
 
 cv::Mat_<cv::Vec3b> SuperpixelSegmentation::superpixelsImage(
 	const std::vector<Superpixel>& superpixels,

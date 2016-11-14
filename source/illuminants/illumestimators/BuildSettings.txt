@@ -1,0 +1,49 @@
+set(this_module_name "illuminantestimators")
+set(this_unit_memberships "reflectance")
+set(this_extra_include_directories)
+set(this_build_library "illuminantestimators")
+set(this_module_variable "Vole_IlluminantEstimators")
+set(this_module_description "Illuminant Estimation Algorithms")
+set(this_module_general_requirements "VOLE_OPENCV" "VOLE_BOOST" "VOLE_BOOST_PROGRAM_OPTIONS")
+
+VoleRequiredModules()
+
+VoleAddCommand("grayworld" "commands/commandgrayworld.h" "vole::CommandGrayWorld")
+
+VoleAddCommand("bayesian" "commands/commandbayesian.h" "vole::CommandBayesian")
+
+VoleCompileIfShell(
+	commands/commandgrayworld.cpp
+	commands/commandgrayworld.h
+	commands/grayworldconfig.cpp
+	commands/grayworldconfig.h
+	commands/commandbayesian.cpp
+	commands/commandbayesian.h
+	commands/bayesianconfig.cpp
+	commands/bayesianconfig.h
+)
+
+VoleCompileLibrary(
+	illuminantestimator.cpp
+	illuminantestimator.h
+
+	baseline/meanestimator.cpp
+	baseline/meanestimator.h
+	baseline/nothingestimator.cpp
+	baseline/nothingestimator.h
+
+	grayworld/grayworldestimator.cpp
+	grayworld/grayworldestimator.h
+
+	bayesian/bayesianestimator.cpp
+	bayesian/bayesianestimator.h
+
+	common/color.cpp
+	common/color.h
+	common/derivative.cpp
+	common/derivative.h
+	common/mask.cpp
+	common/mask.h
+	common/statistics.cpp
+	common/statistics.h
+)
