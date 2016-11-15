@@ -109,13 +109,14 @@ class SplicingDetection:
     @param images: the list of images filenames
     @param labels: the list of image labels (0 if pristine, 1 if spliced)
     '''
-    def train(self, images, labels, cross_validate = False, extract_features = True, heat_map = False):
+    def train(self, images, labels, cross_validate = False, extract_features = True, extract_maps = True, heat_map = False):
         # Extract image features from each images in training set
-        if extract_features:
+        if extract_features or extract_maps:
             for i in range(len(images)):
-                self.processImage(images[i], True, self.verbose, heat_map)
+                self.processImage(images[i], labels[i], True, extract_features, extract_maps, self.verbose, heat_map)
         
         features = []
+        labels = []
         files = os.listdir(config.features_folder)
         for i in files:
             if not i.startswith('.') :
@@ -124,16 +125,21 @@ class SplicingDetection:
                 if(len(values) != config.feature_vector_length):
                     values = np.append(values, np.zeros(config.feature_vector_length - len(values)))
                 features.append(values)
-        
+
+                filename = i[:-4]
+                filename = filename.split('_')
+                labels.append(int(filename[len(filename) - 1]))
+                
         features = np.asanyarray(features)
         labels = np.asanyarray(labels)
+        
     
         if cross_validate:
             #CROSS VALIDATION 
             scores = []
             loo = LeaveOneOut()
-            C_2d_range = range(500, 1200, 100)
-            gamma_2d_range = np.arange(0.0001, 0.01, 0.001)
+            C_2d_range = range(200, 1200, 100)
+            gamma_2d_range = np.arange(0.0001, 0.01, 0.002)
             
             #C_2d_range = [1e-2, 1, 1e2]
             #gamma_2d_range = [1e-1, 1, 1e1]
@@ -194,45 +200,52 @@ class SplicingDetection:
     @param img: the path of the image to be processed
     @param verbose: display extended output
     '''
-    def processImage(self, img, store = False, verbose = False, heat_map = False):
+    def processImage(self, img, label, store = False, extract_features = True, extract_maps = True, verbose = False, heat_map = False):
         #Extract filename from image path
         filename = img.split('/')
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
         print('Processing: ' + filename)
-    
-        # 1. Extracting GGE and IIC illuminant maps
-        print('\t-Segmenting image')
-        illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
-            
-        # 1.2 Extracting GGE illuminant map
-        print('\t-Extracting GGE map')
-        illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
         
-        # 1.3 Extracting IIC illuminant map
-        print('\t-Extracting IIC map')
-        illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
-        
-        # 2. Statistical difference between IIC and GGE maps
-        gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
-        iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
+        if extract_maps:
+            # 1. Extracting GGE and IIC illuminant maps
+            print('\t-Segmenting image')
+            illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
                 
-        # 2.1 Building heat map (only for visualizations) 
-        if heat_map:    
-            self.visualizeHeatMap(gge_map, iic_map)
+            # 1.2 Extracting GGE illuminant map
+            print('\t-Extracting GGE map')
+            illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+            
+            # 1.3 Extracting IIC illuminant map
+            print('\t-Extracting IIC map')
+            illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
         
-        # 2.2 Extract maps principal components
-        print('\t-Extracting PCs')
-        gge_pcs = self.extractPrincipalComponents(gge_map)
-        iic_pcs = self.extractPrincipalComponents(iic_map)
+        if extract_features:         
+            # 2. Statistical difference between IIC and GGE maps
+            gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
+            iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
+                    
+            # 2.1 Building heat map (only for visualizations) 
+            if heat_map:    
+                self.visualizeHeatMap(gge_map, iic_map)
+            
+            # 2.2 Extract maps principal components
+            print('\t-Extracting PCs')
+            gge_pcs = self.extractPrincipalComponents(gge_map)
+            iic_pcs = self.extractPrincipalComponents(iic_map)
+            
+            # 3 Build feature vectors
+            print('\t-Building feature vector')
+            features = self.buildFeatureVector(gge_pcs, iic_pcs)
+            # Store file for future evaluations
+            lbl = ''
+            if label is not None:
+               lbl = '_' + str(label)
+               
+            np.savetxt(config.features_folder + filename + lbl + '.txt', features, delimiter=',')
+            return features
         
-        # 3 Build feature vectors
-        print('\t-Building feature vector')
-        features = self.buildFeatureVector(gge_pcs, iic_pcs)
-        # Store file for future evaluations
-        np.savetxt(config.features_folder + filename + '.txt', features, delimiter=',')
-        return features
-        
+        return None
     
     ''' 
     Builds and visualize the heat map in order to visually evaluate difference

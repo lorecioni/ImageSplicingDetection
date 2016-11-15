@@ -7,6 +7,7 @@ Created on 14 nov 2016
 import os
 import config
 import cv2
+import illuminantMaps
 
 def load(imagesPath, labelsPath):
     name = config.dataset
@@ -59,6 +60,25 @@ def load(imagesPath, labelsPath):
                     img_orig = cv2.imread(imagesPath + '/4cam_auth/' + originals[index])
                     
                     if img_splc is not None and img_orig is not None:
+                        
+                        filename_orig = originals[index].split('/')
+                        filename_orig = filename_orig[len(filename_orig) - 1]
+                        filename_orig = filename_orig[:-4]   
+                        
+                        # 1. Extracting GGE and IIC illuminant maps
+                        print('\t-Segmenting image')
+                        illuminantMaps.prepareImageIlluminants(imagesPath + '/4cam_auth/' + originals[index], config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, False)
+                        illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, False)
+
+                        # 1.2 Extracting GGE illuminant map
+                        print('\t-Extracting GGE map')
+                        illuminantMaps.extractGGEMap(imagesPath + '/4cam_auth/' + originals[index], filename_orig + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, False)
+                        illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, False)
+
+                        # 1.3 Extracting IIC illuminant map
+                        print('\t-Extracting IIC map')
+                        illuminantMaps.extractIICMap(imagesPath + '/4cam_auth/' + originals[index], filename_orig + "_segmented" + config.maps_out_suffix + ".png", False)
+                        illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", False)
 
                         rows, cols, _ = img_orig.shape
                         
@@ -71,10 +91,21 @@ def load(imagesPath, labelsPath):
                             
                         roi = img_orig[y:y + height + padding_y, x:x + width + padding_x]
                         path = imagesPath + '/roi_original/original_' + str(index) + '.png'
+                        path_gge = imagesPath + '/roi_original/original_' + str(index) + '_gge_map.png'
+                        path_iic = imagesPath + '/roi_original/original_' + str(index) + '_iic_map.png'
+                        
+                        gge_img_orig = cv2.imread(imagesPath + '/maps/' + filename_orig + "_gge_map" + config.maps_out_suffix + ".png")
+                        iic_img_orig = cv2.imread(imagesPath + '/maps/' + filename_orig + "_iic_map" + config.maps_out_suffix + ".png")
+                        gge_img_splc = cv2.imread(imagesPath + '/maps/' + filename + "_gge_map" + config.maps_out_suffix + ".png")
+                        iic_img_splc = cv2.imread(imagesPath + '/maps/' + filename + "_iic_map" + config.maps_out_suffix + ".png")
                         
                         r, c, _ = roi.shape
                         if r > 0 and c > 0 :
+                            roi_gge_orig = gge_img_orig[y:y + height + padding_y, x:x + width + padding_x]
+                            roi_iic_orig = iic_img_orig[y:y + height + padding_y, x:x + width + padding_x]
                             cv2.imwrite(path, roi)
+                            cv2.imwrite(path_gge, roi_gge_orig)
+                            cv2.imwrite(path_iic, roi_iic_orig)
                             images.append(path)
                             labels.append(0)
                         
@@ -88,10 +119,16 @@ def load(imagesPath, labelsPath):
                             
                         roi = img_splc[y:y + height + padding_y, x:x + width + padding_x]
                         path = imagesPath + '/roi_spliced/spliced_' + str(index) + '.png'
+                        path_gge = imagesPath + '/roi_spliced/spliced_' + str(index) + '_gge_map.png'
+                        path_iic = imagesPath + '/roi_spliced/spliced_' + str(index) + '_iic_map.png'
                         
                         r, c, _ = roi.shape
                         if r > 0 and c > 0 :
+                            roi_gge_splc = gge_img_splc[y:y + height + padding_y, x:x + width + padding_x]
+                            roi_iic_splc = iic_img_splc[y:y + height + padding_y, x:x + width + padding_x]
                             cv2.imwrite(path, roi)
+                            cv2.imwrite(path_gge, roi_gge_splc)
+                            cv2.imwrite(path_iic, roi_iic_splc)
                             images.append(path)
                             labels.append(1)
 
