@@ -27,6 +27,7 @@ def main():
     parser.add_argument("--dataset", help="the path of the dataset folder containing all the training images")
     parser.add_argument("--labels", help="the path of labels txt file, a list of labels (1, 0) comma separated")
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false') 
+    parser.add_argument("--no-extract-maps", help="no extract all training images features", dest='extract_maps', action='store_false') 
     parser.add_argument("--img", help="the path of the suspicious image")
     parser.add_argument("--depth", help="the depth of the recursive method (default 3)")
     parser.add_argument("--heat-map", help="display the heat map between GGE and IIC maps", dest='heat_map', action='store_true')
@@ -37,6 +38,7 @@ def main():
     parser.set_defaults(verbose = False)
     parser.set_defaults(train = False)
     parser.set_defaults(detect = False)
+    parser.set_defaults(extract_maps = True)
     parser.set_defaults(extract_features = True)
     parser.set_defaults(cross_validation = False)
     parser.set_defaults(extract_single_features = False)
@@ -55,7 +57,7 @@ def main():
         #Training the model
         images, labels = loadDatasets.load(args.dataset, args.labels);
         if len(images) > 0:
-            detector.train(images, labels, args.cross_validation, args.extract_features, args.heat_map)
+            detector.train(images, labels, args.cross_validation, args.extract_features, args.extract_maps, args.heat_map)
         
     elif args.detect:
         #Detecting splice over a selected image
