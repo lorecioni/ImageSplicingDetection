@@ -240,7 +240,7 @@ class SplicingDetection:
             # Store file for future evaluations
             lbl = ''
             if label is not None:
-               lbl = '_' + str(label)
+                lbl = '_' + str(label)
                
             np.savetxt(config.features_folder + filename + lbl + '.txt', features, delimiter=',')
             return features
@@ -277,20 +277,24 @@ class SplicingDetection:
     eigenvalues
     '''
     def extractPrincipalComponents(self, X):
-        #Image normalization
-        X = cv2.normalize(X, X, 0, 1, cv2.NORM_MINMAX, cv2.CV_32F)
-        # singular value decomposition of a data matrix such that:  X = U*S*V.T
-        # * U and V are the singular matrices
-        # * S is a diagonal matrix  
-        grayimg = self.rgb2gray(X)
-        
-        heat_map = grayimg * 255
-        heat_map = heat_map.astype(np.uint8)
-        #cv2.imshow('img', heat_map);
-        #cv2.waitKey(0)
-        # s has eigenvalues and V columns are eigenvectors
-        _, s, _ = npl.svd(grayimg, full_matrices = False)
-        pcs = s[0:9]
+        try:
+            #Image normalization
+            X = cv2.normalize(X, X, 0, 1, cv2.NORM_MINMAX, cv2.CV_32F)
+            # singular value decomposition of a data matrix such that:  X = U*S*V.T
+            # * U and V are the singular matrices
+            # * S is a diagonal matrix  
+            grayimg = self.rgb2gray(X)
+            
+            heat_map = grayimg * 255
+            heat_map = heat_map.astype(np.uint8)
+            #cv2.imshow('img', heat_map);
+            #cv2.waitKey(0)
+            # s has eigenvalues and V columns are eigenvectors
+            _, s, _ = npl.svd(grayimg, full_matrices = False)
+            pcs = s[0:9]
+        except: 
+            pcs = np.zeros(9)
+            
         return pcs
     
     ''' 
