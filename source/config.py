@@ -4,8 +4,8 @@ Created on 05 ott 2016
 @author: lorenzocioni
 '''
 
-#dataset = 'DSO-1'
-dataset = 'COLUMBIA'
+dataset = 'DSO-1'
+#dataset = 'COLUMBIA'
 
 # Image segmentation
 max_intensity = 0.98823529411764705882
@@ -25,7 +25,7 @@ config_iic = "illuminants/build/config.txt"
 #config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
 
 #Training
-feature_vector_length = 8
+feature_vector_length = 6
 
 # Outputs
 maps_folder = '../datasets/' + dataset + '/maps/'

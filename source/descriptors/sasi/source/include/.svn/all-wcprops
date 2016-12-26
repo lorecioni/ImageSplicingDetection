@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include
+END
+set.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/set.h
+END
+histogram.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/histogram.h
+END
+sasi.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/sasi.h
+END
+mathematics.h
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/mathematics.h
+END
+stack.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/stack.h
+END
+metrics.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/metrics.h
+END
+libtexturedescriptors.h
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/libtexturedescriptors.h
+END
+heap.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/heap.h
+END
+comptime.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/comptime.h
+END
+featurevector.h
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/featurevector.h
+END
+color.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/color.h
+END
+adjacency.h
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/adjacency.h
+END
+image.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/image.h
+END
+queue.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/queue.h
+END
+cimage.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/cimage.h
+END
+sort.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/sort.h
+END
+common.h
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/include/common.h
+END

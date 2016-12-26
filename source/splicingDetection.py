@@ -207,20 +207,30 @@ class SplicingDetection:
         filename = filename[:-4]
         print('Processing: ' + filename)
         
+        img_orig = cv2.imread(img);
+        img_orig = cv2.normalize(img_orig, img_orig, 0, 1, cv2.NORM_MINMAX, cv2.CV_32F)
+        path = '../datasets/DSO-1/' + filename + '_norm.png';
+        cv2.imwrite(path, img_orig)
+        
+        filename = path.split('/')
+        filename = filename[len(filename) - 1]
+        filename = filename[:-4]
+                
         if extract_maps:
             # 1. Extracting GGE and IIC illuminant maps
             print('\t-Segmenting image')
-            illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
+            illuminantMaps.prepareImageIlluminants(path, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
                 
             # 1.2 Extracting GGE illuminant map
             print('\t-Extracting GGE map')
-            illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+            illuminantMaps.extractGGEMap(path, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
             
             # 1.3 Extracting IIC illuminant map
             print('\t-Extracting IIC map')
-            illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
-        
-        if extract_features:         
+            illuminantMaps.extractIICMap(path, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
+        print(extract_features)
+        if extract_features:  
+            print('cia')       
             # 2. Statistical difference between IIC and GGE maps
             gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
             iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
@@ -242,7 +252,7 @@ class SplicingDetection:
             if label is not None:
                 lbl = '_' + str(label)
                
-            np.savetxt(config.features_folder + filename + lbl + '.txt', features, delimiter=',')
+            #np.savetxt(config.features_folder + filename + lbl + '.txt', features, delimiter=',')
             return features
         
         return None

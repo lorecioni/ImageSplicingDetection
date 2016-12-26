@@ -78,3 +78,4 @@ source/illuminants/build/Makefile
 datasets/COLUMBIA/4cam_auth/canong3_02_sub_01.tif
 
 datasets/PIVA/*
+articles/victor/*

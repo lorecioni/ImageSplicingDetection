@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src
+END
+sasi.c
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/sasi.c
+END
+mathematics.c
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/mathematics.c
+END
+stack.c
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/stack.c
+END
+metrics.c
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/metrics.c
+END
+heap.c
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/heap.c
+END
+comptime.c
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/comptime.c
+END
+featurevector.c
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/featurevector.c
+END
+color.c
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/color.c
+END
+adjacency.c
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/adjacency.c
+END
+image.c
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/image.c
+END
+queue.c
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/queue.c
+END
+cimage.c
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/cimage.c
+END
+sort.c
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/sort.c
+END
+common.c
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/common.c
+END
+set.c
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/set.c
+END
+histogram.c
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/computervision/!svn/ver/9359/code/forensics/skin_illum/machine-learning/descriptors/sasi/source/src/histogram.c
+END

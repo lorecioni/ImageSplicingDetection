@@ -22,7 +22,7 @@ number_tries=1000
 #input_file=
 #output_directory=
 #method=ev_fhs
-#verbosity=0
+verbosity=1
 
 #eval_ciurea_funt=false
 
