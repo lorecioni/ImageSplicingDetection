@@ -7,7 +7,13 @@ Created on 05 ott 2016
 dataset = 'DSO-1'
 #dataset = 'COLUMBIA'
 
+#Convert binary
+convertBinary = '/opt/local/bin/convert'
+voleBinary= 'illuminants/build/bin/./vole'
+cascadePath = 'data/haarcascade_frontalface_default.xml'
+
 # Image segmentation
+use_riess_default = False
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
@@ -30,5 +36,7 @@ feature_vector_length = 6
 # Outputs
 maps_folder = '../datasets/' + dataset + '/maps/'
 features_folder = '../datasets/' + dataset + '/features/'
+faces_folder = '../datasets/' + dataset + '/faces/'
+descriptors_folder = '../datasets/' + dataset + '/descriptors/' 
 svm_model = 'data/model.pkl'
 maps_out_suffix = ''
