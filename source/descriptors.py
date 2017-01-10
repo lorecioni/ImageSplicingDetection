@@ -8,6 +8,7 @@ import sys
 import os
 import cv2
 import config
+import utils
 import subprocess
 
 # Extract an specific descriptor from one image (Ex. SASI, BIC, etc)
@@ -22,9 +23,7 @@ import subprocess
 devnull = open(os.devnull, 'w')
 
 def extractDescriptor(img, descriptor, space, channel):
-    filename = img.split('/')
-    filename = filename[len(filename) - 1]
-    filename = filename[:-4]
+    filename = utils.getFilename(img)
     
     descriptorName = config.faces_folder + filename + "-" + descriptor.lower() + "-descriptor.txt"
     nname = img

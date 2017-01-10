@@ -7,6 +7,9 @@ Created on 05 ott 2016
 dataset = 'DSO-1'
 #dataset = 'COLUMBIA'
 
+imagesFolder = '../datasets/' + dataset + '/Images/'
+labelsFolder = '../datasets/' + dataset + '/Labels/'
+
 #Convert binary
 convertBinary = '/opt/local/bin/convert'
 voleBinary= 'illuminants/build/bin/./vole'

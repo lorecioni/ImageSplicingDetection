@@ -14,7 +14,9 @@ from sklearn.metrics import accuracy_score
 import descriptors
 import illuminantMaps
 import config
+import utils
 import math
+
 
 '''
 Splicing detection main procedure. The result of the output
@@ -33,7 +35,7 @@ class FaceSplicingDetection:
 
 
     def detectSplice(self, img, heat_map, depth):
-        filename = self.getFilename(img)
+        filename = utils.getFilename(img)
         # Extracting image features
         #features = self.processImage(img, False, self.verbose, heat_map)
 
@@ -71,22 +73,22 @@ class FaceSplicingDetection:
     '''
     def processImage(self, img, store = False):
         #Extract filename from image path
-        filename = self.getFilename(img)
+        filename = utils.getFilename(img)
         
         print('Processing: ' + filename)
 
         if self.extract_maps:
             # 1. Extracting GGE and IIC illuminant maps
             print('\t-Segmenting image')
-            illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, verbose)
+            illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, self.verbose)
 
             # 1.2 Extracting GGE illuminant map
             print('\t-Extracting GGE map')
-            illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+            illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
 
             # 1.3 Extracting IIC illuminant map
             print('\t-Extracting IIC map')
-            illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
+            illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", self.verbose)
 
 
         
@@ -130,7 +132,7 @@ class FaceSplicingDetection:
     components
     '''
     def buildFeatureVector(self, img, descriptor = "ACC", space = 4, channel = 3, illumType = "GGE"):
-        filename = self.getFilename(img)
+        filename = utils.getFilename(img)
         gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
         iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
         faces = self.extractFaces(img)
@@ -214,15 +216,6 @@ class FaceSplicingDetection:
         return features
 
 
-
-    def getFilename(self, img):
-        filename = img.split('/')
-        filename = filename[len(filename) - 1]
-        filename = filename[:-4]
-        return filename
-   
-
-
     '''
     Builds and visualize the heat map in order to visually evaluate difference
     between two different maps. Using OpenCV COLORMAP_JET, red values indicates
@@ -247,17 +240,4 @@ class FaceSplicingDetection:
         cv2.imshow('img', self.resizeImage(color_map, 500))
         cv2.waitKey(0)
             
-    '''
-    Convert image to grayscale
-    '''
-    def rgb2gray(self, img):
-        return np.dot(img[...,:3], [0.299, 0.587, 0.144])
 
-    '''
-    Resize image maintaining aspect ratio
-    '''
-    def resizeImage(self, img, width):
-        r = width / img.shape[1]
-        dim = (width, int(img.shape[0] * r))
-        # perform the actual resizing of the image and show it
-        return cv2.resize(img, dim, interpolation = cv2.INTER_AREA)

@@ -7,7 +7,6 @@ Created on 03 ott 2016
 import argparse
 import faceSplicingDetection
 import sys
-import os
 import loadDatasets
 
 __version__ = 0.1
@@ -23,12 +22,9 @@ def main():
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
     parser.add_argument("--cross-validate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
-    parser.add_argument("--dataset", help="the path of the dataset folder containing all the training images")
-    parser.add_argument("--labels", help="the path of labels txt file, a list of labels (1, 0) comma separated")
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
     parser.add_argument("--no-extract-maps", help="no extract all training images features", dest='extract_maps', action='store_false')
     parser.add_argument("--img", help="the path of the suspicious image")
-    parser.add_argument("--depth", help="the depth of the recursive method (default 3)")
     parser.add_argument("--heat-map", help="display the heat map between GGE and IIC maps", dest='heat_map', action='store_true')
     parser.add_argument("--verbose", help="display all messages", dest='verbose', action='store_true')
 
@@ -50,15 +46,13 @@ def main():
         parser.print_help()
         sys.exit(1)
 
+    #Initialize splicing detector class
     detector = faceSplicingDetection.FaceSplicingDetection(args.extract_maps, 
-                                                           args.extract_features,
-                                                           args.cross_validation,
-                                                           args.verbose,
-                                                           args.heat_map)
+        args.extract_features, args.cross_validation, args.verbose, args.heat_map)
 
     if args.train:
         #Training the model
-        images, labels = loadDatasets.load(args.dataset, args.labels)
+        images, labels = loadDatasets.load()
         if len(images) > 0:
             detector.train(images, labels)
 
