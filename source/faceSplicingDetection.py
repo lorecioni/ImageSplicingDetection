@@ -212,31 +212,30 @@ class FaceSplicingDetection:
                 newVector = []
                 contVectors = contVectors + 1
                 
-                if descriptor == 'ACC':
-                    firstFaceFeat = config.faces_folder + 'face-GGE-'  + str(firstFace) + "-" + descriptor + "-descriptor.txt"
-                    secondFaceFeat = config.faces_folder + 'face-GGE-'  + str(secondFace) + "-" + descriptor + "-descriptor.txt"
-                    files = open(firstFaceFeat, "rt")
+                firstFaceFeat = config.faces_folder + 'face-GGE-'  + str(firstFace) + "-" + descriptor.lower() + "-descriptor.txt"
+                secondFaceFeat = config.faces_folder + 'face-GGE-'  + str(secondFace) + "-" + descriptor.lower() + "-descriptor.txt"
+                files = open(firstFaceFeat, "rt")
+                files.seek(0)
+                temp = files.readline()
+                linesf1 = files.readlines()
+                files.close()
+                for i in linesf1:
+                    desc = list(i)
+                    cont = 0
+                    while (cont < (len(desc) - 1)):
+                        newVector.append(float(desc[cont]))
+                        cont = cont + 1
+                    files = open(secondFaceFeat, "rb")
                     files.seek(0)
                     temp = files.readline()
-                    linesf1 = files.readlines()
+                    linesf2 = files.readlines()
                     files.close()
-                    for i in linesf1:
+                    for i in linesf2:
                         desc = list(i)
                         cont = 0
                         while (cont < (len(desc) - 1)):
                             newVector.append(float(desc[cont]))
                             cont = cont + 1
-                        files = open(secondFaceFeat, "rb")
-                        files.seek(0)
-                        temp = files.readline()
-                        linesf2 = files.readlines()
-                        files.close()
-                        for i in linesf2:
-                            desc = list(i)
-                            cont = 0
-                            while (cont < (len(desc) - 1)):
-                                newVector.append(float(desc[cont]))
-                                cont = cont + 1
                 
                 allVectors.append(newVector)
                 secondFace = secondFace + 1

@@ -26,7 +26,7 @@ def extractDescriptor(img, descriptor, space, channel):
     filename = filename[len(filename) - 1]
     filename = filename[:-4]
     
-    descriptorName = config.faces_folder + filename + "-" + descriptor + "-descriptor.txt"
+    descriptorName = config.faces_folder + filename + "-" + descriptor.lower() + "-descriptor.txt"
     nname = img
 
     newName = nname[:-3] + "ppm"
