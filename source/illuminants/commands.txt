@@ -1,0 +1,3 @@
+illuminants/build/bin/./vole felzenszwalb -I splicing-81.png --deterministic_coloring -O splicing-81_segmented.png --sigma 0.2 --k 300 --min_size 15 --max_intensity 0.058823529411764705 --min_intensity 0.98823529411764 
+illuminants/build/bin/./vole lgrayworld --img.image splicing-81.png -S splicing-81_segmented.png -O splicing-81_gge_map.png --n 1 --p 3 --sigma 1
+illuminants/build/bin/./vole liebv --img.image splicing-81.png -S splicing-81_segmented.png -O splicing-81_iic_map.png --iebv_config illuminants/build/config.txt

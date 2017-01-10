@@ -23,11 +23,13 @@ over an image
 '''
 class FaceSplicingDetection:
 
-    def __init__(self, extractMaps, extractFeatures, verbose):
+    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
         self.verbose = verbose
         self.extract_maps = extractMaps
         self.extract_features = extractFeatures
-        self.faceCascade = cv2.CascadeClassifier(config.cascadePath)
+        self.face_cascade = cv2.CascadeClassifier(config.cascadePath)
+        self.cross_validation = crossVal
+        self.heat_map = heatMap
 
 
     def detectSplice(self, img, heat_map, depth):
@@ -53,8 +55,8 @@ class FaceSplicingDetection:
     '''
     Extract feature vector for a selected image
     '''
-    def extractFeatures(self, img, heat_map = False):
-        self.processImage(img, True, self.verbose, heat_map)
+    def extractFeatures(self, img):
+        self.processImage(img, True)
 
 
     '''
@@ -67,7 +69,7 @@ class FaceSplicingDetection:
     @param img: the path of the image to be processed
     @param verbose: display extended output
     '''
-    def processImage(self, img, label, store = False, extract_features = True, extract_maps = True, verbose = False, heat_map = False):
+    def processImage(self, img, store = False):
         #Extract filename from image path
         filename = self.getFilename(img)
         
@@ -113,7 +115,7 @@ class FaceSplicingDetection:
     '''
     def extractFaces(self, img):
         orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
-        faces = self.faceCascade.detectMultiScale(
+        faces = self.face_cascade.detectMultiScale(
             orig,
             scaleFactor = 1.1,
             minNeighbors = 5,
@@ -122,55 +124,6 @@ class FaceSplicingDetection:
         )
         return faces
 
-    '''
-    Builds and visualize the heat map in order to visually evaluate difference
-    between two different maps. Using OpenCV COLORMAP_JET, red values indicates
-    a more significant difference, blue values indicates lower difference.
-    '''
-    def visualizeHeatMap(self, gge, iic):
-        #Splits all the channels
-        gge_b, gge_g, gge_r = cv2.split(gge)
-        iic_b, iic_g, iic_r = cv2.split(iic)
-        #Get maps dimensions
-        rows, cols, _ = gge.shape
-        #Building heat map
-        heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
-        #Recover heat map max value
-        max_value = np.ndarray.max(heat_map)
-        #Normalization
-        heat_map = heat_map / max_value
-        heat_map = heat_map * 255
-        heat_map = heat_map.astype(np.uint8)
-        #Display color map
-        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-        cv2.imshow('img', self.resizeImage(color_map, 500))
-        cv2.waitKey(0)
-
-
-    '''
-    PCA analysis on a give map in order to evaluate significant
-    eigenvalues
-    '''
-    def extractPrincipalComponents(self, X):
-        try:
-            #Image normalization
-            X = cv2.normalize(X, X, 0, 1, cv2.NORM_MINMAX, cv2.CV_32F)
-            # singular value decomposition of a data matrix such that:  X = U*S*V.T
-            # * U and V are the singular matrices
-            # * S is a diagonal matrix
-            grayimg = self.rgb2gray(X)
-
-            heat_map = grayimg * 255
-            heat_map = heat_map.astype(np.uint8)
-            #cv2.imshow('img', heat_map);
-            #cv2.waitKey(0)
-            # s has eigenvalues and V columns are eigenvectors
-            _, s, _ = npl.svd(grayimg, full_matrices = False)
-            pcs = s[0:9]
-        except:
-            pcs = np.zeros(9)
-
-        return pcs
 
     '''
     Builds feature vector given two set of principal
@@ -260,66 +213,6 @@ class FaceSplicingDetection:
             
         return features
 
-    '''
-    Evaluate Euclidean distances between each image IMs
-    @param images: the list of images filenames
-    '''
-    def evaluateEuclideanDistances(self, images, extract_features = True, visualize_heat_map = False):
-        # Extract image features from each images in training set
-
-        for i in range(len(images)):
-            img = images[i]
-            if extract_features:
-                self.processImage(img, True, self.verbose, visualize_heat_map)
-
-            print(img)
-            filename = img.split('/')
-            filename = filename[len(filename) - 1]
-            filename = filename[:-4]
-
-            #Reads IMs
-            gge = cv2.imread(config.maps_folder + filename + '_gge_map' + config.maps_out_suffix + '.png')
-            iic = cv2.imread(config.maps_folder + filename + '_iic_map' + config.maps_out_suffix + '.png')
-
-            gge = self.resizeImage(gge, 200)
-            iic = self.resizeImage(iic, 200)
-            if gge == None or iic == None:
-                continue
-
-            gge_b, gge_g, gge_r = cv2.split(gge)
-            iic_b, iic_g, iic_r = cv2.split(iic)
-            #Get maps dimensions
-            rows, cols, _ = gge.shape
-            #Building heat map
-            heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
-            #Recover heat map max value
-            max_value = np.ndarray.max(heat_map)
-            #Normalization
-            heat_map = heat_map / max_value
-            sum = np.sum(heat_map)
-            #if filename.startswith('splicing'):
-            #    sum = sum + 10000;
-
-            print(type(sum))
-            if visualize_heat_map:
-                heat_map = heat_map * 255
-                heat_map = heat_map.astype(np.uint8)
-                #Display color map
-                color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-                cv2.imshow('img', self.resizeImage(color_map, 500))
-                cv2.waitKey(0)
-            #np.savetxt(config.features_folder + filename + '_sum_distances.txt', np.array(sum).reshape(1,), delimiter=' ')
-            print(sum)
-
-
-
-        features = []
-        files = os.listdir(config.features_folder)
-        for i in files:
-            if not i.startswith('.'):
-                features.append(np.loadtxt(config.features_folder + i))
-
-        features = np.asanyarray(features)
 
 
     def getFilename(self, img):
@@ -327,7 +220,33 @@ class FaceSplicingDetection:
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
         return filename
-    
+   
+
+
+    '''
+    Builds and visualize the heat map in order to visually evaluate difference
+    between two different maps. Using OpenCV COLORMAP_JET, red values indicates
+    a more significant difference, blue values indicates lower difference.
+    '''
+    def visualizeHeatMap(self, gge, iic):
+        #Splits all the channels
+        gge_b, gge_g, gge_r = cv2.split(gge)
+        iic_b, iic_g, iic_r = cv2.split(iic)
+        #Get maps dimensions
+        rows, cols, _ = gge.shape
+        #Building heat map
+        heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
+        #Recover heat map max value
+        max_value = np.ndarray.max(heat_map)
+        #Normalization
+        heat_map = heat_map / max_value
+        heat_map = heat_map * 255
+        heat_map = heat_map.astype(np.uint8)
+        #Display color map
+        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
+        cv2.imshow('img', self.resizeImage(color_map, 500))
+        cv2.waitKey(0)
+            
     '''
     Convert image to grayscale
     '''
