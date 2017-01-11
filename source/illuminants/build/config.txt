@@ -22,13 +22,10 @@ number_tries=1000
 #input_file=
 #output_directory=
 #method=ev_fhs
-verbosity=1
-
+#verbosity=1
 #eval_ciurea_funt=false
-
 number_patches=200
 random_seed=0
-
 max_intensity=0.98823529411764705882
 # next param changed
 min_intensity=.05882352941176470588
