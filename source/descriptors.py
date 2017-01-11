@@ -25,7 +25,7 @@ devnull = open(os.devnull, 'w')
 def extractDescriptor(img, descriptor, space, channel):
     filename = utils.getFilename(img)
     
-    descriptorName = config.faces_folder + filename + "-" + descriptor.lower() + "-descriptor.txt"
+    descriptorName = config.faces_folder + filename + "-" + descriptor.lower() + "-desc.txt"
     nname = img
 
     newName = nname[:-3] + "ppm"
@@ -43,13 +43,7 @@ def extractDescriptor(img, descriptor, space, channel):
         
     cv2.imwrite(nname, destImg)
 
-
     command = config.convertBinary + " " + nname + " " + newName
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
-
-    upperDesc = descriptor.upper()
-    if (upperDesc == "ACC") or (upperDesc == "BIC") or (upperDesc == "LCH") or (upperDesc == "CCV"):
-        command = "descriptors/" + descriptor.lower() + "/source/bin/./" + descriptor.lower() + "_extraction " + newName + " " + descriptorName
-    else:
-        command = "descriptors/" + descriptor.lower() + "/source/bin/./" + descriptor.lower() + "_extraction " + newName + " " + descriptorName + " " + str(channel)
+    command = "descriptors/" + descriptor.lower() + "/source/bin/./" + descriptor.lower() + "_extraction " + newName + " " + descriptorName
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)

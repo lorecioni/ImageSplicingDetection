@@ -15,14 +15,19 @@ convertBinary = '/opt/local/bin/convert'
 voleBinary= 'illuminants/build/bin/./vole'
 cascadePath = 'data/haarcascade_frontalface_default.xml'
 
+#Illuminant maps extraction
+illuminantType = 'GGE'
+forceMapsExtraction = False
+
 # Image segmentation
-use_riess_default = False
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
 seg_sigma = 0.2
 seg_k = 300
 seg_min_size = 15
+
+use_riess_default = False
 
 # GGE Map
 gge_sigma = 1

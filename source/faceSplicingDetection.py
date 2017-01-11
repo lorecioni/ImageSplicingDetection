@@ -49,81 +49,61 @@ class FaceSplicingDetection:
     '''
     Train model for further splicing detection
     @param images: the list of images filenames
-    @param labels: the list of image labels (0 if pristine, 1 if spliced)
+    @param labels: the list of image labels
     '''
-    def train(self, images, labels, cross_validate = False, extract_features = True, extract_maps = True, heat_map = False):
+    def train(self, images, labels):
+        # Extract image features from each images in training set
+        if self.extract_features or self.extract_maps:
+            for i in range(len(images)):
+                filename = utils.getFilename(images[i])
+                print('Processing ' + filename) 
+                self.extractIlluminationMaps(images[i])
+                self.extractFeatures(images[i], labels[i])
+        
         return
 
     '''
     Extract feature vector for a selected image
     '''
-    def extractFeatures(self, img):
+    def extractSingleFeatures(self, img):
         self.processImage(img, True)
 
-
     '''
-    Process image for extracting features
-    - Prepare the image for illuminant methods (segmentation)
-    - Extracting GGE illuminant map
-    - Extracting IIC illulimant map
-    - Evaluate principal components for each maps
-    - Build feature vectors
-    @param img: the path of the image to be processed
-    @param verbose: display extended output
+    Extract image illuminant maps 
+    GGE map
+    IIC map
     '''
-    def processImage(self, img, store = False):
-        #Extract filename from image path
+    def extractIlluminationMaps(self, img):
         filename = utils.getFilename(img)
-        
-        print('Processing: ' + filename)
-
-        if self.extract_maps:
-            # 1. Extracting GGE and IIC illuminant maps
-            print('\t-Segmenting image')
-            illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, self.verbose)
-
-            # 1.2 Extracting GGE illuminant map
-            print('\t-Extracting GGE map')
+        illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, self.verbose)
+        if config.illuminantType == 'GGE':
             illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
-
-            # 1.3 Extracting IIC illuminant map
-            print('\t-Extracting IIC map')
+        elif config.illuminantType == 'IIC':
             illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", self.verbose)
 
-
-        
-
-        if self.extract_features:
-            # 2.1 Building heat map (only for visualizations)
-            #if heat_map:
-            #    self.visualizeHeatMap(gge_map, iic_map)
-
-            
-            # 2.2 Extract maps principal components
-            print('\t-Extracting PCs')
-            #gge_pcs = self.extractPrincipalComponents(gge_map)
-            #iic_pcs = self.extractPrincipalComponents(iic_map)
-
-            # 3 Build feature vectors
-            print('\t-Building feature vector')
-            features = self.buildFeatureVector(img)
-
-            return features
-
-        return None
 
     '''
     Segment current image extracting human faces
     '''
-    def extractFaces(self, img):
+    def extractFaces(self, img, label):
         orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
-        faces = self.face_cascade.detectMultiScale(
-            orig,
-            scaleFactor = 1.1,
-            minNeighbors = 5,
-            minSize = (30, 30),
-            flags = cv2.CASCADE_SCALE_IMAGE
-        )
+        if self.verbose:
+            print('Detecting image faces')
+        if label is not None:
+            faces = []
+            for entry in label:
+                face = (int(entry[2]), int(entry[4]), int(entry[3]) - int(entry[2]), int(entry[5]) - int(entry[4]))
+                faces.append(face)
+        else:
+            faces = self.face_cascade.detectMultiScale(
+                orig,
+                scaleFactor = 1.1,
+                minNeighbors = 5,
+                minSize = (30, 30),
+                flags = cv2.CASCADE_SCALE_IMAGE
+            )
+        if self.verbose:
+            print(str(len(faces)) + ' faces detected')
         return faces
 
 
@@ -131,44 +111,35 @@ class FaceSplicingDetection:
     Builds feature vector given two set of principal
     components
     '''
-    def buildFeatureVector(self, img, descriptor = "ACC", space = 4, channel = 3, illumType = "GGE"):
+    def extractFeatures(self, img, label = None, descriptor = "ACC", space = 0, channel = 3):
         filename = utils.getFilename(img)
-        gge_map = cv2.imread(config.maps_folder + filename + '_gge_map.png')
-        iic_map = cv2.imread(config.maps_folder + filename + '_iic_map.png')
-        faces = self.extractFaces(img)
+        map = cv2.imread(config.maps_folder + filename + '_' + config.illuminantType.lower() + '_map.png')
+        faces = self.extractFaces(img, label)
         
         #Storing faces extracted from maps
         count = 0
         for (x, y, w, h) in faces:
-            face_gge = gge_map[y:y + h, x:x + w]
-            face_iic = iic_map[y:y + h, x:x + w]
-            path = config.faces_folder + "face-GGE-" + str(count) + ".png"
-            #extract gge maps descriptors
-            cv2.imwrite(path, face_gge)
+            face = map[y:y + h, x:x + w]
+            path = config.faces_folder + "face-" + config.illuminantType.upper() + "-" + str(count) + ".png"
+            cv2.imwrite(path, face)    
             descriptors.extractDescriptor(path, descriptor, space, channel)
-            #extract iic maps descriptors
-            path = config.faces_folder + "face-IIC-" + str(count) + ".png"
-            cv2.imwrite(path, face_iic)
-            descriptors.extractDescriptor(path, descriptor, space, channel)
-            count = count + 1
-        
-        descriptor = descriptor.upper()
-        counter = 1
-        contVectors = 0
-        # Inherent loops compose a descriptor for each pair of faces at the image
-        allVectors = []
-    
-        # Label 1 point a pristine pair and label -1 point a pair that contains at least one fake image
-        while counter < len(faces):
-            firstFace = counter
-            secondFace = counter + 1
             
-            while secondFace < len(faces):
-                newVector = []
-                contVectors = contVectors + 1
+            #Face label
+            if label is not None:
+                test = 1
                 
-                firstFaceFeat = config.faces_folder + 'face-GGE-'  + str(firstFace) + "-" + descriptor.lower() + "-descriptor.txt"
-                secondFaceFeat = config.faces_folder + 'face-GGE-'  + str(secondFace) + "-" + descriptor.lower() + "-descriptor.txt"
+            count = count + 1
+            
+        features = []
+        
+        first = 0
+        while first < len(faces):
+            second = first + 1
+            while second < len(faces):
+                facePairFeature = []
+                firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
+                secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
+                
                 files = open(firstFaceFeat, "rt")
                 files.seek(0)
                 temp = files.readline()
@@ -178,7 +149,7 @@ class FaceSplicingDetection:
                     desc = list(i)
                     cont = 0
                     while (cont < (len(desc) - 1)):
-                        newVector.append(float(desc[cont]))
+                        facePairFeature.append(float(desc[cont]))
                         cont = cont + 1
                     files = open(secondFaceFeat, "rb")
                     files.seek(0)
@@ -189,16 +160,16 @@ class FaceSplicingDetection:
                         desc = list(i)
                         cont = 0
                         while (cont < (len(desc) - 1)):
-                            newVector.append(float(desc[cont]))
+                            facePairFeature.append(float(desc[cont]))
                             cont = cont + 1
                 
-                allVectors.append(newVector)
-                secondFace = secondFace + 1
-            counter = counter + 1 
-            nameFile = "../temp/vectors/fv-" + filename + ".txt"
-            files = open(nameFile,"wt")
+                features.append(facePairFeature)
+                second = second + 1
+            first = first + 1 
+            nameFile = config.features_folder + filename + ".txt"
+            files = open(nameFile, "wt")
             files.seek(0)
-            for i in allVectors:
+            for i in features:
                 temp = i
                 cont = 0
                 for j in temp:
@@ -211,8 +182,8 @@ class FaceSplicingDetection:
                     cont = cont + 1
                 files.write("\n")
             files.close()  
-        features = []
-            
+        
+        print('\tFeatures extracted from ' + str(len(faces)) + ' faces')    
         return features
 
 
