@@ -33,3 +33,25 @@ def resizeImage(img, width):
     dim = (width, int(img.shape[0] * r))
     # perform the actual resizing of the image and show it
     return cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+
+
+def readTrainingTestFiles(outfile):
+    ofid = open(outfile,'rt')
+    ofid.seek(0)
+    lines = ofid.readlines()
+    ofid.close()
+    features = []
+    labels = []
+    for i in lines:
+        label = 0
+        tmp = i[:-2].split(" ")
+        row = []
+        for j in tmp:
+            if (label != 0):
+                tmp2 = j.split(":")
+                row.append(tmp2[1])
+            else:
+                label = j
+                labels.append(j)
+        features.append(row)
+    return(features,labels)

@@ -32,6 +32,9 @@ class FaceSplicingDetection:
         self.face_cascade = cv2.CascadeClassifier(config.cascadePath)
         self.cross_validation = crossVal
         self.heat_map = heatMap
+        
+        #Descriptors
+        self.descriptors = ['BIC']
 
 
     def detectSplice(self, img, heat_map, depth):
@@ -51,14 +54,18 @@ class FaceSplicingDetection:
     @param images: the list of images filenames
     @param labels: the list of image labels
     '''
-    def train(self, images, labels):
+    def train(self, images, labels):        
         # Extract image features from each images in training set
         if self.extract_features or self.extract_maps:
             for i in range(len(images)):
                 filename = utils.getFilename(images[i])
                 print('Processing ' + filename) 
                 self.extractIlluminationMaps(images[i])
-                self.extractFeatures(images[i], labels[i])
+                #Extract image descriptors and features
+                for desc in self.descriptors:
+                    self.extractFeatures(images[i], labels[i], descriptor = desc) 
+        
+                
         
         return
 
@@ -139,7 +146,8 @@ class FaceSplicingDetection:
                 facePairFeature = []
                 firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
                 secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
-                
+                print(firstFaceFeat)
+                print(secondFaceFeat)
                 files = open(firstFaceFeat, "rt")
                 files.seek(0)
                 temp = files.readline()
@@ -149,6 +157,7 @@ class FaceSplicingDetection:
                     desc = list(i)
                     cont = 0
                     while (cont < (len(desc) - 1)):
+                        print(float(desc[cont]))
                         facePairFeature.append(float(desc[cont]))
                         cont = cont + 1
                     files = open(secondFaceFeat, "rb")
@@ -156,8 +165,8 @@ class FaceSplicingDetection:
                     temp = files.readline()
                     linesf2 = files.readlines()
                     files.close()
-                    for i in linesf2:
-                        desc = list(i)
+                    for j in linesf2:
+                        desc = list(j)
                         cont = 0
                         while (cont < (len(desc) - 1)):
                             facePairFeature.append(float(desc[cont]))
@@ -166,7 +175,7 @@ class FaceSplicingDetection:
                 features.append(facePairFeature)
                 second = second + 1
             first = first + 1 
-            nameFile = config.features_folder + filename + ".txt"
+            nameFile = config.features_folder + filename + '_' + descriptor.lower() + ".txt"
             files = open(nameFile, "wt")
             files.seek(0)
             for i in features:
