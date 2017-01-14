@@ -90,8 +90,8 @@ class FaceSplicingDetection:
             for desc in self.descriptors:
                 trainingDesc[desc] = self.getTrainingData(images, desc)
 
-
-            for (trainIndex, testIndex) in kf.split(trainingDesc[self.descriptors[0]]):
+            misclassified = 0
+            for (trainIndex, testIndex) in kf.split(trainingDesc[self.descriptors[0]][0]):
 
                 classifiers = {}
                 for desc in self.descriptors:
@@ -112,11 +112,27 @@ class FaceSplicingDetection:
                     testLabels = testLabels[testIndex]
                     outputs.append(classifiers[desc].predict(testData))
 
-                outHist = np.zeros(len(testIndex))
-                for out in outputs:
-                    outHist += out
+                output = np.zeros(len(testIndex))
+                for predictions in outputs:
+                    output += predictions
 
-                print(outHist)
+                #If voting is majority, classify as fake
+
+                counter = 0
+
+                for val in np.nditer(output):
+                    if val > len(self.descriptors)/2:
+                       if testLabels[counter] != 1:
+                           misclassified += 1
+                    else:
+                        if testLabels[counter] != 0:
+                            misclassified += 1
+                    counter += 1
+
+            totalSamples = len(trainingDesc[self.descriptors[0]][0])
+            print('Misclassified: ' + str(misclassified) + '/' + str(totalSamples))
+            accuracy = (totalSamples - misclassified)/totalSamples
+            print('Accuracy: ' + str(accuracy))
 
     def getTrainingData(self, images, descriptor):
         trainingData = []
@@ -131,7 +147,7 @@ class FaceSplicingDetection:
                     trainingLabels.append(int(pair[0]))
                     pairData = [float(val) for val in list(pair[1])]
                     trainingData.append(pairData)
-        return trainingData, trainingLabels
+        return np.asarray(trainingData), np.asarray(trainingLabels)
 
     '''
     Extract feature vector for a selected image
@@ -205,11 +221,13 @@ class FaceSplicingDetection:
             firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
             files = open(firstFaceFeat, "r")
             firstVector = (files.read().splitlines())[1]
+            firstVector = firstVector.strip().replace(" ", "")
             files.close()
             while second < len(faces):
                 secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
                 files = open(secondFaceFeat, "r")
                 secondVector = (files.read().splitlines())[1]
+                secondVector = secondVector.strip().replace(" ", "")
                 files.close()
                 #Concat the two feature vector
                 facePairFeature = firstVector + secondVector
