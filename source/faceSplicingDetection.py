@@ -11,8 +11,8 @@ import os
 from sklearn.externals import joblib
 from sklearn.model_selection import LeaveOneOut
 from sklearn.metrics import accuracy_score
-
-from sklearn import neighbors, datasets
+from sklearn.model_selection import KFold
+from sklearn import neighbors
 
 
 import descriptors
@@ -38,7 +38,7 @@ class FaceSplicingDetection:
         self.heat_map = heatMap
         
         #Descriptors
-        self.descriptors = ['BIC']
+        self.descriptors = config.descriptors
 
 
     def detectSplice(self, img, heat_map, depth):
@@ -68,20 +68,11 @@ class FaceSplicingDetection:
                 for desc in self.descriptors:
                     self.extractFeatures(images[i], labels[i], descriptor = desc)
 
-        #Train one model for each descriptor
+        # Sample training
         if not config.crossvalidation:
+            # Train one model for each descriptor
             for desc in self.descriptors:
-                trainingData = []
-                trainingLabels = []
-                for i in range(len(images)):
-                    filename = utils.getFilename(images[i])
-                    path = config.features_folder + filename + '_' + desc.lower() + ".txt"
-                    imageFeatures = open(path, "r")
-                    features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
-                    for pair in features:
-                        trainingLabels.append(int(pair[0]))
-                        pairData = [float(val) for val in list(pair[1])]
-                        trainingData.append(pairData)
+                trainingData, trainingLabels = self.getTrainingData(images, desc)
 
                 # Creates an instance of Neighbours Classifier and fit the data.
                 clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
@@ -92,7 +83,55 @@ class FaceSplicingDetection:
 
         else:
             #Crossvalidate dataset witk 10-fold crossvalidation
-            print('Crossvalidation')
+            print('Evaluate dataset with crossvalidation')
+            kf = KFold(n_splits = config.folds, shuffle = True)
+            trainingDesc = {}
+
+            for desc in self.descriptors:
+                trainingDesc[desc] = self.getTrainingData(images, desc)
+
+
+            for (trainIndex, testIndex) in kf.split(trainingDesc[self.descriptors[0]]):
+
+                classifiers = {}
+                for desc in self.descriptors:
+                    trainingData, trainingLabels = trainingDesc[desc]
+                    trainingData = trainingData[trainIndex]
+                    trainingLabels = trainingLabels[trainIndex]
+
+                    clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights='uniform')
+                    clf.fit(trainingData, trainingLabels)
+                    classifiers[desc] = clf
+
+                outputs = []
+                testLabels = None
+
+                for desc in self.descriptors:
+                    testData, testLabels = trainingDesc[desc]
+                    testData = testData[testIndex]
+                    testLabels = testLabels[testIndex]
+                    outputs.append(classifiers[desc].predict(testData))
+
+                outHist = np.zeros(len(testIndex))
+                for out in outputs:
+                    outHist += out
+
+                print(outHist)
+
+    def getTrainingData(self, images, descriptor):
+        trainingData = []
+        trainingLabels = []
+        for i in range(len(images)):
+            filename = utils.getFilename(images[i])
+            path = config.features_folder + filename + '_' + descriptor.lower() + ".txt"
+            if os.path.isfile(path):
+                imageFeatures = open(path, "r")
+                features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
+                for pair in features:
+                    trainingLabels.append(int(pair[0]))
+                    pairData = [float(val) for val in list(pair[1])]
+                    trainingData.append(pairData)
+        return trainingData, trainingLabels
 
     '''
     Extract feature vector for a selected image

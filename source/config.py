@@ -41,10 +41,10 @@ config_iic = "illuminants/build/config.txt"
 #Training
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
-
+descriptors = ['ACC', 'BIC']
 KNeighbours = 5
 crossvalidation = False
-
+folds = 10
 label_position = 1
 feature_vector_length = 6
 
