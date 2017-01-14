@@ -39,6 +39,12 @@ config_iic = "illuminants/build/config.txt"
 #config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
 
 #Training
+positiveLabel = 'NORMAL'
+negativeLabel = 'FAKE'
+
+KNeighbours = 5
+
+label_position = 1
 feature_vector_length = 6
 
 # Outputs
@@ -46,5 +52,5 @@ maps_folder = '../datasets/' + dataset + '/maps/'
 features_folder = '../datasets/' + dataset + '/features/'
 faces_folder = '../datasets/' + dataset + '/faces/'
 descriptors_folder = '../datasets/' + dataset + '/descriptors/' 
-svm_model = 'data/model.pkl'
+classification_model = 'data/model.pkl'
 maps_out_suffix = ''

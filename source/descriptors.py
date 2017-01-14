@@ -22,7 +22,7 @@ import subprocess
 #   a text file containing descriptor values
 devnull = open(os.devnull, 'w')
 
-def extractDescriptor(img, descriptor, space, channel):
+def extractDescriptor(img, descriptor, space = 0, channel = 3):
     filename = utils.getFilename(img)
     
     descriptorName = config.faces_folder + filename + "-" + descriptor.lower() + "-desc.txt"

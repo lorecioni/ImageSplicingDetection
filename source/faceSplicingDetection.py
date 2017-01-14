@@ -11,6 +11,10 @@ import os
 from sklearn.externals import joblib
 from sklearn.model_selection import LeaveOneOut
 from sklearn.metrics import accuracy_score
+
+from sklearn import neighbors, datasets
+
+
 import descriptors
 import illuminantMaps
 import config
@@ -48,7 +52,6 @@ class FaceSplicingDetection:
 
         return
 
-
     '''
     Train model for further splicing detection
     @param images: the list of images filenames
@@ -61,13 +64,30 @@ class FaceSplicingDetection:
                 filename = utils.getFilename(images[i])
                 print('Processing ' + filename) 
                 self.extractIlluminationMaps(images[i])
-                #Extract image descriptors and features
+                # Extract image descriptors and features
                 for desc in self.descriptors:
-                    self.extractFeatures(images[i], labels[i], descriptor = desc) 
-        
-                
-        
-        return
+                    self.extractFeatures(images[i], labels[i], descriptor = desc)
+
+
+        trainingData = []
+        trainingLabels = []
+        for i in range(len(images)):
+            filename = utils.getFilename(images[i])
+            #TODO check list of descriptors
+            path = config.features_folder + filename + '_' + self.descriptors[0].lower() + ".txt"
+            imageFeatures = open(path, "r")
+            features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
+            for pair in features:
+                trainingLabels.append(int(pair[0]))
+                pairData = [float(val) for val in list(pair[1])]
+                trainingData.append(pairData)
+
+        # Creates an instance of Neighbours Classifier and fit the data.
+        clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
+        clf.fit(trainingData, trainingLabels)
+
+        print('Classification model created correctly')
+        joblib.dump(clf, config.classification_model)
 
     '''
     Extract feature vector for a selected image
@@ -120,81 +140,49 @@ class FaceSplicingDetection:
     '''
     def extractFeatures(self, img, label = None, descriptor = "ACC", space = 0, channel = 3):
         filename = utils.getFilename(img)
-        map = cv2.imread(config.maps_folder + filename + '_' + config.illuminantType.lower() + '_map.png')
+        illuminantMap = cv2.imread(config.maps_folder + filename + '_' + config.illuminantType.lower() + '_map.png')
         faces = self.extractFaces(img, label)
-        
+
         #Storing faces extracted from maps
         count = 0
         for (x, y, w, h) in faces:
-            face = map[y:y + h, x:x + w]
+            face = illuminantMap[y:y + h, x:x + w]
             path = config.faces_folder + "face-" + config.illuminantType.upper() + "-" + str(count) + ".png"
-            cv2.imwrite(path, face)    
-            descriptors.extractDescriptor(path, descriptor, space, channel)
-            
-            #Face label
-            if label is not None:
-                test = 1
-                
-            count = count + 1
-            
-        features = []
-        
-        first = 0
-        while first < len(faces):
-            second = first + 1
-            while second < len(faces):
-                facePairFeature = []
-                firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
-                secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
-                print(firstFaceFeat)
-                print(secondFaceFeat)
-                files = open(firstFaceFeat, "rt")
-                files.seek(0)
-                temp = files.readline()
-                linesf1 = files.readlines()
-                files.close()
-                for i in linesf1:
-                    desc = list(i)
-                    cont = 0
-                    while (cont < (len(desc) - 1)):
-                        print(float(desc[cont]))
-                        facePairFeature.append(float(desc[cont]))
-                        cont = cont + 1
-                    files = open(secondFaceFeat, "rb")
-                    files.seek(0)
-                    temp = files.readline()
-                    linesf2 = files.readlines()
-                    files.close()
-                    for j in linesf2:
-                        desc = list(j)
-                        cont = 0
-                        while (cont < (len(desc) - 1)):
-                            facePairFeature.append(float(desc[cont]))
-                            cont = cont + 1
-                
-                features.append(facePairFeature)
-                second = second + 1
-            first = first + 1 
-            nameFile = config.features_folder + filename + '_' + descriptor.lower() + ".txt"
-            files = open(nameFile, "wt")
-            files.seek(0)
-            for i in features:
-                temp = i
-                cont = 0
-                for j in temp:
-                    if (cont == 0):
-                        frase = str(j) + " "
-                        files.write(frase)
-                    else:
-                        frase = str(cont) + ":" + str(j) + " "
-                        files.write(frase)
-                    cont = cont + 1
-                files.write("\n")
-            files.close()  
-        
-        print('\tFeatures extracted from ' + str(len(faces)) + ' faces')    
-        return features
+            cv2.imwrite(path, face)
+            descriptors.extractDescriptor(path, descriptor, space)
+            count += 1
 
+        #Image features
+        features = []
+        first = 0
+        while first < len(faces) - 1:
+            second = first + 1
+
+            firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
+            files = open(firstFaceFeat, "r")
+            firstVector = (files.read().splitlines())[1]
+            files.close()
+            while second < len(faces):
+                secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
+                files = open(secondFaceFeat, "r")
+                secondVector = (files.read().splitlines())[1]
+                files.close()
+                #Concat the two feature vector
+                facePairFeature = firstVector + secondVector
+                pairLabel = 0
+                if label[first][1] != config.positiveLabel or label[second][1] != config.positiveLabel:
+                    pairLabel = 1
+                features.append((facePairFeature, pairLabel))
+                second += 1
+            first += 1
+
+        nameFile = config.features_folder + filename + '_' + descriptor.lower() + ".txt"
+        files = open(nameFile, "w")
+        for (pairFeature, pairLabel) in features:
+            files.write(str(pairLabel) + ":" + pairFeature + "\n")
+        files.close()
+        
+        print('\tFeatures extracted from ' + str(len(faces)) + ' faces')
 
     '''
     Builds and visualize the heat map in order to visually evaluate difference
