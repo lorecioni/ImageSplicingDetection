@@ -68,26 +68,31 @@ class FaceSplicingDetection:
                 for desc in self.descriptors:
                     self.extractFeatures(images[i], labels[i], descriptor = desc)
 
+        #Train one model for each descriptor
+        if not config.crossvalidation:
+            for desc in self.descriptors:
+                trainingData = []
+                trainingLabels = []
+                for i in range(len(images)):
+                    filename = utils.getFilename(images[i])
+                    path = config.features_folder + filename + '_' + desc.lower() + ".txt"
+                    imageFeatures = open(path, "r")
+                    features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
+                    for pair in features:
+                        trainingLabels.append(int(pair[0]))
+                        pairData = [float(val) for val in list(pair[1])]
+                        trainingData.append(pairData)
 
-        trainingData = []
-        trainingLabels = []
-        for i in range(len(images)):
-            filename = utils.getFilename(images[i])
-            #TODO check list of descriptors
-            path = config.features_folder + filename + '_' + self.descriptors[0].lower() + ".txt"
-            imageFeatures = open(path, "r")
-            features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
-            for pair in features:
-                trainingLabels.append(int(pair[0]))
-                pairData = [float(val) for val in list(pair[1])]
-                trainingData.append(pairData)
+                # Creates an instance of Neighbours Classifier and fit the data.
+                clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
+                clf.fit(trainingData, trainingLabels)
 
-        # Creates an instance of Neighbours Classifier and fit the data.
-        clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
-        clf.fit(trainingData, trainingLabels)
+                print(desc.upper() +  ' classification model created correctly')
+                joblib.dump(clf, config.classification_folder + 'model_' + desc.lower() + '.pkl')
 
-        print('Classification model created correctly')
-        joblib.dump(clf, config.classification_model)
+        else:
+            #Crossvalidate dataset witk 10-fold crossvalidation
+            print('Crossvalidation')
 
     '''
     Extract feature vector for a selected image

@@ -43,6 +43,7 @@ positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 
 KNeighbours = 5
+crossvalidation = False
 
 label_position = 1
 feature_vector_length = 6
@@ -52,5 +53,5 @@ maps_folder = '../datasets/' + dataset + '/maps/'
 features_folder = '../datasets/' + dataset + '/features/'
 faces_folder = '../datasets/' + dataset + '/faces/'
 descriptors_folder = '../datasets/' + dataset + '/descriptors/' 
-classification_model = 'data/model.pkl'
+classification_folder = 'data/'
 maps_out_suffix = ''
