@@ -9,6 +9,7 @@ import os
 import cv2
 import config
 import utils
+import numpy as np
 import subprocess
 
 # Extract an specific descriptor from one image (Ex. SASI, BIC, etc)
@@ -47,3 +48,34 @@ def extractDescriptor(img, descriptor, space = 0, channel = 3):
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
     command = "descriptors/" + descriptor.lower() + "/source/bin/./" + descriptor.lower() + "_extraction " + newName + " " + descriptorName
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
+
+
+def buildFaceFeatureVector(firstPath, secondPath, descriptor):
+    #Open files
+    filesFirst = open(firstPath, "rt")
+    filesSecond = open(secondPath, "rt")
+    descriptor = descriptor.upper()
+    #Switch on descriptor type
+    if descriptor == 'ACC' or descriptor == 'BIC':
+        firstFace = (filesFirst.read().splitlines())[1]
+        secondFace = (filesSecond.read().splitlines())[1]
+        feature = firstFace + secondFace
+        feature = " ".join(feature)
+    elif descriptor == 'CCV':
+        firstFace = filesFirst.read().splitlines()
+        firstFace.pop(0)
+        secondFace = filesSecond.read().splitlines()
+        secondFace.pop(0)
+        feature = firstFace + secondFace
+        feature = " ".join(feature)
+    elif descriptor == 'LCH':
+        firstFace = filesFirst.read().splitlines()
+        firstFace = firstFace[1]
+        secondFace = filesSecond.read().splitlines()
+        secondFace = secondFace[1]
+        feature = firstFace + " " + secondFace
+
+    filesSecond.close()
+    filesFirst.close()
+
+    return feature

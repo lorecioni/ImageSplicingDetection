@@ -5,21 +5,16 @@ Created on 03 ott 2016
 '''
 import cv2
 import numpy as np
-import numpy.linalg as npl
-from sklearn import svm, model_selection
+
 import os
+
 from sklearn.externals import joblib
-from sklearn.model_selection import LeaveOneOut
-from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
 from sklearn import neighbors
-
-
 import descriptors
 import illuminantMaps
 import config
 import utils
-import math
 
 
 '''
@@ -145,8 +140,8 @@ class FaceSplicingDetection:
                 features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
                 for pair in features:
                     trainingLabels.append(int(pair[0]))
-                    pairData = [float(val) for val in list(pair[1])]
-                    trainingData.append(pairData)
+                    #pairData = [float(val) for val in list()]
+                    trainingData.append(np.array(pair[1].split(), dtype=float))
         return np.asarray(trainingData), np.asarray(trainingLabels)
 
     '''
@@ -217,20 +212,12 @@ class FaceSplicingDetection:
         first = 0
         while first < len(faces) - 1:
             second = first + 1
-
             firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
-            files = open(firstFaceFeat, "r")
-            firstVector = (files.read().splitlines())[1]
-            firstVector = firstVector.strip().replace(" ", "")
-            files.close()
             while second < len(faces):
                 secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
-                files = open(secondFaceFeat, "r")
-                secondVector = (files.read().splitlines())[1]
-                secondVector = secondVector.strip().replace(" ", "")
-                files.close()
                 #Concat the two feature vector
-                facePairFeature = firstVector + secondVector
+                facePairFeature = descriptors.buildFaceFeatureVector(firstFaceFeat, secondFaceFeat, descriptor)
+
                 pairLabel = 0
                 if label[first][1] != config.positiveLabel or label[second][1] != config.positiveLabel:
                     pairLabel = 1
@@ -244,7 +231,7 @@ class FaceSplicingDetection:
             files.write(str(pairLabel) + ":" + pairFeature + "\n")
         files.close()
         
-        print('\tFeatures extracted from ' + str(len(faces)) + ' faces')
+        print('\tFeatures extracted with ' + descriptor + ' descriptor')
 
     '''
     Builds and visualize the heat map in order to visually evaluate difference
