@@ -75,7 +75,7 @@ class FaceSplicingDetection:
                     clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
                     clf.fit(trainingData, trainingLabels)
 
-                    print(desc.upper() +  ' classification model created correctly')
+                    print(illum + "/" + desc.upper() +  ' classification model created correctly')
                     joblib.dump(clf, config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl')
 
         else:
@@ -90,8 +90,11 @@ class FaceSplicingDetection:
                     trainingDesc[key] = self.getTrainingData(images, desc, illum = illum)
 
             misclassified = 0
-            for (trainIndex, testIndex) in kf.split(trainingDesc[self.descriptors[0]][0]):
+            refKey = config.illuminantTypes[0] + "_" + self.descriptors[0]
+            splits = kf.split(trainingDesc[refKey][0])
+            totalModels = len(self.descriptors) * len(config.illuminantTypes)
 
+            for (trainIndex, testIndex) in splits:
                 classifiers = {}
                 for illum in config.illuminantTypes:
                     for desc in self.descriptors:
@@ -122,7 +125,7 @@ class FaceSplicingDetection:
                 #If voting is majority, classify as fake
 
                 counter = 0
-                totalModels = len(self.descriptors) * len(config.illuminantTypes)
+
                 for val in np.nditer(output):
                     if val >  totalModels/2:
                        if testLabels[counter] != 1:
@@ -132,7 +135,8 @@ class FaceSplicingDetection:
                             misclassified += 1
                     counter += 1
 
-            totalSamples = len(trainingDesc[self.descriptors[0]][0])
+            print('Number of classifiers: ' + str(totalModels))
+            totalSamples = len(trainingDesc[refKey][0])
             print('Misclassified: ' + str(misclassified) + '/' + str(totalSamples))
             accuracy = (totalSamples - misclassified)/totalSamples
             print('Accuracy: ' + str(accuracy))
@@ -239,7 +243,7 @@ class FaceSplicingDetection:
             files.write(str(pairLabel) + ":" + pairFeature + "\n")
         files.close()
         
-        print('\tFeatures extracted with ' + descriptor + ' descriptor')
+        print('\tFeatures extracted with ' + descriptor + ' descriptor in ' + illum + ' map')
 
     '''
     Builds and visualize the heat map in order to visually evaluate difference
