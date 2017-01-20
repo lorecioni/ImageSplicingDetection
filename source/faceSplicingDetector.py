@@ -122,7 +122,7 @@ class FaceSplicingDetector:
 
 
         # Sample training
-        if not config.crossvalidation:
+        if not self.cross_validation:
             # Train one model for each descriptor
             for illum in config.illuminantTypes:
                 for desc in self.descriptors:

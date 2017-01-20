@@ -21,7 +21,7 @@ class FaceTrainingSample:
     @staticmethod
     def fromTxt(txt):
         data = txt.split(":")
-        return FaceTrainingSample(data[1], data[0])
+        return FaceTrainingSample(data[1], int(data[0]))
 
 
 '''

@@ -20,7 +20,7 @@ def main():
 
     parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
-    parser.add_argument("--cross-validate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
+    parser.add_argument("--crossvalidate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
     parser.add_argument("--no-extract-maps", help="no extract all training images features", dest='extract_maps', action='store_false')
