@@ -60,21 +60,23 @@ class FaceSplicingDetection:
                 print('Processing ' + filename) 
                 self.extractIlluminationMaps(images[i])
                 # Extract image descriptors and features
-                for desc in self.descriptors:
-                    self.extractFeatures(images[i], labels[i], descriptor = desc)
+                for illum in config.illuminantTypes:
+                    for desc in self.descriptors:
+                        self.extractFeatures(images[i], labels[i], illum = illum, descriptor = desc)
 
         # Sample training
         if not config.crossvalidation:
             # Train one model for each descriptor
-            for desc in self.descriptors:
-                trainingData, trainingLabels = self.getTrainingData(images, desc)
+            for illum in config.illuminantTypes:
+                for desc in self.descriptors:
+                    trainingData, trainingLabels = self.getTrainingData(images, desc, illum = illum)
 
-                # Creates an instance of Neighbours Classifier and fit the data.
-                clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
-                clf.fit(trainingData, trainingLabels)
+                    # Creates an instance of Neighbours Classifier and fit the data.
+                    clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
+                    clf.fit(trainingData, trainingLabels)
 
-                print(desc.upper() +  ' classification model created correctly')
-                joblib.dump(clf, config.classification_folder + 'model_' + desc.lower() + '.pkl')
+                    print(desc.upper() +  ' classification model created correctly')
+                    joblib.dump(clf, config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl')
 
         else:
             #Crossvalidate dataset witk 10-fold crossvalidation
@@ -82,30 +84,36 @@ class FaceSplicingDetection:
             kf = KFold(n_splits = config.folds, shuffle = True)
             trainingDesc = {}
 
-            for desc in self.descriptors:
-                trainingDesc[desc] = self.getTrainingData(images, desc)
+            for illum in config.illuminantTypes:
+                for desc in self.descriptors:
+                    key = illum + "_" + desc
+                    trainingDesc[key] = self.getTrainingData(images, desc, illum = illum)
 
             misclassified = 0
             for (trainIndex, testIndex) in kf.split(trainingDesc[self.descriptors[0]][0]):
 
                 classifiers = {}
-                for desc in self.descriptors:
-                    trainingData, trainingLabels = trainingDesc[desc]
-                    trainingData = trainingData[trainIndex]
-                    trainingLabels = trainingLabels[trainIndex]
-
-                    clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights='uniform')
-                    clf.fit(trainingData, trainingLabels)
-                    classifiers[desc] = clf
+                for illum in config.illuminantTypes:
+                    for desc in self.descriptors:
+                        key = illum + "_" + desc
+                        trainingData, trainingLabels = trainingDesc[key]
+                        trainingData = trainingData[trainIndex]
+                        trainingLabels = trainingLabels[trainIndex]
+                        #Training model for illum type and descriptor
+                        clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights='uniform')
+                        clf.fit(trainingData, trainingLabels)
+                        classifiers[key] = clf
 
                 outputs = []
                 testLabels = None
 
-                for desc in self.descriptors:
-                    testData, testLabels = trainingDesc[desc]
-                    testData = testData[testIndex]
-                    testLabels = testLabels[testIndex]
-                    outputs.append(classifiers[desc].predict(testData))
+                for illum in config.illuminantTypes:
+                    for desc in self.descriptors:
+                        key = illum + "_" + desc
+                        testData, testLabels = trainingDesc[key]
+                        testData = testData[testIndex]
+                        testLabels = testLabels[testIndex]
+                        outputs.append(classifiers[key].predict(testData))
 
                 output = np.zeros(len(testIndex))
                 for predictions in outputs:
@@ -114,9 +122,9 @@ class FaceSplicingDetection:
                 #If voting is majority, classify as fake
 
                 counter = 0
-
+                totalModels = len(self.descriptors) * len(config.illuminantTypes)
                 for val in np.nditer(output):
-                    if val > len(self.descriptors)/2:
+                    if val >  totalModels/2:
                        if testLabels[counter] != 1:
                            misclassified += 1
                     else:
@@ -129,12 +137,12 @@ class FaceSplicingDetection:
             accuracy = (totalSamples - misclassified)/totalSamples
             print('Accuracy: ' + str(accuracy))
 
-    def getTrainingData(self, images, descriptor):
+    def getTrainingData(self, images, descriptor, illum = 'GGE'):
         trainingData = []
         trainingLabels = []
         for i in range(len(images)):
             filename = utils.getFilename(images[i])
-            path = config.features_folder + filename + '_' + descriptor.lower() + ".txt"
+            path = config.features_folder + filename + '_' + illum + "_" + descriptor.lower() + ".txt"
             if os.path.isfile(path):
                 imageFeatures = open(path, "r")
                 features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
@@ -158,9 +166,9 @@ class FaceSplicingDetection:
     def extractIlluminationMaps(self, img):
         filename = utils.getFilename(img)
         illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, self.verbose)
-        if config.illuminantType == 'GGE':
+        if 'GGE' in config.illuminantTypes:
             illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
-        elif config.illuminantType == 'IIC':
+        if 'IIC' in config.illuminantTypes:
             illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", self.verbose)
 
 
@@ -193,16 +201,16 @@ class FaceSplicingDetection:
     Builds feature vector given two set of principal
     components
     '''
-    def extractFeatures(self, img, label = None, descriptor = "ACC", space = 0, channel = 3):
+    def extractFeatures(self, img, label = None, descriptor = "ACC", space = 0, illum = 'GGE', channel = 3):
         filename = utils.getFilename(img)
-        illuminantMap = cv2.imread(config.maps_folder + filename + '_' + config.illuminantType.lower() + '_map.png')
+        illuminantMap = cv2.imread(config.maps_folder + filename + '_' + illum.lower() + '_map.png')
         faces = self.extractFaces(img, label)
 
         #Storing faces extracted from maps
         count = 0
         for (x, y, w, h) in faces:
             face = illuminantMap[y:y + h, x:x + w]
-            path = config.faces_folder + "face-" + config.illuminantType.upper() + "-" + str(count) + ".png"
+            path = config.faces_folder + "face-" + illum.upper() + "-" + str(count) + ".png"
             cv2.imwrite(path, face)
             descriptors.extractDescriptor(path, descriptor, space)
             count += 1
@@ -212,9 +220,9 @@ class FaceSplicingDetection:
         first = 0
         while first < len(faces) - 1:
             second = first + 1
-            firstFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
+            firstFaceFeat = config.faces_folder + 'face-' + illum + '-' + str(first) + "-" + descriptor.lower() + "-desc.txt"
             while second < len(faces):
-                secondFaceFeat = config.faces_folder + 'face-' + config.illuminantType + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
+                secondFaceFeat = config.faces_folder + 'face-' + illum + '-'  + str(second) + "-" + descriptor.lower() + "-desc.txt"
                 #Concat the two feature vector
                 facePairFeature = descriptors.buildFaceFeatureVector(firstFaceFeat, secondFaceFeat, descriptor)
 
@@ -225,7 +233,7 @@ class FaceSplicingDetection:
                 second += 1
             first += 1
 
-        nameFile = config.features_folder + filename + '_' + descriptor.lower() + ".txt"
+        nameFile = config.features_folder + filename + '_' + illum + "_" + descriptor.lower() + ".txt"
         files = open(nameFile, "w")
         for (pairFeature, pairLabel) in features:
             files.write(str(pairLabel) + ":" + pairFeature + "\n")

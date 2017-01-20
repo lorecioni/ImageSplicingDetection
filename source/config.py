@@ -16,7 +16,6 @@ voleBinary= 'illuminants/build/bin/./vole'
 cascadePath = 'data/haarcascade_frontalface_default.xml'
 
 #Illuminant maps extraction
-illuminantType = 'GGE'
 forceMapsExtraction = False
 
 # Image segmentation
@@ -41,6 +40,7 @@ config_iic = "illuminants/build/config.txt"
 #Training
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
+illuminantTypes = ['GGE', 'IIC'] #Must be an array
 descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
 KNeighbours = 5
 crossvalidation = True
