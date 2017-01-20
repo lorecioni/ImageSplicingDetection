@@ -5,13 +5,13 @@ Created on 03 ott 2016
 '''
 
 import argparse
-import faceSplicingDetection
+import faceSplicingDetector
 import sys
 import loadDatasets
 
-__version__ = 0.1
-__date__ = '2016-09-12'
-__updated__ = '2016-11-14'
+__version__ = 0.2
+__date__ = '2016-10-14'
+__updated__ = '2017-01-20'
 
 def main():
     print('ImageSplicingDetection v.' + str(__version__))
@@ -47,8 +47,8 @@ def main():
         sys.exit(1)
 
     #Initialize splicing detector class
-    detector = faceSplicingDetection.FaceSplicingDetection(args.extract_maps, 
-        args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+    detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps,
+                                                         args.extract_features, args.cross_validation, args.verbose, args.heat_map)
 
     if args.train:
         #Training the model

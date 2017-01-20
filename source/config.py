@@ -38,11 +38,12 @@ config_iic = "illuminants/build/config.txt"
 #config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
 
 #Training
+inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
 descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
-KNeighbours = 5
+KNeighbours = 3
 crossvalidation = True
 folds = 10
 label_position = 1

@@ -8,8 +8,10 @@ import numpy as np
 
 import os
 
+from classification import TrainingSample, splitDataset, KNNClassifier
+
 from sklearn.externals import joblib
-from sklearn.model_selection import KFold
+
 from sklearn import neighbors
 import descriptors
 import illuminantMaps
@@ -22,7 +24,7 @@ Splicing detection main procedure. The result of the output
 will be a number of regions of the image that can be spliced
 over an image
 '''
-class FaceSplicingDetection:
+class FaceSplicingDetector:
 
     def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
         self.verbose = verbose
@@ -57,12 +59,16 @@ class FaceSplicingDetection:
         if self.extract_features or self.extract_maps:
             for i in range(len(images)):
                 filename = utils.getFilename(images[i])
-                print('Processing ' + filename) 
-                self.extractIlluminationMaps(images[i])
-                # Extract image descriptors and features
-                for illum in config.illuminantTypes:
-                    for desc in self.descriptors:
-                        self.extractFeatures(images[i], labels[i], illum = illum, descriptor = desc)
+                print('Processing ' + filename)
+                #Extract maps
+                if self.extract_maps:
+                    self.extractIlluminationMaps(images[i])
+                #Extract face paired features
+                if self.extract_features:
+                    # Extract image descriptors and features
+                    for illum in config.illuminantTypes:
+                        for desc in self.descriptors:
+                            self.extractFeatures(images[i], labels[i], illum = illum, descriptor = desc)
 
         # Sample training
         if not config.crossvalidation:
@@ -72,8 +78,8 @@ class FaceSplicingDetection:
                     trainingData, trainingLabels = self.getTrainingData(images, desc, illum = illum)
 
                     # Creates an instance of Neighbours Classifier and fit the data.
-                    clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights = 'uniform')
-                    clf.fit(trainingData, trainingLabels)
+                    clf = KNNClassifier(config.KNeighbours, 'uniform')
+                    clf.train(trainingData, trainingLabels)
 
                     print(illum + "/" + desc.upper() +  ' classification model created correctly')
                     joblib.dump(clf, config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl')
@@ -81,7 +87,6 @@ class FaceSplicingDetection:
         else:
             #Crossvalidate dataset witk 10-fold crossvalidation
             print('Evaluate dataset with crossvalidation')
-            kf = KFold(n_splits = config.folds, shuffle = True)
             trainingDesc = {}
 
             for illum in config.illuminantTypes:
@@ -89,9 +94,11 @@ class FaceSplicingDetection:
                     key = illum + "_" + desc
                     trainingDesc[key] = self.getTrainingData(images, desc, illum = illum)
 
+            #Counting misclassified samples for accuracy score
             misclassified = 0
             refKey = config.illuminantTypes[0] + "_" + self.descriptors[0]
-            splits = kf.split(trainingDesc[refKey][0])
+            #Splits dataset in train and test for crossvalidation
+            splits = splitDataset(trainingDesc[refKey][0], config.folds)
             totalModels = len(self.descriptors) * len(config.illuminantTypes)
 
             for (trainIndex, testIndex) in splits:
@@ -103,8 +110,8 @@ class FaceSplicingDetection:
                         trainingData = trainingData[trainIndex]
                         trainingLabels = trainingLabels[trainIndex]
                         #Training model for illum type and descriptor
-                        clf = neighbors.KNeighborsClassifier(config.KNeighbours, weights='uniform')
-                        clf.fit(trainingData, trainingLabels)
+                        clf = KNNClassifier(config.KNeighbours, 'uniform')
+                        clf.train(trainingData, trainingLabels)
                         classifiers[key] = clf
 
                 outputs = []
@@ -141,6 +148,9 @@ class FaceSplicingDetection:
             accuracy = (totalSamples - misclassified)/totalSamples
             print('Accuracy: ' + str(accuracy))
 
+    '''
+    Reads and return training samples
+    '''
     def getTrainingData(self, images, descriptor, illum = 'GGE'):
         trainingData = []
         trainingLabels = []
@@ -149,11 +159,11 @@ class FaceSplicingDetection:
             path = config.features_folder + filename + '_' + illum + "_" + descriptor.lower() + ".txt"
             if os.path.isfile(path):
                 imageFeatures = open(path, "r")
-                features = [pair.split(":") for pair in imageFeatures.read().splitlines()]
-                for pair in features:
-                    trainingLabels.append(int(pair[0]))
+                features = [TrainingSample.fromTxt(pair) for pair in imageFeatures.read().splitlines()]
+                for sample in features:
+                    trainingLabels.append(sample.label)
                     #pairData = [float(val) for val in list()]
-                    trainingData.append(np.array(pair[1].split(), dtype=float))
+                    trainingData.append(np.array(sample.feature.split(), dtype=float))
         return np.asarray(trainingData), np.asarray(trainingLabels)
 
     '''
@@ -230,17 +240,28 @@ class FaceSplicingDetection:
                 #Concat the two feature vector
                 facePairFeature = descriptors.buildFaceFeatureVector(firstFaceFeat, secondFaceFeat, descriptor)
 
+                if config.inverseFacePosition:
+                    inverseFacePairFeature = descriptors.buildFaceFeatureVector(secondFaceFeat, firstFaceFeat, descriptor)
+
                 pairLabel = 0
                 if label[first][1] != config.positiveLabel or label[second][1] != config.positiveLabel:
                     pairLabel = 1
-                features.append((facePairFeature, pairLabel))
+
+                sample = TrainingSample(facePairFeature, pairLabel)
+                features.append(sample)
+
+                if config.inverseFacePosition:
+                    sample = TrainingSample(inverseFacePairFeature, pairLabel)
+                    features.append(sample)
+
                 second += 1
             first += 1
 
+        #Storing image feaures in file
         nameFile = config.features_folder + filename + '_' + illum + "_" + descriptor.lower() + ".txt"
         files = open(nameFile, "w")
-        for (pairFeature, pairLabel) in features:
-            files.write(str(pairLabel) + ":" + pairFeature + "\n")
+        for sample in features:
+            files.write(str(sample))
         files.close()
         
         print('\tFeatures extracted with ' + descriptor + ' descriptor in ' + illum + ' map')
