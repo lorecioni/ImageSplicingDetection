@@ -38,7 +38,6 @@ def main():
     parser.set_defaults(cross_validation = False)
     parser.set_defaults(extract_single_features = False)
     parser.set_defaults(evaluate_eucl_distances = False)
-    parser.set_defaults(depth = 3)
 
     args = parser.parse_args()
 
@@ -59,7 +58,7 @@ def main():
     elif args.detect:
         #Detecting splice over a selected image
         if len(args.img) > 0:
-            detector.detectSplice(args.img, args.heat_map, args.depth)
+            detector.detect(args.img)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
 
