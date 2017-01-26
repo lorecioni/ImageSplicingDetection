@@ -15,6 +15,7 @@ import distanceMetrics
 import illuminantMaps
 import config
 import math
+import utils
 
 ''' 
 Splicing detection main procedure. The result of the output
@@ -23,10 +24,14 @@ over an image
 '''
 class SplicingDetection:
     
-    def __init__(self, verbose):
+    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
         self.verbose = verbose
+        self.extract_maps = extractMaps
+        self.extract_features = extractFeatures
+        self.cross_validation = crossVal
+        self.heat_map = heatMap
         
-    def detectSplice(self, img, heat_map, depth):
+    def detectSplice(self, img, depth):
         filename = img.split('/')
         filename = filename[len(filename) - 1]
         filename = filename[:-4]
@@ -223,11 +228,11 @@ class SplicingDetection:
                 
             # 1.2 Extracting GGE illuminant map
             print('\t-Extracting GGE map')
-            illuminantMaps.extractGGEMap(path, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
+            illuminantMaps.extractGGEMap(path, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, verbose)
             
             # 1.3 Extracting IIC illuminant map
             print('\t-Extracting IIC map')
-            illuminantMaps.extractIICMap(path, filename + "_segmented" + config.maps_out_suffix + ".png", verbose)
+            illuminantMaps.extractIICMap(path, filename + "_segmented.png", verbose)
         print(extract_features)
         if extract_features:  
             print('cia')       
@@ -337,35 +342,30 @@ class SplicingDetection:
     Evaluate Euclidean distances between each image IMs
     @param images: the list of images filenames
     '''
-    def evaluateEuclideanDistances(self, images, extract_features = True, visualize_heat_map = False):
+    def evaluateEuclideanDistances(self, images):
         # Extract image features from each images in training set
         
         for i in range(len(images)):
             img = images[i]
-            if extract_features:
-                self.processImage(img, True, self.verbose, visualize_heat_map)
+            #if self.extract_features:
+            #    self.processImage(img, True, self.verbose, self.heat_map)
             
             print(img)
-            filename = img.split('/')
-            filename = filename[len(filename) - 1]
-            filename = filename[:-4]
-            
+            filename = utils.getFilename(img)
+
             #Reads IMs
-            gge = cv2.imread(config.maps_folder + filename + '_gge_map' + config.maps_out_suffix + '.png')
-            iic = cv2.imread(config.maps_folder + filename + '_iic_map' + config.maps_out_suffix + '.png')
-            #print('../datasets/DSO-1/DSO-1-Grayworld/' + filename + '_fhs.png')
-           # gge = cv2.imread('../datasets/DSO-1/DSO-1-Grayworld/' + filename + '_fhs.png')
-           # iic = cv2.imread('../datasets/DSO-1/DSO-1-Illuminants/' + filename + '_fhs.png')
+            first_map = cv2.imread(config.maps_folder + filename + '_gge_map_0_1.png')
+            second_map = cv2.imread(config.maps_folder + filename + '_gge_map_1_1.png')
             
-            #gge = self.resizeImage(gge, 200)
-            #iic = self.resizeImage(iic, 200)
-            if gge == None or iic == None:
+            #first_map = self.resizeImage(first_map, 200)
+            #second_map = self.resizeImage(second_map, 200)
+            if first_map is None or second_map is None:
                 continue
                 
-            gge_b, gge_g, gge_r = cv2.split(gge)
-            iic_b, iic_g, iic_r = cv2.split(iic)
+            gge_b, gge_g, gge_r = cv2.split(first_map)
+            iic_b, iic_g, iic_r = cv2.split(second_map)
             #Get maps dimensions
-            rows, cols, _ = gge.shape
+            rows, cols, _ = first_map.shape
             #Building heat map
             heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
             #Recover heat map max value
@@ -373,41 +373,13 @@ class SplicingDetection:
             #Normalization
             heat_map = heat_map / max_value
             sum = np.sum(heat_map)
-            #if filename.startswith('splicing'):
-            #    sum = sum + 10000;
-            
-            print(type(sum))
-            if visualize_heat_map:
+
+            if self.heat_map:
                 heat_map = heat_map * 255
                 heat_map = heat_map.astype(np.uint8)
                 #Display color map
                 color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-                cv2.imshow('img', self.resizeImage(color_map, 500))
+                cv2.imshow('img', utils.resizeImage(color_map, 500))
                 cv2.waitKey(0)
-            #np.savetxt(config.features_folder + filename + '_sum_distances.txt', np.array(sum).reshape(1,), delimiter=' ')
+
             print(sum)
-        
-        
-        
-        features = []
-        files = os.listdir(config.features_folder)
-        for i in files:
-            if not i.startswith('.'):
-                features.append(np.loadtxt(config.features_folder + i))
-        
-        features = np.asanyarray(features)
-    
-    ''' 
-    Convert image to grayscale
-    '''
-    def rgb2gray(self, img):
-        return np.dot(img[...,:3], [0.299, 0.587, 0.144])
-    
-    ''' 
-    Resize image maintaining aspect ratio
-    '''
-    def resizeImage(self, img, width):
-        r = width / img.shape[1]
-        dim = (width, int(img.shape[0] * r))   
-        # perform the actual resizing of the image and show it
-        return cv2.resize(img, dim, interpolation = cv2.INTER_AREA)

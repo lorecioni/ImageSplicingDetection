@@ -15,7 +15,7 @@ devnull = open(os.devnull, 'w')
 def prepareImageIlluminants(img, sigma, k, min_size, max_intensity, min_intensity, verbose):
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    outfile = config.maps_folder + filename[:-4] + "_segmented" + config.maps_out_suffix + ".png"
+    outfile = config.maps_folder + filename[:-4] + "_segmented.png"
     if not os.path.isfile(outfile) or config.forceMapsExtraction:
         if verbose:
             print('Segmenting image for illuminant methods...')
@@ -27,13 +27,13 @@ def prepareImageIlluminants(img, sigma, k, min_size, max_intensity, min_intensit
         subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
         if verbose:
             print('Image segmented')
-    
-    
+
+
 #Extracting GGE illuminant map
 def extractGGEMap(img, segmentedImg, sigma, n, p, verbose):
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    outfile = config.maps_folder + filename[:-4] + "_gge_map" + config.maps_out_suffix + ".png"
+    outfile = config.maps_folder + filename[:-4] + "_gge_map_" + str(config.gge_n) + "_" + str(config.gge_p) + ".png"
     if not os.path.isfile(outfile) or config.forceMapsExtraction:
         if verbose:
             print('Extracting GGE map...')
@@ -46,12 +46,28 @@ def extractGGEMap(img, segmentedImg, sigma, n, p, verbose):
         if verbose:
             print('GGE map extracted')
 
-    
+
+def estimateGrayWorld(img, segmentedImg, verbose):
+    extractGGEMap(img, segmentedImg, 1, 0, 1, verbose)
+
+def estimateMaxRGB(img, segmentedImg, verbose):
+    extractGGEMap(img, segmentedImg, 1, 0, 20, verbose)
+
+def estimateShadesOfGray(img, segmentedImg, verbose):
+    extractGGEMap(img, segmentedImg, 1, 0, 5, verbose)
+
+def estimateGrayEdge(img, segmentedImg, verbose):
+    extractGGEMap(img, segmentedImg, 1, 1, 1, verbose)
+
+def estimateSecondGrayEdge(img, segmentedImg, verbose):
+    extractGGEMap(img, segmentedImg, 1, 2, 1, verbose)
+
+
 #Extracting IIC illuminant map
 def extractIICMap(img, segmentedImg, verbose):
     filename = img.split('/')
     filename = filename[len(filename) - 1]
-    outfile = config.maps_folder + filename[:-4] + "_iic_map" + config.maps_out_suffix + ".png"
+    outfile = config.maps_folder + filename[:-4] + "_iic_map.png"
     if not os.path.isfile(outfile) or config.forceMapsExtraction:
         if verbose:
             print('Extracting IIC map...')
@@ -64,4 +80,5 @@ def extractIICMap(img, segmentedImg, verbose):
         subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
         if verbose:
             print('IIC map extracted')
+
         

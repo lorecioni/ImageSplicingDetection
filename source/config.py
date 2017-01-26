@@ -5,7 +5,6 @@ Created on 05 ott 2016
 '''
 
 dataset = 'DSO-1'
-#dataset = 'COLUMBIA'
 
 imagesFolder = '../datasets/' + dataset + '/Images/'
 labelsFolder = '../datasets/' + dataset + '/Labels/'
@@ -31,7 +30,7 @@ use_riess_default = False
 # GGE Map
 gge_sigma = 1
 gge_n = 1
-gge_p = 3
+gge_p = 1
 
 #IIC Map
 config_iic = "illuminants/build/config.txt"
@@ -41,8 +40,9 @@ config_iic = "illuminants/build/config.txt"
 inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
-illuminantTypes = ['GGE', 'IIC'] #Must be an array
-descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
+illuminantTypes = ['GGE'] #Must be an array
+descriptors = ['ACC']
+#descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
 KNeighbours = 3
 crossvalidation = False
 folds = 10
@@ -55,4 +55,8 @@ features_folder = '../datasets/' + dataset + '/features/'
 faces_folder = '../datasets/' + dataset + '/faces/'
 descriptors_folder = '../datasets/' + dataset + '/descriptors/' 
 classification_folder = 'data/'
-maps_out_suffix = ''
+
+#Region detection
+bandWidth = 200
+bandHeight = 200
+

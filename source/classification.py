@@ -9,14 +9,15 @@ from sklearn.model_selection import KFold
 from sklearn.externals import joblib
 
 class FaceTrainingSample:
-    def __init__(self, data, label, first = None, second = None):
+    def __init__(self, data, label, first = None, second = None, filename = None):
         self.label = label
         self.feature = data
         self.first = first
         self.second = second
+        self.filename = filename
 
     def __str__(self):
-        return self.label + ":" + self.feature + "\n"
+        return str(self.label) + ":" + self.feature + "\n"
 
     @staticmethod
     def fromTxt(txt):
@@ -44,7 +45,7 @@ class Classifier:
 
 '''KNN classifier class'''
 class KNNClassifier(Classifier):
-    def __init__(self, k = 5, weights = 'uniform'):
+    def __init__(self, k = 5, weights = 'distance'):
         self.K = k
         self.weights = weights
 

@@ -5,13 +5,15 @@ Created on 03 ott 2016
 '''
 
 import argparse
+import splicingDetection
 import faceSplicingDetector
+import regionSplicingDetection
 import sys
 import loadDatasets
 
-__version__ = 0.2
+__version__ = 0.3
 __date__ = '2016-10-14'
-__updated__ = '2017-01-20'
+__updated__ = '2017-01-26'
 
 def main():
     print('ImageSplicingDetection v.' + str(__version__))
@@ -25,6 +27,7 @@ def main():
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
     parser.add_argument("--no-extract-maps", help="no extract all training images features", dest='extract_maps', action='store_false')
     parser.add_argument("--img", help="the path of the suspicious image")
+    parser.add_argument("--euclidean-distances", help="visualize distances", dest='evaluate_eucl_distances', action='store_true')
     parser.add_argument("--heat-map", help="display the heat map between GGE and IIC maps", dest='heat_map', action='store_true')
     parser.add_argument("--verbose", help="display all messages", dest='verbose', action='store_true')
 
@@ -46,8 +49,12 @@ def main():
         sys.exit(1)
 
     #Initialize splicing detector class
-    detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps,
-                                                         args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+    #detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps,
+     #                                                    args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+    #detector = splicingDetection.SplicingDetection(args.extract_maps,
+    #                                                     args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+
+    detector = regionSplicingDetection.RegionSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
 
     if args.train:
         #Training the model
@@ -69,6 +76,12 @@ def main():
             detector.extractFeatures(args.img)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
+
+    elif args.evaluate_eucl_distances:
+        # Evaluate euclidean distances between each image IMs
+        images, _ = loadDatasets.load()
+        detector.evaluateEuclideanDistances(images)
+
 
 if __name__ == '__main__':
     main()

@@ -16,7 +16,7 @@ def load():
     images = []
     labels = []
     
-    if name == 'DSO-1':
+    if name == 'DSO-1' or name == 'DSI-1':
         print('Loading DSO-1 dataset') 
         #Retrieving file list
         files = os.listdir(config.imagesFolder)

@@ -115,7 +115,7 @@ class FaceSplicingDetector:
                         # Extract image descriptors and features
                         for illum in config.illuminantTypes:
                             for desc in self.descriptors:
-                                self.extractFeatures(images[i], labels[i], illum = illum, descriptor = desc)
+                                self.extractFeatures(images[i], labels[i], faces = faces, illum = illum, descriptor = desc)
                 else:
                     #else discard the current image
                     print('Not suitable number of faces found in the image')
@@ -168,8 +168,8 @@ class FaceSplicingDetector:
                 outputs = []
                 testLabels = None
 
-                for illum in config.illuminantTypes:
-                    for desc in self.descriptors:
+                for desc in self.descriptors:
+                    for illum in config.illuminantTypes:
                         key = illum + "_" + desc
                         testData, testLabels = trainingDesc[key]
                         testData = testData[testIndex]
@@ -226,9 +226,9 @@ class FaceSplicingDetector:
         filename = utils.getFilename(img)
         illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, self.verbose)
         if 'GGE' in config.illuminantTypes:
-            illuminantMaps.extractGGEMap(img, filename + "_segmented" + config.maps_out_suffix +".png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
+            illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
         if 'IIC' in config.illuminantTypes:
-            illuminantMaps.extractIICMap(img, filename + "_segmented" + config.maps_out_suffix + ".png", self.verbose)
+            illuminantMaps.extractIICMap(img, filename + "_segmented.png", self.verbose)
 
 
     '''
@@ -248,11 +248,11 @@ class FaceSplicingDetector:
                 orig,
                 scaleFactor = 1.1,
                 minNeighbors = 5,
-                minSize = (100, 140),
+                minSize = (30, 40),
                 flags = cv2.CASCADE_SCALE_IMAGE
             )
-        if self.verbose:
-            print(str(len(faces)) + ' faces detected')
+        #if self.verbose:
+        print(str(len(faces)) + ' faces detected')
 
         if display:
             for (x, y, w, h) in faces:
@@ -269,7 +269,13 @@ class FaceSplicingDetector:
     '''
     def extractFeatures(self, img, label = None, faces = [], descriptor = "ACC", space = 0, illum = 'GGE', channel = 3, output = False):
         filename = utils.getFilename(img)
-        illuminantMap = cv2.imread(config.maps_folder + filename + '_' + illum.lower() + '_map.png')
+
+        if illum == 'GGE':
+            map_path = config.maps_folder + filename + '_' + illum.lower() + '_map_' + str(config.gge_n) + "_" + str(config.gge_p) + ".png"
+        else:
+            map_path = config.maps_folder + filename + '_' + illum.lower() + '_map.png'
+
+        illuminantMap = cv2.imread(map_path)
 
         #Storing faces extracted from maps
         count = 0
@@ -300,7 +306,7 @@ class FaceSplicingDetector:
                     if label[first][1] != config.positiveLabel or label[second][1] != config.positiveLabel:
                         pairLabel = 1
 
-                sample = FaceTrainingSample(facePairFeature, pairLabel, first, second)
+                sample = FaceTrainingSample(facePairFeature, pairLabel, first, second, filename)
                 features.append(sample)
 
                 if config.inverseFacePosition:
