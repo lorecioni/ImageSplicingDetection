@@ -116,14 +116,21 @@ class RegionSplicingDetector:
 
             # Recover detection map max value
             max_value = np.ndarray.max(detectionMap)
-            # Normalization
-            detectionMap = detectionMap / max_value
-            detectionMap *= 255
-            detectionMap = detectionMap.astype(np.uint8)
-            # Display color map
-            color_map = cv2.applyColorMap(detectionMap, cv2.COLORMAP_JET)
-            cv2.imshow('img', utils.resizeImage(color_map, 500))
-            cv2.waitKey(0)
+
+            if max_value/10 > 0.8:
+                # Normalization
+                detectionMap = detectionMap / max_value
+                detectionMap *= 255
+
+                # Display color map
+                color_map = detectionMap
+                color_map = color_map.astype(np.uint8)
+                color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
+                out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
+                cv2.imshow('img', out)
+                cv2.waitKey(0)
+
+
 
 
     '''
@@ -211,6 +218,7 @@ class RegionSplicingDetector:
             dimension = self.horizontalBands
 
         for i in range(dimension):
+            print('\tExtracting ' + str(i + 1) + '/' + str(dimension) + ' ' + direction + ' band')
             bandPath = config.maps_folder + direction + '_band_' + str(i) + '.png'
             bandSegPath = direction + '_band_segmented_' + str(i) + '.png'
             illuminantMaps.estimateGrayEdge(bandPath, bandSegPath, self.verbose)
