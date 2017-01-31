@@ -50,10 +50,12 @@ label_position = 1
 feature_vector_length = 6
 
 # Outputs
-maps_folder = '../datasets/' + dataset + '/maps/'
-features_folder = '../datasets/' + dataset + '/features/'
-faces_folder = '../datasets/' + dataset + '/faces/'
-descriptors_folder = '../datasets/' + dataset + '/descriptors/' 
+#maps_folder = '../datasets/' + dataset + '/maps/'
+maps_folder = '../datasets/' + dataset + '/Regions/'
+features_folder = '../datasets/' + dataset + '/Features/'
+faces_folder = '../datasets/' + dataset + '/Faces/'
+descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
+masks_folder = '../datasets/' + dataset + '/Masks/'
 classification_folder = 'data/'
 
 #Region detection

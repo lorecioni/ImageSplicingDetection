@@ -65,7 +65,7 @@ def main():
     elif args.detect:
         #Detecting splice over a selected image
         if len(args.img) > 0:
-            detector.detect(args.img)
+            detector.detect(args.img, True)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
 

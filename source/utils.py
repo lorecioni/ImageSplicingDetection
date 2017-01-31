@@ -6,6 +6,7 @@ Created on 10 gen 2017
 
 import cv2
 import numpy as np
+import math
 '''
 Utilities functions
 '''
@@ -25,6 +26,9 @@ Convert image to grayscale
 def rgb2gray(img):
     return np.dot(img[...,:3], [0.299, 0.587, 0.144])
 
+
+def gray2binary(img):
+    return img * 1/255
 '''
 Resize image maintaining aspect ratio
 '''
@@ -55,3 +59,12 @@ def readTrainingTestFiles(outfile):
                 labels.append(j)
         features.append(row)
     return(features,labels)
+
+def euclideanDistanceRGB(x, y):
+    return math.sqrt(pow(x[0, 0] - y[0], 2) + pow(x[0, 1] - y[1], 2) + pow(x[0, 2] - y[2], 2))
+
+
+def evaluateRGBMedian(img):
+    map = cv2.imread(img)
+    map_b, map_g, map_r = cv2.split(map)
+    return np.array([[np.median(map_b), np.median(map_g), np.median(map_b)]])
