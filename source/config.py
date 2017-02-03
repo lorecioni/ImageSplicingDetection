@@ -15,7 +15,7 @@ voleBinary= 'illuminants/build/bin/./vole'
 cascadePath = 'data/haarcascade_frontalface_default.xml'
 
 #Illuminant maps extraction
-forceMapsExtraction = False
+forceMapsExtraction = True
 
 # Image segmentation
 max_intensity = 0.98823529411764705882

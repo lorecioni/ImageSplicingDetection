@@ -20,8 +20,7 @@ over an image
 class RegionSplicingDetector:
 
     def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
-        #self.verbose = verbose
-        self.verbose = False
+        self.verbose = verbose
         self.extract_maps = extractMaps
         self.extract_features = extractFeatures
         self.cross_validation = crossVal
@@ -35,6 +34,22 @@ class RegionSplicingDetector:
         self.horizontalReferences = {}
         self.verticalReferences = {}
 
+        self.outfilePositive = {
+            'grayedge': open("distancesPositive_grayedge.txt","w"),
+            'maxrgb': open("distancesPositive_maxrgb.txt","w"),
+            'grayworld': open("distancesPositive_grayworld.txt","w"),
+            'shadesofgray': open("distancesPositive_shadesofgray.txt","w"),
+            'secondgrayedge': open("distancesPositive_secondgrayedge.txt","w")
+        }
+
+        self.outfileNegative = {
+            'grayedge': open("distancesNegative_grayedge.txt", "w"),
+            'maxrgb': open("distancesNegative_maxrgb.txt", "w"),
+            'grayworld': open("distancesNegative_grayworld.txt", "w"),
+            'shadesofgray': open("distancesNegative_shadesofgray.txt", "w"),
+            'secondgrayedge': open("distancesNegative_secondgrayedge.txt", "w")
+        }
+
 
     def detect(self, img, mask = False):
         filename = utils.getFilename(img)
@@ -46,7 +61,8 @@ class RegionSplicingDetector:
         #Mask
         if mask:
             maskImage = cv2.imread(config.masks_folder + filename + '.png', cv2.IMREAD_GRAYSCALE)
-            maskImage = np.invert(maskImage)
+            if maskImage is not None:
+                maskImage = np.invert(maskImage)
         else:
             maskImage = None
 
@@ -95,6 +111,12 @@ class RegionSplicingDetector:
 
                 for med in medians:
                     distance = utils.euclideanDistanceRGB(medians[med], self.verticalReferences[med])
+
+                    if band.label == 0:
+                        self.outfileNegative[med].write(str(distance) + "\n")
+                    elif band.label == 1:
+                        self.outfilePositive[med].write(str(distance) + "\n")
+
                     if distance > thresholds[med]:
                         detectionMap = band.incrementDetection(detectionMap)
 
@@ -111,13 +133,19 @@ class RegionSplicingDetector:
 
                 for med in medians:
                     distance = utils.euclideanDistanceRGB(medians[med], self.horizontalReferences[med])
+
+                    if band.label == 0:
+                        self.outfileNegative[med].write(str(distance) + "\n")
+                    elif band.label == 1:
+                        self.outfilePositive[med].write(str(distance) + "\n")
+
                     if distance > thresholds[med]:
                         detectionMap = band.incrementDetection(detectionMap)
 
             # Recover detection map max value
             max_value = np.ndarray.max(detectionMap)
 
-            if max_value/10 > 0.8:
+            if False and max_value/10 > 0.8:
                 # Normalization
                 detectionMap = detectionMap / max_value
                 detectionMap *= 255
@@ -129,7 +157,6 @@ class RegionSplicingDetector:
                 out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
                 cv2.imshow('img', out)
                 cv2.waitKey(0)
-
 
 
 
@@ -262,6 +289,14 @@ class RegionSplicingDetector:
             medians[med] = np.delete(medians[med], 0, 0)
             medians[med] = np.median(medians[med], axis=0)
         return medians
+
+
+    def closeAllOutputs(self):
+        for f in self.outfileNegative:
+            self.outfileNegative[f].close()
+
+        for f in self.outfilePositive:
+            self.outfilePositive[f].close()
 
 
 class DetectionBand:

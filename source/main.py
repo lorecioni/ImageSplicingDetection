@@ -22,6 +22,10 @@ def main():
 
     parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
+
+    parser.add_argument("--face-detector", help="use face detector", dest='face_detector', action='store_true')
+    parser.add_argument("--region-detector", help="use region detector", dest='region_detector', action='store_true')
+
     parser.add_argument("--crossvalidate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
@@ -42,19 +46,26 @@ def main():
     parser.set_defaults(extract_single_features = False)
     parser.set_defaults(evaluate_eucl_distances = False)
 
+    parser.set_defaults(face_detector = False)
+    parser.set_defaults(region_detector = False)
+
     args = parser.parse_args()
 
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(1)
 
-    #Initialize splicing detector class
-    #detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps,
-     #                                                    args.extract_features, args.cross_validation, args.verbose, args.heat_map)
-    #detector = splicingDetection.SplicingDetection(args.extract_maps,
-    #                                                     args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+    if not args.face_detector and not args.region_detector:
+        parser.print_usage()
+        sys.exit(1)
 
-    detector = regionSplicingDetection.RegionSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+    #Initialize splicing detector class
+    if args.face_detector:
+        detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+
+    elif args.region_detector:
+        detector = regionSplicingDetection.RegionSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+        #detector = splicingDetection.SplicingDetection(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
 
     if args.train:
         #Training the model
@@ -63,6 +74,15 @@ def main():
             detector.train(images, labels)
 
     elif args.detect:
+        images, labels = loadDatasets.load()
+        positives = images[0:20]
+        negatives = images[110:150]
+        images = negatives + positives
+        for img in images:
+            print(img)
+            detector.detect(img, True)
+        detector.closeAllOutputs()
+
         #Detecting splice over a selected image
         if len(args.img) > 0:
             detector.detect(args.img, True)

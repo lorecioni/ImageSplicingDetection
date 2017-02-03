@@ -43,7 +43,7 @@ class FaceSplicingDetector:
 
         # Extracting image features
         # Extract the faces in the image
-        faces = self.extractFaces(img)
+        faces = self.extractFaces(img, display=True)
 
         #Prediction map
         predictions = {}
@@ -68,13 +68,11 @@ class FaceSplicingDetector:
                             predictions[sample.second] += 1
                         counter += 1
 
-            print(predictions)
-            print(counter)
             #Majority voting
-            threshold = len(config.illuminantTypes) * len(config.descriptors) * len(faces)
+            threshold = 0.5 #len(config.illuminantTypes) * len(config.descriptors) * len(faces)
             detected = False
             for i in predictions:
-                if predictions[i] > threshold:
+                if predictions[i]/counter > threshold:
                     print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(predictions[i]/counter) )
                     if not detected:
                         detected = not detected
@@ -248,7 +246,7 @@ class FaceSplicingDetector:
                 orig,
                 scaleFactor = 1.1,
                 minNeighbors = 5,
-                minSize = (30, 40),
+                minSize = (80, 90),
                 flags = cv2.CASCADE_SCALE_IMAGE
             )
         #if self.verbose:

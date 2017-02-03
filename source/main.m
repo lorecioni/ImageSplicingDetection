@@ -1,21 +1,14 @@
 close all;
 
-files = dir('features/*_distances.txt');
-out = [];
-for file = files'
-    fileID = fopen(['features/' file.name]);    
-    C = cell2mat(textscan(fileID, '%f32'));
-    %out = cat(2, out, C);
-    out = cat(2, out, C);
-end
+algorithm = 'secondgrayedge';
 
-%valTrue = out(9, 1:46);
-%valFalse = out(9, 47:end);
+filesPos = fopen(['data/distancesPositive_' algorithm '.txt']);
+filesNeg = fopen(['data/distancesNegative_' algorithm '.txt']);
 
-valTrue = out(1:46);
-valFalse = out(47:end);
+positiveDistances = cell2mat(textscan(filesPos, '%f32'));
+negativeDistances = cell2mat(textscan(filesNeg, '%f32'));
 
-roc_analysis(valTrue', valFalse');
+roc_analysis(positiveDistances, negativeDistances);
 
 
 %
