@@ -15,8 +15,6 @@ will be a number of regions of the image that can be spliced
 over an image
 '''
 
-
-
 class RegionSplicingDetector:
 
     def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
@@ -34,24 +32,8 @@ class RegionSplicingDetector:
         self.horizontalReferences = {}
         self.verticalReferences = {}
 
-        self.outfilePositive = {
-            'grayedge': open("distancesPositive_grayedge.txt","w"),
-            'maxrgb': open("distancesPositive_maxrgb.txt","w"),
-            'grayworld': open("distancesPositive_grayworld.txt","w"),
-            'shadesofgray': open("distancesPositive_shadesofgray.txt","w"),
-            'secondgrayedge': open("distancesPositive_secondgrayedge.txt","w")
-        }
 
-        self.outfileNegative = {
-            'grayedge': open("distancesNegative_grayedge.txt", "w"),
-            'maxrgb': open("distancesNegative_maxrgb.txt", "w"),
-            'grayworld': open("distancesNegative_grayworld.txt", "w"),
-            'shadesofgray': open("distancesNegative_shadesofgray.txt", "w"),
-            'secondgrayedge': open("distancesNegative_secondgrayedge.txt", "w")
-        }
-
-
-    def detect(self, img, mask = False):
+    def detect(self, img, output, mask = False):
         filename = utils.getFilename(img)
         print('Processing ' + filename)
 
@@ -67,9 +49,11 @@ class RegionSplicingDetector:
             maskImage = None
 
         if image is not None:
+            config.forceMapsExtraction = True
             illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size,
                                                         config.min_intensity, config.max_intensity, self.verbose)
 
+            config.forceMapsExtraction = False
             segmented = cv2.imread(config.maps_folder + filename + "_segmented.png")
             #Dividing bands
             self.bands = {}
@@ -111,12 +95,6 @@ class RegionSplicingDetector:
 
                 for med in medians:
                     distance = utils.euclideanDistanceRGB(medians[med], self.verticalReferences[med])
-
-                    if band.label == 0:
-                        self.outfileNegative[med].write(str(distance) + "\n")
-                    elif band.label == 1:
-                        self.outfilePositive[med].write(str(distance) + "\n")
-
                     if distance > thresholds[med]:
                         detectionMap = band.incrementDetection(detectionMap)
 
@@ -133,30 +111,45 @@ class RegionSplicingDetector:
 
                 for med in medians:
                     distance = utils.euclideanDistanceRGB(medians[med], self.horizontalReferences[med])
-
-                    if band.label == 0:
-                        self.outfileNegative[med].write(str(distance) + "\n")
-                    elif band.label == 1:
-                        self.outfilePositive[med].write(str(distance) + "\n")
-
                     if distance > thresholds[med]:
                         detectionMap = band.incrementDetection(detectionMap)
 
             # Recover detection map max value
             max_value = np.ndarray.max(detectionMap)
 
-            if False and max_value/10 > 0.8:
+            if max_value/10 >= 0.85:
                 # Normalization
                 detectionMap = detectionMap / max_value
-                detectionMap *= 255
 
+                outputMask = detectionMap.copy()
+                outputMask[outputMask < 0.85] = 0
+                outputMask[outputMask >= 0.85] = 1
+
+                #Print score
+                print("Splicing score: " + str(max_value/10))
+
+                detectionMap *= 255
                 # Display color map
                 color_map = detectionMap
                 color_map = color_map.astype(np.uint8)
                 color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
                 out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
-                cv2.imshow('img', out)
+                cv2.imshow('output', out)
                 cv2.waitKey(0)
+
+                #Display spliced regions
+                regionMask = np.zeros(image.shape, 'uint8')
+                regionMask[..., 0] = outputMask.copy()
+                regionMask[..., 1] = outputMask.copy()
+                regionMask[..., 2] = outputMask.copy()
+                splicedRegions = np.multiply(image, regionMask)
+                out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(splicedRegions, 500)), axis=1)
+                cv2.imshow('output', out)
+                cv2.waitKey(0)
+
+                #Write output mask
+                outputMask *= 255
+                cv2.imwrite(output, outputMask)
 
 
 
@@ -238,14 +231,16 @@ class RegionSplicingDetector:
       @:returns number of extracted bands
       '''
     def extractIlluminants(self, direction = 'vertical'):
-        print('Exctracting ' + direction + ' illuminant maps')
+        if self.verbose:
+            print('Exctracting ' + direction + ' illuminant maps')
         if direction == 'vertical':
             dimension = self.verticalBands
         else:
             dimension = self.horizontalBands
 
         for i in range(dimension):
-            print('\tExtracting ' + str(i + 1) + '/' + str(dimension) + ' ' + direction + ' band')
+            if self.verbose:
+                print('\tExtracting ' + str(i + 1) + '/' + str(dimension) + ' ' + direction + ' band')
             bandPath = config.maps_folder + direction + '_band_' + str(i) + '.png'
             bandSegPath = direction + '_band_segmented_' + str(i) + '.png'
             illuminantMaps.estimateGrayEdge(bandPath, bandSegPath, self.verbose)
@@ -262,7 +257,8 @@ class RegionSplicingDetector:
     vertical or horizontal
     '''
     def getReferenceIlluminant(self, direction = 'vertical'):
-        print('Evaluating ' + direction + ' illuminant reference color')
+        if self.verbose:
+            print('Evaluating ' + direction + ' illuminant reference color')
         if direction == 'vertical':
             dimension = self.verticalBands
         else:

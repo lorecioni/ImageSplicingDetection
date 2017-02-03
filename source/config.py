@@ -4,20 +4,29 @@ Created on 05 ott 2016
 @author: lorenzocioni
 '''
 
-dataset = 'DSO-1'
+
+'''General configuration'''
+dataset = 'DSI-1'
 
 imagesFolder = '../datasets/' + dataset + '/Images/'
 labelsFolder = '../datasets/' + dataset + '/Labels/'
 
-#Convert binary
+maps_folder = '../datasets/' + dataset + '/Regions/'
+features_folder = '../datasets/' + dataset + '/Features/'
+faces_folder = '../datasets/' + dataset + '/Faces/'
+descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
+masks_folder = '../datasets/' + dataset + '/Masks/'
+classification_folder = 'data/'
+
+#Convert binaries
 convertBinary = '/opt/local/bin/convert'
 voleBinary= 'illuminants/build/bin/./vole'
 cascadePath = 'data/haarcascade_frontalface_default.xml'
 
 #Illuminant maps extraction
-forceMapsExtraction = True
+forceMapsExtraction = False
 
-# Image segmentation
+'''Illuminant maps extraction'''
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
@@ -36,7 +45,8 @@ gge_p = 1
 config_iic = "illuminants/build/config.txt"
 #config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
 
-#Training
+
+'''Face splicing detector'''
 inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
@@ -49,16 +59,8 @@ folds = 10
 label_position = 1
 feature_vector_length = 6
 
-# Outputs
-#maps_folder = '../datasets/' + dataset + '/maps/'
-maps_folder = '../datasets/' + dataset + '/Regions/'
-features_folder = '../datasets/' + dataset + '/Features/'
-faces_folder = '../datasets/' + dataset + '/Faces/'
-descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
-masks_folder = '../datasets/' + dataset + '/Masks/'
-classification_folder = 'data/'
 
-#Region detection
+'''Region splicing detection'''
 bandWidth = 200
 bandHeight = 200
 

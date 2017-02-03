@@ -35,7 +35,7 @@ class FaceSplicingDetector:
     Detect splicing in the given image
     @param img: the image filenames
     '''
-    def detect(self, img):
+    def detect(self, img, output):
         filename = utils.getFilename(img)
         print('Processing ' + filename)
 
