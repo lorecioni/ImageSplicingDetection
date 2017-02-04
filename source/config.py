@@ -11,7 +11,7 @@ dataset = 'DSO-1'
 imagesFolder = '../datasets/' + dataset + '/Images/'
 labelsFolder = '../datasets/' + dataset + '/Labels/'
 
-maps_folder = '../datasets/' + dataset + '/Regions/'
+maps_folder = '../datasets/' + dataset + '/Maps/'
 features_folder = '../datasets/' + dataset + '/Features/'
 faces_folder = '../datasets/' + dataset + '/Faces/'
 descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
@@ -47,12 +47,13 @@ config_iic = "illuminants/build/config.txt"
 
 
 '''Face splicing detector'''
+faceMinSize = (90, 120)
 inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
-illuminantTypes = ['GGE'] #Must be an array
-descriptors = ['ACC']
-#descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
+illuminantTypes = ['GGE', 'IIC'] #Must be an array
+#descriptors = ['ACC']
+descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
 KNeighbours = 3
 crossvalidation = False
 folds = 10

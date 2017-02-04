@@ -246,7 +246,7 @@ class FaceSplicingDetector:
                 orig,
                 scaleFactor = 1.1,
                 minNeighbors = 5,
-                minSize = (80, 90),
+                minSize = config.faceMinSize,
                 flags = cv2.CASCADE_SCALE_IMAGE
             )
         #if self.verbose:
