@@ -52,7 +52,6 @@ inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
-#descriptors = ['ACC']
 descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
 KNeighbours = 3
 crossvalidation = False
