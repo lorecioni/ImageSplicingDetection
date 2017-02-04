@@ -27,6 +27,8 @@ def main():
 
     parser.add_argument("--output-mask", help="output mask path", dest="output_mask")
 
+    parser.add_argument("--display-result", help="display mask", dest="display_result")
+
     parser.add_argument("--crossvalidate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
@@ -47,7 +49,7 @@ def main():
     parser.set_defaults(cross_validation = False)
     parser.set_defaults(extract_single_features = False)
     parser.set_defaults(evaluate_eucl_distances = False)
-
+    parser.set_defaults(display_result=False)
     parser.set_defaults(output_mask = "output_mask.png")
     parser.set_defaults(face_detector = False)
     parser.set_defaults(region_detector = False)
@@ -65,10 +67,10 @@ def main():
 
     #Initialize splicing detector class
     if args.face_detector:
-        detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+        detector = faceSplicingDetector.FaceSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.display_result)
 
     elif args.region_detector:
-        detector = regionSplicingDetection.RegionSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
+        detector = regionSplicingDetection.RegionSplicingDetector(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.display_result)
         #detector = splicingDetection.SplicingDetection(args.extract_maps, args.extract_features, args.cross_validation, args.verbose, args.heat_map)
 
     if args.train:
@@ -80,7 +82,7 @@ def main():
     elif args.detect:
         #Detecting splice over a selected image
         if len(args.img) > 0:
-            detector.detect(args.img, args.output_mask, True)
+            detector.detect(args.img, args.output_mask)
         else:
             print('No image selected for splicing detection. Must specify the --img argument.')
 

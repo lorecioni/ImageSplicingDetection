@@ -17,12 +17,12 @@ over an image
 
 class RegionSplicingDetector:
 
-    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
+    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, displayResult):
         self.verbose = verbose
         self.extract_maps = extractMaps
         self.extract_features = extractFeatures
         self.cross_validation = crossVal
-        self.heat_map = heatMap
+        self.display_result = displayResult
 
         #Bands
         self.horizontalBands = 0
@@ -32,17 +32,28 @@ class RegionSplicingDetector:
         self.horizontalReferences = {}
         self.verticalReferences = {}
 
+        #Illuminant algorithms
+        self.algorithms = [
+            'grayworld',
+            'grayedge',
+            'maxrgb',
+            'shadesofgray',
+            'secondgrayedge'
+        ]
+
+        self.filename = ''
+
 
     def detect(self, img, output, mask = False):
-        filename = utils.getFilename(img)
-        print('Processing ' + filename)
+        self.filename = utils.getFilename(img)
+        print('Processing ' + self.filename)
 
         #Reads image
         image = cv2.imread(img)
 
         #Mask
         if mask:
-            maskImage = cv2.imread(config.masks_folder + filename + '.png', cv2.IMREAD_GRAYSCALE)
+            maskImage = cv2.imread(config.masks_folder + self.filename + '.png', cv2.IMREAD_GRAYSCALE)
             if maskImage is not None:
                 maskImage = np.invert(maskImage)
         else:
@@ -54,7 +65,7 @@ class RegionSplicingDetector:
                                                         config.min_intensity, config.max_intensity, self.verbose)
 
             config.forceMapsExtraction = False
-            segmented = cv2.imread(config.maps_folder + filename + "_segmented.png")
+            segmented = cv2.imread(config.maps_folder + self.filename + "_segmented.png")
             #Dividing bands
             self.bands = {}
 
@@ -85,11 +96,8 @@ class RegionSplicingDetector:
             medians = {}
             for i in range(self.verticalBands):
                 filename = config.maps_folder + 'vertical_band_' + str(i) + "_gge_map_"
-                medians['grayedge'] = utils.evaluateRGBMedian(filename + "grayedge.png")
-                medians['maxrgb'] = utils.evaluateRGBMedian(filename + "maxrgb.png")
-                medians['grayworld'] = utils.evaluateRGBMedian(filename + "grayworld.png")
-                medians['shadesofgray'] = utils.evaluateRGBMedian(filename + "shadesofgray.png")
-                medians['secondgrayedge'] = utils.evaluateRGBMedian(filename + "secondgrayedge.png")
+                for alg in self.algorithms:
+                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
 
                 band = self.bands['vertical'][i]
 
@@ -101,11 +109,8 @@ class RegionSplicingDetector:
 
             for i in range(self.horizontalBands):
                 filename = config.maps_folder + 'horizontal_band_' + str(i) + "_gge_map_"
-                medians['grayedge'] = utils.evaluateRGBMedian(filename + "grayedge.png")
-                medians['maxrgb'] = utils.evaluateRGBMedian(filename + "maxrgb.png")
-                medians['grayworld'] = utils.evaluateRGBMedian(filename + "grayworld.png")
-                medians['shadesofgray'] = utils.evaluateRGBMedian(filename + "shadesofgray.png")
-                medians['secondgrayedge'] = utils.evaluateRGBMedian(filename + "secondgrayedge.png")
+                for alg in self.algorithms:
+                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
 
                 band = self.bands['horizontal'][i]
 
@@ -129,29 +134,31 @@ class RegionSplicingDetector:
                 print("Splicing score: " + str(max_value/10))
 
                 detectionMap *= 255
-                # Display color map
-                color_map = detectionMap
-                color_map = color_map.astype(np.uint8)
-                color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
-                out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
-                cv2.imshow('output', out)
-                cv2.waitKey(0)
 
-                #Display spliced regions
-                regionMask = np.zeros(image.shape, 'uint8')
-                regionMask[..., 0] = outputMask.copy()
-                regionMask[..., 1] = outputMask.copy()
-                regionMask[..., 2] = outputMask.copy()
-                splicedRegions = np.multiply(image, regionMask)
-                out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(splicedRegions, 500)), axis=1)
-                cv2.imshow('output', out)
-                cv2.waitKey(0)
+                if self.display_result:
+                    # Display color map
+                    color_map = detectionMap
+                    color_map = color_map.astype(np.uint8)
+                    color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
+                    out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
+                    cv2.imshow('output', out)
+                    cv2.waitKey(0)
+
+                    #Display spliced regions
+                    regionMask = np.zeros(image.shape, 'uint8')
+                    regionMask[..., 0] = outputMask.copy()
+                    regionMask[..., 1] = outputMask.copy()
+                    regionMask[..., 2] = outputMask.copy()
+                    splicedRegions = np.multiply(image, regionMask)
+                    out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(splicedRegions, 500)), axis=1)
+                    cv2.imshow('output', out)
+                    cv2.waitKey(0)
 
                 #Write output mask
                 outputMask *= 255
                 cv2.imwrite(output, outputMask)
 
-
+            self.clearAll()
 
     '''
     Extract bands from the images with width
@@ -206,7 +213,6 @@ class RegionSplicingDetector:
                 bandSegPath = config.maps_folder + direction + '_band_segmented_' + str(counter) + '.png'
 
                 bandLabel = 0
-                #bandLabelPath = config.maps_folder + direction + '_band_' + str(counter) + '.txt'
 
                 if mask is not None:
                     fakes = np.sum(np.sum(maskSeg))
@@ -216,7 +222,6 @@ class RegionSplicingDetector:
                             bandLabel = 1
 
                 self.bands[direction].append(DetectionBand(i, direction, bandLabel))
-                #np.savetxt(bandLabelPath, np.array([bandLabel]))
 
                 cv2.imwrite(bandPath, band)
                 cv2.imwrite(bandSegPath, bandSeg)
@@ -275,11 +280,8 @@ class RegionSplicingDetector:
         for i in range(dimension):
             filename = config.maps_folder + direction + '_band_' + str(i) + "_gge_map_"
 
-            medians['grayedge'] = np.concatenate((medians['grayedge'], utils.evaluateRGBMedian(filename + "grayedge.png")), axis=0)
-            medians['maxrgb'] = np.concatenate((medians['maxrgb'], utils.evaluateRGBMedian(filename + "maxrgb.png")), axis=0)
-            medians['grayworld'] = np.concatenate((medians['grayworld'], utils.evaluateRGBMedian(filename + "grayworld.png")), axis=0)
-            medians['shadesofgray'] = np.concatenate((medians['shadesofgray'], utils.evaluateRGBMedian(filename + "shadesofgray.png")), axis=0)
-            medians['secondgrayedge'] = np.concatenate((medians['secondgrayedge'], utils.evaluateRGBMedian(filename + "secondgrayedge.png")), axis=0)
+            for alg in self.algorithms:
+                medians[alg] = np.concatenate((medians[alg], utils.evaluateRGBMedian(filename + alg + ".png")), axis=0)
 
         for med in medians:
             medians[med] = np.delete(medians[med], 0, 0)
@@ -287,14 +289,26 @@ class RegionSplicingDetector:
         return medians
 
 
-    def closeAllOutputs(self):
-        for f in self.outfileNegative:
-            self.outfileNegative[f].close()
+    '''Clear all images'''
+    def clearAll(self):
+        utils.removeFile(config.maps_folder + self.filename + "_segmented.png")
 
-        for f in self.outfilePositive:
-            self.outfilePositive[f].close()
+        for i in range(self.verticalBands):
+            filename = config.maps_folder + 'vertical_band_' + str(i) + "_gge_map_"
+            for alg in self.algorithms:
+                utils.removeFile(filename + alg + ".png")
+            utils.removeFile(config.maps_folder + 'vertical_band_' + str(i) + '.png')
+            utils.removeFile(config.maps_folder + 'vertical_band_segmented_' + str(i) + '.png')
+
+        for i in range(self.horizontalBands):
+            filename = config.maps_folder + 'horizontal_band_' + str(i) + "_gge_map_"
+            for alg in self.algorithms:
+                utils.removeFile(filename + alg + ".png")
+            utils.removeFile(config.maps_folder + 'horizontal_band_' + str(i) + '.png')
+            utils.removeFile(config.maps_folder + 'horizontal_band_segmented_' + str(i) + '.png')
 
 
+'''Detection band object'''
 class DetectionBand:
 
     def __init__(self, rect, direction, label):

@@ -6,7 +6,7 @@ Created on 05 ott 2016
 
 
 '''General configuration'''
-dataset = 'DSI-1'
+dataset = 'DSO-1'
 
 imagesFolder = '../datasets/' + dataset + '/Images/'
 labelsFolder = '../datasets/' + dataset + '/Labels/'

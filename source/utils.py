@@ -7,6 +7,8 @@ Created on 10 gen 2017
 import cv2
 import numpy as np
 import math
+import os
+
 '''
 Utilities functions
 '''
@@ -68,3 +70,8 @@ def evaluateRGBMedian(img):
     map = cv2.imread(img)
     map_b, map_g, map_r = cv2.split(map)
     return np.array([[np.median(map_b), np.median(map_g), np.median(map_b)]])
+
+
+def removeFile(path):
+    if os.path.isfile(path):
+        os.remove(path)
