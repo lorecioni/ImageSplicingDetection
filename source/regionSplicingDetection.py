@@ -121,17 +121,17 @@ class RegionSplicingDetector:
 
             # Recover detection map max value
             max_value = np.ndarray.max(detectionMap)
-
-            if max_value/10 >= 0.85:
+            score = max_value/10
+            if score < 0.85:
+                print('Image is NORMAL - Score: ' + str(score))
+            else:
+                print('Image is FAKE - Score: ' + str(score))
                 # Normalization
                 detectionMap = detectionMap / max_value
 
                 outputMask = detectionMap.copy()
                 outputMask[outputMask < 0.85] = 0
                 outputMask[outputMask >= 0.85] = 1
-
-                #Print score
-                print("Splicing score: " + str(max_value/10))
 
                 detectionMap *= 255
 
@@ -157,6 +157,10 @@ class RegionSplicingDetector:
                 #Write output mask
                 outputMask *= 255
                 cv2.imwrite(output, outputMask)
+
+            # Print score
+            print("Splicing score: " + str(max_value / 10))
+
 
             self.clearAll()
 

@@ -10,9 +10,9 @@ import regionSplicingDetection
 import sys
 import loadDatasets
 
-__version__ = 0.3
+__version__ = 0.4
 __date__ = '2016-10-14'
-__updated__ = '2017-01-31'
+__updated__ = '2017-02-04'
 
 def main():
     print('ImageSplicingDetection v.' + str(__version__))
@@ -27,7 +27,7 @@ def main():
 
     parser.add_argument("--output-mask", help="output mask path", dest="output_mask")
 
-    parser.add_argument("--display-result", help="display mask", dest="display_result")
+    parser.add_argument("--display-result", help="display mask", dest="display_result", action="store_true")
 
     parser.add_argument("--crossvalidate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')

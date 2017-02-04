@@ -20,13 +20,13 @@ over an image
 '''
 class FaceSplicingDetector:
 
-    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, heatMap):
+    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, displayResult):
         self.verbose = verbose
         self.extract_maps = extractMaps
         self.extract_features = extractFeatures
         self.face_cascade = cv2.CascadeClassifier(config.cascadePath)
         self.cross_validation = crossVal
-        self.heat_map = heatMap
+        self.display_result = displayResult
         
         #Descriptors
         self.descriptors = config.descriptors
@@ -43,14 +43,15 @@ class FaceSplicingDetector:
 
         # Extracting image features
         # Extract the faces in the image
-        faces = self.extractFaces(img, display=True)
+        faces = self.extractFaces(img)
 
         #Prediction map
         predictions = {}
+        counters = {}
         for i in range(len(faces)):
-            predictions[i] = 0
+            predictions[i], counters[i] = 0, 0
+
         #Image is precessable if there are more than one image
-        counter = 0
         if len(faces) > 1:
             # If there are two or more faces, process the image
             # Extract maps
@@ -66,26 +67,59 @@ class FaceSplicingDetector:
                         if prediction == 1:
                             predictions[sample.first] += 1
                             predictions[sample.second] += 1
-                        counter += 1
+                        counters[sample.first] += 1
+                        counters[sample.second] += 1
 
             #Majority voting
-            threshold = 0.5 #len(config.illuminantTypes) * len(config.descriptors) * len(faces)
+            threshold = 0.5
+            score = 0
             detected = False
+            fakeFaces = []
             for i in predictions:
-                if predictions[i]/counter > threshold:
-                    print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(predictions[i]/counter) )
+                if predictions[i]/counters[i] > threshold:
+                    if score < predictions[i]/counters[i]:
+                        score = predictions[i]/counters[i]
+
+                    fakeFaces.append(i)
+                    #print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(]) )
                     if not detected:
                         detected = not detected
-                else:
-                    print('\tFace ' + str(i + 1) + ' is NORMAL. Score ' + str(predictions[i]/counter))
+                #else:
+                    #print('\tFace ' + str(i + 1) + ' is NORMAL. Score ' + str(predictions[i]/counters[i]))
 
             if detected:
-                print('Image is FAKE')
+                print('Image is FAKE - Score: ' + str(score))
+
+
+                if self.display_result:
+                    orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
+                    #Display spliced faces
+                    rows, cols, _ = orig.shape
+                    outputMask = np.zeros((rows, cols), dtype=int)
+
+                    for i in fakeFaces:
+                        (x, y, w, h) = faces[i]
+                        outputMask[y:y + h, x:x + w] = 1
+
+                    regionMask = np.zeros(orig.shape, 'uint8')
+
+                    regionMask[..., 0] = outputMask.copy()
+                    regionMask[..., 1] = outputMask.copy()
+                    regionMask[..., 2] = outputMask.copy()
+                    splicedRegions = np.multiply(orig, regionMask)
+                    out = np.concatenate((utils.resizeImage(orig, 500), utils.resizeImage(splicedRegions, 500)), axis=1)
+                    cv2.imshow('output', out)
+                    cv2.waitKey(0)
+
+                # Write output mask
+                outputMask *= 255
+                cv2.imwrite(output, outputMask)
+
             else:
-                print('Image is NORMAL')
+                print('Image is NORMAL - Score: ' + str(score))
 
         else:
-            # else discard the current image
+            # discard the current image
             print('Not suitable number of faces found in the image')
 
         return
@@ -326,29 +360,3 @@ class FaceSplicingDetector:
             files.close()
         else:
             return features
-
-    '''
-    Builds and visualize the heat map in order to visually evaluate difference
-    between two different maps. Using OpenCV COLORMAP_JET, red values indicates
-    a more significant difference, blue values indicates lower difference.
-    '''
-    def visualizeHeatMap(self, gge, iic):
-        #Splits all the channels
-        gge_b, gge_g, gge_r = cv2.split(gge)
-        iic_b, iic_g, iic_r = cv2.split(iic)
-        #Get maps dimensions
-        rows, cols, _ = gge.shape
-        #Building heat map
-        heat_map = np.sqrt(pow(gge_b[0:rows-1, 0:cols-1] - iic_b[0:rows-1, 0:cols-1], 2) + pow(gge_g[0:rows-1, 0:cols-1] - iic_g[0:rows-1, 0:cols-1], 2) +  pow(gge_r[0:rows-1, 0:cols-1] - iic_r[0:rows-1, 0:cols-1], 2))
-        #Recover heat map max value
-        max_value = np.ndarray.max(heat_map)
-        #Normalization
-        heat_map = heat_map / max_value
-        heat_map = heat_map * 255
-        heat_map = heat_map.astype(np.uint8)
-        #Display color map
-        color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
-        cv2.imshow('img', self.resizeImage(color_map, 500))
-        cv2.waitKey(0)
-            
-

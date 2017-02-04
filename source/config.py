@@ -47,8 +47,8 @@ config_iic = "illuminants/build/config.txt"
 
 
 '''Face splicing detector'''
-faceMinSize = (90, 120)
-inverseFacePosition = True
+faceMinSize = (120, 150)
+inverseFacePosition = False
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
