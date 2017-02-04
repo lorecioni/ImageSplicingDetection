@@ -1,0 +1,26 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\chaptermark{Introduction}
+
+Investigating image's lighting is one of the most common approaches for splicing detection. This approach is particularly robust since it's really hard to preserve the consistency of the lighting environment while creating an image composite (i.e. a splicing forgery). 
+In this scenario, there are mainly two main approaches: (i) based on the object-light geometric arrangement and (ii) based on illuminant colors. We focused our attention on the illuminant-based approach, which assumes that a scene is lit by the same light source. More light sources are admitted but far enough such as to produce a constant brightness across the image. In this condition, pristine images will show a coherent illuminant representation; on the other hand, inconsistencies among illuminant maps will be exploited for splicing detection. 
+
+Illuminant Maps locally describes the lighting in a small region of the image. In the computer vision literature exists many different approaches for determining the illuminant of an image has been proposed. In particular, such techniques are divided into two main groups: statistical-based and physics-based approaches.
+Regarding the first group, we start investigating on the Grey-World algorithm [4], which is based on the Grey-World assumption, i.e. the average reflectance in a scene is achromatic. In [7], this algorithm proved to be special instances of the Minkowski-norm. Van de Weijer et al. [3] than proposed an extension of the Gray-World assumption, called Gray-Edge hypothesis [3], which assumes that the average of the reflectance differences in a scene is achromatic. The reflectance differences can be determined by taking derivatives of the image. Therefore, the authors present a framework with which many different algorithms can be constructed:
+
+where  is a scale factor, is the norm,  is the derivative order and  is the pixel intensity smoothed by a Gaussian kernel . We focus our attention on the  case, called generalize Grey-World algorithm (GGE). The resulting illuminant maps presents also global illuminant features because of the gray-world and grey-edge assumptions.
+
+For the latter group, was investigate the method proposed by Riess et al. [6], which extends the \emph{Inverse Intense Chromaticity} (\emph{IIC}) space approach proposed by Tan et al. [5] and tries to model the illuminants considering the dichromatic reflection model [8]. In this case, the illuminant map is evaluated dividing  images into blocks, named superpixels, of approximately the same object color, then the illuminant color is evaluated for each block solving the lighting models locally. In the model presented in [6], the intensity  and the chromaticity  (with  R, G, B) are correlated by
+
+where  is the chromaticity of the illuminant in channel  and  is a geometrical factor.
+
+Carvalho et al. [1] then presents a method that relies on a combination of the two approaches for the detection of manipulations on images containing human faces. In addition to maps, a large set of shape and texture descriptors are used together. Note that, from a theoretical viewpoint, it is advantageous to consider only image regions that consist of approximately the same underlying material: for this reason, in [1] the authors focused their analysis on human faces.
+
+In [1] it is also shown that the difference between the two maps, GGE and IIC, increased when fake images are processed. This insight leads to the idea that it is possible to localize tampered image regions simply by considering IM differences with some metric, avoiding the computation of multiple descriptors.
+This result is presented in the publication of Schetinger et al. [2]. The authors report that on doctored images the difference map (computed with the standard Euclidean distance) shows higher values respect to similar maps computed on pristine images.
+
+It is therefore proposed a descriptor of the image which takes account of this fact. The idea of the authors is that the two maps have eigenvalues pointing in the same direction, being extracted from an image with almost constant lighting conditions. In the case of spliced images this condition is no longer fulfilled. The image descriptor (or a generic ROI descriptor) is obtained combining multiple eigenvalue differences:
+, , …,
+
+where  is the difference metric based on the -th higher eigenvalues extracted from the two maps. At this point, using a classifier such as SVM, pristine and doctored images can be split. 
+Starting from [2], the idea is to propose a blind method for detecting image splicing, using a default image partition policy (e.g. by using quad-tree [9] or kd-tree image partition [10]) and classify its content at different scale and resolution basing on a trained SVM model.

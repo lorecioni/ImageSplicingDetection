@@ -1,0 +1,160 @@
+%%%  Pacchetto di stile A4  %%%
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{phdthesis} % Pacchetto di stile per le tesi
+
+% Ridefiniamo la riga di testa delle pagine:
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{wrapfig}
+\usepackage{sectsty}
+\usepackage{lipsum}
+\usepackage[font=footnotesize]{caption}
+\usepackage{listings} %Per inserire codice
+\usepackage[usenames]{color} %Per permettere la colorazione dei caratteri 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\renewcommand\lstlistingname{}
+\lstdefinelanguage{javascript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, for},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{frame=tb,
+  captionpos=b,
+  abovecaptionskip=0.5cm,
+  aboveskip=0.8cm,
+  belowskip=0.3cm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{red},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=4,
+  frame=lrbt,
+  rulecolor=\color{gray}
+}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[RO]{\thepage}
+\fancyhead[LO]{\leftmark}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0pt}
+\headsep=20pt
+\sectionfont{\Large} 
+\subsectionfont{\itshape\large} 
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\huge}
+\titlespacing*{\chapter}{0pt}{-10pt}{40pt}
+
+\setlength{\skip\footins}{1cm}
+\setlength{\footnotesep}{0.4cm}
+
+\graphicspath{{./figure/}}	% path directory figure
+\linespread{1.5}	% interlinea
+%%%%%%
+
+\usepackage{graphics,graphicx}
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % pacchetti tipici per scrivere matematica  
+\usepackage{latexsym}
+\usepackage{array}
+\usepackage{tocbibind}
+\usepackage{listings}  % listati di codice
+
+\usepackage{cite}
+\usepackage{algorithmic}
+\usepackage{algorithm2e}
+\usepackage{color}
+
+\usepackage{textcomp}
+\usepackage{subfigure}
+\usepackage{subfloat}
+
+% TOC INFO: sono le info salvate nelle proprieta' del file pdf
+\hypersetup{ 
+  pdftitle=Master Thesis in Computer Science,
+  pdfauthor=Lorenzo Cioni,
+  pdfsubject=Image splicing detection with local illuminant estimation
+}    
+
+%%%  Frontespizio  %%%
+
+\university{}	% Universita' degli Studi di xxx (Firenze)
+\faculty{Scuola di Ingegneria} %Nome della Scuola
+\degree{}
+\dept{} % nome dipartimento
+\course{Corso di Laurea in Ingegneria Informatica} %Corso di Laurea
+
+\accademicyear{Anno Accademico 2015/2016} %anno accademico
+\supervisor{Prof. Alessandro Piva} % relatore
+\advisor{Prof. Carlo Colombo} %correlatore
+\advisor{Dott. Massimo Iuliani} %correlatore
+\advisor{Dott. Marco Fanfani} %correlatore
+\author{Lorenzo Cioni}
+
+%titolo in italiano
+\title{\textbf{{\Huge Image splicing detection with local illuminant estimation}}}
+
+%titolo in inglese
+\englishtitle{}
+
+
+%%%  BEGIN DOCUMENT  %%%
+\begin{document}
+
+%%%  FRONT MATTER  %%%
+\frontmatter
+\maketitle  	% stampa la pagina di frontespizio
+
+% DEDICA
+\newpage{\thispagestyle{empty}\null\vfil
+\begin{flushright}
+\textit{{\large Ai miei genitori}}
+\end{flushright}
+}
+
+\tableofcontents
+
+%% Corpo della tesi
+
+\mainmatter{
+\input{introduzione}
+\input{capitolo1}
+\input{capitolo2}
+\input{capitolo3}
+\input{conclusioni}
+}
+
+%%%  BACK MATTER  %%%  (bibliografia)
+\backmatter
+\input{biblio}
+\input{ringraziamenti}
+\end{document}
+
+%pagina bianca (da usare, nei punti giusti, x avere una pag bianca invece che vuota con intestazione)
+%\newpage{ \thispagestyle{empty}\null\vfil}

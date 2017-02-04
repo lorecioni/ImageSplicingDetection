@@ -85,3 +85,17 @@ articles/07351341.pdf
 datasets/DSI-1/*
 
 datasets/TEST/splicing-69.png
+
+.idea/*
+
+source/output_mask.png
+
+docs/thesis/tesi.aux
+
+docs/thesis/tesi.idx
+
+docs/thesis/tesi.out
+
+docs/thesis/slides/slides.nav
+
+docs/thesis/slides/slides.aux
