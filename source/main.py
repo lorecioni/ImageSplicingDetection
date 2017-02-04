@@ -5,7 +5,6 @@ Created on 03 ott 2016
 '''
 
 import argparse
-import splicingDetection
 import faceSplicingDetector
 import regionSplicingDetection
 import sys
@@ -20,11 +19,11 @@ def main():
     print('Creation date: ' + __date__ + ', last update: ' + __updated__)
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
-    parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
-
     parser.add_argument("--face-detector", help="use face detector", dest='face_detector', action='store_true')
     parser.add_argument("--region-detector", help="use region detector", dest='region_detector', action='store_true')
+
+    parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
+    parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
 
     parser.add_argument("--output-mask", help="output mask path", dest="output_mask")
 
@@ -33,6 +32,7 @@ def main():
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
     parser.add_argument("--no-extract-maps", help="no extract all training images features", dest='extract_maps', action='store_false')
     parser.add_argument("--img", help="the path of the suspicious image")
+
     parser.add_argument("--euclidean-distances", help="visualize distances", dest='evaluate_eucl_distances', action='store_true')
     parser.add_argument("--heat-map", help="display the heat map between GGE and IIC maps", dest='heat_map', action='store_true')
     parser.add_argument("--verbose", help="display all messages", dest='verbose', action='store_true')
@@ -59,6 +59,7 @@ def main():
         sys.exit(1)
 
     if not args.face_detector and not args.region_detector:
+        print("No detector selected: choose --face-detector or --region-detector option.")
         parser.print_usage()
         sys.exit(1)
 
