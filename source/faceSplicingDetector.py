@@ -215,7 +215,8 @@ class FaceSplicingDetector:
                 #If voting is majority, classify as fake
 
                 counter = 0
-                testLabels = labels[testIndex]
+                _, trainingLabels = trainingDesc[refKey]
+                testLabels = trainingLabels[testIndex]
                 totalModels = len(classifiers)
 
                 for val in np.nditer(output):
