@@ -5,12 +5,12 @@ Created on 03 ott 2016
 '''
 import cv2
 import numpy as np
-import os
 from classification import FaceTrainingSample, splitDataset, KNNClassifier
 import descriptors
 import illuminantMaps
 import config
 import utils
+import os
 
 
 '''
@@ -59,16 +59,18 @@ class FaceSplicingDetector:
             # Extract image descriptors and features
             for illum in config.illuminantTypes:
                 for desc in self.descriptors:
-                    clf = KNNClassifier.load(config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl')
-                    features = self.extractFeatures(img, faces=faces, illum=illum, descriptor=desc, output=True)
-                    #Predict over sample
-                    for sample in features:
-                        prediction = clf.predict(np.array(sample.feature.split(), dtype=float).reshape((1, -1)))
-                        if prediction == 1:
-                            predictions[sample.first] += 1
-                            predictions[sample.second] += 1
-                        counters[sample.first] += 1
-                        counters[sample.second] += 1
+                    clfPath = config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl'
+                    if os.path.isfile(clfPath):
+                        clf = KNNClassifier.load(clfPath)
+                        features = self.extractFeatures(img, faces=faces, illum=illum, descriptor=desc, output=True)
+                        #Predict over sample
+                        for sample in features:
+                            prediction = clf.predict(np.array(sample.feature.split(), dtype=float).reshape((1, -1)))
+                            if prediction == 1:
+                                predictions[sample.first] += 1
+                                predictions[sample.second] += 1
+                            counters[sample.first] += 1
+                            counters[sample.second] += 1
 
             #Majority voting
             threshold = 0.5
@@ -89,7 +91,6 @@ class FaceSplicingDetector:
 
             if detected:
                 print('Image is FAKE - Score: ' + str(score))
-
 
                 if self.display_result:
                     orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
@@ -129,7 +130,7 @@ class FaceSplicingDetector:
     @param images: the list of images filenames
     @param labels: the list of image labels
     '''
-    def train(self, images, labels):        
+    def train(self, images, labels):
         # Extract image features from each images in training set
         if self.extract_features or self.extract_maps:
             for i in range(len(images)):
@@ -159,16 +160,15 @@ class FaceSplicingDetector:
             for illum in config.illuminantTypes:
                 for desc in self.descriptors:
                     trainingData, trainingLabels = self.getTrainingData(images, desc, illum = illum)
-
-                    # Creates an instance of Neighbours Classifier and fit the data.
-                    clf = KNNClassifier(config.KNeighbours, 'uniform')
-                    clf.train(trainingData, trainingLabels)
-                    clf.store(config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl')
-
-                    print(illum + "/" + desc.upper() +  ' classification model created correctly')
+                    if len(trainingData) > 0:
+                        # Creates an instance of Neighbours Classifier and fit the data.
+                        clf = KNNClassifier(config.KNeighbours, 'uniform')
+                        clf.train(trainingData, trainingLabels)
+                        clf.store(config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl')
+                        print(illum + "/" + desc.upper() +  ' classification model created correctly')
 
         else:
-            #Crossvalidate dataset witk 10-fold crossvalidation
+            #Crossvalidate dataset witk K-fold crossvalidation
             print('Evaluate dataset with crossvalidation')
             trainingDesc = {}
 
@@ -182,7 +182,7 @@ class FaceSplicingDetector:
             refKey = config.illuminantTypes[0] + "_" + self.descriptors[0]
             #Splits dataset in train and test for crossvalidation
             splits = splitDataset(trainingDesc[refKey][0], config.folds)
-            totalModels = len(self.descriptors) * len(config.illuminantTypes)
+
 
             for (trainIndex, testIndex) in splits:
                 classifiers = {}
@@ -190,23 +190,23 @@ class FaceSplicingDetector:
                     for desc in self.descriptors:
                         key = illum + "_" + desc
                         trainingData, trainingLabels = trainingDesc[key]
-                        trainingData = trainingData[trainIndex]
-                        trainingLabels = trainingLabels[trainIndex]
-                        #Training model for illum type and descriptor
-                        clf = KNNClassifier(config.KNeighbours, 'uniform')
-                        clf.train(trainingData, trainingLabels)
-                        classifiers[key] = clf
+                        if len(trainingData) > 0 and len(trainingLabels) > 0:
+                            trainingData = trainingData[trainIndex]
+                            trainingLabels = trainingLabels[trainIndex]
+                            #Training model for illum type and descriptor
+                            clf = KNNClassifier(config.KNeighbours, 'uniform')
+                            clf.train(trainingData, trainingLabels)
+                            classifiers[key] = clf
 
                 outputs = []
-                testLabels = None
-
                 for desc in self.descriptors:
                     for illum in config.illuminantTypes:
                         key = illum + "_" + desc
-                        testData, testLabels = trainingDesc[key]
-                        testData = testData[testIndex]
-                        testLabels = testLabels[testIndex]
-                        outputs.append(classifiers[key].predict(testData))
+                        testData, _ = trainingDesc[key]
+                        if len(testData) > 0 :
+                            testData = testData[testIndex]
+                            outputs.append(classifiers[key].predict(testData))
+
 
                 output = np.zeros(len(testIndex))
                 for predictions in outputs:
@@ -215,9 +215,11 @@ class FaceSplicingDetector:
                 #If voting is majority, classify as fake
 
                 counter = 0
+                testLabels = labels[testIndex]
+                totalModels = len(classifiers)
 
                 for val in np.nditer(output):
-                    if val >  totalModels/2:
+                    if val > totalModels/2:
                        if testLabels[counter] != 1:
                            misclassified += 1
                     else:
@@ -360,3 +362,47 @@ class FaceSplicingDetector:
             files.close()
         else:
             return features
+
+
+    '''
+    Evaluate current trained models over a set of images
+    '''
+    def evaluate(self, images, labels):
+        print('Evaluate dataset on pre-trained model')
+
+        pairData, pairLabels = None, None
+        outputs = []
+        for illum in config.illuminantTypes:
+            for desc in self.descriptors:
+                clfPath = config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl'
+                if os.path.isfile(clfPath):
+                    clf = KNNClassifier.load(clfPath)
+                    testData, testLabels = self.getTrainingData(images, desc, illum=illum)
+                    if len(testData) > 0:
+                        pairData, pairLabels = testData, testLabels
+                        outputs.append(clf.predict(testData))
+
+        if pairData is not None:
+            output = np.zeros(len(pairData))
+            for predictions in outputs:
+                output += predictions
+
+            # If voting is majority, classify as fake
+            counter = 0
+            misclassified = 0
+
+            totalModels = len(outputs)
+            for val in np.nditer(output):
+                if val > totalModels / 2:
+                    if pairLabels[counter] != 1:
+                        misclassified += 1
+                else:
+                    if pairLabels[counter] != 0:
+                        misclassified += 1
+                counter += 1
+
+            print('Number of classifiers: ' + str(totalModels))
+            totalSamples = len(pairData)
+            print('Misclassified: ' + str(misclassified) + '/' + str(totalSamples))
+            accuracy = (totalSamples - misclassified) / totalSamples
+            print('Accuracy: ' + str(accuracy))

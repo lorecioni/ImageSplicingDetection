@@ -24,6 +24,7 @@ def main():
 
     parser.add_argument("--train", help="train the model for further splicing detection", dest='train', action='store_true')
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
+    parser.add_argument("--evaluate", help="evaluate trained models over a set of images", dest='evaluate', action='store_true')
 
     parser.add_argument("--output-mask", help="output mask path", dest="output_mask")
 
@@ -44,6 +45,7 @@ def main():
     parser.set_defaults(verbose = False)
     parser.set_defaults(train = False)
     parser.set_defaults(detect = False)
+    parser.set_defaults(evaluate=False)
     parser.set_defaults(extract_maps = True)
     parser.set_defaults(extract_features = True)
     parser.set_defaults(cross_validation = False)
@@ -98,6 +100,11 @@ def main():
         # Evaluate euclidean distances between each image IMs
         images, _ = loadDatasets.load()
         detector.evaluateEuclideanDistances(images)
+
+    elif args.evaluate:
+        images, labels = loadDatasets.load()
+        if len(images) > 0:
+            detector.evaluate(images, labels)
 
 
 if __name__ == '__main__':
