@@ -48,6 +48,7 @@ class KNNClassifier(Classifier):
     def __init__(self, k = 5, weights = 'distance'):
         self.K = k
         self.weights = weights
+        self.clf = None
 
     def train(self, data, labels):
         self.clf = neighbors.KNeighborsClassifier(self.K, self.weights)
