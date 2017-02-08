@@ -45,7 +45,7 @@ def extractGGEMap(img, segmentedImg, sigma, n, p, verbose, output = None):
         if not config.use_riess_default:
             command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
         else:
-            command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --n 1 --p 1 --sigma 1"
+            command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --n " + str(n) + " --p " + str(p) + " --sigma " + str(sigma)
         subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
         if verbose:
             print('GGE map extracted')

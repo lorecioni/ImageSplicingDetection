@@ -10,9 +10,9 @@ import regionSplicingDetection
 import sys
 import loadDatasets
 
-__version__ = 0.5
+__version__ = '0.5.1'
 __date__ = '2016-10-14'
-__updated__ = '2017-02-07'
+__updated__ = '2017-02-09'
 
 def main():
     print('ImageSplicingDetection v.' + str(__version__))

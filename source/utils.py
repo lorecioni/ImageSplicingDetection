@@ -75,3 +75,31 @@ def evaluateRGBMedian(img):
 def removeFile(path):
     if os.path.isfile(path):
         os.remove(path)
+
+def evaluateEuclideanDistances(first, second, display):
+    output = None
+    # Extract image features from each images in training set
+    if first is not None and second is not None:
+        gge_b, gge_g, gge_r = cv2.split(first)
+        iic_b, iic_g, iic_r = cv2.split(second)
+        # Get maps dimensions
+        rows, cols, _ = first.shape
+        # Building heat map
+        heat_map = np.sqrt(
+            pow(gge_b[0:rows - 1, 0:cols - 1] - iic_b[0:rows - 1, 0:cols - 1], 2) +
+            pow(gge_g[0:rows - 1, 0:cols - 1] - iic_g[0:rows - 1, 0:cols - 1], 2) +
+            pow(gge_r[0:rows - 1, 0:cols - 1] - iic_r[0:rows - 1, 0:cols - 1], 2))
+        # Recover heat map max value
+        max_value = np.ndarray.max(heat_map)
+        # Normalization
+        heat_map = heat_map / max_value
+        output = np.sum(heat_map)
+
+        if display:
+            heat_map *= 255
+            heat_map = heat_map.astype(np.uint8)
+            # Display color map
+            color_map = cv2.applyColorMap(heat_map, cv2.COLORMAP_JET)
+            cv2.imshow('img', resizeImage(color_map, 500))
+            cv2.waitKey(0)
+    return output

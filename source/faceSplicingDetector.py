@@ -159,7 +159,7 @@ class FaceSplicingDetector:
             # Train one model for each descriptor
             for illum in config.illuminantTypes:
                 for desc in self.descriptors:
-                    trainingData, trainingLabels = self.getTrainingData(images, desc, illum = illum)
+                    trainingData, trainingLabels, _ = self.getTrainingData(images, desc, illum = illum)
                     if len(trainingData) > 0:
                         # Creates an instance of Neighbours Classifier and fit the data.
                         clf = KNNClassifier(config.KNeighbours, 'uniform')
@@ -189,7 +189,7 @@ class FaceSplicingDetector:
                 for illum in config.illuminantTypes:
                     for desc in self.descriptors:
                         key = illum + "_" + desc
-                        trainingData, trainingLabels = trainingDesc[key]
+                        trainingData, trainingLabels, _ = trainingDesc[key]
                         if len(trainingData) > 0 and len(trainingLabels) > 0:
                             trainingData = trainingData[trainIndex]
                             trainingLabels = trainingLabels[trainIndex]
@@ -199,13 +199,34 @@ class FaceSplicingDetector:
                             classifiers[key] = clf
 
                 outputs = []
-                for desc in self.descriptors:
-                    for illum in config.illuminantTypes:
+
+                illumOuts = {}
+                for illum in config.illuminantTypes:
+                    appoggio = []
+                    for desc in self.descriptors:
                         key = illum + "_" + desc
-                        testData, _ = trainingDesc[key]
+                        testData, _, _ = trainingDesc[key]
                         if len(testData) > 0 :
                             testData = testData[testIndex]
                             outputs.append(classifiers[key].predict(testData))
+
+                            appoggio.append(classifiers[key].predict(testData))
+
+                    test = np.zeros(len(testIndex))
+                    for predictions in appoggio:
+                        test += predictions
+
+                    illumOuts[illum] = test
+
+                totalModels = len(classifiers)
+                _, _, testSrc = trainingDesc['GGE_ACC']
+                testSrc = testSrc[testIndex]
+                tot = len(illumOuts['GGE'])
+                for i in range(tot):
+                    gge = illumOuts['GGE'][i]
+                    iic = illumOuts['IIC'][i]
+                    if (gge > totalModels/2 and iic <= totalModels/2) or (gge <= totalModels/2 and iic > totalModels/2):
+                       print(testSrc[i])
 
 
                 output = np.zeros(len(testIndex))
@@ -215,7 +236,7 @@ class FaceSplicingDetector:
                 #If voting is majority, classify as fake
 
                 counter = 0
-                _, trainingLabels = trainingDesc[refKey]
+                _, trainingLabels, _ = trainingDesc[refKey]
                 testLabels = trainingLabels[testIndex]
                 totalModels = len(classifiers)
 
@@ -240,6 +261,7 @@ class FaceSplicingDetector:
     def getTrainingData(self, images, descriptor, illum = 'GGE'):
         trainingData = []
         trainingLabels = []
+        trainingSource = []
         for i in range(len(images)):
             filename = utils.getFilename(images[i])
             path = config.features_folder + filename + '_' + illum + "_" + descriptor.lower() + ".txt"
@@ -250,7 +272,9 @@ class FaceSplicingDetector:
                     trainingLabels.append(sample.label)
                     #pairData = [float(val) for val in list()]
                     trainingData.append(np.array(sample.feature.split(), dtype=float))
-        return np.asarray(trainingData), np.asarray(trainingLabels)
+                    trainingSource.append(utils.getFilename(path))
+
+        return np.asarray(trainingData), np.asarray(trainingLabels), np.asarray(trainingSource)
 
     '''
     Extract image illuminant maps 
