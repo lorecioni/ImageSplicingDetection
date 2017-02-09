@@ -18,6 +18,8 @@ descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
 masks_folder = '../datasets/' + dataset + '/Masks/'
 classification_folder = 'data/'
 
+temp_folder = 'temp/'
+
 #Convert binaries
 convertBinary = '/opt/local/bin/convert'
 voleBinary= 'illuminants/build/bin/./vole'
@@ -62,6 +64,6 @@ feature_vector_length = 6
 
 
 '''Region splicing detection'''
-bandWidth = 200
-bandHeight = 200
+bandWidth = 250
+bandHeight = 250
 

@@ -8,6 +8,8 @@ import cv2
 import numpy as np
 import math
 import os
+import config
+import shutil
 
 '''
 Utilities functions
@@ -72,9 +74,18 @@ def evaluateRGBMedian(img):
     return np.array([[np.median(map_b), np.median(map_g), np.median(map_b)]])
 
 
+def removeTempFolder():
+    if os.path.exists(config.temp_folder):
+        shutil.rmtree(config.temp_folder)
+
+
 def removeFile(path):
     if os.path.isfile(path):
         os.remove(path)
+
+def createTempFolder():
+    if not os.path.exists(config.temp_folder):
+        os.makedirs(config.temp_folder)
 
 def evaluateEuclideanDistances(first, second, display):
     output = None

@@ -83,11 +83,11 @@ class FaceSplicingDetector:
                         score = predictions[i]/counters[i]
 
                     fakeFaces.append(i)
-                    #print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(]) )
+                    print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(score) )
                     if not detected:
                         detected = not detected
-                #else:
-                    #print('\tFace ' + str(i + 1) + ' is NORMAL. Score ' + str(predictions[i]/counters[i]))
+                else:
+                    print('\tFace ' + str(i + 1) + ' is NORMAL. Score ' + str(predictions[i]/counters[i]))
 
             if detected:
                 print('Image is FAKE - Score: ' + str(score))
@@ -285,9 +285,9 @@ class FaceSplicingDetector:
         filename = utils.getFilename(img)
         illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size, config.min_intensity, config.max_intensity, self.verbose)
         if 'GGE' in config.illuminantTypes:
-            illuminantMaps.extractGGEMap(img, filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
+            illuminantMaps.extractGGEMap(img, config.maps_folder + filename + "_segmented.png", config.gge_sigma, config.gge_n, config.gge_p, self.verbose)
         if 'IIC' in config.illuminantTypes:
-            illuminantMaps.extractIICMap(img, filename + "_segmented.png", self.verbose)
+            illuminantMaps.extractIICMap(img, config.maps_folder + filename + "_segmented.png", self.verbose)
 
 
     '''
@@ -326,7 +326,7 @@ class FaceSplicingDetector:
     '''
     Builds feature vector given  image, descriptor and illuminant map type
     '''
-    def extractFeatures(self, img, label = None, faces = [], descriptor = "ACC", space = 0, illum = 'GGE', channel = 3, output = False):
+    def extractFeatures(self, img, label = None, faces = [], descriptor = "ACC", space = 0, illum = 'GGE', output = False):
         filename = utils.getFilename(img)
 
         if illum == 'GGE':
@@ -402,7 +402,10 @@ class FaceSplicingDetector:
                 clfPath = config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl'
                 if os.path.isfile(clfPath):
                     clf = KNNClassifier.load(clfPath)
-                    testData, testLabels = self.getTrainingData(images, desc, illum=illum)
+                    print(illum + '_' + desc)
+
+                    testData, testLabels, _ = self.getTrainingData(images, desc, illum=illum)
+                    print(len(testData))
                     if len(testData) > 0:
                         pairData, pairLabels = testData, testLabels
                         outputs.append(clf.predict(testData))

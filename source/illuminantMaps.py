@@ -43,37 +43,37 @@ def extractGGEMap(img, segmentedImg, sigma, n, p, verbose, output = None):
             print('Extracting GGE map...')
         
         if not config.use_riess_default:
-            command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
+            command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
         else:
-            command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --n " + str(n) + " --p " + str(p) + " --sigma " + str(sigma)
+            command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --n " + str(n) + " --p " + str(p) + " --sigma " + str(sigma)
         subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
         if verbose:
             print('GGE map extracted')
 
 
-def estimateGrayWorld(img, segmentedImg, verbose):
+def estimateGrayWorld(img, segmentedImg, outputFolder, verbose):
     filename = utils.getFilename(img)
-    output = config.maps_folder + filename + "_gge_map_grayworld.png"
+    output = outputFolder + filename + "_gge_map_grayworld.png"
     extractGGEMap(img, segmentedImg, 1, 0, 1, verbose, output = output)
 
-def estimateMaxRGB(img, segmentedImg, verbose):
+def estimateMaxRGB(img, segmentedImg, outputFolder, verbose):
     filename = utils.getFilename(img)
-    output = config.maps_folder + filename + "_gge_map_maxrgb.png"
+    output = outputFolder + filename + "_gge_map_maxrgb.png"
     extractGGEMap(img, segmentedImg, 1, 0, 20, verbose, output = output)
 
-def estimateShadesOfGray(img, segmentedImg, verbose):
+def estimateShadesOfGray(img, segmentedImg, outputFolder, verbose):
     filename = utils.getFilename(img)
-    output = config.maps_folder + filename + "_gge_map_shadesofgray.png"
+    output = outputFolder + filename + "_gge_map_shadesofgray.png"
     extractGGEMap(img, segmentedImg, 1, 0, 5, verbose, output = output)
 
-def estimateGrayEdge(img, segmentedImg, verbose):
+def estimateGrayEdge(img, segmentedImg, outputFolder, verbose):
     filename = utils.getFilename(img)
-    output = config.maps_folder + filename + "_gge_map_grayedge.png"
+    output = outputFolder + filename + "_gge_map_grayedge.png"
     extractGGEMap(img, segmentedImg, 1, 1, 1, verbose, output = output)
 
-def estimateSecondGrayEdge(img, segmentedImg, verbose):
+def estimateSecondGrayEdge(img, segmentedImg, outputFolder, verbose):
     filename = utils.getFilename(img)
-    output = config.maps_folder + filename + "_gge_map_secondgrayedge.png"
+    output = outputFolder + filename + "_gge_map_secondgrayedge.png"
     extractGGEMap(img, segmentedImg, 1, 2, 1, verbose, output = output)
 
 
@@ -88,9 +88,9 @@ def extractIICMap(img, segmentedImg, verbose):
         filename = img.split('/')
         filename = filename[len(filename) - 1]
         if not config.use_riess_default:
-            command = config.voleBinary + " liebv --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --iebv_config " + config.config_iic
+            command = config.voleBinary + " liebv --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --iebv_config " + config.config_iic
         else:
-            command = config.voleBinary + " liebv --img.image " + img + " -S " + config.maps_folder + segmentedImg + " -O " + outfile + " --iebv_config illuminants_riess/lille/config/config_iebv_lenient.txt"
+            command = config.voleBinary + " liebv --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --iebv_config illuminants_riess/lille/config/config_iebv_lenient.txt"
         subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
         if verbose:
             print('IIC map extracted')
