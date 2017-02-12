@@ -103,3 +103,7 @@ docs/thesis/slides/slides.aux
 datasets/ColorChecker/
 
 datasets/ColorChecker/srgb8bit_whitepoints.txt
+
+source/temp/
+
+docs/thesis/tesi.bbl
