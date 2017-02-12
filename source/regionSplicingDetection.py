@@ -17,7 +17,7 @@ over an image
 
 class RegionSplicingDetector:
 
-    def __init__(self, extractMaps, extractFeatures, crossVal, verbose, displayResult):
+    def __init__(self, extractMaps = True, extractFeatures = True, crossVal = False, verbose = False, displayResult = False):
         self.verbose = verbose
         self.extract_maps = extractMaps
         self.extract_features = extractFeatures
@@ -71,8 +71,8 @@ class RegionSplicingDetector:
             #segmented = cv2.imread(config.maps_folder + self.filename + "_segmented.png")
             segmented = None
             #Dividing bands
-            self.verticalBands = self.extractImageBands(image, segmented, 'vertical', maskImage)
-            self.horizontalBands = self.extractImageBands(image, segmented, 'horizontal', maskImage)
+            self.verticalBands = self.extractImageBands(image, config.bandWidth, segmented, 'vertical', maskImage)
+            self.horizontalBands = self.extractImageBands(image, config.bandHeight, segmented, 'horizontal', maskImage)
 
             #Exctract illuminant maps
             self.extractIlluminants('vertical')
@@ -171,7 +171,7 @@ class RegionSplicingDetector:
     @:parameter image: OpenCV matrix
     @:returns number of extracted bands
     '''
-    def extractImageBands(self, image, segmented = None, direction = 'vertical', mask = None):
+    def extractImageBands(self, image, delta, segmented = None, direction = 'vertical', mask = None):
         self.bands[direction] = []
 
         if self.verbose:
@@ -194,7 +194,8 @@ class RegionSplicingDetector:
             if diff < limit:
                 end = diff
             else:
-                end = limit - diff - 1
+                #end = limit - diff - 1
+                break
 
             if direction == 'vertical':
                 band = image[:, i:end]
@@ -240,7 +241,8 @@ class RegionSplicingDetector:
 
                 cv2.imwrite(bandSegPath, bandSeg)
                 counter += 1
-            i += size
+
+            i += delta
 
         return counter
 
@@ -306,6 +308,7 @@ class RegionSplicingDetector:
     '''Clear all images'''
     def clearAll(self):
         utils.removeTempFolder()
+
 
 '''Detection band object'''
 class DetectionBand:

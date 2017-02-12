@@ -114,3 +114,9 @@ def evaluateEuclideanDistances(first, second, display):
             cv2.imshow('img', resizeImage(color_map, 500))
             cv2.waitKey(0)
     return output
+
+
+def averageRGBColor(img):
+    avg_row = np.average(img, axis=0)
+    avg_color= np.average(avg_row, axis=0)
+    return np.uint8(avg_color)
