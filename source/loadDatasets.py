@@ -9,8 +9,10 @@ import config
 import utils
 import re
 
-def load():
-    name = config.dataset
+def load(name = None):
+    if name is None:
+        name = config.dataset
+
     images = []
     labels = []
     
@@ -33,5 +35,22 @@ def load():
                 print("Error on processing image: " + i)
                 
         print('Loaded ' + name + ' dataset')
-    
+
+
+    if name == 'COLORCHECKER':
+        print('Loading color checked dataset')
+        files = os.listdir(config.imagesFolder)
+        for i in files:
+            try:
+                img = config.imagesFolder + i
+                if os.path.isfile(img) and not i.startswith('.'):
+                    images.append(img)
+                    labels.append(1)
+            except:
+                print("Error on processing image: " + i)
+
+        print('Loaded color checker dataset')
+
     return images, labels
+
+
