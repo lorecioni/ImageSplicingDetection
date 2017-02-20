@@ -89,11 +89,34 @@ def normalImageStatistics():
             band = cv2.imread(bandPath)
             bandSegPath = config.temp_folder + 'vertical_band_segmented_' + str(v) + '.png'
             illuminantMaps.estimateGrayWorld(bandPath, bandSegPath, config.temp_folder, verbose)
-            imPath = config.temp_folder + 'vertical_band_' + str(v) + "_gge_map_grayworld.png"
-            bandMap = cv2.imread(imPath)
-            print(utils.averageRGBColor(band)[1])
+            illuminantMaps.estimateGrayEdge(bandPath, bandSegPath, config.temp_folder, verbose)
+            illuminantMaps.estimateMaxRGB(bandPath, bandSegPath, config.temp_folder, verbose)
+            illuminantMaps.estimateShadesOfGray(bandPath, bandSegPath, config.temp_folder, verbose)
+            illuminantMaps.estimateSecondGrayEdge(bandPath, bandSegPath, config.temp_folder, verbose)
+
+            references = np.array([[0., 0., 0.]]);
+            medians = {
+                'grayworld': np.array([[0., 0., 0.]]),
+                'maxrgb': np.array([[0., 0., 0.]]),
+                'grayedge': np.array([[0., 0., 0.]]),
+                'shadesofgray': np.array([[0., 0., 0.]]),
+                'secondgrayedge': np.array([[0., 0., 0.]])
+            }
+
+            for alg in algs:
+                imPath = config.temp_folder + 'vertical_band_' + str(v) + "_gge_map_" + alg + ".png"
+                medians[alg] = np.concatenate((medians[alg], utils.evaluateRGBMedian(imPath)), axis=0)
+
+            for med in medians:
+                medians[med] = np.delete(medians[med], 0, 0)
+                medians[med] = np.median(medians[med], axis=0)
+                references = np.concatenate((references, np.array([medians[med]])), axis=0)
+
+            references = np.delete(references, 0, 0)
+            references = np.median(references, axis=0)
+
             avg_colors.append(utils.averageRGBColor(band))
-            color_references.append(bandMap[0, 0])
+            color_references.append(references)
 
 
         for v in range(horizontalBands):
@@ -101,11 +124,34 @@ def normalImageStatistics():
             band = cv2.imread(bandPath)
             bandSegPath = config.temp_folder + 'horizontal_band_segmented_' + str(v) + '.png'
             illuminantMaps.estimateGrayWorld(bandPath, bandSegPath, config.temp_folder, verbose)
-            imPath = config.temp_folder + 'horizontal_band_' + str(v) + "_gge_map_grayworld.png"
-            bandMap = cv2.imread(imPath)
-            print(utils.averageRGBColor(band)[1])
+            illuminantMaps.estimateGrayEdge(bandPath, bandSegPath, config.temp_folder, verbose)
+            illuminantMaps.estimateMaxRGB(bandPath, bandSegPath, config.temp_folder, verbose)
+            illuminantMaps.estimateShadesOfGray(bandPath, bandSegPath, config.temp_folder, verbose)
+            illuminantMaps.estimateSecondGrayEdge(bandPath, bandSegPath, config.temp_folder, verbose)
+
+            references = np.array([[0., 0., 0.]]);
+            medians = {
+                'grayworld': np.array([[0., 0., 0.]]),
+                'maxrgb': np.array([[0., 0., 0.]]),
+                'grayedge': np.array([[0., 0., 0.]]),
+                'shadesofgray': np.array([[0., 0., 0.]]),
+                'secondgrayedge': np.array([[0., 0., 0.]])
+            }
+
+            for alg in algs:
+                imPath = config.temp_folder + 'horizontal_band_' + str(v) + "_gge_map_" + alg + ".png"
+                medians[alg] = np.concatenate((medians[alg], utils.evaluateRGBMedian(imPath)), axis=0)
+
+            for med in medians:
+                medians[med] = np.delete(medians[med], 0, 0)
+                medians[med] = np.median(medians[med], axis=0)
+                references = np.concatenate((references, np.array([medians[med]])), axis=0)
+
+            references = np.delete(references, 0, 0)
+            references = np.median(references, axis=0)
+
             avg_colors.append(utils.averageRGBColor(band))
-            color_references.append(bandMap[0, 0])
+            color_references.append(references)
 
 
         avg_cr = np.zeros(color_references[0].shape)
@@ -113,10 +159,10 @@ def normalImageStatistics():
             avg_cr = np.vstack((avg_cr, cr))
 
         avg_cr = np.delete(avg_cr, 0, 0)
-        avg_cr = np.average(avg_cr, axis=0)
+        avg_cr = np.median(avg_cr, axis=0)
 
 
-        for channel in range(1, 2):
+        for channel in range(3):
             CR = avg_cr[channel]
             X, Y = [], []
 
@@ -134,7 +180,10 @@ def normalImageStatistics():
             Y = np.asarray(Y)
 
             idx = X.argsort()
-            plt.plot(X[idx], Y[idx], color = channels[channel])
+            X, Y = X[idx], Y[idx]
+
+
+            plt.plot(X, Y, color = channels[channel])
 
         plt.show()
         if counter == 0:
