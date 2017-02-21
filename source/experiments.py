@@ -72,12 +72,25 @@ def testGGEMaps():
             plt.close()
 
 
-def normalImageStatistics():
+def normalImageStatistics(num):
     delta = 20
     detector = regionSplicingDetection.RegionSplicingDetector()
     counter = 0
     images, _ = loadDatasets.load('COLORCHECKER')
+
+    I_b = {
+        'blue': [],
+        'green': [],
+        'red': []
+    }
+    E_b = {
+        'blue': [],
+        'green': [],
+        'red': []
+    }
+
     for img in images:
+        print("Processing " + img)
         image = cv2.imread(img)
         verticalBands = detector.extractImageBands(image, delta, direction = 'vertical')
         horizontalBands = detector.extractImageBands(image, delta, direction = 'horizontal')
@@ -119,6 +132,8 @@ def normalImageStatistics():
             avg_colors.append(utils.averageRGBColor(band))
             color_references.append(references)
 
+        print("\tExtracted vertical band")
+
 
         for v in range(horizontalBands):
             bandPath = config.temp_folder + 'horizontal_band_' + str(v) + '.png'
@@ -154,6 +169,7 @@ def normalImageStatistics():
             avg_colors.append(utils.averageRGBColor(band))
             color_references.append(references)
 
+        print("\tExtracted horizontal band")
 
         avg_cr = np.zeros(color_references[0].shape)
         for cr in color_references:
@@ -163,56 +179,54 @@ def normalImageStatistics():
         avg_cr = np.median(avg_cr, axis=0)
 
 
-
         resolution_width = 50
-
 
         for channel in range(3):
             CR = avg_cr[channel]
-            I_b, E_b = [], []
 
             for v in range(verticalBands):
-                I_b.append(avg_colors[v][channel])
+                I_b[channels[channel]].append(avg_colors[v][channel])
                 C = color_references[v][channel]
-                E_b.append(abs(C - CR))
+                E_b[channels[channel]].append(abs(C - CR))
 
             for h in range(verticalBands, verticalBands + horizontalBands):
-                I_b.append(avg_colors[h][channel])
+                I_b[channels[channel]].append(avg_colors[h][channel])
                 C = color_references[h][channel]
-                E_b.append(abs(C - CR))
+                E_b[channels[channel]].append(abs(C - CR))
 
-            I_b = np.asarray(I_b)
-            E_b = np.asarray(E_b)
-
-            idx = I_b.argsort()
-            I_b, E_b = I_b[idx], E_b[idx]
-
-            i = 0
-            X = np.arange(255)
-            Y = np.zeros(255, dtype=np.float32)
-            while i < 255:
-                end = i + resolution_width + 1
-                if end >= 255:
-                    end = 254
-                subset = E_b[(I_b >= i) & (I_b < end)]
-                variance = np.var(subset)
-                if math.isnan(variance):
-                    variance = 0
-
-                Y[i:end] = variance
-                i += resolution_width
-
-
-            plt.plot(X, Y, color = channels[channel])
-
-        plt.show()
-        if counter == 0:
+        counter += 1
+        if counter == num:
             break
 
 
+    #Plotting
+    for ch in channels:
+        I = np.asarray(I_b[ch])
+        E = np.asarray(E_b[ch])
+
+        idx = I.argsort()
+        I, E = I[idx], E[idx]
+
+        i = 0
+        X = np.arange(255)
+        Y = np.zeros(255, dtype=np.float32)
+        while i < 255:
+            end = i + resolution_width + 1
+            if end >= 255:
+                end = 254
+            subset = E[(I >= i) & (I < end)]
+            variance = np.var(subset)
+            if math.isnan(variance):
+                variance = 0
+
+            Y[i:end] = variance
+            i += resolution_width
+
+        plt.plot(X, Y, color=ch)
+    plt.show()
 
 
 '''Test splicing regions'''
 
 #testGGEMaps()
-normalImageStatistics()
+normalImageStatistics(30)
