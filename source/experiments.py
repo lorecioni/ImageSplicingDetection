@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import regionSplicingDetection
+import math
 
 verbose = False
 display = False
@@ -162,25 +163,44 @@ def normalImageStatistics():
         avg_cr = np.median(avg_cr, axis=0)
 
 
+
+        resolution_width = 50
+
+
         for channel in range(3):
             CR = avg_cr[channel]
-            X, Y = [], []
+            I_b, E_b = [], []
 
             for v in range(verticalBands):
-                X.append(avg_colors[v][channel])
+                I_b.append(avg_colors[v][channel])
                 C = color_references[v][channel]
-                Y.append(abs(C - CR))
+                E_b.append(abs(C - CR))
 
             for h in range(verticalBands, verticalBands + horizontalBands):
-                X.append(avg_colors[h][channel])
+                I_b.append(avg_colors[h][channel])
                 C = color_references[h][channel]
-                Y.append(abs(C - CR))
+                E_b.append(abs(C - CR))
 
-            X = np.asarray(X)
-            Y = np.asarray(Y)
+            I_b = np.asarray(I_b)
+            E_b = np.asarray(E_b)
 
-            idx = X.argsort()
-            X, Y = X[idx], Y[idx]
+            idx = I_b.argsort()
+            I_b, E_b = I_b[idx], E_b[idx]
+
+            i = 0
+            X = np.arange(255)
+            Y = np.zeros(255, dtype=np.float32)
+            while i < 255:
+                end = i + resolution_width + 1
+                if end >= 255:
+                    end = 254
+                subset = E_b[(I_b >= i) & (I_b < end)]
+                variance = np.var(subset)
+                if math.isnan(variance):
+                    variance = 0
+
+                Y[i:end] = variance
+                i += resolution_width
 
 
             plt.plot(X, Y, color = channels[channel])
