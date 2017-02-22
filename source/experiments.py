@@ -11,7 +11,9 @@ import math
 verbose = False
 display = False
 evaluate = True
-channels = ['blue', 'green', 'red']
+#channels = ['blue', 'green', 'red']
+channels = ['red']
+
 algs = ['grayedge', 'grayworld', 'maxrgb', 'secondgrayedge', 'shadesofgray']
 
 def testGGEMaps():
@@ -204,6 +206,9 @@ def normalImageStatistics(num):
         I = np.asarray(I_b[ch])
         E = np.asarray(E_b[ch])
 
+        np.savetxt('I_' + ch + '.txt', I);
+        np.savetxt('E_' + ch + '.txt', E);
+
         idx = I.argsort()
         I, E = I[idx], E[idx]
 
@@ -229,4 +234,47 @@ def normalImageStatistics(num):
 '''Test splicing regions'''
 
 #testGGEMaps()
-normalImageStatistics(30)
+#normalImageStatistics(30)
+
+
+def testDifferentResolution(res):
+    # Plotting
+    for ch in channels:
+        I = np.loadtxt('I_' + ch + '.txt')
+        E = np.loadtxt('E_' + ch + '.txt')
+
+        #np.savetxt('I_' + ch + '.txt', I);
+        #np.savetxt('E_' + ch + '.txt', E);
+
+        idx = I.argsort()
+        I, E = I[idx], E[idx]
+
+        i = 0
+        X = np.arange(255)
+        Y = np.zeros(255, dtype=np.float32)
+        Y_hist = np.zeros(255)
+
+        while i < 255:
+            end = i + res + 1
+            if end >= 255:
+                end = 254
+            subset = E[(I >= i) & (I < end)]
+            variance = np.var(subset)
+            if math.isnan(variance):
+                variance = 0
+            Y[i:end] = variance
+            i += res
+
+        i = 0
+        while i < len(I):
+            mean = int(I[i])
+            Y_hist[mean] += 1
+            i += 1
+
+        plt.plot(X, Y, color=ch)
+        #np.savetxt('test.txt', Y_hist)
+        plt.plot(X, Y_hist)
+
+    plt.show()
+
+testDifferentResolution(10)
