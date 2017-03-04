@@ -8,45 +8,45 @@ Repeated entry---line 122 of file bibliography.bib
  :                              ,
 I'm skipping whatever remains of this entry
 Warning--can't use both volume and number fields in finlayson2004shades
-You've used 11 entries,
+You've used 12 entries,
             2120 wiz_defined-function locations,
-            576 strings with 5627 characters,
-and the built_in function-call counts, 4268 in all, are:
-= -- 445
-> -- 171
-< -- 6
-+ -- 68
-- -- 56
-* -- 297
-:= -- 676
-add.period$ -- 38
-call.type$ -- 11
-change.case$ -- 61
+            582 strings with 5830 characters,
+and the built_in function-call counts, 4733 in all, are:
+= -- 497
+> -- 184
+< -- 7
++ -- 73
+- -- 60
+* -- 322
+:= -- 740
+add.period$ -- 42
+call.type$ -- 12
+change.case$ -- 66
 chr.to.int$ -- 0
-cite$ -- 12
-duplicate$ -- 170
-empty$ -- 343
-format.name$ -- 56
-if$ -- 926
+cite$ -- 13
+duplicate$ -- 193
+empty$ -- 384
+format.name$ -- 60
+if$ -- 1037
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 11
-newline$ -- 58
-num.names$ -- 22
-pop$ -- 61
+int.to.str$ -- 12
+missing$ -- 12
+newline$ -- 63
+num.names$ -- 24
+pop$ -- 69
 preamble$ -- 1
-purify$ -- 50
+purify$ -- 54
 quote$ -- 0
-skip$ -- 123
+skip$ -- 142
 stack$ -- 0
-substring$ -- 303
-swap$ -- 52
-text.length$ -- 6
+substring$ -- 340
+swap$ -- 63
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 44
+type$ -- 48
 warning$ -- 1
-while$ -- 46
-width$ -- 13
-write$ -- 130
+while$ -- 51
+width$ -- 14
+write$ -- 142
 (There was 1 error message)

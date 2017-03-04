@@ -33,7 +33,7 @@ This composition process includes all the necessary operations (such as brightne
 
 One of the common studied case is image composition involving people are very popular and are employed with very different objectives. 
 
-\subsubsection{Some famous cases}
+\subsection{Some famous cases}
 
 Photography has lost its innocence since the early days of his birth. In fact already in 1860, only a few decades after Niépce created the first photo, the first manipulated photographs were identified in 1826. With the advent of digital cameras, camcorders and sophisticated photo editing software, digital image manipulation is becoming more common. 
 
@@ -160,17 +160,21 @@ Dichromatic planes can also be estimated using principal component analysis (PCA
 
 For distinct objects illuminated by the same light source, the intersection point produced by their dichromatic line intersection represents the illuminant color. If the image has more than one illuminant, it will present more than one intersection point, which is not expected to happen in pristine (non-forged images). This method represented the first important step toward forgery detection using illuminant colors, but has some limitations such as the need of well defined specular highlight regions for estimating the illuminants.
 
+Following Gholap and Bora’s work, Riess and Angelopoulou\cite{riess2010scene} used an extension of the \emph{Inverse-Intensity Chromaticity Space}, originally proposed by Tan et al.\cite{tan2004color}, to estimate illuminants locally from different parts of an image for detecting forgeries.
+
+In addiction, Wu and Fang\cite{wu2011image} proposed a new way to detect forgeries using illuminant colors. Their method divides a color image into overlapping blocks estimating the illuminant color for each block. To estimate the illuminant color, the authors proposed to use the algorithms Gray-World, Gray-Shadow and Gray-Edge \cite{van2007edge}.
+
+These approaches will be better explained in the next section due their importance for this proposed method.
+
+\section{Illuminant Maps}
 
 
 
+\subsection{Generalized Greyworld algorithm}
 
-\subsection{Illuminant Maps}
-
-\subsubsection{Generalized Greyworld algorithm}
-
-\subsubsection{Inverse Intensitiy Chromaticiy}
+\subsection{Inverse Intensitiy Chromaticiy}
 
 
-\subsection{Human faces splicing detection}
+\section{Human faces splicing detection}
 
-\subsection{Region splicing detection}
+\section{Region splicing detection}
