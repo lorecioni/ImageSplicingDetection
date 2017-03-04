@@ -402,10 +402,7 @@ class FaceSplicingDetector:
                 clfPath = config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl'
                 if os.path.isfile(clfPath):
                     clf = KNNClassifier.load(clfPath)
-                    print(illum + '_' + desc)
-
                     testData, testLabels, _ = self.getTrainingData(images, desc, illum=illum)
-                    print(len(testData))
                     if len(testData) > 0:
                         pairData, pairLabels = testData, testLabels
                         outputs.append(clf.predict(testData))
