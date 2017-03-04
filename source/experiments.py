@@ -12,9 +12,9 @@ verbose = False
 display = False
 evaluate = True
 colors = ['blue', 'green', 'red']
-channels = ['blue', 'green', 'red']
+#channels = ['blue', 'green', 'red']
 #channels = ['red']
-#channels = ["y", "cb", "cr"]
+channels = ["y", "cb", "cr"]
 algs = ['grayedge', 'grayworld', 'maxrgb', 'secondgrayedge', 'shadesofgray']
 
 def testGGEMaps():
@@ -262,49 +262,68 @@ def normalImageStatistics(num, type = 'rgb'):
 '''Test splicing regions'''
 
 #testGGEMaps()
-normalImageStatistics(25, 'rgb')
+normalImageStatistics(25, 'ycbcr')
 
 
-def testDifferentResolution(res, type):
-    # Plotting
-    color_index = 0
-    for ch in channels:
-        I = np.loadtxt(config.data_folder + 'channels/I_' + ch + '_' + type + '.txt')
-        E = np.loadtxt(config.data_folder + 'channels/E_' + ch + '_' + type + '.txt')
+def getPlotData(res, color_space, channel, type = 'normal'):
+    I = np.loadtxt(config.data_folder + 'channels/dsi-1/I_' + channel + '_' + color_space + '_' + type + '.txt')
+    E = np.loadtxt(config.data_folder + 'channels/dsi-1/E_' + channel + '_' + color_space + '_' + type + '.txt')
 
-        #np.savetxt('I_' + ch + '.txt', I);
-        #np.savetxt('E_' + ch + '.txt', E);
+    idx = I.argsort()
+    I, E = I[idx], E[idx]
 
-        idx = I.argsort()
-        I, E = I[idx], E[idx]
+    i = 0
+    X = np.arange(255)
+    Y = np.zeros(255, dtype=np.float32)
+    Y_hist = np.zeros(255)
 
-        i = 0
-        X = np.arange(255)
-        Y = np.zeros(255, dtype=np.float32)
-        Y_hist = np.zeros(255)
+    while i < 255:
+        end = i + res + 1
+        if end >= 255:
+            end = 254
+        subset = E[(I >= i) & (I < end)]
+        variance = np.var(subset)
+        if math.isnan(variance):
+            variance = 0
+        Y[i:end] = variance
+        i += res
 
-        while i < 255:
-            end = i + res + 1
-            if end >= 255:
-                end = 254
-            subset = E[(I >= i) & (I < end)]
-            variance = np.var(subset)
-            if math.isnan(variance):
-                variance = 0
-            Y[i:end] = variance
-            i += res
+    i = 0
+    while i < len(I):
+        mean = int(I[i])
+        Y_hist[mean] += 1
+        i += 1
 
-        i = 0
-        while i < len(I):
-            mean = int(I[i])
-            Y_hist[mean] += 1
-            i += 1
+    return X, Y, Y_hist
 
-        plt.plot(X, Y, color=colors[color_index])
-        #np.savetxt('test.txt', Y_hist)
-        plt.plot(X, Y_hist)
-        color_index += 1
+def testDifferentResolution(res, color_space, channel = 'all', type = 'all'):
 
+    if channel == 'all':
+        channel_idx = 0
+        for ch in channels:
+
+            if type == 'all':
+                X, Y, Y_hist = getPlotData(res, color_space, ch, 'normal')
+                plt.plot(X, Y, color=colors[0])
+                X, Y, Y_hist = getPlotData(res, color_space, ch, 'spliced')
+                plt.plot(X, Y, color=colors[2])
+            else:
+                X, Y, Y_hist = getPlotData(res, color_space, ch, type)
+                plt.plot(X, Y, color=colors[0])
+
+            channel_idx += 1
+    else:
+        if type == 'all':
+            X, Y, Y_hist = getPlotData(res, color_space, channel, 'normal')
+            plt.plot(X, Y, color=colors[0])
+            X, Y, Y_hist = getPlotData(res, color_space, channel, 'spliced')
+            plt.plot(X, Y, color=colors[2])
+        else:
+            X, Y, Y_hist = getPlotData(res, color_space, channel, type)
+            plt.plot(X, Y, color=colors[0])
+
+    # np.savetxt('test.txt', Y_hist)
+    #plt.plot(X, Y_hist, '+')
     plt.show()
 
-#testDifferentResolution(10,'ycbcr')
+#testDifferentResolution(10,'rgb', channel='green', type='all')
