@@ -11,9 +11,10 @@ import math
 verbose = False
 display = False
 evaluate = True
-#channels = ['blue', 'green', 'red']
-channels = ['red']
-
+colors = ['blue', 'green', 'red']
+channels = ['blue', 'green', 'red']
+#channels = ['red']
+#channels = ["y", "cb", "cr"]
 algs = ['grayedge', 'grayworld', 'maxrgb', 'secondgrayedge', 'shadesofgray']
 
 def testGGEMaps():
@@ -74,26 +75,51 @@ def testGGEMaps():
             plt.close()
 
 
-def normalImageStatistics(num):
+def normalImageStatistics(num, type = 'rgb'):
     delta = 20
     detector = regionSplicingDetection.RegionSplicingDetector()
     counter = 0
     images, _ = loadDatasets.load('COLORCHECKER')
 
-    I_b = {
-        'blue': [],
-        'green': [],
-        'red': []
-    }
-    E_b = {
-        'blue': [],
-        'green': [],
-        'red': []
-    }
+    if type == 'rgb':
+        print('Color space: RGB')
+        I_b = {
+            'blue': [],
+            'green': [],
+            'red': []
+        }
+        E_b = {
+            'blue': [],
+            'green': [],
+            'red': []
+        }
 
+    if type == 'ycbcr':
+        print('Color space: YCbCr')
+        I_b = {
+            'y': [],
+            'cb': [],
+            'cr': []
+        }
+        E_b = {
+            'y': [],
+            'cb': [],
+            'cr': []
+        }
+
+    t = 0
     for img in images:
+        if t < 25:
+            t += 1
+            continue
+
         print("Processing " + img)
         image = cv2.imread(img)
+        if type == 'ycbcr':
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
+        elif type == 'hsv':
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
         verticalBands = detector.extractImageBands(image, delta, direction = 'vertical')
         horizontalBands = detector.extractImageBands(image, delta, direction = 'horizontal')
 
@@ -202,12 +228,13 @@ def normalImageStatistics(num):
 
 
     #Plotting
+    color_index = 0
     for ch in channels:
         I = np.asarray(I_b[ch])
         E = np.asarray(E_b[ch])
 
-        np.savetxt('I_' + ch + '.txt', I);
-        np.savetxt('E_' + ch + '.txt', E);
+        np.savetxt(config.data_folder + 'channels/I_' + ch + '_' + type + '.txt', I);
+        np.savetxt(config.data_folder + 'channels/E_' + ch + '_' + type + '.txt', E);
 
         idx = I.argsort()
         I, E = I[idx], E[idx]
@@ -227,21 +254,23 @@ def normalImageStatistics(num):
             Y[i:end] = variance
             i += resolution_width
 
-        plt.plot(X, Y, color=ch)
+        plt.plot(X, Y, color=colors[color_index])
+        color_index += 1
     plt.show()
 
 
 '''Test splicing regions'''
 
 #testGGEMaps()
-#normalImageStatistics(30)
+normalImageStatistics(25, 'rgb')
 
 
-def testDifferentResolution(res):
+def testDifferentResolution(res, type):
     # Plotting
+    color_index = 0
     for ch in channels:
-        I = np.loadtxt('I_' + ch + '.txt')
-        E = np.loadtxt('E_' + ch + '.txt')
+        I = np.loadtxt(config.data_folder + 'channels/I_' + ch + '_' + type + '.txt')
+        E = np.loadtxt(config.data_folder + 'channels/E_' + ch + '_' + type + '.txt')
 
         #np.savetxt('I_' + ch + '.txt', I);
         #np.savetxt('E_' + ch + '.txt', E);
@@ -271,10 +300,11 @@ def testDifferentResolution(res):
             Y_hist[mean] += 1
             i += 1
 
-        plt.plot(X, Y, color=ch)
+        plt.plot(X, Y, color=colors[color_index])
         #np.savetxt('test.txt', Y_hist)
         plt.plot(X, Y_hist)
+        color_index += 1
 
     plt.show()
 
-testDifferentResolution(10)
+#testDifferentResolution(10,'ycbcr')
