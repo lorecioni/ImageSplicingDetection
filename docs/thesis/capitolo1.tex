@@ -192,7 +192,7 @@ The method can be divided into four steps:
 
 \begin{figure}
   \centering
-    \includegraphics[width=0.8\textwidth]{illuminant_maps}
+    \includegraphics[width=0.95\textwidth]{illuminant_maps}
     \caption{An example of a generated distance map using Riess and Angelopoulou\cite{riess2010scene} approach. From left to right: (a) the original image, (b) \emph{illuminant map}, (c) generated distance map}
     \label{illuminant_maps}
 \end{figure}
@@ -298,7 +298,7 @@ where $i \in \{R, G, B\}$ and $m(x)$ is a geometrical factor (light position, su
 
 \begin{figure}
   \centering
-    \includegraphics[width=0.8\textwidth]{iic_space}
+    \includegraphics[width=1\textwidth]{iic_space}
     \caption{Pixel distribution in inverse-intensity chromaticity (IIC) space. Left are as ideal distribution, left on a synthetic image (in the center).}
     \label{fig:iic_space}
 \end{figure}
@@ -319,9 +319,67 @@ The method proposed by Carvalho et al.\cite{carvalho2016illuminant} aims to dete
 The method can be divided into four steps:
 
 \begin{enumerate}
-\item \emph{Description}: in this step illuminant maps are estimated with the two different approaches, GGE and IIC.
+\item \emph{Description}: in this step illuminant maps are estimated with the two different approaches, GGE and IIC, and feature vector are generated. Each feature vector is associated with a face pair.
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1\textwidth]{tiago_method_extraction}
+    \caption{Image description pipeline for extracting paired face feature vectors}
+    \label{fig:tiago_method_extraction}
+\end{figure}
+
+The Fig. \ref{fig:tiago_method_extraction} shows the image description extraction pipeline. Given an input image, the illuminant maps are estimated and converted to a selected color space (e.g. HSV). So, the faces in the image are extracted (using the defined area). For each face a descriptor is used to generate a feature vector (e.g a color descriptor, texture descriptor or shape descriptors) and finally they are coupled in order to generate paired feature vector simply concatenating the two original vectors.
+
+In this step multiple descriptors and color spaces are used in order to increment the number of final classifiers.
+
+\item \emph{Face Pair Classification}: a set of classification models are trained using the previous step feature vectors. Based on the number of color spaces and descriptors used, a set of KNN classifiers are trained over the paired face feature vectors. The final result is given by a majority voting of all the selected classifiers.
+
+\item \emph{Forgery Classification}: given an image $I$ containing $q$ people (faces), it is characterized by a set $\mathcal{S} = \{\mathcal{P}_1, \ldots, \mathcal{P}_m \}$, where $\mathcal{P}_i$ is the $i$-th paired feature vector and $m = \frac{q(q-1)}{2}, q \geq 2$. If any $\mathcal{P}_i \in \mathcal{S}$ is classified as fake, the image $I$ is classified as fake. Otherwise, the image is considered as pristine.
+
+\item \emph{Forgery Detection}: once knowing that an image is fake, in this stage it is identified which one is more likely to be fake in the image. This is done using a specific SVM classifier.   
 \end{enumerate}
 
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1\textwidth]{tiago_method_full}
+    \caption{Image splicing detection over human faces}
+    \label{fig:tiago_method_full}
+\end{figure}
 
+The Fig. \ref{fig:tiago_method_full} shows the above descripted method pipeline.
+
+\subsection{Method drawbacks}
 
 \section{Region splicing detection}
+
+The other considered approach is based on the work of Fan et al.\cite{fan2015image}. This method relies on the Van de Weijer et al.\cite{van2007edge} Generalized Gray-World framework \ref{eq:ggeframework}. These algorithm perform better on a scene when it is rich of colors, but in a splicing detection scenario we are interest in a specific region of the image.
+
+This approach splits image in vertical and horizontal bands (rectangular regions), assuming that each band contains sufficient colors for a correct illuminant estimation. Five different algorithm are used, deduced from Eq. \ref{eq:ggeframework}: Grey-World, Max-RGB, Shades of Grey, first- order Grey-Edge and second-order Grey-Edge, in order to have as many illuminant estimates for each band.
+
+This algorithm can be divided into two steps:
+\begin{enumerate}
+\item Subsampling of the image horizontally and vertically
+\item Illuminant estimation for each band using the 5 different algorithms and spliced region location.
+\end{enumerate}
+
+In the first step the image is sampled into two band categories: horizontal and vertical bands. The height and the width of each band is configured \emph{a priori} based on the minimal height and minimal width separately among the objects of interest. An object of interest is encompassed by a virtual rectangle with its height and width decided by the object itself.
+
+The second step can be also divided into five steps:
+
+\begin{enumerate}
+\item For each direction and for each algorithm, a reference illuminant is estimated for a single band.
+\item For each direction and for each algorithm, a reference illuminant for each direction is evaluated as the median of all references of that direction. At this stage there are two reference illuminats (one for the vertical and one for the horizontal direction) for each algorithm.
+\item A detection map is created, with the same dimensions of the image.
+\item For each algorithm, every band estimate are compared with the reference illuminant of that band direction and algorithm with the Euclidean distance. If the distance exceed a fixed threshold, the band is considered fake and all the pixel values in the detection map are increased by one unit.
+\item The forgery is located using the resulting thresholded detection map.
+\end{enumerate}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1\textwidth]{regionsmethod}
+    \caption{Image regions splicing detection}
+    \label{fig:regionsmethod}
+\end{figure}
+
+The main advantage of this method is its blind approach: the algorithm is not based on the image content (as it was in the previous case) and no human interaction is needed. The only parameters are the bands minimal dimensions and the threshold. Due these facts it is very simple to implement, but it is also afflicted by false alarm caused by a not easy to tune threshold (which is the key the final step).
+
+\subsection{Method drawbacks}
