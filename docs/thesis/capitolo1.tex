@@ -202,11 +202,9 @@ The final decision of this approach is delegated to an expert and not to the alg
 \subsection{Illuminant maps}
 
 
-\subsubsection{Generalized Greyworld algorithm}
+\subsubsection{Generalized Greyworld estimation}
 
-The starting point of the Generalized Grayworld estimation is the \emph{gray world assumption}, proposed by Buchsbaum\cite{Buchsbaum19801}. In its simplest version, it is assumed that information in the average of each channel of the image is the representative gray level.
-
-This idea lead to the Van de Weijer et al.\cite{van2007edge} approach, called \emph{Generalized Grayworld}.
+The starting point is the \emph{gray world assumption}, proposed by Buchsbaum\cite{Buchsbaum19801}. In its simplest version, it is assumed that information in the average of each channel of the image is the representative gray level.
 
 Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the diffuse reflection id diffuse and that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
 
@@ -218,7 +216,9 @@ f(x) = \int_{\omega} e(\beta, x) s(\beta, x) c(\beta) d\beta
 
 where $\omega$ is the visible light spectrum, $\beta$ is the light wavelenght, $e(\beta, x)$ is the illuminant spectrum, $s(\beta, x)$ is the surface reflectance of an object and $c(\beta)$ is the color sensitivities of the camera for each channel.
 
-Based on this model, the authors proposed a framework for low-level based illuminant estimation:
+As an alternative to the gray-world hypothesis, Van de Weijer et al.\cite{van2007edge} proposed the \emph{gray-edge hypothesis}: the average of the reflectance differences in a scene is achromatic.
+
+This idea load to a framework for low-level based illuminant estimation, called \emph{Generalized Grayworld}.
 
 \begin{equation}\label{eq:ggeframework}
 \left( \int 	\left | \frac{\delta^n f^{\sigma}(x)}{\delta x^{n}} \right |^{p} dx \right)^{\frac{1}{p}} = k e ^{n, p, \sigma}
@@ -236,14 +236,11 @@ This framework \ref{eq:ggeframework} produces different estimations for the illu
 
 On varying of these parameter, a different method can be used. An overview of the possible methods derived from  Eq. \ref{eq:ggeframework} is displayed in Table \ref{table:ggemethods}.
 
-\begin{scriptsize}
-
-
-\begin{table}[ht]
+\begin{table}[h!]
 \caption{Overview of different illuminant estimation methods based on \ref{eq:ggeframework}}
 \centering
-\begin{adjustbox}{width=1\textwidth}
-\begin{tabular}{l c c l} 
+\small
+\begin{tabular}{l c c p{4.5cm}} 
 \hline\hline 
 Name & Symbol & Equation & Assumption \\ [0.5ex]
 \hline 
@@ -256,14 +253,13 @@ Max-Edge & $e^{1, \infty, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{\infty} dx)^{\f
 2nd order Gray-Edge & $e^{2, p, \sigma}$ & $(\int |f^{\sigma}_{xx}(x)|^{p} dx)^{\frac{1}{p}} = k e$ & The $p$-th Minkowski norm of the second order derivative in a scene is achromatic\\ [1ex]
 \hline
 \end{tabular}
-\end{adjustbox}
 \label{table:ggemethods}
 \end{table}
 
-\end{scriptsize}
+\subsubsection{Inverse Intensitiy-Chromaticiy estimation}
 
+The other considered illuminant estimation method is based on the idea proposed by Tan et al.\cite{tan2004color}, called \emph{inverse intensity-chromaticity}.
 
-\subsubsection{Inverse Intensitiy Chromaticiy}
 
 
 \section{Human faces splicing detection}
