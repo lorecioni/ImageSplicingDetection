@@ -148,7 +148,7 @@ According to this model, reflection of any non-homogeneous materials may be mode
 
 Considering an object point illuminated by a light source, the reflected ray consists of diffuse reflection $L_B (\lambda)$ and surface reflection $L_S (\lambda)$. The reflected light $L(\Theta, \lambda)$ can be written as:
 
-\begin{equation}
+\begin{equation} \label{eq:dichromaticmodel}
 L(\Theta, \lambda) = m_S(\Theta) L_S(\lambda) + m_B(\Theta) L_B(\lambda)
 \end{equation}
 
@@ -260,8 +260,68 @@ Max-Edge & $e^{1, \infty, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{\infty} dx)^{\f
 
 The other considered illuminant estimation method is based on the idea proposed by Tan et al.\cite{tan2004color}, called \emph{inverse intensity-chromaticity}.
 
+The base for these kind of approach is the dichromatic reflectance model\cite{gholap2008illuminant}, which states that the amount of light reflected from a point, $x$, of a dielectric, non-uniform material is a linear combination of diffuse reflection and specular reflection. Further assumptions are that the color of the specularities approximates the color of the illuminant, and that the camera response is linear.
 
+Considering a trichromatic camera, the sensor response $I_c (x)$, for each color channel $c \in \{R, G, B\}$ is:
+
+\begin{equation}\label{eq:sensorrespiic}
+I_c(x) = m_S(x) L_S(x) + m_B(x) L_B(x)
+\end{equation}
+
+as described in \ref{eq:dichromaticmodel}. 
+
+Let $\sigma_c$ the image chromaticity, $\Delta_c(x)$ the diffuse chromaticity and $\Gamma_c(x)$ the specular chromaticity defined as follows:
+
+\begin{equation}
+\sigma_c(x) = \frac{I_c(x)}{\sum_i I_i(x)} \textrm{  where } i \in \{R, G, B\}\
+\end{equation}
+\begin{equation}
+\Delta_c(x) = \frac{L_{S, c}(x)}{\sum_i L_{S, i}(x)} \textrm{  where } i \in \{R, G, B\}\
+\end{equation}
+\begin{equation}
+\Gamma_c(x) = \frac{L_{B, c}(x)}{\sum_i L_{B, i}(x)} \textrm{  where } i \in \{R, G, B\}\
+\end{equation}
+
+Thus the Eq. \ref{eq:sensorrespiic} can be rewritten as
+
+\begin{equation}
+I_c(x) = m_S(x) \Delta_c(x) + m_B(x) \Gamma_c(x)
+\end{equation}
+
+Tan et al.\cite{tan2004color} derived a linear relationship between diffuse, specular and image chromaticities:
+
+\begin{equation}
+\sigma_c(x) = m(x) \frac{1}{\sum_{i} I_i(x)} + \Gamma_c(x)
+\end{equation}
+
+where $i \in \{R, G, B\}$ and $m(x)$ is a geometrical factor (light position, surface orientation, camera position, ...), that can be approximated. In the illuminant estimation, the most important aspect is the $y$-intercept $\Gamma_c$.
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{iic_space}
+    \caption{Pixel distribution in inverse-intensity chromaticity (IIC) space. Left are as ideal distribution, left on a synthetic image (in the center).}
+    \label{fig:iic_space}
+\end{figure}
+
+The 2D space defined by $\frac{1}{\sum_{i} I_i(x)}$ as domain and $0 \leq \sigma_c \leq 1$ as range is called \emph{inverse-intensity chromaticity (IIC)} space.
+
+An example of the IIC plots for a single channel of a synthetic image are shown in Fig. \ref{fig:iic_space}.
+Pixels from the green and purple balls form two clusters. The clusters have spikes that point towards the same location at the $y$-axis. Considering only such spikes from each cluster, the illuminant chromaticity is estimated from the joint $y$-axis intercept of all spikes in IIC space.
+
+Instead of examining the entire pixel distribution, Riess et al.\cite{riess2010scene} perform the analysis over small connected image regions of roughly uniform object color (\emph{superpixels}). Depending on the outcome of our shape analysis, we can either use this local region to obtain an illuminant estimate, or reject it if it does not seem to fulfill the underlying assumptions of the proposed model. Using local regions allows us to incorporate multiple sampling and voting in the estimation of local illuminants.
 
 \section{Human faces splicing detection}
+
+The approach proposed in Chapter 2 is based on two different works, published by Carvalho et al.\cite{carvalho2016illuminant} and Fan et al.\cite{fan2015image}.
+
+The method proposed by Carvalho et al.\cite{carvalho2016illuminant} aims to detect splicing focusing on human faces, minimizing the user interaction. Faces are previously labeled by a human selecting the box within is contained, than the process will associate a label to each face (i.e. \emph{normal} or \emph{fake}).
+
+The method can be divided into four steps:
+
+\begin{enumerate}
+\item \emph{Description}: in this step illuminant maps are estimated with the two different approaches, GGE and IIC.
+\end{enumerate}
+
+
 
 \section{Region splicing detection}
