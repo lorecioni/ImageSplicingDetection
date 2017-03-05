@@ -166,13 +166,104 @@ In addiction, Wu and Fang\cite{wu2011image} proposed a new way to detect forgeri
 
 These approaches will be better explained in the next section due their importance for this proposed method.
 
-\section{Illuminant Maps}
+\section{Illuminant color estimation}
 
 
+The color of an object observed in an image depends both on its intrinsic color and the color of light source i.e., the illuminant. 
 
-\subsection{Generalized Greyworld algorithm}
+It is important to keep in mind that even the same light source can generate different illuminants. The illuminant formed by the sun, for example, varies in its appearance during the day and time of year as well as with the weather. We only capture the same illuminant, measuring the sunlight at the same place at the same time.
 
-\subsection{Inverse Intensitiy Chromaticiy}
+We can explore illuminants in forensics to check the consistency of similar objects in a scene. If two objects with very similar color stimuli (e.g., human skin) depict inconsistent appearance (different illuminants), it means they might have undergone different illumination conditions hinting at a possible image composition. On the other hand, if we have a photograph with two people and the color appearance on the faces of such people are consistent, it is likely they have undergone similar lighting conditions.
+
+Riess and Angelopoulou\cite{riess2010scene} pioneered the approach of using a color-based method that investigates illuminant colors to detect forgeries in forensic scenario. In their work illuminant colors are estimated locally, effectively decomposing the scene in a map of differently illuminated regions. Inconsistencies in such a map suggest possible image tampering.
+
+The method can be divided into four steps:
+
+\begin{enumerate}
+\item Image segmentation. The image is segmented into regions, called \emph{superpixels}, of approximately the same object color. Each superpixel follows must be:
+\begin{enumerate}
+\item Directly illuminated by the same light source.
+\item Compliant with the \emph{dichromatic reflectance model}\cite{tan2004color}.
+\end{enumerate}
+\item Manual user selection of superpixels under investigation.
+\item Local illuminant color estimation for each superpixel (both for segmented superpixels and user selected regions).
+\item Reference illuminant selection (manual) and \emph{distance map} evaluation. The distance map is the base for an expert analysis for forgery detection.
+\end{enumerate}
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{illuminant_maps}
+    \caption{An example of a generated distance map using Riess and Angelopoulou\cite{riess2010scene} approach. From left to right: (a) the original image, (b) \emph{illuminant map}, (c) generated distance map}
+    \label{illuminant_maps}
+\end{figure}
+
+The final decision of this approach is delegated to an expert and not to the algorithm itself.
+
+\subsection{Illuminant maps}
+
+
+\subsubsection{Generalized Greyworld algorithm}
+
+The starting point of the Generalized Grayworld estimation is the \emph{gray world assumption}, proposed by Buchsbaum\cite{Buchsbaum19801}. In its simplest version, it is assumed that information in the average of each channel of the image is the representative gray level.
+
+This idea lead to the Van de Weijer et al.\cite{van2007edge} approach, called \emph{Generalized Grayworld}.
+
+Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the diffuse reflection id diffuse and that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
+
+The RGB color $f(x)$ can also be rewritten as
+
+\begin{equation}
+f(x) = \int_{\omega} e(\beta, x) s(\beta, x) c(\beta) d\beta
+\end{equation}
+
+where $\omega$ is the visible light spectrum, $\beta$ is the light wavelenght, $e(\beta, x)$ is the illuminant spectrum, $s(\beta, x)$ is the surface reflectance of an object and $c(\beta)$ is the color sensitivities of the camera for each channel.
+
+Based on this model, the authors proposed a framework for low-level based illuminant estimation:
+
+\begin{equation}\label{eq:ggeframework}
+\left( \int 	\left | \frac{\delta^n f^{\sigma}(x)}{\delta x^{n}} \right |^{p} dx \right)^{\frac{1}{p}} = k e ^{n, p, \sigma}
+\end{equation}
+
+where $k$ denotes a scaling factor, $|\cdot|$ the norm operand, $\delta$ the differential operator and $f^{\sigma}(x)$ the pixel intensities at position $x$, smoothed with a Gaussian kernel $\sigma$.
+
+This framework \ref{eq:ggeframework} produces different estimations for the illuminant color based on three parameters:
+
+\begin{enumerate}
+\item The order $n$ determines if the method is a gray-world or a gray-edge algorithm. The gray-world methods are based on the RGB values, whereas the gray-edge methods are based on the spatial derivative of order $n$.
+\item The Minkowski norm $p$ which determines the relative weights of the multiple measurements from which the final illuminant color is estimated.
+\item The scale $\sigma$ of the local measurements. For first or higher order estimation, this local scale is combined with the differentiation operation computed with the Gaussian derivative. For zero-order gray-world methods, this local scale is imposed by a Gaussian smoothing operation.
+\end{enumerate}
+
+On varying of these parameter, a different method can be used. An overview of the possible methods derived from  Eq. \ref{eq:ggeframework} is displayed in Table \ref{table:ggemethods}.
+
+\begin{scriptsize}
+
+
+\begin{table}[ht]
+\caption{Overview of different illuminant estimation methods based on \ref{eq:ggeframework}}
+\centering
+\begin{adjustbox}{width=1\textwidth}
+\begin{tabular}{l c c l} 
+\hline\hline 
+Name & Symbol & Equation & Assumption \\ [0.5ex]
+\hline 
+Gray-World & $e^{0, 1, 0}$ & $(\int f(x) dx) = k e$ & The average reflectance in a scene is achromatic \\
+max-RGB & $e^{0, \infty, 0}$ & $(\int |f(x)|^{\infty} dx)^{\frac{1}{\infty}} = k e$ & The maximum reflectance in a scene is achromatic \\
+Shades of Gray & $e^{0, p, 0}$ & $(\int |f(x)|^{p} dx)^{\frac{1}{p}} = k e$ & The $p$-th Minkowski norm of scene is achromatic \\
+General Gray-World & $e^{0, p, \sigma}$ & $(\int |f^{\sigma}(x)|^{p} dx)^{\frac{1}{p}} = k e$ & The $p$-th Minkowski norm of scene is achromatic after smoothing\\
+Gray-Edge & $e^{1, p, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{p} dx)^{\frac{1}{p}} = k e$ & The $p$-th Minkowski norm of the image derivative is achromatic\\
+Max-Edge & $e^{1, \infty, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{\infty} dx)^{\frac{1}{\infty}} = k e$ & The maximum reflectance difference in a scene is achromatic\\
+2nd order Gray-Edge & $e^{2, p, \sigma}$ & $(\int |f^{\sigma}_{xx}(x)|^{p} dx)^{\frac{1}{p}} = k e$ & The $p$-th Minkowski norm of the second order derivative in a scene is achromatic\\ [1ex]
+\hline
+\end{tabular}
+\end{adjustbox}
+\label{table:ggemethods}
+\end{table}
+
+\end{scriptsize}
+
+
+\subsubsection{Inverse Intensitiy Chromaticiy}
 
 
 \section{Human faces splicing detection}
