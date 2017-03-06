@@ -46,8 +46,9 @@ class RegionSplicingDetector:
 
         utils.createTempFolder()
 
+        self.featureFile = open("features.txt", "w");
 
-    def detect(self, img, output, mask = False):
+    def detect(self, img, output, groundtruth = False):
         self.filename = utils.getFilename(img)
         print('Processing ' + self.filename)
 
@@ -55,7 +56,7 @@ class RegionSplicingDetector:
         image = cv2.imread(img)
 
         #Mask
-        if mask:
+        if groundtruth:
             maskImage = cv2.imread(config.masks_folder + self.filename + '.png', cv2.IMREAD_GRAYSCALE)
             if maskImage is not None:
                 maskImage = np.invert(maskImage)
@@ -64,11 +65,7 @@ class RegionSplicingDetector:
 
         if image is not None:
             config.forceMapsExtraction = True
-            #illuminantMaps.prepareImageIlluminants(img, config.seg_sigma, config.seg_k, config.seg_min_size,
-            #                                            config.min_intensity, config.max_intensity, self.verbose)
 
-            config.forceMapsExtraction = False
-            #segmented = cv2.imread(config.maps_folder + self.filename + "_segmented.png")
             segmented = None
             #Dividing bands
             self.verticalBands = self.extractImageBands(image, config.bandWidth, segmented, 'vertical', maskImage)
@@ -103,10 +100,18 @@ class RegionSplicingDetector:
 
                 band = self.bands['vertical'][i]
 
+                band_feature = []
                 for med in medians:
                     distance = utils.euclideanDistanceRGB(medians[med], self.verticalReferences[med])
+                    band_feature.append(distance)
                     if distance > thresholds[med]:
                         detectionMap = band.incrementDetection(detectionMap)
+
+                if groundtruth:
+                    self.featureFile.write(band.bandLabel + ": ")
+                    for feat in band_feature:
+                        self.featureFile.write(str(feat) + " ")
+                    self.featureFile.write("\n")
 
 
             for i in range(self.horizontalBands):
@@ -115,11 +120,20 @@ class RegionSplicingDetector:
                     medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
 
                 band = self.bands['horizontal'][i]
-
+                band_feature = []
                 for med in medians:
                     distance = utils.euclideanDistanceRGB(medians[med], self.horizontalReferences[med])
+                    band_feature.append(distance)
                     if distance > thresholds[med]:
                         detectionMap = band.incrementDetection(detectionMap)
+
+                if groundtruth:
+                    self.featureFile.write(band.bandLabel + ": ")
+                    for feat in band_feature:
+                        self.featureFile.write(str(feat) + " ")
+                    self.featureFile.write("\n")
+
+            self.featureFile.close()
 
             # Recover detection map max value
             max_value = np.ndarray.max(detectionMap)
@@ -222,6 +236,7 @@ class RegionSplicingDetector:
 
                 bandLabel = 0
 
+                #Mark a band as fake (if spliced region is more than the 5% of the area)
                 if mask is not None:
                     fakes = np.sum(np.sum(maskSeg))
                     if fakes > 0:
