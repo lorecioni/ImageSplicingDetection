@@ -262,7 +262,7 @@ def normalImageStatistics(num, type = 'rgb'):
 '''Test splicing regions'''
 
 #testGGEMaps()
-normalImageStatistics(25, 'ycbcr')
+#normalImageStatistics(25, 'ycbcr')
 
 
 def getPlotData(res, color_space, channel, type = 'normal'):
@@ -320,10 +320,10 @@ def testDifferentResolution(res, color_space, channel = 'all', type = 'all'):
             plt.plot(X, Y, color=colors[2])
         else:
             X, Y, Y_hist = getPlotData(res, color_space, channel, type)
-            plt.plot(X, Y, color=colors[0])
+            plt.plot(X, Y, color=colors[1])
 
     # np.savetxt('test.txt', Y_hist)
-    #plt.plot(X, Y_hist, '+')
+    plt.plot(X, Y_hist)
     plt.show()
 
-#testDifferentResolution(10,'rgb', channel='green', type='all')
+testDifferentResolution(10,'ycbcr', channel='y', type='spliced')

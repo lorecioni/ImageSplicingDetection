@@ -6,18 +6,23 @@ Created on 05 ott 2016
 
 
 '''General configuration'''
-dataset = 'DSI-1'
+dataset = 'DSO-1'
+#dataset = 'DSI-1'
+#dataset = 'COLORCHECKER'
 
 imagesFolder = '../datasets/' + dataset + '/Images/'
-labelsFolder = '../datasets/' + dataset + '/Labels/'
+#imagesFolder = '../datasets/ColorChecker/srgb8bit/'
 
+labelsFolder = '../datasets/' + dataset + '/Labels/'
 maps_folder = '../datasets/' + dataset + '/Maps/'
+#maps_folder = '../datasets/ColorChecker/maps/'
+
 features_folder = '../datasets/' + dataset + '/Features/'
 faces_folder = '../datasets/' + dataset + '/Faces/'
 descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
 masks_folder = '../datasets/' + dataset + '/Masks/'
 classification_folder = 'data/'
-
+data_folder = 'data/'
 temp_folder = 'temp/'
 
 #Convert binaries
@@ -64,6 +69,6 @@ feature_vector_length = 6
 
 
 '''Region splicing detection'''
-bandWidth = 250
-bandHeight = 250
+bandWidth = 200
+bandHeight = 200
 
