@@ -349,6 +349,14 @@ The Fig. \ref{fig:tiago_method_full} shows the above descripted method pipeline.
 
 \subsection{Method drawbacks}
 
+The main drawback of this approach relies in the manual selection of faces by a human agent. The definition of a face in the image by the operator is made by identification of the bounding box in which it is fully contained.
+
+This manual operation does not allow a blind approach to the problem. Because the faces are considered in pairs, this method can be applied only in the case when there are at least two faces, so you need to know in advance the content of the images to assess the applicability of this algorithm.
+
+Working with pairs of faces, another problem is the choice of which face has been manipulated among those considered. 
+
+In addiction, this method is based on the observation that, given two faces (a pristine face and a spliced one), the difference between the two forged faces illuminant maps tend to be higher. This intuition, however, proved to be not applicable in all contexts, so cannot be considered as a starting point for the final evaluation.
+
 \section{Region splicing detection}
 
 The other considered approach is based on the work of Fan et al.\cite{fan2015image}. This method relies on the Van de Weijer et al.\cite{van2007edge} Generalized Gray-World framework \ref{eq:ggeframework}. These algorithm perform better on a scene when it is rich of colors, but in a splicing detection scenario we are interest in a specific region of the image.
