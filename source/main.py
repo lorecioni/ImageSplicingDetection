@@ -12,7 +12,7 @@ import loadDatasets
 
 __version__ = '0.5.1'
 __date__ = '2016-10-14'
-__updated__ = '2017-02-09'
+__updated__ = '2017-03-10'
 
 def main():
     print('ImageSplicingDetection v.' + str(__version__))
