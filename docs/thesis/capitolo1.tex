@@ -391,3 +391,9 @@ The second step can be also divided into five steps:
 The main advantage of this method is its blind approach: the algorithm is not based on the image content (as it was in the previous case) and no human interaction is needed. The only parameters are the bands minimal dimensions and the threshold. Due these facts it is very simple to implement, but it is also afflicted by false alarm caused by a not easy to tune threshold (which is the key the final step).
 
 \subsection{Method drawbacks}
+
+Given its simplicity, this approach has some drawbacks. First, because the classification is based on a simple distance between a reference value, a key point is the identification of optimal thresholds.
+
+These thresholds can be calculated experimentally, but their accuracy will depend on the dataset with which they were computed.
+
+For how it's built, moreover, this method tends to have a low detection rate compared to a high false positive rate.
