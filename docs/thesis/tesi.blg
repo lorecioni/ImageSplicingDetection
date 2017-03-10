@@ -4,45 +4,45 @@ The top-level auxiliary file: tesi.aux
 The style file: ieee.bst
 Database file #1: bibliography.bib
 Warning--can't use both volume and number fields in finlayson2004shades
-You've used 12 entries,
+You've used 14 entries,
             2120 wiz_defined-function locations,
-            582 strings with 5830 characters,
-and the built_in function-call counts, 4733 in all, are:
-= -- 497
-> -- 184
-< -- 7
-+ -- 73
-- -- 60
-* -- 322
-:= -- 740
-add.period$ -- 42
-call.type$ -- 12
-change.case$ -- 66
+            593 strings with 6264 characters,
+and the built_in function-call counts, 5749 in all, are:
+= -- 604
+> -- 230
+< -- 9
++ -- 91
+- -- 76
+* -- 388
+:= -- 889
+add.period$ -- 50
+call.type$ -- 14
+change.case$ -- 80
 chr.to.int$ -- 0
-cite$ -- 13
-duplicate$ -- 193
-empty$ -- 384
-format.name$ -- 60
-if$ -- 1037
+cite$ -- 15
+duplicate$ -- 237
+empty$ -- 463
+format.name$ -- 76
+if$ -- 1269
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 12
-newline$ -- 63
-num.names$ -- 24
-pop$ -- 69
+int.to.str$ -- 14
+missing$ -- 14
+newline$ -- 73
+num.names$ -- 28
+pop$ -- 89
 preamble$ -- 1
-purify$ -- 54
+purify$ -- 66
 quote$ -- 0
-skip$ -- 142
+skip$ -- 175
 stack$ -- 0
-substring$ -- 340
-swap$ -- 63
-text.length$ -- 7
+substring$ -- 406
+swap$ -- 83
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
+type$ -- 56
 warning$ -- 1
-while$ -- 51
-width$ -- 14
-write$ -- 142
+while$ -- 61
+width$ -- 16
+write$ -- 166
 (There was 1 warning)
