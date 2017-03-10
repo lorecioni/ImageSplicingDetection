@@ -42,7 +42,7 @@ seg_k = 300
 seg_min_size = 15
 
 #Use Riess default parameters for IM extraction
-use_riess_default = False
+use_riess_default = True
 
 # GGE Map
 gge_sigma = 1
@@ -69,6 +69,6 @@ feature_vector_length = 6
 
 
 '''Region splicing detection'''
-bandWidth = 200
-bandHeight = 200
+bandWidth = 400
+bandHeight = 400
 

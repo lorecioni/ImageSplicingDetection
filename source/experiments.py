@@ -7,6 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import regionSplicingDetection
 import math
+from sklearn.svm import SVC
+from sklearn.externals import joblib
 
 verbose = False
 display = False
@@ -326,4 +328,28 @@ def testDifferentResolution(res, color_space, channel = 'all', type = 'all'):
     plt.plot(X, Y_hist)
     plt.show()
 
-testDifferentResolution(10,'ycbcr', channel='y', type='spliced')
+#testDifferentResolution(10,'ycbcr', channel='y', type='spliced')
+
+
+def trainSVM():
+    ofid = open('features_old.txt', 'rt')
+    ofid.seek(0)
+    lines = ofid.readlines()
+    ofid.close()
+    X = []
+    Y = []
+    print(len(lines))
+
+    for line in lines:
+        segments = line.split(":")
+        Y.append(int(segments[0]))
+        X.append(np.array(segments[1].split(), dtype=float))
+
+    X = np.asarray(X)
+    Y = np.asarray(Y)
+    clf = SVC()
+    clf.fit(X, Y)
+    joblib.dump(clf, 'TEST_2.pkl')
+    print(clf.score(X, Y))
+
+trainSVM()
