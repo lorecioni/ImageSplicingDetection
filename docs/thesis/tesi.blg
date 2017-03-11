@@ -3,46 +3,47 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: tesi.aux
 The style file: ieee.bst
 Database file #1: bibliography.bib
+Warning--empty journal in farid2009digital
 Warning--can't use both volume and number fields in finlayson2004shades
-You've used 14 entries,
+You've used 19 entries,
             2120 wiz_defined-function locations,
-            593 strings with 6264 characters,
-and the built_in function-call counts, 5749 in all, are:
-= -- 604
-> -- 230
-< -- 9
-+ -- 91
-- -- 76
-* -- 388
-:= -- 889
-add.period$ -- 50
-call.type$ -- 14
-change.case$ -- 80
+            619 strings with 6989 characters,
+and the built_in function-call counts, 7379 in all, are:
+= -- 771
+> -- 298
+< -- 10
++ -- 118
+- -- 98
+* -- 504
+:= -- 1160
+add.period$ -- 66
+call.type$ -- 19
+change.case$ -- 106
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 237
-empty$ -- 463
-format.name$ -- 76
-if$ -- 1269
+cite$ -- 21
+duplicate$ -- 299
+empty$ -- 594
+format.name$ -- 98
+if$ -- 1608
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 14
-newline$ -- 73
-num.names$ -- 28
-pop$ -- 89
+int.to.str$ -- 19
+missing$ -- 19
+newline$ -- 98
+num.names$ -- 38
+pop$ -- 114
 preamble$ -- 1
-purify$ -- 66
+purify$ -- 87
 quote$ -- 0
-skip$ -- 175
+skip$ -- 215
 stack$ -- 0
-substring$ -- 406
-swap$ -- 83
-text.length$ -- 9
+substring$ -- 516
+swap$ -- 93
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
-warning$ -- 1
-while$ -- 61
-width$ -- 16
-write$ -- 166
-(There was 1 warning)
+type$ -- 76
+warning$ -- 2
+while$ -- 80
+width$ -- 21
+write$ -- 220
+(There were 2 warnings)
