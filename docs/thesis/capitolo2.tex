@@ -2,6 +2,19 @@
 
 \subsection{Overview}
 
+The approach proposed in this chapter have been developed to correct some drawbacks and mainly to achieve an improved accuracy over the two approaches presented in Chapter 1. 
+
+The two methods are now being used in synergy with each other, going to analyze each image at the same time looking for potential signs of forgery.
+
+Starting from an image we want to analyze, the method will output a set of results.
+\begin{itemize}
+\item A classification \textbf{label} indicating whether an image is believed to be original or counterfeit.
+\item A classification \textbf{score} indicating the confidence of the method output.
+\item A \textbf{detection map} highlighting the detected spliced regions.
+\end{itemize}
+
+The proposed approach minimizes human interaction being fully automated. However, not both the modules can operate in any circumstance. The face splicing detection module will work only if there is a number of faces greater than or equal to two.
+
 \subsection{Face splicing detection module}
 
 \subsection{Region splicing detection module}
