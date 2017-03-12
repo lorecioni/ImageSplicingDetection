@@ -59,7 +59,28 @@ The choice of the band size is a crucial phase of the algorithm: a band too tigh
 
 The choice of the overlapped area percentage makes possible a more detailed evaluation. In this way it is possible to classify the same region of the image more than once, increasing the expressive power of our final classifier, the detection map.
  
+In summary, let $I$ be the input image. After the segmentation process we obtain a set $B$ of bands containing all vertical and horizontal bands:
+
+$$
+B = \{V_1, \ldots, V_n, H_1, \ldots, H_m\}
+$$
+
+The dimension of $B$ is given by the sum of the number of vertical ($n$) and horizontal ($m$) bands.
+
 \subsection{Band illuminant estimation}
+
+The resulting image bands are now processed in order to evaluate the illuminant color using different techniques.
+
+For this step, the Generalized Grayworld \cite{van2007edge} algorithms are used, as presented in Chapter 1. For each band, the illumination estimation is accomplished by using one of algorithms composed of Grey-World, Max-RGB, Shades of Grey, first-order Grey-Edge and second-order Grey-Edge. Thus we have 5 illuminant estimates for each band.
+Table \ref{table:ggemethods} in Chapter 1 summarize this algorithm parameters.
+
+In this way we obtain 5 different illuminant estimation for each single band.
+
+$$
+\forall b \in B \qquad R_a(b) = GGE_a(b) \qquad a \in \mathcal{A}
+$$
+
+where $\mathcal{A}$ is the set of the previously mentioned algorithms and $GGE$ is the algorithm implementation.
 
 \subsection{Reference illuminant estimation}
 
