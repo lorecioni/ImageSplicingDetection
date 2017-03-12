@@ -84,7 +84,30 @@ where $\mathcal{A}$ is the set of the previously mentioned algorithms and $GGE$ 
 
 \subsection{Reference illuminant estimation}
 
+After estimating the illuminant of each horizontal/vertical band, it is evaluated a reference illuminant color for each used algorithms.
+
+$$
+\forall a \in \mathcal{A} \qquad RV_a = median(R_a(b)) \quad \forall b \textrm{ vertical}
+$$
+$$
+\forall a \in \mathcal{A} \qquad RH_a = median(R_a(b)) \quad \forall b \textrm{ horizontal}
+$$
+
+where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, will be identical to one of the values of a band of that same direction.
+
 \subsection{Feature vector estimation}
+
+Given the two reference color for each of the two directions, a feature band for each single image band can be built.
+
+Assuming a single light source in the image, all the evaluated illuminant will point at the same color.
+Based on this assumption, a feature vector that capture how the gang present of singularities in the illuminant is built.
+
+Let $b \in B$ a single band lying on $d \in \{vertical, horizontal\}$ direction. The feature vector for $b$ will be:
+
+\begin{equation}\label{eq:regionsfeaturevector}
+f_b = \{m_1, \ldots, m_5\}
+\end{equation}
+
 
 \subsection{Band classification}
 

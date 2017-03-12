@@ -49,14 +49,14 @@ class RegionSplicingDetector:
 
         utils.createTempFolder()
 
-        #self.featureFile = open('features_new.txt', "w");
+        self.featureFile = open('features_correct_2.txt', "w");
         self.clf = joblib.load(config.data_folder + 'regions/trained_data.pkl')
 
     def evaluate(self, images, output):
         for i in range(len(images)):
-            img = images[len(images) - 40 - i]
+            img = images[len(images) - 1 - i]
             self.detect(img, output, True)
-            if i == 2:
+            if i == 25:
                 break
         self.featureFile.close()
 
@@ -115,10 +115,11 @@ class RegionSplicingDetector:
                 band = self.bands['vertical'][i]
                 band_feature = []
                 detected = 0
-                for med in medians:
-                    distance = utils.euclideanDistanceRGB(medians[med], self.verticalReferences[med])
+
+                for alg in self.algorithms:
+                    distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
                     band_feature.append(distance)
-                    if distance > thresholds[med]:
+                    if distance > thresholds[alg]:
                         detected += 1
 
                 if detected >= 4:
@@ -137,13 +138,13 @@ class RegionSplicingDetector:
                 if band.label == detected:
                     score_old += 1
 
-                print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands))
+                print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands) + ' vertical bands')
 
-                #if groundtruth:
-                #    self.featureFile.write(str(band.label) + ": ")
-                #    for feat in band_feature:
-                #        self.featureFile.write(str(feat) + " ")
-                #    self.featureFile.write("\n")
+                if True and groundtruth:
+                    self.featureFile.write(str(band.label) + ": ")
+                    for feat in band_feature:
+                        self.featureFile.write(str(feat) + " ")
+                    self.featureFile.write("\n")
 
             for i in range(self.horizontalBands):
                 filename = config.temp_folder + 'horizontal_band_' + str(i) + "_gge_map_"
@@ -153,10 +154,10 @@ class RegionSplicingDetector:
                 band = self.bands['horizontal'][i]
                 band_feature = []
                 detected = 0
-                for med in medians:
-                    distance = utils.euclideanDistanceRGB(medians[med], self.horizontalReferences[med])
+                for alg in self.algorithms:
+                    distance = utils.euclideanDistanceRGB(medians[alg], self.horizontalReferences[alg])
                     band_feature.append(distance)
-                    if distance > thresholds[med]:
+                    if distance > thresholds[alg]:
                         detected += 1
 
                 if detected >= 4:
@@ -169,18 +170,18 @@ class RegionSplicingDetector:
                     detectionMap = band.incrementDetection(detectionMap)
 
                 print('True: ' + str(band.label) + ' Predicted: ' + str(prediction[0]) + ' Old: ' + str(detected))
-                print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands))
+                print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
 
                 if band.label == prediction[0]:
                     score_svm += 1
                 if band.label == detected:
                     score_old += 1
 
-                #if groundtruth:
-                #    self.featureFile.write(str(band.label) + ": ")
-                #    for feat in band_feature:
-                #        self.featureFile.write(str(feat) + " ")
-                #    self.featureFile.write("\n")
+                if True and groundtruth:
+                    self.featureFile.write(str(band.label) + ": ")
+                    for feat in band_feature:
+                        self.featureFile.write(str(feat) + " ")
+                    self.featureFile.write("\n")
 
             print('Score SVM: ' + str(score_svm/(self.verticalBands + self.horizontalBands)))
             print('Score Old: ' + str(score_old / (self.verticalBands + self.horizontalBands)))
@@ -202,7 +203,7 @@ class RegionSplicingDetector:
 
             detectionMap *= 255
 
-            if self.display_result:
+            if False or self.display_result:
                 # Display color map
                 color_map = detectionMap
                 color_map = color_map.astype(np.uint8)
@@ -221,9 +222,29 @@ class RegionSplicingDetector:
                 cv2.imshow('output', out)
                 cv2.waitKey(0)
 
+            if maskImage is not None:
+                # Normalization
+                maskImage[maskImage < 120] = 0
+                maskImage[maskImage >= 120] = 1
+                w, h = maskImage.shape
+                totalSplicedPixels = (maskImage == 1).sum()
+                diffMask = maskImage - outputMask
+                fn = (diffMask == 1).sum()
+                fp = (diffMask == -1).sum()
+                tp = totalSplicedPixels - fn
+                tn = w * h - totalSplicedPixels - fp
+
+                precision = tp/(tp + fp)
+                recall = tp/(tp + fn)
+                accuracy = (tp + tn)/(tp + tn + fp + fn)
+                print('Precision: ' + str(precision) + ' - Recall: ' + str(recall) + ' - Accuracy: ' + str(accuracy))
+
             #Write output mask
-            outputMask *= 255
-            # cv2.imwrite(output, outputMask)
+            #outputMask *= 255
+            #cv2.imwrite(output, outputMask)
+
+
+
 
             # Print score
             print("Splicing score: " + str(score))
@@ -262,6 +283,9 @@ class RegionSplicingDetector:
             if diff < limit:
                 end = diff
             else:
+                end = limit - diff - 1
+
+            if end - start < 10:
                 break
 
             if direction == 'vertical':
@@ -294,8 +318,11 @@ class RegionSplicingDetector:
                     fakes = np.sum(np.sum(maskSeg))
                     if fakes > 0:
                         percent = fakes/(W * H * 255)
-                        if percent > 0.05:
+                        if percent > 0.2:
                             bandLabel = 1
+                            #cv2.imshow('band', band)
+                            #cv2.waitKey()
+
 
                 self.bands[direction].append(DetectionBand(i, direction, bandLabel))
 
