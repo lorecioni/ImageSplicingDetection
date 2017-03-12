@@ -51,8 +51,14 @@ The Fig \ref{fig:regionsmodulepipeline} summarize the module pipeline.
 
 \subsection{Image segmentation}
 
+In the first step of the process, the input image is segmented in order to obtain two image bands categories: horizontal and vertical bands. This kind is segmentation method is chosen  because of its simplicity.
 
+First, a band width $B_w$ and a band height $B_h$ is set. Due to the fact that the segmentation has to produce overlapping bands, we set a delta factor of $\frac{1}{4}$. As a result we get overlapping stripes for a total of 25\% of their area. 
 
+The choice of the band size is a crucial phase of the algorithm: a band too tight would fail to capture the information necessary to classify our object of interest as falsified, unlike a band too wide would capture instead too much additional information.
+
+The choice of the overlapped area percentage makes possible a more detailed evaluation. In this way it is possible to classify the same region of the image more than once, increasing the expressive power of our final classifier, the detection map.
+ 
 \subsection{Band illuminant estimation}
 
 \subsection{Reference illuminant estimation}
