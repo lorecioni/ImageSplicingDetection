@@ -87,10 +87,10 @@ where $\mathcal{A}$ is the set of the previously mentioned algorithms and $GGE$ 
 After estimating the illuminant of each horizontal/vertical band, it is evaluated a reference illuminant color for each used algorithms.
 
 $$
-\forall a \in \mathcal{A} \qquad RV_a = median(R_a(b)) \quad \forall b \textrm{ vertical}
+\forall a \in \mathcal{A} \qquad RV_a = median(R_a(b)) \quad \forall \; b \textrm{ vertical}
 $$
 $$
-\forall a \in \mathcal{A} \qquad RH_a = median(R_a(b)) \quad \forall b \textrm{ horizontal}
+\forall a \in \mathcal{A} \qquad RH_a = median(R_a(b)) \quad \forall \; b \textrm{ horizontal}
 $$
 
 where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, will be identical to one of the values of a band of that same direction.
@@ -105,11 +105,27 @@ Based on this assumption, a feature vector that capture how the gang present of 
 Let $b \in B$ a single band lying on $d \in \{vertical, horizontal\}$ direction. The feature vector for $b$ will be:
 
 \begin{equation}\label{eq:regionsfeaturevector}
-f_b = \{m_1, \ldots, m_5\}
+f_{b} = \{m_1, m_2, m_3, m_4, m_5\}
 \end{equation}
-
+where
+$$
+m_i = dist(R_a(b) - RC)
+$$
+where $RC = RV_a$ or $RC = RH_a$ in case of vertical and horizontal band respectively and $dist$ is the Euclidean distance function between two RGB values.
 
 \subsection{Band classification}
 
+Given a feature vector, a machine learning approach is used to automatically classify the band. 
+In a prior step, a classification model is trained using a set of sample data. A Support Vector Machine (SVM) classifier with a radial basis function (RBF) kernel is used.
+
+$$
+\forall \; b \in B \quad Label(b) = SVM(b)
+$$
+
 \subsection{Detection map}
+
+In order to collect all the classification outputs, a detection map is build and updated after each evaluation. If the result of the classification is \emph{positive} (\emph{fake}), all the pixel values that belong to the band portion in the image will be increased by one unit.
+
+At the end of the process, all the splicing region pixels will have greater values than the others. At this stage a color map is displayed to give a visual feedback for locating the splicing image parts.
+
 
