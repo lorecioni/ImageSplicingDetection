@@ -1,0 +1,120 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{phdthesis}[]
+\RequirePackage{ifthen}
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+
+%Margini rilegatura
+\RequirePackage[top=3.75cm,bottom=3.75cm,left=3.75cm,right=3cm]{geometry}
+
+\def\universityname{}
+\def\facultyname{}
+\def\deptname{}
+\def\coursename{}
+\def\accademicyearname{}
+\def\authorname{Candidato}
+\def\supervisorname{Relatore}
+\def\supervisorsname{Relatori}
+\def\advisorsname{Correlatori}
+\def\advisorname{Correlatore}
+
+\gdef\@university{}
+\gdef\@faculty{}
+\gdef\@dept{}
+\gdef\@course{}
+\gdef\@supervisor{}
+\gdef\@advisor{}
+\gdef\@committee{}
+\gdef\@degree{}
+\gdef\@englishtitle{}
+
+% Comandi per i parametri del frontespizio
+\def\university#1{\gdef\@university{#1}}
+\def\faculty#1{\gdef\@faculty{#1}}
+\def\dept#1{\gdef\@dept{#1}}
+\def\englishtitle#1{\gdef\@englishtitle{#1}}
+\def\degree#1{\gdef\@degree{#1}}
+\def\course#1{\gdef\@course{#1}}
+\def\accademicyear#1{\gdef\@accademicyear{#1}}
+\def\supervisor#1{\ifx \empty\@supervisor
+                 \gdef\@supervisor{#1}
+               \else
+                 \gdef\supervisorname{\supervisorsname}
+                 \xdef\@supervisor{ \@supervisor \vskip 0.5ex {#1}}
+               \fi}
+\def\advisor#1{\ifx \empty\@advisor
+                 \gdef\@advisor{#1}
+               \else
+                 \gdef\advisorname{\advisorsname}
+                 \xdef\@advisor{ \@advisor \vskip 0.5ex {#1} }
+               \fi}
+\def\committee#1{\ifx \empty\@committee
+                 \gdef\@committee{#1}
+               \else
+                 \xdef\@committee{ \@committee \vskip 0.5ex {#1} }
+               \fi}
+               
+
+\def\maketitle{%
+\begin{titlepage}%
+ \setcounter{page}{1} %counter=1 nel caso in cui si mantenga la pagina col copyright (2 pagine di title)
+ %\setcounter{page}{0} %counter=0 nel caso in cui la pag. di title e' singola (solo frontespizio)
+ \vspace*{-30mm}
+ {\centering
+ %logo università
+ \includegraphics[height=3.2cm]{firenze.jpg}\vskip 1.6ex
+ \Large\rm
+ \sc\expandafter{\@faculty}\sc\expandafter{\@university} \par%
+
+ \vskip 1ex
+ \normalsize\sc
+ \coursename \@course \par
+ }
+ \centering \rule{7em}{0.4pt}
+
+%                Titolo centrato (\LARGE)
+ \vskip 40mm
+ {\centering\huge\sc\@title}%
+ \vfill%
+
+%                Titolo centrato (\LARGE)
+ \vskip 4mm
+ {\centering\large\sc\@englishtitle\par}%
+ \vfill%
+%                Spazio per le firme (\normalsize)
+ \vskip 16mm
+ \vbox to 75mm {
+ %\normalsize\rm
+ \large\rm
+ \hfil%
+ 
+ \begin{minipage}[t]{70mm}% Autore sulla Sx
+   \raggedright
+   \it\authorname\\
+   \rm\@author
+ \end{minipage}%
+ \begin{minipage}[t]{50mm}% Relatori sulla Dx
+   \raggedright
+   \it\supervisorname\\
+   \rm\@supervisor\\
+   \vskip 2.5ex
+   \it\advisorname\\
+   \rm\@advisor
+ \end{minipage}%
+
+ \hfil
+ \vfil
+ }%
+%                Anno accademico (\large)
+ \vbox to .8mm {
+ \centering
+ \rule{7em}{0.4pt}
+ \vskip 1ex
+ \large\sc \accademicyearname \@accademicyear \par
+ \vfil}%
+
+ 
+\end{titlepage}%
+
+\global\let\maketitle\relax
+}
