@@ -5,45 +5,45 @@ The style file: ieee.bst
 Database file #1: bibliography.bib
 Warning--empty journal in farid2009digital
 Warning--can't use both volume and number fields in finlayson2004shades
-You've used 19 entries,
+You've used 24 entries,
             2120 wiz_defined-function locations,
-            619 strings with 6989 characters,
-and the built_in function-call counts, 7379 in all, are:
-= -- 771
-> -- 298
-< -- 10
-+ -- 118
-- -- 98
-* -- 504
-:= -- 1160
-add.period$ -- 66
-call.type$ -- 19
-change.case$ -- 106
+            649 strings with 7968 characters,
+and the built_in function-call counts, 9346 in all, are:
+= -- 969
+> -- 393
+< -- 13
++ -- 156
+- -- 130
+* -- 648
+:= -- 1476
+add.period$ -- 83
+call.type$ -- 24
+change.case$ -- 137
 chr.to.int$ -- 0
-cite$ -- 21
-duplicate$ -- 299
-empty$ -- 594
-format.name$ -- 98
-if$ -- 1608
+cite$ -- 26
+duplicate$ -- 374
+empty$ -- 744
+format.name$ -- 130
+if$ -- 2029
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 19
-newline$ -- 98
-num.names$ -- 38
-pop$ -- 114
+int.to.str$ -- 24
+missing$ -- 24
+newline$ -- 123
+num.names$ -- 48
+pop$ -- 144
 preamble$ -- 1
-purify$ -- 87
+purify$ -- 113
 quote$ -- 0
-skip$ -- 215
+skip$ -- 268
 stack$ -- 0
-substring$ -- 516
-swap$ -- 93
-text.length$ -- 10
+substring$ -- 639
+swap$ -- 115
+text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 76
+type$ -- 96
 warning$ -- 2
-while$ -- 80
-width$ -- 21
-write$ -- 220
+while$ -- 100
+width$ -- 26
+write$ -- 278
 (There were 2 warnings)
