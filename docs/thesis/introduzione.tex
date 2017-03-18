@@ -12,13 +12,6 @@ Image splicing is a fundamental operation used in digital image tampering. It is
 operation of image regions from one image onto the same or another image without performing post-processing such as smoothing \cite{ng2004blind}. Even without post-processing, the artifacts introduced by
 image splicing may be almost imperceptible. Therefore, the detection of image splicing is a preliminary but desirable study for image forensics.
 
-Generally speaking, there are two approaches of image forgery detection: active and passive detection. 
-
-Active approaches require pre-processing (e.g. watermark embedding  \cite{rey2002survey}\cite{ye2005watermarking}) when generating the image and a post-processing on image distribution.
-
-Passive approaches \cite{ng2006passive} do not need this operation and could make analysis on various images based on supervised learning. Hence, it gains more attention and becomes
-a hot research topic in image forensics.
-
 Investigating image's lighting is one of the most common approaches for splicing detection. This kind of approach is particularly robust since it's really hard to preserve the consistency of the lighting environment while creating an image composite (i.e. a splicing forgery). 
 
 In this scenario, there are mainly two main approaches:
@@ -27,17 +20,17 @@ In this scenario, there are mainly two main approaches:
 \item based on the image illuminant colors
 \end{enumerate}
 
-We focused our attention on the illuminant-based approach, which assumes that a scene is lit by the same light source. More light sources are admitted but far enough such as to produce a constant brightness across the image. In this condition, pristine images will show a coherent illuminant representation; on the other hand, inconsistencies among illuminant maps will be exploited for splicing detection. 
+We focused our attention on the illuminant-based approach, which assumes that a scene is lit by the same light source. More light sources are admitted but only far enough such as to produce a constant brightness across the image. In this condition, pristine images will show a coherent illuminant representation; on the other hand, inconsistencies among illuminant maps will be exploited for splicing detection. 
 
-\emph{Illuminant maps} locally describes the lighting in a small region of the image. In the computer vision literature exists many different approaches for determining the illuminant of an image. In particular, such techniques are divided into two main groups: statistical-based and physics-based approaches.
+\emph{Illuminant maps} locally describes the lighting in a small region of the image. In the computer vision literature exist many different approaches for determining the illuminant of an image. In particular, such techniques are divided into two main groups: statistical-based and physics-based approaches.
 
 Regarding the first group, we start investigating on the \emph{Grey-World algorithm} \cite{Buchsbaum19801}, which is based on the Grey-World assumption, i.e. the average reflectance in a scene is achromatic. In \cite{finlayson2004shades}, this algorithm proved to be special instances of the Minkowski-norm. Van de Weijer et al. \cite{van2007edge} than proposed an extension of the Gray-World assumption, called \emph{Gray-Edge hypothesis} \cite{van2007edge}, which assumes that the average of the reflectance differences in a scene is achromatic. 
 
 These differences can be determined by taking derivatives of the image. Therefore, the authors present a framework with which many different algorithms can be constructed.
 We focus our attention on this framework, called \emph{Generalized Grey-World algorithm} (GGE).
 
-For the latter group, was investigate the method proposed by Riess et al. \cite{riess2010scene}, which extends the \emph{Inverse Intense Chromaticity} (\emph{IIC}) space approach proposed by Tan et al. \cite{tan2004color} and tries to model the illuminants considering the dichromatic reflection model \cite{tominaga1989standard}. In this case, the illuminant map is evaluated dividing  images into blocks, named \emph{superpixels}, of approximately the same object color, then the illuminant color is evaluated for each block solving the lighting models locally. 
+For the latter group, it was investigated the method proposed by Riess et al. \cite{riess2010scene}, which extends the \emph{Inverse Intense Chromaticity} (\emph{IIC}) space approach proposed by Tan et al. \cite{tan2004color} and tries to model the illuminants considering the dichromatic reflection model \cite{tominaga1989standard}. In this case, the illuminant map is evaluated dividing the images into blocks, named \emph{superpixels}, of approximately the same object color, then the illuminant color is evaluated for each block solving the lighting models locally. 
 
-Carvalho et al. \cite{carvalho2016illuminant} then presents a method that relies on a combination of the two approaches for the detection of manipulations on images containing human faces. In addition to maps, a large set of shape and texture descriptors are used together. Note that, from a theoretical viewpoint, it is advantageous to consider only image regions that consist of approximately the same underlying material: for this reason, in \cite{carvalho2016illuminant} the authors focused their analysis on human faces.
+Carvalho et al. \cite{carvalho2016illuminant} then presented a method that relies on a combination of the two approaches for the detection of manipulations on images containing human faces. In addition to maps, a large set of shape and texture descriptors are used together. Note that, from a theoretical viewpoint, it is advantageous to consider only image regions that consist of approximately the same underlying material: for this reason, in \cite{carvalho2016illuminant} the authors focused their analysis on human faces.
 
 This work is structured as follows. Chapter 2 describes the main methods grounded on illumination inconsistencies for detecting image composition and the background theories on which this work is based on. In Chapter 3 our contributions for detecting image splicing is presented. Finally, Chapter 4 collects the experimental results, putting our research in perspective and discussing new research opportunities.

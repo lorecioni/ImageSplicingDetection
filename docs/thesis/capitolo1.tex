@@ -2,24 +2,53 @@
 
 \section{Image forgery}
 
-When dealing with a digital image, it is quite common to wonder if it is original or has been counterfeited in some way. Images and videos have become the main information carriers in the digital era and used to store real world events, but  they are very easy to manipulate because of the availability of the powerful editing software and sophisticated digital cameras.
+When dealing with a digital image, it is quite common to wonder if it is original or it has been counterfeited in some way. Images and videos have become the main information carriers in the digital era and they are used to store real world events, but they are very easy to manipulate because of the availability of powerful editing softwares and sophisticated digital cameras.
 
-The contexts where doctored pictures could be involved are very disparate; they could be used in a tabloid or in an advertising poster or included in a journalistic report but also in a court of law where digital (sometimes printed) images are presented as crucial evidences for a trial in order to influence the final judgement. So, especially in the last case, reliably assessing image integrity becomes of fundamental importance\cite{zhu2004seeing}\cite{farid2009digital}.
+The contexts where doctored pictures could be involved are very disparate; they could be used in a tabloid or in an advertising poster or included in a journalistic report but also in a court of law where digital (sometimes printed) images are presented as crucial evidences for a trial in order to influence the final judgement. So, especially in the last case, a reliable assessment of image integrity becomes of fundamental importance\cite{zhu2004seeing}\cite{farid2009digital}.
 
-\emph{Image forensics} specifically deals with such issues by studying and developing technological tools which generally permit determining, by only analyzing a digital photograph (i.e., its pixels), if that asset has been manipulated or even which could have been the adopted acquisition device (such an issue is not relevant to the topic of the present paper)\cite{farid2009image}. Moreover, if it has been established that something has been altered, it could be important to understand in which part of the image itself such a modification occurred, for instance, if a person or a specific object has been covered, if an area of the image has been cloned, if something (i.e., a face or a weapon) has been copied from another different image, or, even more, if a mixture of these processes has been carried out. 
+\emph{Image forensics} specifically deals with such issues by studying and developing technological tools which generally permit determining, by only analyzing a digital photograph, if that asset has been manipulated or even which could have been the adopted acquisition device\cite{farid2009image}. Moreover, if it has been determined that something has been altered, it could be important to understand in which part of the image itself such modification occurred: for instance, if a person or a specific object has been covered, if an area of the image has been cloned, if something (i.e., a face, an object) has been copied from another different image, or, even more, if a mixture of these processes has been carried out. 
 
 \section{Image forgery detection techniques}
 
-To verify the authenticity of a picture many techniques have been identified that can be categorized into active (intrusive) and blind (non-intrusive).
+Forgery detection intends to verify the authenticity of images. 
 
-Operative techniques involve a phase of preprocessing the image itself at the time of its creation in order to include some additional information that will be used during the analysis phase. An example of operative technique is the watermarking.
+Generally speaking, there are two approaches of image forgery detection: \emph{active} and \emph{passive} detection. 
 
-Passive techniques analyze the content of the image using various statistics or semantic content in order to identify inconsistencies of some kind. This approach does not alter the contents of the image.
-There is a general technique, suitable to capture all kinds of inconsistencies present in an image, but each different method specialises in the identification of a particular type.
+The active approaches are mostly concerned with the data hiding techniques, such as \emph{digital watermarks} \cite{rey2002survey}\cite{ye2005watermarking} and digital signatures, wherein prior information is considered essential and integral to the process. Data hiding approaches embed some secondary data into the cover images. Usually, the watermarks are either embedded at the time of the image acquisition through specially equipped devices or later after further processing of the actual image.
+However, the this kind of approach may degrade the quality of the original image \cite{van2007survey}.
+
+Passive approaches \cite{ng2006passive} do not require any image pre-processing and do not alter the image content. 
+
+This techniques provide a solution to identify image alterations without relying on the insertion of an
+extrinsic data or digital signatures for the image authentication. Hence, they gain more attention and become a hot research topic in image forensics.
+
+
+\begin{figure}
+  \centering
+    \includegraphics[width=0.8\textwidth]{forgerydetectionclass}
+    \caption{Image forgery detection approaches classification}
+\end{figure}
+
+Over the past few years, many techniques have been introduced to tamper images or
+videos. These techniques can be classified into following three general categories:
+
+\begin{itemize}
+\item \emph{Copy/move forgery}
+\item \emph{Image retouching}
+\item \emph{Image splicing}
+\end{itemize}
+
+Copy/move forgery is one of the most popular forms of tampering in which some region is copied from a particular location in an image and thereafter pasted at one or more locations within the same image or a different image of preferably the same scene. Roughly speaking, the detection methods are brute force, involving exhaustive search or block based. These techniques usually rely on the correlation between the original patch and the suspected pasted version.
+
+Image retouching is another class of forensic methods that pertains to a slight change in the image for various aesthetic and commercial purposes, not necessarily conforming to the standards of morality. The retouching is mostly used to enhance or reduce the image features. Usually this type of forgery is realised by changing the colour or texture of the objects, intensify the weather conditions or simply
+introducing some blur for defusing the objects. Forgery detection, in case of image retouching, involves
+finding the enhancements, blurring, illumination and colour changing.
 
 \section{Image splicing}
 
-Image splicing is a very common type of infringement which basically consists in copying a region of a given image to another, thus creating a composition of two different pictures together.
+A common form of photographic manipulation is the digital splicing of two or more images into a single composite \cite{qazi2013survey}. Image splicing techniques significantly change the original images. When
+performed carefully, the border between the spliced regions can
+be visually imperceptible. 
 
 \begin{figure}
   \centering
@@ -27,58 +56,66 @@ Image splicing is a very common type of infringement which basically consists in
     \caption{Image splicing process}
 \end{figure}
 
-Image splicing consists of using parts of two or more images to compose a new image that never took place in space and time. 
-
 This composition process includes all the necessary operations (such as brightness and contrast adjustment, affine transformations, color changes, etc.) to construct realist images able to deceive viewer. In this process, normally, we refer to the parts coming from other images as aliens and the image receiving the other parts as host.
 
-One of the common studied case is image composition involving people are very popular and are employed with very different objectives. 
+One of the common studied case is image composition involving people that are very popular and they are employed with very different aims. 
 
 \subsection{Some famous cases}
 
-Photography has lost its innocence since the early days of his birth. In fact already in 1860, only a few decades after Niépce created the first photo, the first manipulated photographs were identified in 1826. With the advent of digital cameras, camcorders and sophisticated photo editing software, digital image manipulation is becoming more common. 
+Image forgery can be traced back to as early as 1840s when Hippolyte Bayrad created the very first fake image \ref{fig:firsttampered}, in which he was shown committing a suicide. 
+
+\begin{wrapfigure}{l}{0.4\textwidth}
+  \begin{center}
+    \includegraphics[width=0.38\textwidth]{firsttampered}
+  \end{center}
+  \label{fig:firsttampered}
+  \caption{The first tampered image}
+\end{wrapfigure}
+
+Photography has lost its innocence since the early days of his birth. In fact already in 1860, only a few decades after Niépce created the first photo, the first manipulated photographs were identified in 1826. 
 
 \paragraph{O.J. Simpson - June 1994}
 
 This altered photography O.J. Simpson appeared on the cover of the magazine Time Magazine, soon after his arrest for murder. 
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.45\textwidth}
+\vspace{-1.6cm}
   \begin{center}
-    \includegraphics[width=0.48\textwidth]{ojsimpson}
+    \includegraphics[width=0.35\textwidth]{ojsimpson}
   \end{center}
   \caption{The Time Magazine and O.J. Simpson}
-  \vspace{-1cm}
 \end{wrapfigure}
 
 In fact, the photograph was altered compared to the original image that has appeared on the cover of Newsweek magazine. Time magazine was accused of manipulation of the photography in order to make darker and menacing figure of Simpson.
 
 \paragraph{Iraq - April 2003}
 
-This composition of a British soldier in Basra, which keeps pointing toward a civilian Iraqi gesticulates covered, she appeared on the cover of the Los Angeles Times, immediately after the invasion of Iraq. 
+This composition of a British soldier in Basra, which keeps pointing toward a civilian Iraqi gesticulates covered, appeared on the cover of the Los Angeles Times, immediately after the Iraq invasion. 
 
-\begin{wrapfigure}{l}{0.5\textwidth}
+\begin{wrapfigure}{l}{0.45\textwidth}
+\vspace{-1cm}
   \begin{center}
-    \includegraphics[width=0.48\textwidth]{iraq}
+    \includegraphics[width=0.35\textwidth]{iraq}
   \end{center}
   \caption{An example of image composition}
+  \vspace{-0.5cm}
 \end{wrapfigure}
 
-Brian Walski, a staff photographer for the Los Angeles Times and a veteran of the news with thirty years of experience, was summarily fired from his publisher for their merged two of his shots in order to improve the composition.
+Brian Walski, a staff photographer for the Los Angeles Times was summarily fired from his publisher because he merged two of his shots in order to improve the composition.
 
 \paragraph{George W. Bush - March 2004}
 
-This image, taken from promo released for the election campaign of George w. Bush, outlined a packed audience of soldiers as a backdrop to a child who was flying the American flag. This image was digitally souped-up, using a crude copy and paste, removing Bush from the podium. 
+This image, taken from the election campaign of George W. Bush, outlined a packed audience of soldiers as a backdrop to a child who was flying the American flag. This image was digitally edited, using a crude copy and paste, removing Bush from the podium. 
 
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.4\textwidth}
+\vspace{-1.3cm}
   \begin{center}
-    \includegraphics[width=0.48\textwidth]{bush}
+    \includegraphics[width=0.38\textwidth]{bush}
   \end{center}
   \caption{An example of image composition}
 \end{wrapfigure}
 
-
-After admitting the tampering with the staff of the television station edited and sent to Bush promo with the original photo.
-
-Cases such as this show how present image composition is in our daily lives. Unfortunately, it also decreases our trust on images and highlights the need for developing methods for recovering back such confidence.
+Cases like these show how present image composition is in our daily lives. Unfortunately, it also decreases our trust on images and highlights the need for developing methods for recovering back such confidence.
 
 \section{Methods based on light inconsistencies}
 
