@@ -15,11 +15,11 @@ Forgery detection intends to verify the authenticity of images.
 Generally speaking, there are two approaches of image forgery detection: \emph{active} and \emph{passive} detection. 
 
 The active approaches are mostly concerned with the data hiding techniques, such as \emph{digital watermarks} \cite{rey2002survey}\cite{ye2005watermarking} and digital signatures, wherein prior information is considered essential and integral to the process. Data hiding approaches embed some secondary data into the cover images. Usually, the watermarks are either embedded at the time of the image acquisition through specially equipped devices or later after further processing of the actual image.
-However, the this kind of approach may degrade the quality of the original image \cite{van2007survey}.
+However, this kind of approach may degrade the quality of the original image \cite{van2007survey}.
 
 Passive approaches \cite{ng2006passive} do not require any image pre-processing and do not alter the image content. 
 
-This techniques provide a solution to identify image alterations without relying on the insertion of an
+These techniques provide a solution to identify image alterations without relying on the insertion of an
 extrinsic data or digital signatures for the image authentication. Hence, they gain more attention and become a hot research topic in image forensics.
 
 
@@ -38,7 +38,7 @@ videos. These techniques can be classified into following three general categori
 \item \emph{Image splicing}
 \end{itemize}
 
-Copy/move forgery is one of the most popular forms of tampering in which some region is copied from a particular location in an image and thereafter pasted at one or more locations within the same image or a different image of preferably the same scene. Roughly speaking, the detection methods are brute force, involving exhaustive search or block based. These techniques usually rely on the correlation between the original patch and the suspected pasted version.
+Copy/move forgery is one of the most popular forms of tampering in which some regions are copied from a particular location in an image and thereafter pasted at one or more locations within the same image or a different image of preferably the same scene. Roughly speaking, the detection methods are brute force, involving exhaustive search or block based. These techniques usually rely on the correlation between the original patch and the suspected pasted version.
 
 Image retouching is another class of forensic methods that pertains to a slight change in the image for various aesthetic and commercial purposes, not necessarily conforming to the standards of morality. The retouching is mostly used to enhance or reduce the image features. Usually this type of forgery is realised by changing the colour or texture of the objects, intensify the weather conditions or simply
 introducing some blur for defusing the objects. Forgery detection, in case of image retouching, involves
@@ -56,13 +56,13 @@ be visually imperceptible.
     \caption{Image splicing process}
 \end{figure}
 
-This composition process includes all the necessary operations (such as brightness and contrast adjustment, affine transformations, color changes, etc.) to construct realist images able to deceive viewer. In this process, normally, we refer to the parts coming from other images as aliens and the image receiving the other parts as host.
+This composition process includes all the necessary operations (such as brightness and contrast adjustment, affine transformations, color changes, etc.) to construct realistic images able to deceive viewer. In this process, normally, we refer to the parts coming from other images as \emph{aliens} and to the image receiving the other parts as \emph{host}.
 
-One of the common studied case is image composition involving people that are very popular and they are employed with very different aims. 
+One common studied case is image composition involving very popular people, which can be employed with many different aims.
 
 \subsection{Some famous cases}
 
-Image forgery can be traced back to as early as 1840s when Hippolyte Bayrad created the very first fake image \ref{fig:firsttampered}, in which he was shown committing a suicide. 
+Photography has lost its innocence since the early days of its birth. Image forgery can be traced back to as early as 1840s when Hippolyte Bayrad created the very first fake image \ref{fig:firsttampered}, in which he was shown committing a suicide, only a few decades after Niépce created the first photo.
 
 \begin{wrapfigure}{l}{0.4\textwidth}
   \begin{center}
@@ -72,25 +72,24 @@ Image forgery can be traced back to as early as 1840s when Hippolyte Bayrad crea
   \caption{The first tampered image}
 \end{wrapfigure}
 
-Photography has lost its innocence since the early days of his birth. In fact already in 1860, only a few decades after Niépce created the first photo, the first manipulated photographs were identified in 1826. 
-
 \paragraph{O.J. Simpson - June 1994}
 
-This altered photography O.J. Simpson appeared on the cover of the magazine Time Magazine, soon after his arrest for murder. 
+This altered photo of O.J. Simpson appeared on the magazine's cover Time Magazine, soon after his arrest for murder. 
 
 \begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-1.6cm}
+\vspace{-1cm}
   \begin{center}
     \includegraphics[width=0.35\textwidth]{ojsimpson}
   \end{center}
   \caption{The Time Magazine and O.J. Simpson}
+  \vspace{1.5cm}
 \end{wrapfigure}
 
-In fact, the photograph was altered compared to the original image that has appeared on the cover of Newsweek magazine. Time magazine was accused of manipulation of the photography in order to make darker and menacing figure of Simpson.
+In fact, the photograph was altered compared to the original image that appeared on the cover of Newsweek magazine. Time magazine was accused of manipulation of the photography in order to make darker and more menacing the figure of Simpson.
 
 \paragraph{Iraq - April 2003}
 
-This composition of a British soldier in Basra, which keeps pointing toward a civilian Iraqi gesticulates covered, appeared on the cover of the Los Angeles Times, immediately after the Iraq invasion. 
+This composition of a British soldier in Basra, who keeps pointing toward a civilian Iraqi gesticulating, appeared on the cover of the Los Angeles Times, immediately after the Iraq invasion. 
 
 \begin{wrapfigure}{l}{0.45\textwidth}
 \vspace{-1cm}
@@ -108,11 +107,12 @@ Brian Walski, a staff photographer for the Los Angeles Times was summarily fired
 This image, taken from the election campaign of George W. Bush, outlined a packed audience of soldiers as a backdrop to a child who was flying the American flag. This image was digitally edited, using a crude copy and paste, removing Bush from the podium. 
 
 \begin{wrapfigure}{r}{0.4\textwidth}
-\vspace{-1.3cm}
+\vspace{-0.8cm}
   \begin{center}
     \includegraphics[width=0.38\textwidth]{bush}
   \end{center}
   \caption{An example of image composition}
+  \vspace{-0.5cm}
 \end{wrapfigure}
 
 Cases like these show how present image composition is in our daily lives. Unfortunately, it also decreases our trust on images and highlights the need for developing methods for recovering back such confidence.
@@ -123,19 +123,19 @@ Methods for detecting image composition have become actual and powerful tools in
 
 After studying and analyzing the advantages and drawbacks of different types of methods for detecting image composition, this work herein relies on the research hypothesis that image illumination inconsistencies are strong and powerful evidence of image composition.
 
-This hypothesis has already been used by some researchers in the literature whose work will be detailed in the next chapter, and it is specially useful for detecting image composition because, even for expert counterfeiters, a perfect illumination match is extremely hard to achieve. Also, there are some experiments that show how difficult is for humans perceive image illumination inconsistencies.
+This hypothesis has already been used by some researchers in the literature whose work will be detailed in the next sections, and it is specially useful for detecting image composition because, even for expert counterfeiters, a perfect illumination match is extremely hard to achieve. Furthermore, there are some experiments that show how difficult is for humans to perceive image illumination inconsistencies.
 
-We can divide methods that explore illumination inconsistencies into three main groups of methods:
+We can divide methods that explore illumination inconsistencies into three main groups:
 \begin{enumerate}
-\item methods based on inconsistencies in the \textbf{light setting}: this group of methods encloses approaches that look for inconsistencies in the light position and in models that aim at reconstructing the scene illumination conditions.
-\item methods based on inconsistencies in the \textbf{shadows}: this group of methods encloses approaches that look for inconsistencies in the scene illumination using telltales derived from shadows.
-\item methods based on inconsistencies in \textbf{light color}: this group of methods encloses approaches that look for inconsistencies in the color of illuminants present in the scene.
+\item methods based on inconsistencies in the \textbf{light setting}: this group encloses the approaches that look for inconsistencies in the light position and in models that aim at reconstructing the scene illumination conditions.
+\item methods based on inconsistencies in the \textbf{shadows}: this group encloses the approaches that look for inconsistencies in the scene illumination using telltales derived from shadows.
+\item methods based on inconsistencies in \textbf{light color}: this group of methods encloses the approaches that look for inconsistencies in the color of illuminants present in the scene.
 \end{enumerate}
 
 
 \subsection{Inconsistencies in the light setting}
 
-Johnson and Farid\cite{Johnson:2005:EDF:1073170.1073171} proposed an approach based on illumination inconsistencies, looking for chromaticity aberrations as an indicator of image forgery. They analyzed the light source direction from different objects in the same image trying to detect traces of tampering. The authors start by imposing different constraints for the problem:
+Johnson and Farid\cite{Johnson:2005:EDF:1073170.1073171} proposed an approach based on illumination inconsistencies, looking for chromaticity aberrations as an indicator of image forgery. They analyzed the light source direction on different objects in the same image trying to detect traces of tampering. The authors start by imposing different constraints for the problem:
 
 \begin{enumerate}
 \item All the analyzed objects have \emph{Lambertian surface}\footnote{A Lambertian surface for reflection is a surface that appears uniformly bright from all directions of view and reflects the entire incident light. Lambertian reflectance is the property exhibited by an ideal matte or diffusely reflecting surface.}\cite{mazin2015estimation}.
@@ -143,7 +143,7 @@ Johnson and Farid\cite{Johnson:2005:EDF:1073170.1073171} proposed an approach ba
 \item The object surface is illuminated by an infinitely distant light source.
 \end{enumerate}
 
-Using RGB images, the authors assume that the chromaticity deviation is constant (and dependent on each channel wavelength) for all color channels and create a model, based on image statistical properties, of how the ray light should split for each color channel. Given this premise and using the green channel as reference, the authors estimate deviations between the red and green channels and between the blue and green channels for selected parts of the image. Inconsistencies on this split pattern are used as telltales to detect forgeries. 
+Using RGB images, the authors assume that the chromaticity deviation is constant (and dependent on each channel wavelength) for all color channels and they create a model, based on image statistical properties, to provide how the ray light should split for each color channel. Given this premise and using the green channel as reference, the authors estimate deviations between the red and green channels and between the blue and green channels for selected parts of the image. Inconsistencies on this split pattern are used as telltales to detect forgeries. 
 
 A drawback of this method is that chromaticity deviation depends on the camera lens used to take the picture. 
 
@@ -153,7 +153,7 @@ Another set of methods is based on inconsistencies on the shadows in the image.
  
 Zhang and Wang \cite{zhang2009detecting} proposed an approach that utilizes the planar homology\cite{springer1964geometry}, which models the relationship of shadows in an image for discovering forgeries.
 
-Based on this model, the authors proposed to construct two geometric constraints: the first one is based on the relationship of connecting lines. A connecting line is a line that connects some object point with its shadow. According to planar homology, all of these connecting lines intersect in a vanishing point. 
+Based on this model, the authors proposed to construct two geometric constraints. The first one is based on the relationship of connecting lines. A connecting line is a line that connects some object point with its shadow. According to planar homology, all of these connecting lines intersect in a vanishing point. 
 
 \begin{figure}
   \centering
@@ -181,7 +181,7 @@ Gholap and Bora\cite{gholap2008illuminant}\cite{francis2014illuminant} pioneered
 \end{wrapfigure}
 
 
-According to this model, reflection of any non-homogeneous materials may be modelled as additive mixture of two components, diffused reflection and surface reflection as shown in Fig. \ref{dichromatic_reflection_model}.
+According to this model, the reflection of any non-homogeneous material may be modelled as additive mixture of two components, diffused reflection and surface reflection as shown in Fig. \ref{dichromatic_reflection_model}.
 
 Considering an object point illuminated by a light source, the reflected ray consists of diffuse reflection $L_B (\lambda)$ and surface reflection $L_S (\lambda)$. The reflected light $L(\Theta, \lambda)$ can be written as:
 
@@ -199,25 +199,25 @@ For distinct objects illuminated by the same light source, the intersection poin
 
 Following Gholap and Bora’s work, Riess and Angelopoulou\cite{riess2010scene} used an extension of the \emph{Inverse-Intensity Chromaticity Space}, originally proposed by Tan et al.\cite{tan2004color}, to estimate illuminants locally from different parts of an image for detecting forgeries.
 
-In addiction, Wu and Fang\cite{wu2011image} proposed a new way to detect forgeries using illuminant colors. Their method divides a color image into overlapping blocks estimating the illuminant color for each block. To estimate the illuminant color, the authors proposed to use the algorithms Gray-World, Gray-Shadow and Gray-Edge \cite{van2007edge}.
+In addition, Wu and Fang\cite{wu2011image} proposed a new way to detect forgeries using illuminant colors. Their method divides a color image into overlapping blocks estimating the illuminant color for each block. To estimate the illuminant color, the authors proposed to use the algorithms Gray-World, Gray-Shadow and Gray-Edge \cite{van2007edge}.
 
 These approaches will be better explained in the next section due their importance for this proposed method.
 
 \section{Illuminant color estimation}
 
 
-The color of an object observed in an image depends both on its intrinsic color and the color of light source i.e., the illuminant. 
+The color of an object observed in an image depends both on its intrinsic color and on the color of light source i.e., the illuminant. 
 
 It is important to keep in mind that even the same light source can generate different illuminants. The illuminant formed by the sun, for example, varies in its appearance during the day and time of year as well as with the weather. We only capture the same illuminant, measuring the sunlight at the same place at the same time.
 
-We can explore illuminants in forensics to check the consistency of similar objects in a scene. If two objects with very similar color stimuli (e.g., human skin) depict inconsistent appearance (different illuminants), it means they might have undergone different illumination conditions hinting at a possible image composition. On the other hand, if we have a photograph with two people and the color appearance on the faces of such people are consistent, it is likely they have undergone similar lighting conditions.
+We can explore illuminants in forensics to check the consistency of similar objects in a scene. If two objects with very similar color stimuli (e.g., human skin) depict inconsistent appearance (different illuminants), it means  thatthey might have undergone different illumination conditions hinting at a possible image composition. On the other hand, if we consider a photograph with two people and the color appearance on the faces of such people are consistent, it is likely they have undergone similar lighting conditions.
 
 Riess and Angelopoulou\cite{riess2010scene} pioneered the approach of using a color-based method that investigates illuminant colors to detect forgeries in forensic scenario. In their work illuminant colors are estimated locally, effectively decomposing the scene in a map of differently illuminated regions. Inconsistencies in such a map suggest possible image tampering.
 
 The method can be divided into four steps:
 
 \begin{enumerate}
-\item Image segmentation. The image is segmented into regions, called \emph{superpixels}, of approximately the same object color. Each superpixel follows must be:
+\item Image segmentation. The image is segmented into regions, called \emph{superpixels}, of approximately the same object color. Each superpixel must be:
 \begin{enumerate}
 \item Directly illuminated by the same light source.
 \item Compliant with the \emph{dichromatic reflectance model}\cite{tan2004color}.
@@ -243,7 +243,7 @@ The final decision of this approach is delegated to an expert and not to the alg
 
 The starting point is the \emph{gray world assumption}, proposed by Buchsbaum\cite{Buchsbaum19801}. In its simplest version, it is assumed that information in the average of each channel of the image is the representative gray level.
 
-Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the diffuse reflection id diffuse and that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
+Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the diffuse reflection is diffuse and that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
 
 The RGB color $f(x)$ can also be rewritten as
 
@@ -255,7 +255,7 @@ where $\omega$ is the visible light spectrum, $\beta$ is the light wavelenght, $
 
 As an alternative to the gray-world hypothesis, Van de Weijer et al.\cite{van2007edge} proposed the \emph{gray-edge hypothesis}: the average of the reflectance differences in a scene is achromatic.
 
-This idea load to a framework for low-level based illuminant estimation, called \emph{Generalized Grayworld}.
+This idea led to a framework for low-level based illuminant estimation, called \emph{Generalized Grayworld}.
 
 \begin{equation}\label{eq:ggeframework}
 \left( \int 	\left | \frac{\delta^n f^{\sigma}(x)}{\delta x^{n}} \right |^{p} dx \right)^{\frac{1}{p}} = k e ^{n, p, \sigma}
@@ -267,11 +267,11 @@ This framework \ref{eq:ggeframework} produces different estimations for the illu
 
 \begin{enumerate}
 \item The order $n$ determines if the method is a gray-world or a gray-edge algorithm. The gray-world methods are based on the RGB values, whereas the gray-edge methods are based on the spatial derivative of order $n$.
-\item The Minkowski norm $p$ which determines the relative weights of the multiple measurements from which the final illuminant color is estimated.
+\item The Minkowski norm $p$ determines the relative weights of the multiple measurements from which the final illuminant color is estimated.
 \item The scale $\sigma$ of the local measurements. For first or higher order estimation, this local scale is combined with the differentiation operation computed with the Gaussian derivative. For zero-order gray-world methods, this local scale is imposed by a Gaussian smoothing operation.
 \end{enumerate}
 
-On varying of these parameter, a different method can be used. An overview of the possible methods derived from  Eq. \ref{eq:ggeframework} is displayed in Table \ref{table:ggemethods}.
+On varying of these parameter, a different method can be used. An overview of the possible methods that derive from  Eq. \ref{eq:ggeframework} is displayed in Table \ref{table:ggemethods}.
 
 \begin{table}[h!]
 \caption{Overview of different illuminant estimation methods based on \ref{eq:ggeframework}}
@@ -297,7 +297,7 @@ Max-Edge & $e^{1, \infty, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{\infty} dx)^{\f
 
 The other considered illuminant estimation method is based on the idea proposed by Tan et al.\cite{tan2004color}, called \emph{inverse intensity-chromaticity}.
 
-The base for these kind of approach is the dichromatic reflectance model\cite{gholap2008illuminant}, which states that the amount of light reflected from a point, $x$, of a dielectric, non-uniform material is a linear combination of diffuse reflection and specular reflection. Further assumptions are that the color of the specularities approximates the color of the illuminant, and that the camera response is linear.
+The base for these kind of approaches is the dichromatic reflectance model\cite{gholap2008illuminant}, which states that the amount of light reflected from a point, $x$, of a dielectric, non-uniform material is a linear combination of diffuse reflection and specular reflection. Further assumptions assume that the color of the specularities approximates the color of the illuminant, and that the camera response is linear.
 
 Considering a trichromatic camera, the sensor response $I_c (x)$, for each color channel $c \in \{R, G, B\}$ is:
 
@@ -343,7 +343,7 @@ where $i \in \{R, G, B\}$ and $m(x)$ is a geometrical factor (light position, su
 The 2D space defined by $\frac{1}{\sum_{i} I_i(x)}$ as domain and $0 \leq \sigma_c \leq 1$ as range is called \emph{inverse-intensity chromaticity (IIC)} space.
 
 An example of the IIC plots for a single channel of a synthetic image are shown in Fig. \ref{fig:iic_space}.
-Pixels from the green and purple balls form two clusters. The clusters have spikes that point towards the same location at the $y$-axis. Considering only such spikes from each cluster, the illuminant chromaticity is estimated from the joint $y$-axis intercept of all spikes in IIC space.
+Pixels from the green and purple balls form two clusters. The clusters have spikes that point towards the same location on the $y$-axis. Considering only such spikes from each cluster, the illuminant chromaticity is estimated from the joint $y$-axis intercept of all spikes in IIC space.
 
 Instead of examining the entire pixel distribution, Riess et al.\cite{riess2010scene} perform the analysis over small connected image regions of roughly uniform object color (\emph{superpixels}). Depending on the outcome of our shape analysis, we can either use this local region to obtain an illuminant estimate, or reject it if it does not seem to fulfill the underlying assumptions of the proposed model. Using local regions allows us to incorporate multiple sampling and voting in the estimation of local illuminants.
 
