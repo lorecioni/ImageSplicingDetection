@@ -23,6 +23,23 @@ The proposed approach minimizes human interaction being fully automated. However
 
 \section{Face splicing detection module}
 
+The first module is to implement, with a few enhancements and simplifications, the method proposed by Carvalho et al. \cite{carvalho2016illuminant} and presented in Section 1.6.
+
+The algorithm to analyze an image that contains at least two sides, and whether the faces have changed or not. In particular, in the case of a fake, you can tell which of the faces in the image is false.
+
+The method requires an initial training phase, in which you must have a dataset with faces noted. The considered dataset is the DSO-1.
+
+The algorithm consists of 4 consecutive stages:
+
+\begin{enumerate}
+\item \textbf{Illuminant maps extraction}: given an input image, two different illuminant maps are evaluated, using the IIC and GGE extraction methods.
+\item \textbf{Face detection}: after the illuminant maps extraction, the human faces in the image are detected. In the training phase the faces positions are read from the groundtruth file. If the given image contains less than two faces, it is discarded.
+\item \textbf{Paired face feature extraction}: human faces are considered and classified in pairs.
+\item \textbf{KNN models training}
+\end{enumerate}
+
+
+
 \section{Region splicing detection module}
 
 The second form of the algorithm is to implement the method proposed by Fan et al.\cite{fan2015image} with some changes in order to try to correct some of its major drawbacks presented in Section 1.7.
@@ -51,7 +68,7 @@ The Fig \ref{fig:regionsmodulepipeline} summarize the module pipeline.
 
 \subsection{Image segmentation}
 
-In the first step of the process, the input image is segmented in order to obtain two image bands categories: horizontal and vertical bands. This kind is segmentation method is chosen  because of its simplicity.
+In the first step of the process, the input image is segmented in order to obtain two image bands categories: horizontal and vertical bands. This kind of segmentation method is chosen because of its simplicity.
 
 First, a band width $B_w$ and a band height $B_h$ is set. Due to the fact that the segmentation has to produce overlapping bands, we set a delta factor of $\frac{1}{4}$. As a result we get overlapping stripes for a total of 25\% of their area. 
 
