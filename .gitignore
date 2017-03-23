@@ -129,3 +129,4 @@ source/matlab/balancing/test_awb.png
 source/matlab/balancing/test.png
 
 source/data/regions_module_test/*
+datasets/SplicedColorChecker/*

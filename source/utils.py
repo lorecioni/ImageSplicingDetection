@@ -36,12 +36,13 @@ def gray2binary(img):
 '''
 Resize image maintaining aspect ratio
 '''
-def resizeImage(img, width):
-    r = width / img.shape[1]
-    dim = (width, int(img.shape[0] * r))
+def resizeImage(img, width, height = None):
+    if height is None:
+        r = width / img.shape[1]
+        height = int(img.shape[0] * r)
+    dim = (width, height)
     # perform the actual resizing of the image and show it
     return cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
-
 
 def readTrainingTestFiles(outfile):
     ofid = open(outfile,'rt')

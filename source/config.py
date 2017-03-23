@@ -10,7 +10,8 @@ dataset = 'DSO-1'
 #dataset = 'DSI-1'
 #dataset = 'COLORCHECKER'
 
-imagesFolder = '../datasets/' + dataset + '/Images/'
+imagesFolder = '../datasets/SplicedColorChecker/vertical/'
+#imagesFolder = '../datasets/' + dataset + '/Images/'
 #imagesFolder = '../datasets/ColorChecker/srgb8bit/'
 
 labelsFolder = '../datasets/' + dataset + '/Labels/'
@@ -24,6 +25,8 @@ masks_folder = '../datasets/' + dataset + '/Masks/'
 classification_folder = 'data/'
 data_folder = 'data/'
 temp_folder = 'temp/'
+
+output_spliced_dataset_folder = '../datasets/SplicedColorChecker/'
 
 #Convert binaries
 convertBinary = '/opt/local/bin/convert'
