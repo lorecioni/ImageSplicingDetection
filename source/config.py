@@ -6,9 +6,10 @@ Created on 05 ott 2016
 
 
 '''General configuration'''
-dataset = 'DSO-1'
+#dataset = 'DSO-1'
 #dataset = 'DSI-1'
 #dataset = 'COLORCHECKER'
+dataset = 'SPLICED_COLORCHECKER'
 
 imagesFolder = '../datasets/SplicedColorChecker/vertical/'
 #imagesFolder = '../datasets/' + dataset + '/Images/'
@@ -72,6 +73,6 @@ feature_vector_length = 6
 
 
 '''Region splicing detection'''
-bandWidth = 400
-bandHeight = 400
+bandWidth = 120
+bandHeight = 120
 

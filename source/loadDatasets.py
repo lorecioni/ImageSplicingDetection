@@ -54,13 +54,32 @@ def load(name = None):
 
         print('Loaded color checker dataset')
 
+
+    if name == 'SPLICED_COLORCHECKER':
+        print('Loading spliced color checked dataset')
+        files = os.listdir(config.imagesFolder)
+        for i in files:
+            filename = utils.getFilename(i)
+            try:
+                img = config.imagesFolder + i
+                _, file_extension = os.path.splitext(img)
+                if os.path.isfile(img) and not i.startswith('.') and file_extension == '.png':
+                    images.append(img)
+                    label = np.loadtxt(config.imagesFolder + filename + '.txt').tolist()
+                    labels.append(label)
+                    print('added ' + str(img))
+            except:
+                print("Error on processing image: " + i)
+
+        print('Loaded splicing color checker dataset')
+
     return images, labels
 
 
 def generateSplicedTrainingSet(direction):
     print('Loading color checked dataset')
 
-    resized_width = 800
+    resized_width = 1200
     band_size = 120
     total = 200
     min_padding = 100
@@ -80,7 +99,12 @@ def generateSplicedTrainingSet(direction):
 
     counter = 0
     for i in images:
-        randIdx = randint(0, len(images))
+        found = False
+        while not found:
+            randIdx = randint(0, len(images) - 1)
+            if randIdx != counter:
+                found = True
+
         host = cv2.imread(i)
         alien = cv2.imread(images[randIdx])
 
@@ -92,11 +116,8 @@ def generateSplicedTrainingSet(direction):
 
 
         if direction == 'vertical':
-            found = False
-            while not found:
-                start = randint(0, resized_width)
-                if min_padding < start < (resized_width - band_size - min_padding):
-                    found = True
+            start = randint(0, 9)
+            start *= band_size
 
             end = start + band_size
             band = alien[:, start:end]
@@ -105,7 +126,8 @@ def generateSplicedTrainingSet(direction):
         elif direction == 'horizontal':
             found = False
             while not found:
-                start = randint(0, resized_height)
+                start = randint(0, int(resized_height/band_size) - 1)
+                start *= band_size
                 if start < resized_height - band_size - 1:
                     found = True
 
@@ -122,8 +144,8 @@ def generateSplicedTrainingSet(direction):
         if counter == total:
             break
 
-generateSplicedTrainingSet('vertical')
-generateSplicedTrainingSet('horizontal')
+#generateSplicedTrainingSet('vertical')
+#generateSplicedTrainingSet('horizontal')
 
 
 
