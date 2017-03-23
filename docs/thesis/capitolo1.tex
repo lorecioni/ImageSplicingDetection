@@ -210,9 +210,9 @@ The color of an object observed in an image depends both on its intrinsic color 
 
 It is important to keep in mind that even the same light source can generate different illuminants. The illuminant formed by the sun, for example, varies in its appearance during the day and time of year as well as with the weather. We only capture the same illuminant, measuring the sunlight at the same place at the same time.
 
-We can explore illuminants in forensics to check the consistency of similar objects in a scene. If two objects with very similar color stimuli (e.g., human skin) depict inconsistent appearance (different illuminants), it means  thatthey might have undergone different illumination conditions hinting at a possible image composition. On the other hand, if we consider a photograph with two people and the color appearance on the faces of such people are consistent, it is likely they have undergone similar lighting conditions.
+We can explore illuminants in forensics to check the consistency of similar objects in a scene. If two objects with very similar color stimuli (e.g., human skin) depict inconsistent appearance (different illuminants), it means  that they might have undergone different illumination conditions hinting at a possible image composition. On the other hand, if we consider a photograph with two people and the color appearance on the faces of such people are consistent, it is likely they have undergone similar lighting conditions.
 
-Riess and Angelopoulou\cite{riess2010scene} pioneered the approach of using a color-based method that investigates illuminant colors to detect forgeries in forensic scenario. In their work illuminant colors are estimated locally, effectively decomposing the scene in a map of differently illuminated regions. Inconsistencies in such a map suggest possible image tampering.
+Riess and Angelopoulou\cite{riess2010scene} pioneered the approach of using a color-based method that investigates illuminant colors to detect forgeries in forensic scenario. In their work, illuminant colors are estimated locally, effectively decomposing the scene in a map of differently illuminated regions. Inconsistencies in such a map suggest possible image tampering.
 
 The method can be divided into four steps:
 
@@ -243,7 +243,7 @@ The final decision of this approach is delegated to an expert and not to the alg
 
 The starting point is the \emph{gray world assumption}, proposed by Buchsbaum\cite{Buchsbaum19801}. In its simplest version, it is assumed that information in the average of each channel of the image is the representative gray level.
 
-Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the diffuse reflection is diffuse and that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
+Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
 
 The RGB color $f(x)$ can also be rewritten as
 
@@ -251,7 +251,7 @@ The RGB color $f(x)$ can also be rewritten as
 f(x) = \int_{\omega} e(\beta, x) s(\beta, x) c(\beta) d\beta
 \end{equation}
 
-where $\omega$ is the visible light spectrum, $\beta$ is the light wavelenght, $e(\beta, x)$ is the illuminant spectrum, $s(\beta, x)$ is the surface reflectance of an object and $c(\beta)$ is the color sensitivities of the camera for each channel.
+where $\omega$ is the visible light spectrum, $\beta$ is the light wavelenght, $e(\beta, x)$ is the illuminant spectrum, $s(\beta, x)$ is the surface reflectance of an object and $c(\beta)$ is the color sensitivity of the camera for each channel.
 
 As an alternative to the gray-world hypothesis, Van de Weijer et al.\cite{van2007edge} proposed the \emph{gray-edge hypothesis}: the average of the reflectance differences in a scene is achromatic.
 
@@ -263,7 +263,7 @@ This idea led to a framework for low-level based illuminant estimation, called \
 
 where $k$ denotes a scaling factor, $|\cdot|$ the norm operand, $\delta$ the differential operator and $f^{\sigma}(x)$ the pixel intensities at position $x$, smoothed with a Gaussian kernel $\sigma$.
 
-This framework \ref{eq:ggeframework} produces different estimations for the illuminant color based on three parameters:
+The framework defined by (\ref{eq:ggeframework}) produces different estimations for the illuminant color based on three parameters:
 
 \begin{enumerate}
 \item The order $n$ determines if the method is a gray-world or a gray-edge algorithm. The gray-world methods are based on the RGB values, whereas the gray-edge methods are based on the spatial derivative of order $n$.
@@ -271,7 +271,7 @@ This framework \ref{eq:ggeframework} produces different estimations for the illu
 \item The scale $\sigma$ of the local measurements. For first or higher order estimation, this local scale is combined with the differentiation operation computed with the Gaussian derivative. For zero-order gray-world methods, this local scale is imposed by a Gaussian smoothing operation.
 \end{enumerate}
 
-On varying of these parameter, a different method can be used. An overview of the possible methods that derive from  Eq. \ref{eq:ggeframework} is displayed in Table \ref{table:ggemethods}.
+On varying of these parameter, a different method can be used. An overview of the possible methods that derive from  Eq. (\ref{eq:ggeframework}) is displayed in Table \ref{table:ggemethods}.
 
 \begin{table}[h!]
 \caption{Overview of different illuminant estimation methods based on \ref{eq:ggeframework}}
@@ -297,12 +297,12 @@ Max-Edge & $e^{1, \infty, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{\infty} dx)^{\f
 
 The other considered illuminant estimation method is based on the idea proposed by Tan et al.\cite{tan2004color}, called \emph{inverse intensity-chromaticity}.
 
-The base for these kind of approaches is the dichromatic reflectance model\cite{gholap2008illuminant}, which states that the amount of light reflected from a point, $x$, of a dielectric, non-uniform material is a linear combination of diffuse reflection and specular reflection. Further assumptions assume that the color of the specularities approximates the color of the illuminant, and that the camera response is linear.
+The base for this kind of approaches is the dichromatic reflectance model\cite{gholap2008illuminant}, which states that the amount of light reflected from a point, $x$, of a dielectric, non-uniform material is a linear combination of diffuse reflection and specular reflection. Further assumptions assume that the color of the specularities approximates the color of the illuminant, and that the camera response is linear.
 
 Considering a trichromatic camera, the sensor response $I_c (x)$, for each color channel $c \in \{R, G, B\}$ is:
 
 \begin{equation}\label{eq:sensorrespiic}
-I_c(x) = m_S(x) L_S(x) + m_B(x) L_B(x)
+I_c(x) = m_{S}(x) L_{S_c}(x) + m_B(x) L_{B_c}(x)
 \end{equation}
 
 as described in \ref{eq:dichromaticmodel}. 
@@ -336,13 +336,13 @@ where $i \in \{R, G, B\}$ and $m(x)$ is a geometrical factor (light position, su
 \begin{figure}
   \centering
     \includegraphics[width=1\textwidth]{iic_space}
-    \caption{Pixel distribution in inverse-intensity chromaticity (IIC) space. Left are as ideal distribution, left on a synthetic image (in the center).}
+    \caption{Pixel distribution in inverse-intensity chromaticity (IIC) space. Left are as ideal distribution, right on a synthetic image (in the center).}
     \label{fig:iic_space}
 \end{figure}
 
 The 2D space defined by $\frac{1}{\sum_{i} I_i(x)}$ as domain and $0 \leq \sigma_c \leq 1$ as range is called \emph{inverse-intensity chromaticity (IIC)} space.
 
-An example of the IIC plots for a single channel of a synthetic image are shown in Fig. \ref{fig:iic_space}.
+An example of the IIC plots for a single channel of a synthetic image is shown in Fig. \ref{fig:iic_space}.
 Pixels from the green and purple balls form two clusters. The clusters have spikes that point towards the same location on the $y$-axis. Considering only such spikes from each cluster, the illuminant chromaticity is estimated from the joint $y$-axis intercept of all spikes in IIC space.
 
 Instead of examining the entire pixel distribution, Riess et al.\cite{riess2010scene} perform the analysis over small connected image regions of roughly uniform object color (\emph{superpixels}). Depending on the outcome of our shape analysis, we can either use this local region to obtain an illuminant estimate, or reject it if it does not seem to fulfill the underlying assumptions of the proposed model. Using local regions allows us to incorporate multiple sampling and voting in the estimation of local illuminants.
@@ -356,7 +356,7 @@ The method proposed by Carvalho et al.\cite{carvalho2016illuminant} aims to dete
 The method can be divided into four steps:
 
 \begin{enumerate}
-\item \emph{Description}: in this step illuminant maps are estimated with the two different approaches, GGE and IIC, and feature vector are generated. Each feature vector is associated with a face pair.
+\item \emph{Description}: in this step illuminant maps are estimated with the two different approaches, GGE and IIC, and feature vectors are generated. Each feature vector is associated with a face pair.
 \begin{figure}[h!]
   \centering
     \includegraphics[width=1\textwidth]{tiago_method_extraction}
@@ -392,17 +392,17 @@ This manual operation does not allow a blind approach to the problem. Because th
 
 Working with pairs of faces, another problem is the choice of which face has been manipulated among those considered. 
 
-In addiction, this method is based on the observation that, given two faces (a pristine face and a spliced one), the difference between the two forged faces illuminant maps tend to be higher. This intuition, however, proved to be not applicable in all contexts, so cannot be considered as a starting point for the final evaluation.
+In addition, this method is based on the observation that, given two faces (a pristine face and a spliced one), the difference between the two forged faces illuminant maps tend to be higher. This intuition, however, proved to be not applicable in all contexts, so cannot be considered as a starting point for the final evaluation.
 
 \section{Region splicing detection}
 
-The other considered approach is based on the work of Fan et al.\cite{fan2015image}. This method relies on the Van de Weijer et al.\cite{van2007edge} Generalized Gray-World framework \ref{eq:ggeframework}. These algorithm perform better on a scene when it is rich of colors, but in a splicing detection scenario we are interest in a specific region of the image.
+The other considered approach is based on the work of Fan et al.\cite{fan2015image}. This method relies on the Van de Weijer et al.\cite{van2007edge} Generalized Gray-World framework \ref{eq:ggeframework} in Eq. \ref{eq:ggeframework}. This algorithm performs better on a scene when it is rich of colors, but in a splicing detection scenario we are interested in a specific region of the image.
 
-This approach splits image in vertical and horizontal bands (rectangular regions), assuming that each band contains sufficient colors for a correct illuminant estimation. Five different algorithm are used, deduced from Eq. \ref{eq:ggeframework}: Grey-World, Max-RGB, Shades of Grey, first- order Grey-Edge and second-order Grey-Edge, in order to have as many illuminant estimates for each band.
+This approach splits the image in vertical and horizontal bands (rectangular regions), assuming that each band contains sufficient colors for a correct illuminant estimation. Five different algorithms are used, deduced from Eq. \ref{eq:ggeframework}: Grey-World, Max-RGB, Shades of Grey, first- order Grey-Edge and second-order Grey-Edge, in order to have as many illuminant estimates for each band.
 
 This algorithm can be divided into two steps:
 \begin{enumerate}
-\item Subsampling of the image horizontally and vertically
+\item Subsampling of the image horizontally and vertically;
 \item Illuminant estimation for each band using the 5 different algorithms and spliced region location.
 \end{enumerate}
 
@@ -412,9 +412,9 @@ The second step can be also divided into five steps:
 
 \begin{enumerate}
 \item For each direction and for each algorithm, a reference illuminant is estimated for a single band.
-\item For each direction and for each algorithm, a reference illuminant for each direction is evaluated as the median of all references of that direction. At this stage there are two reference illuminats (one for the vertical and one for the horizontal direction) for each algorithm.
+\item For each direction and for each algorithm, a reference illuminant for each direction is evaluated as the median of all references of that direction. At this stage there are two reference illuminants (one for the vertical and one for the horizontal direction) for each algorithm.
 \item A detection map is created, with the same dimensions of the image.
-\item For each algorithm, every band estimate are compared with the reference illuminant of that band direction and algorithm with the Euclidean distance. If the distance exceed a fixed threshold, the band is considered fake and all the pixel values in the detection map are increased by one unit.
+\item For each algorithm, every band estimate is compared with the reference illuminant of that band direction and algorithm with the Euclidean distance. If the distance exceeds a fixed threshold, the band is considered fake and all the pixel values in the detection map are increased by one unit.
 \item The forgery is located using the resulting thresholded detection map.
 \end{enumerate}
 
@@ -425,7 +425,7 @@ The second step can be also divided into five steps:
     \label{fig:regionsmethod}
 \end{figure}
 
-The main advantage of this method is its blind approach: the algorithm is not based on the image content (as it was in the previous case) and no human interaction is needed. The only parameters are the bands minimal dimensions and the threshold. Due these facts it is very simple to implement, but it is also afflicted by false alarm caused by a not easy to tune threshold (which is the key the final step).
+The main advantage of this method is its blind approach: the algorithm is not based on the image content (as it was in the previous case) and no human interaction is needed. The only parameters are the bands minimal dimensions and the threshold. Due these facts it is very simple to implement.
 
 \subsection{Method drawbacks}
 
