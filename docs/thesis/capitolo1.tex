@@ -4,51 +4,24 @@
 
 When dealing with a digital image, it is quite common to wonder if it is original or it has been counterfeited in some way. Images and videos have become the main information carriers in the digital era and they are used to store real world events, but they are very easy to manipulate because of the availability of powerful editing softwares and sophisticated digital cameras.
 
-The contexts where doctored pictures could be involved are very disparate; they could be used in a tabloid or in an advertising poster or included in a journalistic report but also in a court of law where digital (sometimes printed) images are presented as crucial evidences for a trial in order to influence the final judgement. So, especially in the last case, a reliable assessment of image integrity becomes of fundamental importance\cite{zhu2004seeing}\cite{farid2009digital}.
+The contexts where doctored pictures could be involved are very disparate; they could be used in a tabloid or in an advertising poster or included in a journalistic report but also in a court of law where digital (sometimes printed) images are presented as crucial evidences for a trial in order to influence the final judgement. 
 
-\emph{Image forensics} specifically deals with such issues by studying and developing technological tools which generally permit determining, by only analyzing a digital photograph, if that asset has been manipulated or even which could have been the adopted acquisition device\cite{farid2009image}. Moreover, if it has been determined that something has been altered, it could be important to understand in which part of the image itself such modification occurred: for instance, if a person or a specific object has been covered, if an area of the image has been cloned, if something (i.e., a face, an object) has been copied from another different image, or, even more, if a mixture of these processes has been carried out. 
+Generally speaking, the objective of the editing operation could be, for example, to improve its quality or to change its semantic content \cite{piva2013overview}. In the first case, the processed image will carry the same information as the original one, but in a more usable/pleasant way. Hence, we refer to this kind of editing as \emph{innocent}. In the latter case, the semantic information conveyed by the image is altered, usually by adding or hiding some information. This kind of editing is considered \emph{malicious} \cite{piva2013overview}.
 
-\section{Image forgery detection techniques}
-
-Forgery detection intends to verify the authenticity of images. 
-
-Generally speaking, there are two approaches of image forgery detection: \emph{active} and \emph{passive} detection. 
-
-The active approaches are mostly concerned with the data hiding techniques, such as \emph{digital watermarks} \cite{rey2002survey}\cite{ye2005watermarking} and digital signatures, wherein prior information is considered essential and integral to the process. Data hiding approaches embed some secondary data into the cover images. Usually, the watermarks are either embedded at the time of the image acquisition through specially equipped devices or later after further processing of the actual image.
-However, this kind of approach may degrade the quality of the original image \cite{van2007survey}.
-
-Passive approaches \cite{ng2006passive} do not require any image pre-processing and do not alter the image content. 
-
-These techniques provide a solution to identify image alterations without relying on the insertion of an
-extrinsic data or digital signatures for the image authentication. Hence, they gain more attention and become a hot research topic in image forensics.
-
-
-\begin{figure}
-  \centering
-    \includegraphics[width=0.8\textwidth]{forgerydetectionclass}
-    \caption{Image forgery detection approaches classification}
-\end{figure}
-
-Over the past few years, many techniques have been introduced to tamper images or
-videos. These techniques can be classified into following three general categories:
+Roughly speaking, forgeries can be classified into three categories:
 
 \begin{itemize}
-\item \emph{Copy/move forgery}
+\item \emph{Copy-move forgery}
 \item \emph{Image retouching}
 \item \emph{Image splicing}
 \end{itemize}
 
-Copy/move forgery is one of the most popular forms of tampering in which some regions are copied from a particular location in an image and thereafter pasted at one or more locations within the same image or a different image of preferably the same scene. Roughly speaking, the detection methods are brute force, involving exhaustive search or block based. These techniques usually rely on the correlation between the original patch and the suspected pasted version.
+\emph{Copy-move forgery} is one of the most popular forms of tampering in which some regions are copied from a particular location in an image and thereafter pasted at one or more locations within the same image or a different image of preferably the same scene. This technique is useful when the forger wants either to hide or duplicate something that is already present in the original image.
 
-Image retouching is another class of forensic methods that pertains to a slight change in the image for various aesthetic and commercial purposes, not necessarily conforming to the standards of morality. The retouching is mostly used to enhance or reduce the image features. Usually this type of forgery is realised by changing the colour or texture of the objects, intensify the weather conditions or simply
-introducing some blur for defusing the objects. Forgery detection, in case of image retouching, involves
-finding the enhancements, blurring, illumination and colour changing.
+\emph{Image retouching} is an image editing method that pertains to a slight change in the image for various aesthetic and commercial purposes, not necessarily conforming to the standards of morality. The retouching is mostly used to enhance or reduce the image features. Usually this type of forgery is realised by changing the colour or texture of the objects, intensify the weather conditions or simply
+introducing some blur for defusing the objects.
 
-\section{Image splicing}
-
-A common form of photographic manipulation is the digital splicing of two or more images into a single composite \cite{qazi2013survey}. Image splicing techniques significantly change the original images. When
-performed carefully, the border between the spliced regions can
-be visually imperceptible. 
+\emph{Image splicing}, also known as \emph{cut-and-past attack}, is another common form of photographic manipulation. This kind of forgery involves the composition of more than one image that are combined together to generate a tampered image, usually to alter its content and original meaning \cite{qazi2013survey} \cite{piva2013overview}. When performed carefully, the border between the spliced regions can be visually imperceptible. 
 
 \begin{figure}
   \centering
@@ -56,78 +29,103 @@ be visually imperceptible.
     \caption{Image splicing process}
 \end{figure}
 
-This composition process includes all the necessary operations (such as brightness and contrast adjustment, affine transformations, color changes, etc.) to construct realistic images able to deceive viewer. In this process, normally, we refer to the parts coming from other images as \emph{aliens} and to the image receiving the other parts as \emph{host}.
-
-One common studied case is image composition involving very popular people, which can be employed with many different aims.
+This composition process includes all the necessary operations (such as brightness and contrast adjustment, affine transformations, color changes, etc.) to construct realistic images able to deceive viewer. In this process, normally, we refer to the parts coming from other images as \emph{aliens} and to the image receiving the other parts as \emph{host}. One common studied case is image composition involving very popular people, which can be employed with many different aims.
 
 \subsection{Some famous cases}
 
 Photography has lost its innocence since the early days of its birth. Image forgery can be traced back to as early as 1840s when Hippolyte Bayrad created the very first fake image \ref{fig:firsttampered}, in which he was shown committing a suicide, only a few decades after Niépce created the first photo.
 
-\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{figure}[!h]
   \begin{center}
-    \includegraphics[width=0.38\textwidth]{firsttampered}
+    \includegraphics[width=0.35\textwidth]{firsttampered}
   \end{center}
-  \label{fig:firsttampered}
-  \caption{The first tampered image}
-\end{wrapfigure}
+  \caption{The first tampered image}\label{fig:firsttampered}
+\end{figure}
 
 \paragraph{O.J. Simpson - June 1994}
 
-This altered photo of O.J. Simpson appeared on the magazine's cover Time Magazine, soon after his arrest for murder. 
+This altered photo of O.J. Simpson (Fig. \ref{fig:ojsimpson}) appeared on the magazine's cover Time Magazine, soon after his arrest for murder. 
 
-\begin{wrapfigure}{r}{0.45\textwidth}
-\vspace{-1cm}
+\begin{figure}[!h]
   \begin{center}
-    \includegraphics[width=0.35\textwidth]{ojsimpson}
+    \includegraphics[width=0.40\textwidth]{ojsimpson}
   \end{center}
-  \caption{The Time Magazine and O.J. Simpson}
-  \vspace{1.5cm}
-\end{wrapfigure}
+  \caption{The Time Magazine cover with O.J. Simpson}\label{fig:ojsimpson}
+\end{figure}
 
 In fact, the photograph was altered compared to the original image that appeared on the cover of Newsweek magazine. Time magazine was accused of manipulation of the photography in order to make darker and more menacing the figure of Simpson.
 
 \paragraph{Iraq - April 2003}
 
-This composition of a British soldier in Basra, who keeps pointing toward a civilian Iraqi gesticulating, appeared on the cover of the Los Angeles Times, immediately after the Iraq invasion. 
-
-\begin{wrapfigure}{l}{0.45\textwidth}
-\vspace{-1cm}
-  \begin{center}
-    \includegraphics[width=0.35\textwidth]{iraq}
-  \end{center}
-  \caption{An example of image composition}
-  \vspace{-0.5cm}
-\end{wrapfigure}
+This composition (Fig. \ref{fig:iraq}) of a British soldier in Basra, who keeps pointing toward a civilian Iraqi gesticulating, appeared on the cover of the Los Angeles Times, immediately after the Iraq invasion. 
 
 Brian Walski, a staff photographer for the Los Angeles Times was summarily fired from his publisher because he merged two of his shots in order to improve the composition.
 
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.50\textwidth]{iraq}
+  \end{center}
+  \caption{An example of image composition}\label{fig:iraq}
+\end{figure}
+
 \paragraph{George W. Bush - March 2004}
 
-This image, taken from the election campaign of George W. Bush, outlined a packed audience of soldiers as a backdrop to a child who was flying the American flag. This image was digitally edited, using a crude copy and paste, removing Bush from the podium. 
+This image (Fig. \ref{fig:bush}), taken from the election campaign of George W. Bush, outlined a packed audience of soldiers as a backdrop to a child who was flying the American flag. This image was digitally edited, using a crude copy and paste, removing Bush from the podium. 
 
-\begin{wrapfigure}{r}{0.4\textwidth}
-\vspace{-0.8cm}
+\begin{figure}[!h]
   \begin{center}
-    \includegraphics[width=0.38\textwidth]{bush}
+    \includegraphics[width=0.50\textwidth]{bush}
   \end{center}
-  \caption{An example of image composition}
-  \vspace{-0.5cm}
-\end{wrapfigure}
+  \caption{An example of image composition}\label{fig:bush}
+\end{figure}
 
 Cases like these show how present image composition is in our daily lives. Unfortunately, it also decreases our trust on images and highlights the need for developing methods for recovering back such confidence.
 
-\section{Methods based on light inconsistencies}
+\section{Image forgery detection techniques}
 
-Methods for detecting image composition have become actual and powerful tools in the forensic analysis process. Different types of methods have been proposed for detecting image composition. Methods based on inconsistencies in compatibility metrics, JPEG compression features and perspective constraints are just a few examples of inconsistencies explored to detect forgeries.
+As a consequence of all previous facts, a reliable assessment of image integrity becomes of fundamental importance\cite{zhu2004seeing} \cite{farid2009digital} \cite{piva2013overview}.
+
+Forgery detection intends to verify the authenticity of images.  The research community interested in multimedia content security has proposed several approaches aimed at detecting image forgeries that can be classified into \emph{active} and \emph{passive} techniques.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.65\textwidth]{forgerydetectionclass}
+  \end{center}
+  \caption{Image forgery detection approaches classification}
+    \label{fig:forgerydetectionclass}
+\end{figure}
+
+\subsection{Active approaches}
+
+Active approaches basically comprise of the data hiding approach and the digital signature approach. Active approaches were inspired by the idea of granting authenticity to the images generated by digital cameras. \cite{friedman1993trustworthy} \cite{blythe2004secure}. 
+
+In this kind of approaches, some additional information is embedded into the image at the instant of its acquisition and any later modification can be detected by checking the value of the \emph{digital watermark} \cite{cox2002digital} \cite{katzenbeisser2000information} \cite{cox2007digital} or \emph{digital signature} \cite{rivest1978method} \cite{pointcheval2000security} \cite{nikolaidis1996copyright} at the moment of its fruition. Therefore these techniques are also called intrusive techniques \cite{mahdian2010bibliography}. 
+
+The major drawback of this schemes is that they must be inserted by the image capturing device itself at the time of recording or later by an authorized person, using a specialized embedding software. Therefore, specially equipped cameras or special hardware and software are needed. Furthermore, this kind of approaches may degrade the quality of the original image \cite{van2007survey}.
+
+From the implementation point of view these active approaches need specially equipped camera consisting of a watermarking or a digital signature chip and some private key hard-wired in the camera itself, using which every image captured by the image is authenticated before saving it on its memory card. 
+
+\subsection{Passive approaches}
+
+Passive approaches\cite{ng2006passive} were proposed to overcome the problems encountered in the active approaches. These schemes do not require any image preprocessing and do not alter the image content.  
+
+These approaches are based on the fact that the digital image has some consistent inherent
+patterns (statistical properties) which are acquired from the distinct phases that are part of the image history \cite{piva2013overview}, like the acquisition phase, storage and compression, post processing operations etc. Each phase leaves a unique trace on the image, which works as a digital fingerprint.
+These patterns are altered during image forgery operations is performed on the image and the mutated image properties can be detected by applying some statistical image functions.
+
+This technology, defined as \emph{multimedia forensics}\cite{farid2009image}\cite{van2007survey}\cite{mahdian2010bibliography}, deals with such issues by studying and developing technological tools which generally permit determining, by only analyzing a digital photograph, if that asset has been manipulated or even which could have been the adopted acquisition device. Moreover, if it has been determined that something has been altered, it could be important to understand in which part of the image itself such modification occurred: for instance, if a person or a specific object has been covered, if an area of the image has been cloned, if something (i.e., a face, an object) has been copied from another different image, or, even more, if a mixture of these processes has been carried out. 
+
+Methods for detecting image composition have become a hot research topic  in the forensic analysis process. Different types of schemes have been proposed for detecting image forgeries: methods based on inconsistencies in compatibility metrics, JPEG compression features and perspective constraints are just a few examples of inconsistencies explored to detect forgeries.
+
+\section{Methods based on light inconsistencies}
 
 After studying and analyzing the advantages and drawbacks of different types of methods for detecting image composition, this work herein relies on the research hypothesis that image illumination inconsistencies are strong and powerful evidence of image composition.
 
-This hypothesis has already been used by some researchers in the literature whose work will be detailed in the next sections, and it is specially useful for detecting image composition because, even for expert counterfeiters, a perfect illumination match is extremely hard to achieve. Furthermore, there are some experiments that show how difficult is for humans to perceive image illumination inconsistencies.
+This hypothesis has already been used by some researchers in the literature whose work will be detailed in the next sections, and it is specially useful for detecting image composition because, even for expert counterfeiters, a perfect illumination match is extremely hard to achieve. Furthermore, there are some experiments that show how difficult is for humans to perceive image illumination inconsistencies. \cite{ostrovsky2005perceiving}
 
 We can divide methods that explore illumination inconsistencies into three main groups:
 \begin{enumerate}
-\item methods based on inconsistencies in the \textbf{light setting}: this group encloses the approaches that look for inconsistencies in the light position and in models that aim at reconstructing the scene illumination conditions.
+\item methods based on inconsistencies in the \textbf{light setting}: this group encloses the approaches that look for inconsistencies in the light position and the models that aim at reconstructing the scene illumination conditions.
 \item methods based on inconsistencies in the \textbf{shadows}: this group encloses the approaches that look for inconsistencies in the scene illumination using telltales derived from shadows.
 \item methods based on inconsistencies in \textbf{light color}: this group of methods encloses the approaches that look for inconsistencies in the color of illuminants present in the scene.
 \end{enumerate}
@@ -143,7 +141,7 @@ Johnson and Farid\cite{Johnson:2005:EDF:1073170.1073171} proposed an approach ba
 \item The object surface is illuminated by an infinitely distant light source.
 \end{enumerate}
 
-Using RGB images, the authors assume that the chromaticity deviation is constant (and dependent on each channel wavelength) for all color channels and they create a model, based on image statistical properties, to provide how the ray light should split for each color channel. Given this premise and using the green channel as reference, the authors estimate deviations between the red and green channels and between the blue and green channels for selected parts of the image. Inconsistencies on this split pattern are used as telltales to detect forgeries. 
+Using RGB images, the authors assume that the standard deviation of the chromaticity is constant  for all color channels and they create a model, based on image statistical properties, to provide how the ray light should split for each color channel. Given this premise and using the green channel as reference, the authors estimate deviations between the red and green channels and between the blue and green channels for selected parts of the image. Inconsistencies on this split pattern are used as telltales to detect forgeries. 
 
 A drawback of this method is that chromaticity deviation depends on the camera lens used to take the picture. 
 
@@ -172,16 +170,16 @@ The last group of methods investigate the presence, or not, of composition opera
 
 Gholap and Bora\cite{gholap2008illuminant}\cite{francis2014illuminant} pioneered this approach using the \emph{illuminant colors}. For that, the authors used a \emph{dichromatic reflection model} proposed by Tominaga and Wandell\cite{tominaga1989standard}, which assumes a single light source to estimate illuminant colors from images.
 
-\begin{wrapfigure}{l}{0.5\textwidth}
+\begin{figure}
   \begin{center}
-    \includegraphics[width=0.48\textwidth]{dichromatic_reflection_model}
+    \includegraphics[width=0.65\textwidth]{dichromatic_reflection_model}
   \end{center}
-  \label{dichromatic_reflection_model}
   \caption{The dichromatic reflection model}
-\end{wrapfigure}
+    \label{fig:dichromaticreflectionmodel}
+\end{figure}
 
 
-According to this model, the reflection of any non-homogeneous material may be modelled as additive mixture of two components, diffused reflection and surface reflection as shown in Fig. \ref{dichromatic_reflection_model}.
+According to this model, the reflection of any non-homogeneous material may be modelled as additive mixture of two components, diffused reflection and surface reflection as shown in Fig. \ref{fig:dichromaticreflectionmodel}.
 
 Considering an object point illuminated by a light source, the reflected ray consists of diffuse reflection $L_B (\lambda)$ and surface reflection $L_S (\lambda)$. The reflected light $L(\Theta, \lambda)$ can be written as:
 
