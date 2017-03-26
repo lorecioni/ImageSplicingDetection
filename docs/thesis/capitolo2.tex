@@ -85,7 +85,14 @@ The used rectangle combinations are not true \emph{Haar wavelets}\cite{haar1910t
 
 \emph{OpenCV}\footnote{OpenCV - Open source computer vision. http://opencv.org} provides an implementation of the Viola-Jones face detector as \emph{cvHaarDetectObjects}.
 
-Figure \ref{fig:facesdetected} shows the output of the face detector module. Given the faces bounding boxes, the corresponding regions in the illuminant maps are extracted.
+Figure \ref{fig:facesdetected} shows the output of the face detector module. Given the faces bounding boxes, the corresponding regions in the illuminant maps are extracted, figure \ref{fig:facesdetectedmaps}.
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{splicing-33_gge_map_faces}
+    \caption{The extracted faces from illuminant map}
+    \label{fig:facesdetectedmaps}
+\end{figure}
 
 \subsection{Paired face feature extraction}
 
@@ -174,6 +181,17 @@ Given an input image $I$ containing $q$ faces, the forgery detection algorithm i
 \EndFor
 \end{algorithmic}\caption{Face forgery detection}\label{alg:faceforgerydetection}
 \end{algorithm}
+
+The output of the detector is a resulting detection mask, which highlights the spliced part of the image.
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.55\textwidth]{facesplicingdetectionoutput}
+    \caption{The output splicing detection module}
+    \label{fig:facesplicingdetectionoutput}
+\end{figure}
+
+An example is shown in Figure \ref{fig:facesplicingdetectionoutput}. The two women in the image are counterfeited and their faces are shown in the resulting detection map as fake. In this particular case the detector has a perfect accuracy. 
 
 \section{Region splicing detection module}
 
