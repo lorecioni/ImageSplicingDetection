@@ -89,6 +89,56 @@ Figure \ref{fig:facesdetected} shows the output of the face detector module. Giv
 
 \subsection{Paired face feature extraction}
 
+From each extracted face in the previous step, we need to find telltales that allow identification of spliced images. 
+
+According to Riess and Angelopoulou \cite{riess2010scene}, when the output illumination maps are analyzed by an expert for detecting forgeries, the main observed feature is color. Thus, differently from Carvalho et al. \cite{carvalho2016illuminant} who have explored a large set of descriptors of different visual properties (e.g., texture, shape, color, among others) we focused our attention on color descriptors.
+
+The considered color description techniques are ACC \cite{huang1997image}, BIC \cite{stehling2002compact}, CCV \cite{pass1997comparing}, and LCH \cite{swain1991color}.
+
+\subsubsection{ACC descriptor}
+
+\emph{Color Autocorrelogram (ACC) }\cite{huang1997image} maps the spatial information of colors by pixels correlations in different distances. Let $I$ an image, the \emph{autocorrelogram} (the term \emph{“correlogram”} is adapted from spatial data analysis \cite{upton1985spatial}) computes the probability of finding two pixels in $I$ with a color $c$ in a distance $d$ from each other. 
+
+After the autocorrelogram computation, a set of $m$  probability values for each distance $d$ are considered, where $m$ stands for the number of colors in the quantized space. 
+
+The implemented version quantized the RGB color space into 64 bins and considered 4 distance values (1, 3, 5, and 7). The \emph{L1} distance function is used.
+
+\subsubsection{BIC descriptor}
+
+\emph{Border/Interior Pixel Classification (BIC)} \cite{stehling2002compact} is a region-based color descriptor. Its extraction algorithm classifies the image pixels in border or interior
+pixels. 
+
+The image is first quantized into 64 colors in RGB color space. Then, each pixel is classified as interior
+if its neighbors (above, below, left and right pixels) have the same color. Otherwise it is classified as border pixel. After the classification, two histograms are generated: one for border pixels and other for interior pixels. These histograms are stored as one single histogram with 128 bins. The distance
+function is called \emph{dLog} and it compares histograms in a logarithmic scale. 
+
+\subsubsection{CCV descriptor}
+
+\emph{Color Coherence Vector (CCV)} \cite{pass1997comparing} is a very popular color descriptor in the literature. Its extraction algorithm classifies the image pixels in coherent or incoherent pixels. This classification considers if the pixel belongs or not to a region with similar colors, called \emph{coherent region}. After the classification, two color histograms are computed: one for coherent pixels and other for incoherent pixels.
+
+Both histograms are concatenated to compose the final feature vector. The RGB color space is quantized into 64 bins and L1 distance function is used.
+
+\subsubsection{LCH descriptor}
+
+\emph{Local Color Histogram (LCH)} \cite{swain1991color} is one of the most popular descriptors that is based on fixed size regions to describe image properties. Its extraction algorithm splits the image into fixed size blocks and computes a color histogram for each region. After that, the histograms of each region
+are concatenated to compose one single histogram. 
+
+The implemented version splits the image
+in 16 regions (4x4 grid) and quantized the RGB color space into 64 bins. This generated feature vectors with 1024 values. The L1 distance function is used.
+
+
+\subsubsection{Paired features}
+
+In order to detect a face forgery, we need to compare  the current analyzed image region against other, looking for color inconsistencies. Thus, instead of considering each face separately, a paired face feature vector is encoded for every possible face pair.
+
+Given two face descriptors, $\mathcal{D_1}$ and $\mathcal{D_2}$, whose length depends on the color descriptor used, the final descriptor is computed concatenating them into a single feature vector $\mathcal{P}$. So, in an image $I$ containing $q$ faces, a set $S$ of feature vectors are extracted, with
+
+$$
+S = \{\mathcal{P}_1, \ldots, \mathcal{P}_m\} \quad \textrm{  where } m = \frac{q (q-1)}{2}
+$$
+
+if $q \geq 2$. 
+
 \subsection{KNN models training}
 
 \subsection{Forgery detection and classification}

@@ -130,3 +130,4 @@ source/matlab/balancing/test.png
 
 source/data/regions_module_test/*
 datasets/SplicedColorChecker/*
+datasets/SplicedDSO1/*
