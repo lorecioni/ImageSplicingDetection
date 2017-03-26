@@ -1,55 +1,35 @@
-\chapter{Screenshots delle pagine Web}
+\chapter{Command line tool}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{homepage.jpg}
-\caption{\textit{Homepage}}\label{homepage}
-\end{figure}
+Command line tool description
 
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{results.jpg}
-\caption{\textit{Risultati della ricerca}}\label{results}
-\end{figure}
+\begin{verbatim}
+ImageSplicingDetection v.0.5.1
+usage: main.py [-h] [--face-detector] [--region-detector] [--train] [--detect]
+               [--evaluate] [--output-mask OUTPUT_MASK] [--display-result]
+               [--crossvalidate] [--extract-single-features]
+               [--no-extract-features] [--no-extract-maps] [--img IMG]
+               [--euclidean-distances] [--heat-map] [--verbose]
 
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{my-collection.jpg}
-\caption{\textit{Collezione personale}}\label{my-collection}
-\end{figure}
+optional arguments:
+  -h, --help            show this help message and exit
+  --face-detector       use face detector
+  --region-detector     use region detector
+  --train               train the model for further splicing detection
+  --detect              detect splice over an image
+  --evaluate            evaluate trained models over a set of images
+  --output-mask OUTPUT_MASK
+                        output mask path
+  --display-result      display mask
+  --crossvalidate       cross-validate the dataset
+  --extract-single-features
+                        extract feature vector for a specific image
+  --no-extract-features
+                        no extract all training images features
+  --no-extract-maps     no extract all training images features
+  --img IMG             the path of the suspicious image
+  --euclidean-distances
+                        visualize distances
+  --heat-map            display the heat map between GGE and IIC maps
+  --verbose             display all messages
 
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{video-component.jpg}
-\caption{\textit{Componente per video}}\label{video-component}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{image-component.jpg}
-\caption{\textit{Componente per immagini}}\label{image-component}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{audio-component.jpg}
-\caption{\textit{Componente per audio}}\label{audio-component}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{document-component.jpg}
-\caption{\textit{Componente per documenti}}\label{document-component}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{upload-page.jpg}
-\caption{\textit{Pagina di upload media}}\label{upload-page}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width= 14cm]{edit-profile-page.jpg}
-\caption{\textit{Pagina modifica profilo personale}}\label{edit-profile-page}
-\end{figure}
+\end{verbatim}

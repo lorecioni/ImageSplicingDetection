@@ -89,8 +89,13 @@
 \usepackage{listings}  % listati di codice
 
 \usepackage{cite}
-\usepackage{algorithmic}
-\usepackage{algorithm2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
 \usepackage{color}
 
 \usepackage{textcomp}
@@ -156,6 +161,11 @@
 \input{capitolo3}
 \input{conclusioni}
 }
+
+
+\appendix
+\input{appendice}
+
 
 %%%  BACK MATTER  %%%  (bibliografia)
 \backmatter

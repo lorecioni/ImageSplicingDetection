@@ -139,10 +139,41 @@ $$
 
 if $q \geq 2$. 
 
+Each face descriptor is computed twice, one based on the GGE map and one based on the IIC map.
+
 \subsection{KNN models training}
+
+After the feature vectors are extracted from all faces in the images, a set of 8 \emph{k-nearest neighbors} classifiers are trained algorithm, 4 models based on the GGE map and 4 based on the IIC map. 
+
+These models will be used in the classification step with majority voting.
 
 \subsection{Forgery detection and classification}
 
+Differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant}, we used a different approach for classifying the single face as fake using the results of the paired face classification. 
+
+Let $P_{i, j}$ the paired feature vector computed concatenating the $i$-th and the $j$-th face feature. If $P_{i, j}$ is classified as fake, the scores of the considered images are incremented by one unit. At the end of the process, faces with a higher associated scores have been classified as fake multiple times.
+
+The resulting scores are then thresholded for selecting the most probably doctored faces. 
+
+Given an input image $I$ containing $q$ faces, the forgery detection algorithm is summarized in Algorithm \ref{alg:faceforgerydetection}.
+
+\begin{algorithm}[!h]
+\begin{algorithmic}[1]
+\For {$im \in \{GGE, IIC\}$}
+\For {$desc \in \{ACC, BIC, CCV, LCH\}$}
+\State $F = extractFeatures(im, desc)$
+\State So $F = \{\mathcal{P}_1, \ldots, \mathcal{P}_m\} $ where $ m = \frac{q(q-1)}{2}$
+\For {$f in F$}
+\State $prediction = KNN.predict(f)$
+\If {$prediction = Positive$}
+\State Let $i, j$ the faces considered for $f$ evaluation
+\State Increment $i, j$ scores
+\EndIf
+\EndFor
+\EndFor
+\EndFor
+\end{algorithmic}\caption{Face forgery detection}\label{alg:faceforgerydetection}
+\end{algorithm}
 
 \section{Region splicing detection module}
 
