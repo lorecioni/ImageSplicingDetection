@@ -55,7 +55,7 @@ def load(name = None):
         print('Loaded color checker dataset')
 
 
-    if name == 'SPLICED_COLORCHECKER':
+    if name == 'SPLICED_COLORCHECKER' or name == 'SPLICED_DSO1':
         print('Loading spliced color checked dataset')
         files = os.listdir(config.imagesFolder)
         for i in files:
@@ -80,9 +80,8 @@ def generateSplicedTrainingSet(direction):
     print('Loading color checked dataset')
 
     resized_width = 1200
-    band_size = 120
-    total = 200
-    min_padding = 100
+    band_size = 200
+    total = 100
 
     images = []
     labels = []
@@ -90,7 +89,7 @@ def generateSplicedTrainingSet(direction):
     for i in files:
         try:
             img = config.imagesFolder + i
-            if os.path.isfile(img) and not i.startswith('.'):
+            if os.path.isfile(img) and not i.startswith('.') and i.startswith('normal'):
                 images.append(img)
                 labels.append(1)
         except:
@@ -112,11 +111,8 @@ def generateSplicedTrainingSet(direction):
         resized_height, _, _ = host.shape
         alien = utils.resizeImage(alien, resized_width, resized_height)
 
-        start = 0
-
-
         if direction == 'vertical':
-            start = randint(0, 9)
+            start = randint(1, resized_width/band_size - 1)
             start *= band_size
 
             end = start + band_size

@@ -8,6 +8,7 @@ import numpy as np
 import illuminantMaps
 import config
 import utils
+import scipy.io
 
 from sklearn.svm import SVC
 from sklearn.externals import joblib
@@ -49,23 +50,118 @@ class RegionSplicingDetector:
 
         utils.createTempFolder()
 
-        self.featureFile = open('features_correct_2.txt', "w");
-        self.clf = joblib.load(config.data_folder + 'regions/trained_data.pkl')
+        self.clf = {
+            'vertical': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_VERTICAL.pkl'),
+            'vertical_global': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_GLOBAL_VERTICAL.pkl'),
+            'horizontal': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_HORIZONTAL.pkl'),
+            'horizontal_global': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_GLOBAL_HORIZONTAL.pkl')
+        }
+
 
     def evaluate(self, images, output):
         for i in range(len(images)):
-            img = images[len(images) - 1 - i]
+            img = images[len(images) - 26 - i]
             self.detect(img, output, True)
-            if i == 25:
+            if i == 20:
                 break
-        self.featureFile.close()
 
+    def train(self, images, labels, direction = 'vertical'):
+        featureFile = open('trained_features.txt', 'w');
+        featureFile.close()
+        for i in range(len(images)):
+            featureFile = open('trained_features.txt', 'a');
+            img = images[i]
+            label = labels[i]
+            self.filename = utils.getFilename(img)
+            print('Processing ' + self.filename)
+            # Reads image
+            image = cv2.imread(img)
+            rows, cols, _ = image.shape
+            maskImage = np.zeros((rows, cols))
+
+            try:
+                if direction == 'vertical':
+                    maskBand = np.ones((rows, label[2])) * 255
+                    maskImage[:, label[0]:label[1]] = maskBand
+                elif direction == 'horizontal':
+                    maskBand = np.ones((label[2], cols)) * 255
+                    maskImage[label[0]:label[1], :] = maskBand
+
+            except:
+                print("Error evaluating band " + img)
+                continue
+
+            global_references = self.extractGlobalReferences(img)
+
+            self.evaluateIlluminantMaps(image, maskImage, direction)
+
+            # Evaluate distances
+            medians = {}
+            for i in range(self.verticalBands):
+                filename = config.temp_folder + 'vertical_band_' + str(i) + "_gge_map_"
+                for alg in self.algorithms:
+                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
+
+                band_feature = []  #Feature vector evaluated on medians
+                band_feature_global = [] #Feature vector evaluated on the global references
+                band = self.bands['vertical'][i]
+
+                for alg in self.algorithms:
+                    distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
+                    band_feature.append(distance)
+                    distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
+                    band_feature_global.append(distance)
+
+
+                print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands) + ' vertical bands')
+
+                featureFile.write(str(band.label) + ": ")
+                for feat in band_feature:
+                    featureFile.write(str(feat) + " ")
+                featureFile.write(":")
+                for feat in band_feature_global:
+                    featureFile.write(str(feat) + " ")
+                featureFile.write(":" + str(band.colorAvg))
+                featureFile.write("\n")
+
+
+            for i in range(self.horizontalBands):
+                filename = config.temp_folder + 'horizontal_band_' + str(i) + "_gge_map_"
+                for alg in self.algorithms:
+                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
+
+                band = self.bands['horizontal'][i]
+                band_feature = [] #Feature vector evaluated medians
+                band_feaure_global = [] #Feature vector evaluated on the global references
+                for alg in self.algorithms:
+                    distance = utils.euclideanDistanceRGB(medians[alg], self.horizontalReferences[alg])
+                    band_feature.append(distance)
+                    distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
+                    band_feaure_global.append(distance)
+
+                print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
+
+                featureFile.write(str(band.label) + ": ")
+                for feat in band_feature:
+                    featureFile.write(str(feat) + " ")
+                featureFile.write(":")
+                for feat in band_feaure_global:
+                    featureFile.write(str(feat) + " ")
+                featureFile.write(":" + str(band.colorAvg))
+                featureFile.write("\n")
+
+            featureFile.close()
+
+    '''
+    Detection algorithm
+    '''
     def detect(self, img, output, groundtruth = True):
         self.filename = utils.getFilename(img)
         print('Processing ' + self.filename)
 
         #Reads image
         image = cv2.imread(img)
+        image = utils.resizeImage(image, 1200)
 
         #Mask
         if groundtruth:
@@ -76,23 +172,12 @@ class RegionSplicingDetector:
             maskImage = None
 
         if image is not None:
-            config.forceMapsExtraction = True
 
-            segmented = None
-            #Dividing bands
-            self.verticalBands = self.extractImageBands(image, config.bandWidth/4, segmented, 'vertical', maskImage)
-            self.horizontalBands = self.extractImageBands(image, config.bandHeight/4, segmented, 'horizontal', maskImage)
-
-            #Exctract illuminant maps
-            self.extractIlluminants('vertical')
-            self.extractIlluminants('horizontal')
-
-            #Evaluating illuminant references
-            self.verticalReferences = self.getReferenceIlluminant('vertical')
-            self.horizontalReferences = self.getReferenceIlluminant('horizontal')
-
+            self.evaluateIlluminantMaps(image, maskImage)
             rows, cols, _ = image.shape
-            detectionMap = np.zeros((rows, cols), dtype=int)
+            detectionMap = np.zeros((rows, cols))
+            detectionMap_svm = np.zeros((rows, cols))
+            detectionMap_svm_global = np.zeros((rows, cols))
 
             thresholds = {
                 'grayedge': 3.6,
@@ -119,32 +204,16 @@ class RegionSplicingDetector:
                 for alg in self.algorithms:
                     distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
                     band_feature.append(distance)
-                    if distance > thresholds[alg]:
-                        detected += 1
+                    detectionMap = band.incrementDetection(detectionMap, distance)
 
-                if detected >= 4:
-                    detected = 1
-                else:
-                    detected = 0
+                prediction = self.clf['vertical'].predict(np.asarray(band_feature).reshape((1, -1)))
+                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0])
 
-                prediction = self.clf.predict(np.asarray(band_feature).reshape((1, -1)))
-                if prediction[0] == 1:
-                    detectionMap = band.incrementDetection(detectionMap)
-
-                print('True: ' + str(band.label) + ' Predicted: ' + str(prediction[0]) + ' Old: ' + str(detected))
-
-                if band.label == prediction[0]:
-                    score_svm += 1
-                if band.label == detected:
-                    score_old += 1
+                prediction = self.clf['vertical_global'].predict(np.asarray(band_feature).reshape((1, -1)))
+                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0])
 
                 print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands) + ' vertical bands')
 
-                if True and groundtruth:
-                    self.featureFile.write(str(band.label) + ": ")
-                    for feat in band_feature:
-                        self.featureFile.write(str(feat) + " ")
-                    self.featureFile.write("\n")
 
             for i in range(self.horizontalBands):
                 filename = config.temp_folder + 'horizontal_band_' + str(i) + "_gge_map_"
@@ -157,34 +226,16 @@ class RegionSplicingDetector:
                 for alg in self.algorithms:
                     distance = utils.euclideanDistanceRGB(medians[alg], self.horizontalReferences[alg])
                     band_feature.append(distance)
-                    if distance > thresholds[alg]:
-                        detected += 1
+                    detectionMap = band.incrementDetection(detectionMap, distance)
 
-                if detected >= 4:
-                    detected = 1
-                else:
-                    detected = 0
+                prediction = self.clf['horizontal'].predict(np.asarray(band_feature).reshape((1, -1)))
+                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0])
 
-                prediction = self.clf.predict(np.asarray(band_feature).reshape((1, -1)))
-                if prediction[0] == 1:
-                    detectionMap = band.incrementDetection(detectionMap)
+                prediction = self.clf['horizontal_global'].predict(np.asarray(band_feature).reshape((1, -1)))
+                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0])
 
-                print('True: ' + str(band.label) + ' Predicted: ' + str(prediction[0]) + ' Old: ' + str(detected))
                 print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
 
-                if band.label == prediction[0]:
-                    score_svm += 1
-                if band.label == detected:
-                    score_old += 1
-
-                if True and groundtruth:
-                    self.featureFile.write(str(band.label) + ": ")
-                    for feat in band_feature:
-                        self.featureFile.write(str(feat) + " ")
-                    self.featureFile.write("\n")
-
-            print('Score SVM: ' + str(score_svm/(self.verticalBands + self.horizontalBands)))
-            print('Score Old: ' + str(score_old / (self.verticalBands + self.horizontalBands)))
 
             # Recover detection map max value
             max_value = np.ndarray.max(detectionMap)
@@ -196,6 +247,17 @@ class RegionSplicingDetector:
 
             # Normalization
             detectionMap = detectionMap / max_value
+            max_value = np.ndarray.max(detectionMap_svm)
+            detectionMap_svm = detectionMap_svm / max_value
+            max_value = np.ndarray.max(detectionMap_svm_global)
+            detectionMap_svm_global = detectionMap_svm_global / max_value
+
+            if maskImage is not None:
+                maskImage = utils.resizeImage(maskImage, 1200)
+
+                scipy.io.savemat(self.filename + '_detection_map.mat', dict(positive=detectionMap[maskImage > 200], negative=detectionMap[maskImage <= 200]))
+                scipy.io.savemat(self.filename + '_detection_map_svm.mat', dict(positive=detectionMap_svm[maskImage > 200], negative=detectionMap_svm[maskImage <= 200]))
+                scipy.io.savemat(self.filename + '_detection_map_svm_global.mat', dict(positive=detectionMap_svm_global[maskImage > 200], negative=detectionMap_svm_global[maskImage <= 200]))
 
             outputMask = detectionMap.copy()
             outputMask[outputMask < 0.8] = 0
@@ -203,7 +265,7 @@ class RegionSplicingDetector:
 
             detectionMap *= 255
 
-            if False or self.display_result:
+            if self.display_result:
                 # Display color map
                 color_map = detectionMap
                 color_map = color_map.astype(np.uint8)
@@ -237,20 +299,72 @@ class RegionSplicingDetector:
                 precision = tp/(tp + fp)
                 recall = tp/(tp + fn)
                 accuracy = (tp + tn)/(tp + tn + fp + fn)
-                print('Precision: ' + str(precision) + ' - Recall: ' + str(recall) + ' - Accuracy: ' + str(accuracy))
+                print('Precision: ' + str(precision) + ' - Recall: ' + str(recall))
 
             #Write output mask
             #outputMask *= 255
             #cv2.imwrite(output, outputMask)
 
-
-
-
+            #featureFile.close()
             # Print score
             print("Splicing score: " + str(score))
 
         else:
             print('No image found: ' + img)
+
+    '''
+    Evaluate Illuminant map and references
+    '''
+    def evaluateIlluminantMaps(self, image, mask, direction = None):
+        config.forceMapsExtraction = True
+        segmented = None
+        # Dividing bands
+        if direction == 'vertical' or direction is None:
+            self.verticalBands = self.extractImageBands(image, config.bandWidth, segmented, 'vertical', mask)
+        if direction == 'horizontal' or direction is None:
+            self.horizontalBands = self.extractImageBands(image, config.bandHeight, segmented, 'horizontal', mask)
+
+        # Exctract illuminant maps
+        if direction == 'vertical' or direction is None:
+            self.extractIlluminants('vertical')
+        if direction == 'horizontal' or direction is None:
+            self.extractIlluminants('horizontal')
+
+        # Evaluating illuminant references
+        if direction == 'vertical' or direction is None:
+            self.verticalReferences = self.getReferenceIlluminant('vertical')
+        if direction == 'horizontal' or direction is None:
+            self.horizontalReferences = self.getReferenceIlluminant('horizontal')
+
+
+    '''
+    Extract global illuminant map references
+    '''
+    def extractGlobalReferences(self, img):
+        image = cv2.imread(img)
+        filename = utils.getFilename(img)
+
+        W, H, c = image.shape
+        base = np.zeros((W, H), 'uint8')
+        segmented = np.zeros((W, H, 3), 'uint8')
+        segmented[..., 0] = base.copy()
+        segmented[..., 1] = base.copy()
+        segmented[..., 2] = base.copy() + 255
+
+        segmentedPath = config.temp_folder + 'global_segmented.png'
+        cv2.imwrite(segmentedPath, segmented)
+
+        illuminantMaps.estimateGrayEdge(img, segmentedPath, config.temp_folder, self.verbose)
+        illuminantMaps.estimateGrayWorld(img, segmentedPath, config.temp_folder, self.verbose)
+        illuminantMaps.estimateMaxRGB(img, segmentedPath, config.temp_folder, self.verbose)
+        illuminantMaps.estimateShadesOfGray(img, segmentedPath, config.temp_folder, self.verbose)
+        illuminantMaps.estimateSecondGrayEdge(img, segmentedPath, config.temp_folder, self.verbose)
+
+        global_references = {}
+        for alg in self.algorithms:
+            global_references[alg] = utils.evaluateRGBMedian(config.temp_folder + filename + "_gge_map_" + alg + ".png")[0]
+        return global_references
+
     '''
     Extract bands from the images with width
     configured in configuration file
@@ -323,8 +437,9 @@ class RegionSplicingDetector:
                             #cv2.imshow('band', band)
                             #cv2.waitKey()
 
-
-                self.bands[direction].append(DetectionBand(i, direction, bandLabel))
+                b = DetectionBand(i, direction, bandLabel)
+                b.colorAvg = utils.averageRGBColor(band)
+                self.bands[direction].append(b)
 
                 cv2.imwrite(bandPath, band)
                 if segmented is None:
@@ -413,8 +528,9 @@ class DetectionBand:
         self.start = rect
         self.label = label
         self.direction = direction
+        self.colorAvg = 0;
 
-    def incrementDetection(self, detectionMap):
+    def incrementDetection(self, detectionMap, value = 1):
         height, width = detectionMap.shape
         if self.direction == 'vertical':
             limit = width
@@ -430,9 +546,9 @@ class DetectionBand:
             end = limit - diff - 1
 
         if self.direction == 'vertical':
-            detectionMap[:, self.start:end] = detectionMap[:, self.start:end] + 1
+            detectionMap[:, self.start:end] = detectionMap[:, self.start:end] + value
         else:
-            detectionMap[self.start:end, :] = detectionMap[self.start:end, :] + 1
+            detectionMap[self.start:end, :] = detectionMap[self.start:end, :] + value
 
         return detectionMap
 
