@@ -1,6 +1,6 @@
 
-images_path = 'data/regions_module_test';
-pattern = 'splicing';
+images_path = 'data';
+pattern = 'splicing-';
 folders = dir(images_path);
 i = 1;
 
@@ -9,18 +9,34 @@ negative = zeros(0);
 count = 0;
 while i <= size(folders, 1)
     f = folders(i);
-    disp(f.name);
-    if(~strcmp(f.name, '.') && ~strcmp(f.name, '..') && ~f.isdir && strncmpi(f.name, pattern, length(pattern)))
-        image = [images_path, '/', f.name];  
+    if(~strcmp(f.name, '.') && ~strcmp(f.name, '..') ...
+            && ~f.isdir && strncmpi(f.name, pattern, length(pattern)) ...
+            && length(strfind(f.name,'svm')) == 0)
+        
+        image = [images_path, '/', f.name]; 
+        disp(image);
         data = load(image);
         positive = horzcat(positive, data.positive);
         negative = horzcat(negative, data.negative);
         
-        Labels = [zeros(1, length(negative)) ones(1, length(positive))];
-        Scores = [negative positive];
+        
+        
+        count = count + 1;
+    end
+    i=i+1;
+    
+    %if count == 1
+        %break;
+    %end
+end
 
-        %Curva ROC
-        %plotroc(Labels,Scores)
+
+
+Labels = [zeros(1, length(negative)) ones(1, length(positive))];
+Scores = [negative positive];
+
+%Curva ROC
+plotroc(Labels,Scores)
 
         %Recupero valore di soglia ottimale
         [X,Y,T,AUC,OPTROCPT] = perfcurve(Labels,Scores,1);
@@ -31,15 +47,6 @@ while i <= size(folders, 1)
         %Valore di soglia
         Th = T(idx);
         fprintf('\tThreshold: %f\n', Th);
-        
-        count = count + 1;
-    end
-    i=i+1;
-    
-    %if count == 1
-        %break;
-    %end
-end
 
 %Labels ottenute (0 e 1)
 %Labels=[zeros(100,1)' ones(100,1)'];
