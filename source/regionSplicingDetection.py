@@ -51,16 +51,16 @@ class RegionSplicingDetector:
         utils.createTempFolder()
 
         self.clf = {
-            'vertical': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_VERTICAL.pkl'),
-            'vertical_global': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_GLOBAL_VERTICAL.pkl'),
-            'horizontal': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_HORIZONTAL.pkl'),
-            'horizontal_global': joblib.load(config.data_folder + 'regions/TRAINED_SVM_MODEL_GLOBAL_HORIZONTAL.pkl')
+            'vertical':  joblib.load(config.data_folder + 'regions_module/models/trained_model_vertical.pkl'),
+            'vertical_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_vertical_global.pkl'),
+            'horizontal': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal.pkl'),
+            'horizontal_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal_global.pkl')
         }
 
 
     def evaluate(self, images, output):
         for i in range(len(images)):
-            img = images[len(images) - 26 - i]
+            img = images[len(images) - 5 - i]
             self.detect(img, output, True)
             if i == 20:
                 break
@@ -190,6 +190,8 @@ class RegionSplicingDetector:
             score_svm = 0
             score_old = 0
 
+            detected = 0
+
             #Evaluate distances
             medians = {}
             for i in range(self.verticalBands):
@@ -199,7 +201,7 @@ class RegionSplicingDetector:
 
                 band = self.bands['vertical'][i]
                 band_feature = []
-                detected = 0
+
 
                 for alg in self.algorithms:
                     distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
@@ -208,7 +210,6 @@ class RegionSplicingDetector:
 
                 prediction = self.clf['vertical'].predict(np.asarray(band_feature).reshape((1, -1)))
                 detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0])
-
                 prediction = self.clf['vertical_global'].predict(np.asarray(band_feature).reshape((1, -1)))
                 detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0])
 
@@ -222,7 +223,7 @@ class RegionSplicingDetector:
 
                 band = self.bands['horizontal'][i]
                 band_feature = []
-                detected = 0
+
                 for alg in self.algorithms:
                     distance = utils.euclideanDistanceRGB(medians[alg], self.horizontalReferences[alg])
                     band_feature.append(distance)
@@ -230,11 +231,13 @@ class RegionSplicingDetector:
 
                 prediction = self.clf['horizontal'].predict(np.asarray(band_feature).reshape((1, -1)))
                 detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0])
-
                 prediction = self.clf['horizontal_global'].predict(np.asarray(band_feature).reshape((1, -1)))
                 detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0])
 
                 print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
+
+
+            print('Detected: ' + str(detected))
 
 
             # Recover detection map max value
@@ -320,9 +323,9 @@ class RegionSplicingDetector:
         segmented = None
         # Dividing bands
         if direction == 'vertical' or direction is None:
-            self.verticalBands = self.extractImageBands(image, config.bandWidth, segmented, 'vertical', mask)
+            self.verticalBands = self.extractImageBands(image, config.bandWidth/config.bandDeltaFactor, segmented, 'vertical', mask)
         if direction == 'horizontal' or direction is None:
-            self.horizontalBands = self.extractImageBands(image, config.bandHeight, segmented, 'horizontal', mask)
+            self.horizontalBands = self.extractImageBands(image, config.bandHeight/config.bandDeltaFactor, segmented, 'horizontal', mask)
 
         # Exctract illuminant maps
         if direction == 'vertical' or direction is None:
