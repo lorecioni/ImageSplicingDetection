@@ -331,13 +331,14 @@ def testDifferentResolution(res, color_space, channel = 'all', type = 'all'):
 #testDifferentResolution(10,'ycbcr', channel='y', type='spliced')
 
 
-def trainSVM(balanced = False):
+def trainSVM(balanced = False, normalized = False):
     ofid = open('trained_features_horizontal.txt', 'rt')
     ofid.seek(0)
     lines = ofid.readlines()
     ofid.close()
     X = []
     Y = []
+    C = []
     total = len(lines)
     print('Total samples: ' + str(total))
 
@@ -345,6 +346,9 @@ def trainSVM(balanced = False):
         segments = line.split(":")
         Y.append(int(segments[0]))
         X.append(np.array(segments[1].split(), dtype=float))
+
+        rgb = np.array(segments[3].replace('[', '').replace('\n', '').replace(']', '').split(), dtype=float)
+        C.append(utils.rgb2grayValue(rgb))
 
     X = np.asarray(X)
     Y = np.asarray(Y)
@@ -367,6 +371,10 @@ def trainSVM(balanced = False):
             while not balance_reached and i < total:
                 label = Y[i]
                 feature = X[i]
+
+                #avg_color = X[]
+
+
                 if num_neg < num_samples and label == 0:
                     num_neg += 1
                     X_bal.append(feature)
@@ -388,4 +396,4 @@ def trainSVM(balanced = False):
     joblib.dump(clf, 'TEST_NEW.pkl')
     print(clf.score(X, Y))
 
-trainSVM(True)
+trainSVM(True, True)
