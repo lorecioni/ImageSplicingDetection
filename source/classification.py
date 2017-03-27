@@ -54,12 +54,16 @@ class KNNClassifier(Classifier):
         self.clf = neighbors.KNeighborsClassifier(self.K, self.weights)
         self.clf.fit(data, labels)
 
-    def predict(self, data):
-        prediction = self.clf.predict(data)
+    def predict(self, data, probability = False):
+        if not probability:
+            prediction = self.clf.predict(data)
+        else:
+            prediction = self.clf.predict_proba(data)
         if len(prediction) > 1:
             return prediction
         else:
             return int(prediction[0])
+
 
     def store(self, path):
         joblib.dump(self.clf, path)

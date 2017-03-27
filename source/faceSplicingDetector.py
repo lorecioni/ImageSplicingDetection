@@ -11,6 +11,9 @@ import illuminantMaps
 import config
 import utils
 import os
+from sklearn import metrics
+import matplotlib.pyplot as plt
+import scipy.io
 
 
 '''
@@ -184,6 +187,9 @@ class FaceSplicingDetector:
             splits = splitDataset(trainingDesc[refKey][0], config.folds)
 
 
+            outputs_labels = trainingDesc[refKey][1]
+            outputs_scores = np.zeros(len(trainingDesc[refKey][0]))
+
             for (trainIndex, testIndex) in splits:
                 classifiers = {}
                 for illum in config.illuminantTypes:
@@ -199,21 +205,22 @@ class FaceSplicingDetector:
                             classifiers[key] = clf
 
                 outputs = []
+                outputs_probs = []
 
                 illumOuts = {}
                 for illum in config.illuminantTypes:
-                    appoggio = []
+                    tmp = []
                     for desc in self.descriptors:
                         key = illum + "_" + desc
                         testData, _, _ = trainingDesc[key]
                         if len(testData) > 0 :
                             testData = testData[testIndex]
                             outputs.append(classifiers[key].predict(testData))
-
-                            appoggio.append(classifiers[key].predict(testData))
+                            outputs_probs.append(classifiers[key].predict(testData, True))
+                            tmp.append(classifiers[key].predict(testData))
 
                     test = np.zeros(len(testIndex))
-                    for predictions in appoggio:
+                    for predictions in tmp:
                         test += predictions
 
                     illumOuts[illum] = test
@@ -230,11 +237,18 @@ class FaceSplicingDetector:
 
 
                 output = np.zeros(len(testIndex))
-                for predictions in outputs:
+                output_prob = np.zeros(len(testIndex))
+
+                for i in range(len(outputs)):
+                    predictions = outputs[i]
                     output += predictions
+                    predictions_prob = outputs_probs[i]
+                    for j in range(len(predictions)):
+                        output_prob[j] += predictions_prob[j][1]
+
 
                 #If voting is majority, classify as fake
-
+                outputs_scores[testIndex] = output_prob
                 counter = 0
                 _, trainingLabels, _ = trainingDesc[refKey]
                 testLabels = trainingLabels[testIndex]
@@ -248,6 +262,8 @@ class FaceSplicingDetector:
                         if testLabels[counter] != 0:
                             misclassified += 1
                     counter += 1
+
+            scipy.io.savemat('classification_output.mat', dict(labels=outputs_labels, scores=outputs_scores))
 
             print('Number of classifiers: ' + str(totalModels))
             totalSamples = len(trainingDesc[refKey][0])
@@ -313,9 +329,9 @@ class FaceSplicingDetector:
         #if self.verbose:
         print(str(len(faces)) + ' faces detected')
 
-        if display:
+        if True or display:
             for (x, y, w, h) in faces:
-                cv2.rectangle(orig, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                cv2.rectangle(orig, (x, y), (x + w, y + h), (0, 255, 0), 8)
             orig = utils.resizeImage(orig, 500)
             cv2.imshow('img', orig)
             cv2.waitKey(0)
@@ -397,6 +413,7 @@ class FaceSplicingDetector:
 
         pairData, pairLabels = None, None
         outputs = []
+        outputs_probs = []
         for illum in config.illuminantTypes:
             for desc in self.descriptors:
                 clfPath = config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl'
@@ -405,16 +422,41 @@ class FaceSplicingDetector:
                     testData, testLabels, _ = self.getTrainingData(images, desc, illum=illum)
                     if len(testData) > 0:
                         pairData, pairLabels = testData, testLabels
-                        outputs.append(clf.predict(testData))
+                        outputs.append(clf.predict(testData, False))
+                        outputs_probs.append(clf.predict(testData, True))
 
         if pairData is not None:
             output = np.zeros(len(pairData))
-            for predictions in outputs:
+            output_prob = np.zeros(len(pairData))
+
+            for i in range(len(outputs)):
+                predictions = outputs[i]
                 output += predictions
+                predictions_prob = outputs_probs[i]
+                for j in range(len(predictions)):
+                    output_prob[j] += predictions_prob[j][1]
+
 
             # If voting is majority, classify as fake
             counter = 0
             misclassified = 0
+
+            scipy.io.savemat('classification_output.mat', dict(labels=pairLabels, scores=output_prob))
+
+            '''
+            false_positive_rate, true_positive_rate, thresholds = metrics.roc_curve(pairLabels, output_prob)
+            roc_auc = metrics.auc(false_positive_rate, true_positive_rate)
+            plt.title('Receiver Operating Characteristic')
+            plt.plot(false_positive_rate, true_positive_rate, 'b',
+                     label='AUC = %0.2f' % roc_auc)
+            plt.legend(loc='lower right')
+            plt.plot([0, 1], [0, 1], 'r--')
+            plt.xlim([-0.1, 1.2])
+            plt.ylim([-0.1, 1.2])
+            plt.ylabel('True Positive Rate')
+            plt.xlabel('False Positive Rate')
+            plt.show()
+            '''
 
             totalModels = len(outputs)
             for val in np.nditer(output):
