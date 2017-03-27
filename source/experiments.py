@@ -331,14 +331,15 @@ def testDifferentResolution(res, color_space, channel = 'all', type = 'all'):
 #testDifferentResolution(10,'ycbcr', channel='y', type='spliced')
 
 
-def trainSVM():
-    ofid = open('features_old.txt', 'rt')
+def trainSVM(balanced = False):
+    ofid = open('trained_features_horizontal.txt', 'rt')
     ofid.seek(0)
     lines = ofid.readlines()
     ofid.close()
     X = []
     Y = []
-    print(len(lines))
+    total = len(lines)
+    print('Total samples: ' + str(total))
 
     for line in lines:
         segments = line.split(":")
@@ -347,9 +348,44 @@ def trainSVM():
 
     X = np.asarray(X)
     Y = np.asarray(Y)
-    clf = SVC()
+
+    if balanced:
+        X_bal = []
+        Y_bal = []
+
+        negative_samples = len(Y[Y == 0])
+        positive_samples = len(Y[Y > 0])
+
+        if negative_samples != positive_samples:
+            if negative_samples <= positive_samples:
+                num_samples = negative_samples
+            else:
+                num_samples = positive_samples
+            i = 0
+            num_pos, num_neg = 0, 0
+            balance_reached = False
+            while not balance_reached and i < total:
+                label = Y[i]
+                feature = X[i]
+                if num_neg < num_samples and label == 0:
+                    num_neg += 1
+                    X_bal.append(feature)
+                    Y_bal.append(label)
+                elif num_pos < num_samples and label == 1:
+                    num_pos += 1
+                    X_bal.append(feature)
+                    Y_bal.append(label)
+                elif num_pos == num_neg:
+                    balance_reached = True
+                i += 1
+
+        print('Balanced samples: ' + str(len(X_bal)))
+        X = np.asarray(X_bal)
+        Y = np.asarray(Y_bal)
+
+    clf = SVC(probability=True)
     clf.fit(X, Y)
-    joblib.dump(clf, 'TEST_2.pkl')
+    joblib.dump(clf, 'TEST_NEW.pkl')
     print(clf.score(X, Y))
 
-trainSVM()
+trainSVM(True)
