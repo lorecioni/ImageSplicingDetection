@@ -6,14 +6,16 @@ Created on 05 ott 2016
 
 
 '''General configuration'''
-#dataset = 'DSO-1'
+dataset = 'DSO-1'
 #dataset = 'DSI-1'
 #dataset = 'COLORCHECKER'
-dataset = 'SPLICED_COLORCHECKER'
+#dataset = 'SPLICED_COLORCHECKER'
+# dataset = 'SPLICED_DSO1'
 
-imagesFolder = '../datasets/SplicedColorChecker/vertical/'
-#imagesFolder = '../datasets/' + dataset + '/Images/'
+#imagesFolder = '../datasets/SplicedColorChecker/horizontal/'
+imagesFolder = '../datasets/' + dataset + '/Images/'
 #imagesFolder = '../datasets/ColorChecker/srgb8bit/'
+#imagesFolder = '../datasets/SplicedDSO1/vertical/'
 
 labelsFolder = '../datasets/' + dataset + '/Labels/'
 maps_folder = '../datasets/' + dataset + '/Maps/'
@@ -23,16 +25,21 @@ features_folder = '../datasets/' + dataset + '/Features/'
 faces_folder = '../datasets/' + dataset + '/Faces/'
 descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
 masks_folder = '../datasets/' + dataset + '/Masks/'
-classification_folder = 'data/'
+
+
 data_folder = 'data/'
 temp_folder = 'temp/'
 
-output_spliced_dataset_folder = '../datasets/SplicedColorChecker/'
+classification_folder = data_folder + 'face_module/DSO-1/'
+
+output_spliced_dataset_folder = '../datasets/SplicedDSO1/'
 
 #Convert binaries
 convertBinary = '/opt/local/bin/convert'
 voleBinary= 'illuminants/build/bin/./vole'
-cascadePath = 'data/haarcascade_frontalface_default.xml'
+
+#Face detector cascade
+cascadePath = 'data/face_module/haarcascade_frontalface_default.xml'
 
 #Illuminant maps extraction
 forceMapsExtraction = False
@@ -75,4 +82,5 @@ feature_vector_length = 6
 '''Region splicing detection'''
 bandWidth = 120
 bandHeight = 120
+bandDeltaFactor = 4 #Delta move is bandWidth/bandDeltaFactor
 
