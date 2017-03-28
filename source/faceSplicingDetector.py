@@ -329,7 +329,7 @@ class FaceSplicingDetector:
         #if self.verbose:
         print(str(len(faces)) + ' faces detected')
 
-        if True or display:
+        if display:
             for (x, y, w, h) in faces:
                 cv2.rectangle(orig, (x, y), (x + w, y + h), (0, 255, 0), 8)
             orig = utils.resizeImage(orig, 500)
@@ -423,7 +423,8 @@ class FaceSplicingDetector:
                     if len(testData) > 0:
                         pairData, pairLabels = testData, testLabels
                         outputs.append(clf.predict(testData, False))
-                        outputs_probs.append(clf.predict(testData, True))
+                        pred = clf.predict(testData, True)
+                        outputs_probs.append(pred)
 
         if pairData is not None:
             output = np.zeros(len(pairData))
