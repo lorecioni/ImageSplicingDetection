@@ -47,6 +47,9 @@ def extractDescriptor(img, descriptor, space = 0, channel = 3):
     command = config.convertBinary + " " + nname + " " + newName
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
     command = "descriptors/" + descriptor.lower() + "/source/bin/./" + descriptor.lower() + "_extraction " + newName + " " + descriptorName
+
+    if descriptor.lower() == 'sasi' or descriptor.lower() == 'las' or descriptor.lower() == 'unser':
+        command += ' 1'
     subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
 
 
@@ -69,6 +72,18 @@ def buildFaceFeatureVector(firstPath, secondPath, descriptor):
         feature = firstFace + secondFace
         feature = " ".join(feature)
     elif descriptor == 'LCH':
+        firstFace = filesFirst.read().splitlines()
+        firstFace = firstFace[1]
+        secondFace = filesSecond.read().splitlines()
+        secondFace = secondFace[1]
+        feature = firstFace + " " + secondFace
+    elif descriptor == 'SASI':
+        firstFace = filesFirst.read().splitlines()
+        firstFace = firstFace[1]
+        secondFace = filesSecond.read().splitlines()
+        secondFace = secondFace[1]
+        feature = firstFace + " " + secondFace
+    elif descriptor == 'UNSER':
         firstFace = filesFirst.read().splitlines()
         firstFace = firstFace[1]
         secondFace = filesSecond.read().splitlines()
