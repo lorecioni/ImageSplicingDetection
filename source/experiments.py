@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import regionSplicingDetection
 import math
+from random import randint
 from sklearn.svm import SVC
 from sklearn.externals import joblib
 
@@ -332,7 +333,7 @@ def testDifferentResolution(res, color_space, channel = 'all', type = 'all'):
 
 
 def trainSVM(balanced = False, normalized = False):
-    ofid = open('trained_features_horizontal.txt', 'rt')
+    ofid = open(config.data_folder + 'regions_module/features/trained_features_horizontal_colorchecker.txt', 'rt')
     ofid.seek(0)
     lines = ofid.readlines()
     ofid.close()
@@ -357,6 +358,8 @@ def trainSVM(balanced = False, normalized = False):
         X_bal = []
         Y_bal = []
 
+        negative_indexes = np.where(Y == 0)[0]
+
         negative_samples = len(Y[Y == 0])
         positive_samples = len(Y[Y > 0])
 
@@ -374,8 +377,11 @@ def trainSVM(balanced = False, normalized = False):
 
                 #avg_color = X[]
 
-
                 if num_neg < num_samples and label == 0:
+                    idx = randint(0, len(negative_indexes))
+                    idx = negative_indexes[idx]
+                    label = Y[idx]
+                    feature = X[idx]
                     num_neg += 1
                     X_bal.append(feature)
                     Y_bal.append(label)
@@ -393,7 +399,7 @@ def trainSVM(balanced = False, normalized = False):
 
     clf = SVC(probability=True)
     clf.fit(X, Y)
-    joblib.dump(clf, 'TEST_NEW.pkl')
+    joblib.dump(clf, 'trained_data.pkl')
     print(clf.score(X, Y))
 
 trainSVM(True, True)
