@@ -51,25 +51,25 @@ class RegionSplicingDetector:
         utils.createTempFolder()
 
         self.clf = {
-            'vertical':  joblib.load(config.data_folder + 'regions_module/models/trained_model_vertical.pkl'),
-            'vertical_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_vertical_global.pkl'),
-            'horizontal': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal.pkl'),
-            'horizontal_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal_global.pkl')
+            'vertical':  joblib.load(config.data_folder + 'regions_module/models/trained_model_vertical_dso.pkl'),
+            'vertical_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_vertical_dso_global.pkl'),
+            'horizontal': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal_dso.pkl'),
+            'horizontal_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal_dso_global.pkl')
         }
 
 
     def evaluate(self, images, output):
         for i in range(len(images)):
-            img = images[len(images) - 5 - i]
+            img = images[len(images) - 20 - i]
             self.detect(img, output, True)
-            if i == 20:
+            if i == 15:
                 break
 
     def train(self, images, labels, direction = 'vertical'):
         featureFile = open('trained_features.txt', 'w');
         featureFile.close()
         for i in range(len(images)):
-            featureFile = open('trained_features.txt', 'a');
+            featureFile = open('trained_features' + direction +'.txt', 'a');
             img = images[i]
             label = labels[i]
             self.filename = utils.getFilename(img)
@@ -176,19 +176,11 @@ class RegionSplicingDetector:
             self.evaluateIlluminantMaps(image, maskImage)
             rows, cols, _ = image.shape
             detectionMap = np.zeros((rows, cols))
+            detectionMap_global = np.zeros((rows, cols))
             detectionMap_svm = np.zeros((rows, cols))
             detectionMap_svm_global = np.zeros((rows, cols))
 
-            thresholds = {
-                'grayedge': 3.6,
-                'maxrgb': 6,
-                'grayworld': 6,
-                'shadesofgray': 6,
-                'secondgrayedge': 2
-            }
-
-            score_svm = 0
-            score_old = 0
+            global_references = self.extractGlobalReferences(img)
 
             detected = 0
 
@@ -201,17 +193,21 @@ class RegionSplicingDetector:
 
                 band = self.bands['vertical'][i]
                 band_feature = []
-
+                band_feaure_global = []  # Feature vector evaluated on the global references
 
                 for alg in self.algorithms:
                     distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
                     band_feature.append(distance)
                     detectionMap = band.incrementDetection(detectionMap, distance)
 
-                prediction = self.clf['vertical'].predict(np.asarray(band_feature).reshape((1, -1)))
-                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0])
-                prediction = self.clf['vertical_global'].predict(np.asarray(band_feature).reshape((1, -1)))
-                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0])
+                    distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
+                    band_feaure_global.append(distance)
+                    detectionMap_global = band.incrementDetection(detectionMap_global, distance)
+
+                prediction = self.clf['vertical'].predict_proba(np.asarray(band_feature).reshape((1, -1)))
+                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0][1])
+                prediction = self.clf['vertical_global'].predict_proba(np.asarray(band_feaure_global).reshape((1, -1)))
+                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0][1])
 
                 print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands) + ' vertical bands')
 
@@ -223,16 +219,21 @@ class RegionSplicingDetector:
 
                 band = self.bands['horizontal'][i]
                 band_feature = []
+                band_feaure_global = []  # Feature vector evaluated on the global references
 
                 for alg in self.algorithms:
                     distance = utils.euclideanDistanceRGB(medians[alg], self.horizontalReferences[alg])
                     band_feature.append(distance)
                     detectionMap = band.incrementDetection(detectionMap, distance)
 
-                prediction = self.clf['horizontal'].predict(np.asarray(band_feature).reshape((1, -1)))
-                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0])
-                prediction = self.clf['horizontal_global'].predict(np.asarray(band_feature).reshape((1, -1)))
-                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0])
+                    distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
+                    band_feaure_global.append(distance)
+                    detectionMap_global = band.incrementDetection(detectionMap_global, distance)
+
+                prediction = self.clf['horizontal'].predict_proba(np.asarray(band_feature).reshape((1, -1)))
+                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0][1])
+                prediction = self.clf['horizontal_global'].predict_proba(np.asarray(band_feaure_global).reshape((1, -1)))
+                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0][1])
 
                 print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
 
@@ -257,8 +258,8 @@ class RegionSplicingDetector:
 
             if maskImage is not None:
                 maskImage = utils.resizeImage(maskImage, 1200)
-
                 scipy.io.savemat(self.filename + '_detection_map.mat', dict(positive=detectionMap[maskImage > 200], negative=detectionMap[maskImage <= 200]))
+                scipy.io.savemat(self.filename + '_detection_map_global.mat', dict(positive=detectionMap_global[maskImage > 200], negative=detectionMap_global[maskImage <= 200]))
                 scipy.io.savemat(self.filename + '_detection_map_svm.mat', dict(positive=detectionMap_svm[maskImage > 200], negative=detectionMap_svm[maskImage <= 200]))
                 scipy.io.savemat(self.filename + '_detection_map_svm_global.mat', dict(positive=detectionMap_svm_global[maskImage > 200], negative=detectionMap_svm_global[maskImage <= 200]))
 
