@@ -12,7 +12,7 @@ dataset = 'DSO-1'
 #dataset = 'SPLICED_COLORCHECKER'
 # dataset = 'SPLICED_DSO1'
 
-#imagesFolder = '../datasets/SplicedColorChecker/horizontal/'
+#imagesFolder = '../datasets/SplicedColorChecker/vertical/'
 imagesFolder = '../datasets/' + dataset + '/Images/'
 #imagesFolder = '../datasets/ColorChecker/srgb8bit/'
 #imagesFolder = '../datasets/SplicedDSO1/vertical/'
@@ -30,7 +30,7 @@ masks_folder = '../datasets/' + dataset + '/Masks/'
 data_folder = 'data/'
 temp_folder = 'temp/'
 
-classification_folder = data_folder + 'face_module/DSO-1/'
+classification_folder = data_folder + 'face_module/DSI-1/'
 
 output_spliced_dataset_folder = '../datasets/SplicedDSO1/'
 
@@ -67,12 +67,14 @@ config_iic = "illuminants/build/config.txt"
 
 '''Face splicing detector'''
 faceMinSize = (120, 150)
-inverseFacePosition = False
+inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
-descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
-KNeighbours = 3
+descriptors = ['ACC', 'BIC', 'CCV', 'LCH', 'SASI', 'UNSER'] #Color descriptors
+#descriptors_weights = {'ACC': 1, 'BIC': 1, 'CCV': 0.6, 'LCH': 0.8}
+#descriptors = ['SASI', 'UNSER']
+KNeighbours = 5
 crossvalidation = False
 folds = 10
 label_position = 1
