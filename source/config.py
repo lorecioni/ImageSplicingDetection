@@ -71,9 +71,10 @@ inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
-descriptors = ['ACC', 'BIC', 'CCV', 'LCH', 'SASI', 'UNSER'] #Color descriptors
-#descriptors_weights = {'ACC': 1, 'BIC': 1, 'CCV': 0.6, 'LCH': 0.8}
-#descriptors = ['SASI', 'UNSER']
+descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
+descriptors_weights = {'ACC': 0.8, 'BIC': 1.2, 'CCV': 0.6, 'LCH': 1.5}
+descriptors_weights = {'ACC': 1, 'BIC': 1, 'CCV': 1, 'LCH': 1}
+
 KNeighbours = 5
 crossvalidation = False
 folds = 10
