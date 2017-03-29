@@ -242,7 +242,7 @@ class RegionSplicingDetector:
 
 
             # Recover detection map max value
-            max_value = np.ndarray.max(detectionMap)
+            max_value = np.ndarray.max(detectionMap_svm_global)
             score = max_value/8
             if score < 0.8:
                 print('Image is NORMAL - Score: ' + str(score))
@@ -263,15 +263,15 @@ class RegionSplicingDetector:
                 scipy.io.savemat(self.filename + '_detection_map_svm.mat', dict(positive=detectionMap_svm[maskImage > 200], negative=detectionMap_svm[maskImage <= 200]))
                 scipy.io.savemat(self.filename + '_detection_map_svm_global.mat', dict(positive=detectionMap_svm_global[maskImage > 200], negative=detectionMap_svm_global[maskImage <= 200]))
 
-            outputMask = detectionMap.copy()
+            outputMask = detectionMap_svm_global.copy()
             outputMask[outputMask < 0.8] = 0
             outputMask[outputMask >= 0.8] = 1
 
-            detectionMap *= 255
+            detectionMap_svm_global *= 255
 
             if self.display_result:
                 # Display color map
-                color_map = detectionMap
+                color_map = detectionMap_svm_global
                 color_map = color_map.astype(np.uint8)
                 color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
                 out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
