@@ -17,6 +17,7 @@ fprintf('\tThreshold: %f\n', Th);
 figure;
 [Xpr,Ypr,Tpr,AUCpr] = perfcurve(labels, scores, 1, 'xCrit', 'reca', 'yCrit', 'prec');
 plot(Xpr,Ypr);
+axis([0 1 0 1]);
 xlabel('Recall'); ylabel('Precision')
 title(['Precision-recall curve (AUC: ' num2str(AUCpr) ')'])
 ACC = ((1-X)+Y)/2;
