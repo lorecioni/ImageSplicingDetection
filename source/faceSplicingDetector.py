@@ -14,6 +14,7 @@ import os
 from sklearn import metrics
 import matplotlib.pyplot as plt
 import scipy.io
+import loadDatasets
 
 
 '''
@@ -156,7 +157,6 @@ class FaceSplicingDetector:
                     #else discard the current image
                     print('Not suitable number of faces found in the image')
 
-
         # Sample training
         if not self.cross_validation:
             # Train one model for each descriptor
@@ -207,34 +207,16 @@ class FaceSplicingDetector:
                 outputs = []
                 outputs_probs = []
 
-                illumOuts = {}
                 for illum in config.illuminantTypes:
-                    tmp = []
                     for desc in self.descriptors:
                         key = illum + "_" + desc
                         testData, _, _ = trainingDesc[key]
                         if len(testData) > 0 :
                             testData = testData[testIndex]
-                            outputs.append(classifiers[key].predict(testData))
-                            outputs_probs.append(classifiers[key].predict(testData, True))
-                            tmp.append(classifiers[key].predict(testData))
-
-                    test = np.zeros(len(testIndex))
-                    for predictions in tmp:
-                        test += predictions
-
-                    illumOuts[illum] = test
-
-                totalModels = len(classifiers)
-                _, _, testSrc = trainingDesc['GGE_ACC']
-                testSrc = testSrc[testIndex]
-                tot = len(illumOuts['GGE'])
-                for i in range(tot):
-                    gge = illumOuts['GGE'][i]
-                    iic = illumOuts['IIC'][i]
-                    if (gge > totalModels/2 and iic <= totalModels/2) or (gge <= totalModels/2 and iic > totalModels/2):
-                       print(testSrc[i])
-
+                            prediction = classifiers[key].predict(testData) * config.descriptors_weights[desc]
+                            outputs.append(prediction)
+                            prediction = classifiers[key].predict(testData, True) * config.descriptors_weights[desc]
+                            outputs_probs.append(prediction)
 
                 output = np.zeros(len(testIndex))
                 output_prob = np.zeros(len(testIndex))
@@ -422,9 +404,10 @@ class FaceSplicingDetector:
                     testData, testLabels, _ = self.getTrainingData(images, desc, illum=illum)
                     if len(testData) > 0:
                         pairData, pairLabels = testData, testLabels
-                        outputs.append(clf.predict(testData, False))
-                        pred = clf.predict(testData, True)
-                        outputs_probs.append(pred)
+                        prediction = clf.predict(testData, False) * config.descriptors_weights[desc]
+                        outputs.append(prediction)
+                        prediction = clf.predict(testData, True) * config.descriptors_weights[desc]
+                        outputs_probs.append(prediction)
 
         if pairData is not None:
             output = np.zeros(len(pairData))
@@ -443,21 +426,6 @@ class FaceSplicingDetector:
             misclassified = 0
 
             scipy.io.savemat('classification_output.mat', dict(labels=pairLabels, scores=output_prob))
-
-            '''
-            false_positive_rate, true_positive_rate, thresholds = metrics.roc_curve(pairLabels, output_prob)
-            roc_auc = metrics.auc(false_positive_rate, true_positive_rate)
-            plt.title('Receiver Operating Characteristic')
-            plt.plot(false_positive_rate, true_positive_rate, 'b',
-                     label='AUC = %0.2f' % roc_auc)
-            plt.legend(loc='lower right')
-            plt.plot([0, 1], [0, 1], 'r--')
-            plt.xlim([-0.1, 1.2])
-            plt.ylim([-0.1, 1.2])
-            plt.ylabel('True Positive Rate')
-            plt.xlabel('False Positive Rate')
-            plt.show()
-            '''
 
             totalModels = len(outputs)
             for val in np.nditer(output):
