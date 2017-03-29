@@ -137,7 +137,7 @@ in 16 regions (4x4 grid) and quantized the RGB color space into 64 bins. This ge
 
 \subsubsection{Paired features}
 
-In order to detect a face forgery, we need to compare the current analyzed image region against other, looking for color inconsistencies. Thus, instead of considering each face separately, faces are encoded in pairs.
+In order to detect a face forgery, we need to compare the current analyzed image region (i.e. the current face) against another one, looking for color inconsistencies. Thus, instead of considering each face separately, faces are encoded in pairs.
 
 Given two face feature vectors of the same type (i.e. extracted with the same color descriptor), $\mathcal{D}_1$ and $\mathcal{D}_2$, whose length depends on the color descriptor used, the final descriptor is computed concatenating them into a single feature vector $\mathcal{P}$. So, in an image $I$ containing $q$ faces, a set $S$ of feature vectors are extracted, with
 
@@ -151,9 +151,13 @@ Each paired face descriptor is computed twice for each considered color descript
 
 \subsection{KNN models training}
 
+As in the Carvalho \emph{et al.}\cite{carvalho2016illuminant}, k-Nearest Neighbor (kNN) classifier\cite{bishop2007pattern} are chosen for the classification step.
+
 After the feature vectors are extracted from all faces in the images, a set of 8 \emph{k-nearest neighbors} binary classifiers are trained, 4 models based on the GGE map and 4 based on the IIC map. 
 
-These models will be used in the classification step with majority voting. Given a paired  face feature vector $\mathcal{P}$ and the detection score is the result of the sum of all the prediction values of the classifiers:
+Accordingly to the analysis presented in \cite{carvalho2016illuminant}, the value of $k$ is set to 5.
+
+Given a set of paired feature vectors $\mathcal{P}$, extracted from a new image $I$, each classifier $C_i$ ($i = 1, \ldots, 8$) to determine the label (forgery or real) of these feature vectors, producing $k$ outcomes. All the outcomes are used as input of a fusion technique (in this case, majority voting) that takes the final decision regarding the definition of each paired feature vector $\mathcal{P}$ extracted from $I$.
 
 $$
 Score_{\mathcal{P}} = \sum_{i = 1}^{8} prediction_{C_i}(\mathcal{P}) \quad \textrm{ where } prediction_{C_i}(\mathcal{P}) \in [0, 1]
@@ -161,9 +165,11 @@ $$
 
 Then $\mathcal{P}$ is considered as fake if its score is higher than a given threshold. 
 
+An alternative approach for the feature score evaluation has been experimented and presented in Chapter 3.
+
 \subsection{Forgery detection and classification}
 
-Differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant}, we used a different approach for classifying the single face as fake using the results of the paired face classification. 
+Differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant}, we used another approach for classifying the single face as fake using the results of the paired face classification. 
 
 Let $P_{i, j}$ the paired feature vector computed concatenating the $i$-th and the $j$-th face feature. If $P_{i, j}$ is classified as fake, the scores of the considered images are incremented by one unit. At the end of the process, faces with a higher associated scores have been classified as fake multiple times.
 
@@ -195,7 +201,7 @@ Given an input image $I$ containing $q$ faces, the forgery detection algorithm i
 \end{algorithmic}\caption{Face forgery detection}\label{alg:faceforgerydetection}
 \end{algorithm}
 
-The output of the detector is a resulting detection mask, which highlights the spliced part of the image.
+The output of the detector is a resulting \emph{detection mask}, which highlights the spliced part of the image.
 
 \begin{figure}[h!]
   \centering
@@ -208,19 +214,17 @@ An example is shown in Figure \ref{fig:facesplicingdetectionoutput}. The two wom
 
 \section{Region splicing detection module}
 
-The second form of the algorithm is to implement the method proposed by Fan et al.\cite{fan2015image} with some changes in order to try to correct some of its major drawbacks presented in Section 1.7.
-
-The splicing detection task performed by our approach consists in labelling a new image among two pre-defined classes (real and fake) and later pointing the face with higher probability to be the fake face. In this process, a classification model is created to indicate the class to which a new image belongs.
+The second module is based on the work of Fan \emph{et al.}\cite{fan2015image} (presented in Section 1.7) with some improvements and a different approach for splicing detection.
 
 In summary, this module consists of the 6 main steps:
 
 \begin{itemize}
-\item \textbf{Image segementation}: relies on vertical and horizontal image segmentations. The outputs of this stage are two set of directional image bands. 
+\item \textbf{Image segementation}: relies on vertical and horizontal image segmentation. The outputs of this stage are two set of directional image bands. 
 \item \textbf{Band illuminant estimation}: consists in estimating the illuminant color for each segmented band using 5 different GGE algorithms.
-\item \textbf{Reference illuminant estimation}: consists in estimating the illuminant reference value for each direction.
-\item \textbf{Feature vector evaluation}: relies on encoding the singular band illuminant information into a feature vector for further classification. The feature vector elements are the differences between the current illuminant color and the reference one.
-\item \textbf{Band classification}: consists in labelling each image band into one of the know classes (real or fake) based on the previously learned classification model.
-\item \textbf{Detection map}: using the classification output of the previous step, a detection map is build. The higher the value of this map, the higher the  resulting classification score for a single pixel.
+\item \textbf{Reference illuminant estimation}: consists in estimating an illuminant reference value.
+\item \textbf{Feature vector evaluation}: relies on encoding the singular band illuminant information into a feature vector for further classification. The feature vector elements are the differences between the current illuminant color and the illuminant reference.
+\item \textbf{Band classification}: consists in labelling each image band into one of the known classes (real or fake) basing on the previously learned classification model.
+\item \textbf{Output detection map}: using the classification output of the previous step, a detection map for the image is computed. The higher the value of the pixel in the map, the higher the resulting classification score for that pixel.
 \end{itemize}
 
 \begin{figure}[h!]
@@ -230,17 +234,17 @@ In summary, this module consists of the 6 main steps:
     \label{fig:regionsmodulepipeline}
 \end{figure}
 
-The Fig \ref{fig:regionsmodulepipeline} summarize the module pipeline.
+The Figure \ref{fig:regionsmodulepipeline} summarize the module pipeline.
 
 \subsection{Image segmentation}
 
 In the first step of the process, the input image is segmented in order to obtain two image bands categories: horizontal and vertical bands. This kind of segmentation method is chosen because of its simplicity.
 
-First, a band width $B_w$ and a band height $B_h$ is set. Due to the fact that the segmentation has to produce overlapping bands, we set a delta factor of $\frac{1}{4}$. As a result we get overlapping stripes for a total of 25\% of their area. 
+First, a band width $B_w$ and a band height $B_h$ is set. Due the fact that the segmentation has to produce overlapping bands, we set a delta factor of $\frac{1}{4}$. As a result we get overlapping stripes for a total of 25\% of their area. 
 
-The choice of the band size is a crucial phase of the algorithm: a band too tight would fail to capture the information necessary to classify our object of interest as falsified, unlike a band too wide would capture instead too much additional information.
+The choice of the band size is a crucial phase of the algorithm: a band too tight would fail to capture the information necessary to classify our object of interest as falsified, unlike a band too wide would capture too much additional information instead.
 
-The choice of the overlapped area percentage makes possible a more detailed evaluation. In this way it is possible to classify the same region of the image more than once, increasing the expressive power of our final classifier, the detection map.
+The choice of the overlapped area percentage makes possible a more detailed evaluation. In this way it is possible to classify the same region of the image more than once, increasing the expressive power of our final classifier.
  
 In summary, let $I$ be the input image. After the segmentation process we obtain a set $B$ of bands containing all vertical and horizontal bands:
 
@@ -252,23 +256,23 @@ The dimension of $B$ is given by the sum of the number of vertical ($n$) and hor
 
 \subsection{Band illuminant estimation}
 
-The resulting image bands are now processed in order to evaluate the illuminant color using different techniques.
+The resulting image bands are now processed in order to evaluate their illuminant colors using 5 different techniques.
 
-For this step, the Generalized Grayworld \cite{van2007edge} algorithms are used, as presented in Chapter 1. For each band, the illumination estimation is accomplished by using one of algorithms composed of Grey-World, Max-RGB, Shades of Grey, first-order Grey-Edge and second-order Grey-Edge. Thus we have 5 illuminant estimates for each band.
-Table \ref{table:ggemethods} in Chapter 1 summarize this algorithm parameters.
-
-In this way we obtain 5 different illuminant estimation for each single band.
+For this step, the Generalized Grayworld \cite{van2007edge} algorithms are used, as presented in Chapter 1. For each band, the illumination estimation is accomplished by using one of algorithms composed of Grey-World, Max-RGB, Shades of Grey, first-order Grey-Edge and second-order Grey-Edge. Thus, we get 5 illuminant estimates for each band.
+Table \ref{table:ggemethods} in Chapter 1 summarize the algorithms parameters.
 
 $$
 \forall b \in B \qquad R_a(b) = GGE_a(b) \qquad a \in \mathcal{A}
 $$
 
-where $\mathcal{A}$ is the set of the previously mentioned algorithms and $GGE$ is the algorithm implementation.
+where $\mathcal{A}$ is the set of the previously mentioned algorithms and $GGE_a$ is the algorithm implementation.
 
-\subsection{Reference illuminant estimation}
+\subsection{Reference illuminant color estimation}
 
-After estimating the illuminant of each horizontal/vertical band, it is evaluated a reference illuminant color for each used algorithms.
+After estimating the illuminant of each horizontal/vertical band, the reference illuminant color is evaluated. Differently from Fan \emph{et al.}\cite{fan2015image}, the whole image illuminant color (obtained using the previous algorithms) is considered as reference instead of the median of all the illuminant colors extracted from all the bands of a specific direction. 
 
+In the approach proposed in \cite{fan2015image} the reference colors were computed as follows.
+ 
 $$
 \forall a \in \mathcal{A} \qquad RV_a = median(R_a(b)) \quad \forall \; b \textrm{ vertical}
 $$
@@ -276,14 +280,16 @@ $$
 \forall a \in \mathcal{A} \qquad RH_a = median(R_a(b)) \quad \forall \; b \textrm{ horizontal}
 $$
 
-where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, will be identical to one of the values of a band of that same direction.
+where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, will be identical to one of the value of a band of that same direction.
+
+More simply, in our case the considered reference colors are the estimation results of the 5 different algorithms over the while image. A comparison between the two estimation approaches is presented in Chapter 3.
 
 \subsection{Feature vector estimation}
 
 Given the two reference color for each of the two directions, a feature band for each single image band can be built.
 
 Assuming a single light source in the image, all the evaluated illuminant will point at the same color.
-Based on this assumption, a feature vector that capture how the gang present of singularities in the illuminant is built.
+Based on this assumption, a feature vector aimed at capturing illuminant colors inconsistencies can be computed.
 
 Let $b \in B$ a single band lying on $d \in \{vertical, horizontal\}$ direction. The feature vector for $b$ will be:
 
@@ -294,21 +300,43 @@ where
 $$
 m_i = dist(R_a(b) - RC)
 $$
-where $RC = RV_a$ or $RC = RH_a$ in case of vertical and horizontal band respectively and $dist$ is the Euclidean distance function between two RGB values.
+and $RC$ is the chosen reference color and $dist$ is the Euclidean distance function between two RGB values.
 
 \subsection{Band classification}
 
 Given a feature vector, a machine learning approach is used to automatically classify the band. 
-In a prior step, a classification model is trained using a set of sample data. A Support Vector Machine (SVM) classifier with a radial basis function (RBF) kernel is used.
+
+After training an Support Vector Machine (SVM)\cite{bishop2007pattern} classifier with a radial basis function (RBF) kernel, we classify the resulting multidimensional feature vector $f_b$ and collect the positive output probability of this input vector, considering it as the band score.
+
+For the training of the SVM model two entire dataset were specifically built containing images with single splicing band. More details about SVM training are given in Chapter 3. 
 
 $$
-\forall \; b \in B \quad Label(b) = SVM(b)
+\forall \; b \in B \quad Score(b) = SVM(f_b)
 $$
 
-\subsection{Detection map}
+\subsection{Output detection map}
 
-In order to collect all the classification outputs, a detection map is build and updated after each evaluation. If the result of the classification is \emph{positive} (\emph{fake}), all the pixel values that belong to the band portion in the image will be increased by one unit.
+In order to collect all the classification outputs, a detection map is built and updated after each classifier prediction. If the result of the classification is \emph{positive} (\emph{fake}), all the pixel values that belong to the band portion in the image will be increased by the prediction score.
 
-At the end of the process, all the splicing region pixels will have greater values than the others. At this stage a color map is displayed to give a visual feedback for locating the splicing image parts.
+At the end of the process, the splicing region pixels should have greater values than the others. At this stage a color map is displayed to give a visual feedback for locating the splicing image parts.
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.75\textwidth]{detectionmapresult}
+    \caption{The output detection map for an input image. The map is presented in the \emph{jet} color map representation. The map matrix intensities are in the range $[0, 1]$, and the color scheme is presented in Figure \ref{fig:colormapjet}.}
+    \label{fig:regionsdetectionmap}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.5\textwidth]{colormap_jet}
+    \caption{The \emph{jet} color map scheme. The color intensities ranges from 0 (\emph{cold} colors) to 1 (\emph{hot} colors)}
+    \label{fig:colormapjet}
+\end{figure}
+
+In Figure \ref{fig:regionsdetectionmap} is presented an example of a generated detection map In this case, the splicing region consists in the woman in the middle of the scene (Figure \ref{fig:splicingmask}). As the map underlines, the more interesting region is located precisely in the middle.
+
+Finally, the detection map is thresholded for selecting the output detected spliced regions.
+
 
 
