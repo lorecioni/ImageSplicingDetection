@@ -10,7 +10,7 @@ Most of the times, the splicing detection process relies on the expert's experie
 
 This approach to detecting image splicing is developed aiming at minimizing the user interaction. 
 
-The two methods, presented in the previous chapter \cite{carvalho2016illuminant} and \cite{fan2015image}, are now being used in synergy with each other, going to analyze the suspicious image and at the same time looking for potential signs of forgery.
+The two methods, presented in the previous chapter \cite{carvalho2016illuminant} and \cite{fan2015image}, are now being used in synergy, going to analyze the suspicious image and at the same time looking for potential signs of forgery.
 
 Starting from an image we want to analyze, the method will output a set of results.
 \begin{itemize}
@@ -321,7 +321,7 @@ At the end of the process, the splicing region pixels should have greater values
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.9\textwidth]{detectionmapresult}
-    \caption{The output detection map for an input image. The map is presented in the \emph{jet} color map representation. The map matrix intensities are in the range $[0, 1]$, and the color scheme is presented in Figure \ref{fig:colormapjet}.}\label{fig:regionsdetectionmap}
+    \caption{The classification map for an input image. The map is presented in the \emph{jet} color map representation. The map matrix intensities are in the range $[0, 1]$, and the color scheme is presented in Figure \ref{fig:colormapjet}.}\label{fig:regionsdetectionmap}
 \end{figure}
 
 \begin{figure}[h!]
@@ -335,5 +335,8 @@ In Figure \ref{fig:regionsdetectionmap} is presented an example of a generated d
 
 Finally, the detection map is thresholded for selecting the output detected spliced regions.
 
-
-
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.9\textwidth]{regiondetectionoutput}
+    \caption{The detection output of the regional detection module.}\label{fig:regiondetectionoutput}
+\end{figure}
