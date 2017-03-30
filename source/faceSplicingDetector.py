@@ -69,10 +69,9 @@ class FaceSplicingDetector:
                         features = self.extractFeatures(img, faces=faces, illum=illum, descriptor=desc, output=True)
                         #Predict over sample
                         for sample in features:
-                            prediction = clf.predict(np.array(sample.feature.split(), dtype=float).reshape((1, -1)))
-                            if prediction == 1:
-                                predictions[sample.first] += 1
-                                predictions[sample.second] += 1
+                            prediction = clf.predict(np.array(sample.feature.split(), dtype=float).reshape((1, -1)), True)[0][1]
+                            predictions[sample.first] += prediction
+                            predictions[sample.second] += prediction
                             counters[sample.first] += 1
                             counters[sample.second] += 1
 
@@ -112,7 +111,21 @@ class FaceSplicingDetector:
                     regionMask[..., 1] = outputMask.copy()
                     regionMask[..., 2] = outputMask.copy()
                     splicedRegions = np.multiply(orig, regionMask)
-                    out = np.concatenate((utils.resizeImage(orig, 500), utils.resizeImage(splicedRegions, 500)), axis=1)
+
+                    faceScores = orig.copy()
+                    idx = 0
+                    font = cv2.FONT_HERSHEY_SIMPLEX
+                    for (x, y, w, h) in faces:
+                        if idx not in fakeFaces:
+                            cv2.rectangle(faceScores, (x, y), (x + w, y + h), (0, 255, 0), 8)
+                            cv2.putText(faceScores, str("{:.3f}".format(predictions[idx]/counters[i])), (x, y + h + 80), font, 1.8, (0, 255, 0), 3)
+                        else:
+                            cv2.rectangle(faceScores, (x, y), (x + w, y + h), (0, 0, 255), 8)
+                            cv2.putText(faceScores, str("{:.3f}".format(predictions[idx]/counters[i])), (x, y + h + 80), font, 1.8, (0, 0, 255), 3)
+                        idx += 1
+                    faceScores = utils.resizeImage(faceScores, 500)
+
+                    out = np.concatenate((faceScores, utils.resizeImage(splicedRegions, 500)), axis=1)
                     cv2.imshow('output', out)
                     cv2.waitKey(0)
 

@@ -57,12 +57,10 @@ class KNNClassifier(Classifier):
     def predict(self, data, probability = False):
         if not probability:
             prediction = self.clf.predict(data)
+            return int(prediction[0])
         else:
             prediction = self.clf.predict_proba(data)
-        if len(prediction) > 1:
             return prediction
-        else:
-            return int(prediction[0])
 
 
     def store(self, path):
