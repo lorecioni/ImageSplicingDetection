@@ -10,7 +10,7 @@ Most of the times, the splicing detection process relies on the expert's experie
 
 This approach to detecting image splicing is developed aiming at minimizing the user interaction. 
 
-The two methods, presented in the previous chapter \cite{carvalho2016illuminant} and \cite{fan2015image}, are now being used in synergy with each other, going to analyze the suspicious image at the same time looking for potential signs of forgery.
+The two methods, presented in the previous chapter \cite{carvalho2016illuminant} and \cite{fan2015image}, are now being used in synergy with each other, going to analyze the suspicious image and at the same time looking for potential signs of forgery.
 
 Starting from an image we want to analyze, the method will output a set of results.
 \begin{itemize}
@@ -19,7 +19,7 @@ Starting from an image we want to analyze, the method will output a set of resul
 \item A \textbf{detection map} highlighting the detected spliced regions.
 \end{itemize}
 
-The proposed approach minimizes the needed human interaction and aims at being a fully automated process. However, not both the modules can operate in any circumstance. The face splicing detection module will work only if there is a number of faces greater than or equal to two.
+The proposed approach minimizes the needed human interaction and aims at being a fully automated process. However, not both the modules can operate in any circumstance. The face splicing detection module works only if there is a number of faces greater than or equal to two.
 
 \section{Face splicing detection module}
 
@@ -76,12 +76,12 @@ This detector combines four key concepts:
 \item A \emph{cascade classifier} to combine all features efficiently 
 \end{itemize}
 
-The used rectangle combinations are not true \emph{Haar wavelets}\cite{haar1910theorie}. Instead, they contain better suited rectangle combinations used for visual object detection. The presence of a Haar feature is determined by subtracting the pixel values of the dark region to the pixel values of the light one. If the difference exceeds a threshold value set during the training process, the feature is said to be present. 
+The used rectangle combinations are not true \emph{Haar wavelets}\cite{haar1910theorie}. Instead, they contain better suited rectangle combinations used for visual object detection. The presence of an Haar feature is determined by subtracting the pixel values of the dark region from the pixel values of the light one. If the difference exceeds a threshold value set during the training process, the feature is said to be present. 
 
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.5\textwidth]{facedetected}
-    \caption{The output of the face detection module}
+    \caption{The output of the Viola and Jones face detector}
     \label{fig:facesdetected}
 \end{figure}
 
@@ -118,11 +118,11 @@ The implemented version quantized the RGB color space into 64 bins and considere
 pixels. 
 
 The image is first quantized into 64 colors in RGB color space. Then, each pixel is classified as interior
-if its neighbors (above, below, left and right pixels) have the same color. Otherwise it is classified as border pixel. After the classification, two histograms are generated: one for border pixels and other for interior pixels. These histograms are stored as one single histogram with 128 bins.
+if its neighbors (above, below, left and right pixels) have the same color. Otherwise it is classified as border pixel. After the classification, two histograms are generated: one for border pixels and another for interior pixels. These histograms are stored as one single histogram with 128 bins.
 
 \subsubsection{CCV descriptor}
 
-\emph{Color Coherence Vector (CCV)} \cite{pass1997comparing} is a very popular color descriptor in the literature. Its extraction algorithm classifies the image pixels in coherent or incoherent pixels. This classification considers if the pixel belongs or not to a region with similar colors, called \emph{coherent region}. After the classification, two color histograms are computed: one for coherent pixels and other for incoherent pixels.
+\emph{Color Coherence Vector (CCV)} \cite{pass1997comparing} is a very popular color descriptor in the literature. Its extraction algorithm classifies the image pixels in coherent or incoherent pixels. This classification considers if the pixel belongs or not to a region with similar colors, called \emph{coherent region}. After the classification, two color histograms are computed: one for coherent pixels and another for incoherent pixels.
 
 Both histograms are concatenated to compose the final feature vector. The RGB color space is quantized into 64 bins and L1 distance function is used.
 
@@ -157,21 +157,21 @@ After the feature vectors are extracted from all faces in the images, a set of 8
 
 Accordingly to the analysis presented in \cite{carvalho2016illuminant}, the value of $k$ is set to 5.
 
-Given a set of paired feature vectors $\mathcal{P}$, extracted from a new image $I$, each classifier $C_i$ ($i = 1, \ldots, 8$) to determine the label (forgery or real) of these feature vectors, producing $k$ outcomes. All the outcomes are used as input of a fusion technique (in this case, majority voting) that takes the final decision regarding the definition of each paired feature vector $\mathcal{P}$ extracted from $I$.
+Given a set of paired feature vectors $\mathcal{P}$, extracted from a new image $I$, each classifier $C_i$ ($i = 1, \ldots, 8$) predicts a label (forgery or real) for these feature vectors, producing $k$ outcomes. All the outcomes are used as input of a fusion technique (in this case, majority voting) that takes the final decision regarding the definition of each paired feature vector $\mathcal{P}$ extracted from $I$.
 
 $$
-Score_{\mathcal{P}} = \sum_{i = 1}^{8} prediction_{C_i}(\mathcal{P}) \quad \textrm{ where } prediction_{C_i}(\mathcal{P}) \in [0, 1]
+Score(\mathcal{P}) = \sum_{i = 1}^{8} prediction_{C_i}(\mathcal{P}) \quad \textrm{ where } prediction_{C_i}(\mathcal{P}) \in [0, 1]
 $$
 
-Then $\mathcal{P}$ is considered as fake if its score is higher than a given threshold. 
+Finally, $\mathcal{P}$ is considered as fake if its score is higher than a given threshold. 
 
 An alternative approach for the feature score evaluation has been experimented and presented in Chapter 3.
 
 \subsection{Forgery detection and classification}
 
-Differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant}, we used another approach for classifying the single face as fake using the results of the paired face classification. 
+Differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant}, we used another approach for classifying the single face as fake using the results of the paired faces classification. 
 
-Let $P_{i, j}$ the paired feature vector computed concatenating the $i$-th and the $j$-th face feature. If $P_{i, j}$ is classified as fake, the scores of the considered images are incremented by one unit. At the end of the process, faces with a higher associated scores have been classified as fake multiple times.
+Let $P_{i, j}$ the paired feature vector computed concatenating the $i$-th and the $j$-th face feature. If $P_{i, j}$ is classified as fake, the scores of the considered images are incremented the prediction output values. At the end of the process, faces with higher associated scores have been classified as fake multiple times.
 
 The resulting scores are then thresholded for selecting the most probably doctored faces. 
 
@@ -186,10 +186,8 @@ Given an input image $I$ containing $q$ faces, the forgery detection algorithm i
 \State So $F = \{\mathcal{P}_1, \ldots, \mathcal{P}_m\} $ where $ m = \frac{q(q-1)}{2}$
 \For {$f \in F$}
 \State $prediction = KNN.predict(f)$
-\If {$prediction = Positive$}
 \State Let $i, j$ the faces considered for $f$ evaluation
 \State Increment $i, j$ scores by $prediction \in [0, 1]$
-\EndIf
 \EndFor
 \EndFor
 \EndFor
@@ -205,12 +203,12 @@ The output of the detector is a resulting \emph{detection mask}, which highlight
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.55\textwidth]{facesplicingdetectionoutput}
-    \caption{The output splicing detection module}
+    \includegraphics[width=0.8\textwidth]{facedetectionoutput}
+    \caption{An example output of the face splicing detection module. Each face is marked in \emph{green} if it has been classified as \emph{normal}, \emph{red} if considered as \emph{fake}. A classification confidence score is presented below each bounding box.}
     \label{fig:facesplicingdetectionoutput}
 \end{figure}
 
-An example is shown in Figure \ref{fig:facesplicingdetectionoutput}. The two women in the image are counterfeited and their faces are shown in the resulting detection map as fake. In this particular case the detector has a perfect accuracy. 
+An example is shown in Figure \ref{fig:facesplicingdetectionoutput}. Each face is marked as fake or normal and provided of a classification confidence score. The higher the score, the higher the confidence of the prediction output. In the analyzed image (Figure \ref{fig:facesplicingdetectionoutput}), four of the total faces are marked in \emph{green} because they have a low score value. The last face, corresponding to the spliced person, has a very high prediction score and it is therefore marked in \emph{red}.
 
 \section{Region splicing detection module}
 
@@ -219,7 +217,7 @@ The second module is based on the work of Fan \emph{et al.}\cite{fan2015image} (
 In summary, this module consists of the 6 main steps:
 
 \begin{itemize}
-\item \textbf{Image segementation}: relies on vertical and horizontal image segmentation. The outputs of this stage are two set of directional image bands. 
+\item \textbf{Image segmentation}: relies on vertical and horizontal image segmentation. The outputs of this stage are two set of directional image bands. 
 \item \textbf{Band illuminant estimation}: consists in estimating the illuminant color for each segmented band using 5 different GGE algorithms.
 \item \textbf{Reference illuminant estimation}: consists in estimating an illuminant reference value.
 \item \textbf{Feature vector evaluation}: relies on encoding the singular band illuminant information into a feature vector for further classification. The feature vector elements are the differences between the current illuminant color and the illuminant reference.
@@ -258,7 +256,7 @@ The dimension of $B$ is given by the sum of the number of vertical ($n$) and hor
 
 The resulting image bands are now processed in order to evaluate their illuminant colors using 5 different techniques.
 
-For this step, the Generalized Grayworld \cite{van2007edge} algorithms are used, as presented in Chapter 1. For each band, the illumination estimation is accomplished by using one of algorithms composed of Grey-World, Max-RGB, Shades of Grey, first-order Grey-Edge and second-order Grey-Edge. Thus, we get 5 illuminant estimates for each band.
+For this step, the Generalized Grayworld \cite{van2007edge} algorithms are used, as presented in Chapter 1. For each band, the illumination estimation is accomplished by using one of the algorithms composed of Grey-World, Max-RGB, Shades of Grey, first-order Grey-Edge and second-order Grey-Edge. Thus, we get 5 illuminant estimates for each band.
 Table \ref{table:ggemethods} in Chapter 1 summarize the algorithms parameters.
 
 $$
@@ -280,7 +278,7 @@ $$
 \forall a \in \mathcal{A} \qquad RH_a = median(R_a(b)) \quad \forall \; b \textrm{ horizontal}
 $$
 
-where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, will be identical to one of the value of a band of that same direction.
+where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, they will be identical to one of the value of a band of that same direction.
 
 More simply, in our case the considered reference colors are the estimation results of the 5 different algorithms over the while image. A comparison between the two estimation approaches is presented in Chapter 3.
 
@@ -306,9 +304,9 @@ and $RC$ is the chosen reference color and $dist$ is the Euclidean distance func
 
 Given a feature vector, a machine learning approach is used to automatically classify the band. 
 
-After training an Support Vector Machine (SVM)\cite{bishop2007pattern} classifier with a radial basis function (RBF) kernel, we classify the resulting multidimensional feature vector $f_b$ and collect the positive output probability of this input vector, considering it as the band score.
+After training a Support Vector Machine (SVM)\cite{bishop2007pattern} classifier with a radial basis function (RBF) kernel, we classify the resulting multidimensional feature vector $f_b$ and collect the positive output probability of this input vector, considering it as the band score.
 
-For the training of the SVM model two entire dataset were specifically built containing images with single splicing band. More details about SVM training are given in Chapter 3. 
+For the SVM model training two custom dataset were specifically built containing images with single spliced band. More details about training are given in Chapter 3. 
 
 $$
 \forall \; b \in B \quad Score(b) = SVM(f_b)
@@ -322,9 +320,8 @@ At the end of the process, the splicing region pixels should have greater values
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.75\textwidth]{detectionmapresult}
-    \caption{The output detection map for an input image. The map is presented in the \emph{jet} color map representation. The map matrix intensities are in the range $[0, 1]$, and the color scheme is presented in Figure \ref{fig:colormapjet}.}
-    \label{fig:regionsdetectionmap}
+    \includegraphics[width=0.9\textwidth]{detectionmapresult}
+    \caption{The output detection map for an input image. The map is presented in the \emph{jet} color map representation. The map matrix intensities are in the range $[0, 1]$, and the color scheme is presented in Figure \ref{fig:colormapjet}.}\label{fig:regionsdetectionmap}
 \end{figure}
 
 \begin{figure}[h!]
