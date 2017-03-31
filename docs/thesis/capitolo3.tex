@@ -48,19 +48,83 @@ The ColorChecker dataset is a collection of images for evaluating Color Constanc
 
 This section describes the experiments performed to evaluate the face forgery detection module. In these experiments, the DSO-1 and the DSI-1 datasets are used for evaluation.
 
-In the classification stage, we used a 10-fold cross validation protocol, an SVM classifier with an RBF
-kernel, and classical grid search for adjusting parameters in training samples \cite{bishop2007pattern}.
+After characterizing an image with a specific image descriptor, the next step consists of using an appropriate learning method.
+
+the proposed method method focuses on using complementary information, the color descriptors, to describe the Illuminant Maps. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the k-Nearest Neighbor (kNN) classifier instead of more powerful and computational intensive ones such as Support Vector Machines (SVM) due fact that, SVM and kNN, or even fusion of both learning methods, present very similar results, enforcing the choice for a simpler learning technique (kNN)\cite{carvalho2016illuminant}. The value of \emph{k} is set to 5. 
+
+For all image descriptors, we have used the standard con- figuration proposed by \emph{Penatti et al.} \cite{penatti2012comparative}.
+
+As described in Chapter 2, eight different kNN models are trained and used for the classification, considering all the possible combinations of the couples composed by a IMs transformed space (GGE e IIC)and a color descriptor (chosen from ACC, BIC, CCV and LCH).
+
+\subsection{Color descriptors accuray}
+
+Since the final classification output is given by majority voting of all the selected classifiers, the first round of experiments aimed at evaluating the accuracy of each image descriptors.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c c c c c c} 
+\hline \hline 
+\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{ACC} & \textbf{BIC} & \textbf{CCV} & \textbf{LCH} \\ [0.5ex]
+\hline
+Test 1 & DSO-1 & DSO-1 &	0.75 & 0.75	& 0.72 & \textbf{0.78}\\
+Test 2 & DSI-1 & DSI-1 &	0.78 & 0.79 & 0.77 & \textbf{0.82}\\
+Test 3 &	DSO-1 &	DSI-1 &	0.56 & \textbf{0.57} & 0.53 & 0.53\\
+Test 4 &	DSI-1 & DSO-1 & 0.58 & 0.55 & 0.51 & \textbf{0.59}\\ [1ex]
+\hline
+\end{tabular}
+\caption{Accuracy for kNN technique using a single color descriptor. Experiments are performed using 10-fold cross-validation in test case number 1 and 2.}
+\label{table:colordescriptorperformance}
+\end{table}
+
+Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of train and test set. The classification results show that, generally, LCH color descriptor yielded the higher accurary, but there is not a descriptor that outperforms the others.
+
+\subsection{Test cases}
+
+After analyzing each single descriptor accuracy, we proceeded to evaluate the overall module using a combination of all of them, as described in Chapter 2. In the following experiments, the  method has been applied for classifying a face pair as fake or real. Essentially, these experiments evaluate the forgery detection performances.
+
+For each test case in the suite it is reported:
+\begin{enumerate}
+\item The training dataset (\textbf{\emph{Train}});
+\item The evaluation dataset (\textbf{\emph{Test}});
+\item The classification accuracy score (\textbf{\emph{Accuracy}});
+\item The area under the ROC (\emph{receiver operating characteristics}) curve (\textbf{\emph{AUC}})
+\item The accuracy score expressed through the $F_1$ score (also known as \textbf{\emph{F-Score}})
+\end{enumerate}
+
+Accordingly with \emph{Jeni et al.} \cite{jeni2013facing}, when dealing with AUC score to measure the performance of classifier, one of the major drawbacks relies on the fact that an increasing of AUC doesn't really mean a better classifier, but it could be just the side-effect of too many negative examples used in training.
+
+Therefore, also another classification accuracy score is provided, the \emph{F-Score}. Given $TP$, $FP$ and $FN$ the true positives, false positives and false negatives values. 
+
+Let the classification \emph{precision} value given by
+
+$$
+precision = \frac{TP}{TP + FP}
+$$
+
+where $TP$ and $FP$ are true positives and false positives respectively.
+
+The \emph{recall} value is defined as
+$$
+recall = \frac{TP}{TP + FN}
+$$
+where $FN$ stands for false negatives. The $F_{\beta}$ score is defined as the harmonic mean of precision and recall values:
+
+\begin{equation}
+F_{\beta} = (1 + \beta^2) * \frac{precision * recall}{(\beta^2 * precision) + recall}
+\end{equation}
+
+where $\beta$ states for the relative importance given to precision comparing to recall. In our experiments, we considered $\beta = 1$ (i.e. the $F_1$ score), so:
+\begin{equation}
+F_{1} = 2 * \frac{precision * recall}{precision + recall}  = \cdots = \frac{2 * TP}{2 * TP + FP + FN}
+\end{equation}
 
 Experimental results are collected in Table \ref{table:performancefacedet}. 
 
 \begin{table}[h!]
-\caption{Performance of face forgery detection module over paired faces}
-\label{table:performancefacedet}
 \centering
-\small
 \begin{tabular}{l c c c c c} 
 \hline \hline 
-Test case & Train & Test & ACC & AUC & F-Score \\ [0.5ex]
+\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{ACC} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
 \hline
 Test 1 & DSO-1 & DSO-1 &	0.82 & 0.88	& 0.77\\
 Test 2 & DSI-1 & DSI-1 &	0.87 & 0.92 & 0.87\\
@@ -68,13 +132,11 @@ Test 3 &	DSO-1 &	DSI-1 &	0.58 & 0.58 & 0.62\\
 Test 4 &	DSI-1 & DSO-1 & 0.62 & 0.59 & 0.53\\ [1ex]
 \hline
 \end{tabular}
+\caption{Performance of face forgery detection module over paired faces}
+\label{table:performancefacedet}
 \end{table}
 
-
-\subsection{Performance on DSO-1 dataset}
-
-In this experiment, the proposed method has been applied to the DSO-1 dataset for classyfing paired faces as fake or real.
-
+Resulting accuracy scores are obtained as average over 5 consecutive runs of the algorithm.
 
 
 
@@ -88,32 +150,11 @@ we consider the DSO-1 dataset.
 We have used the 10-fold cross-validation protocol for experiments over the same datasets.
 
 
-
-
-
-
-Vengono di seguito presentati i risultati relativi alle performance del modulo di face detection forgeries su coppie di facce.
-
-Per ciascuno dei casi di test presenti nella tabella vengono riportati:
-
-	Il dataset su cui è stato fatto il training
-	Il dataset su cui è stato effettuato il test
-	Il valore di accuratezza (ACC) raggiunta nella classificazione
-	Il valore dell’area sottesa alla curva ROC (AUC)
-	Il valore di accuracy espresso in F1-Score (F-Score)
-
-
-$$F_1=2*(precision*recall)/(precision+recall)$$
-
-
-Per ciascun test sono allegati i file Matlab contenenti le labels e gli scores necessari per replicare i risultati della tabella.
-
-
-I risultati portati in precedenza erano dati da una classificazione con votazione a maggioranza secca, in cui ciascun classificatore (degli otto totali) votava con 0 o 1 (a seconda della predizione). Gli scores qui considerati sono invece il risultato della somma di predizioni soft in [0, 1], in cui il singolo valore indica la confidenza della classificazione.
-
-I risultati nella tabella sono dati dalla media aritmetica su 5 run dell’algoritmo.
-
 \section{Regions forgery detection module performance}
+
+
+In the classification stage, we used a 10-fold cross validation protocol, an SVM classifier with an RBF
+kernel, and classical grid search for adjusting parameters in training samples \cite{bishop2007pattern}.
 
 
 
