@@ -180,7 +180,7 @@ These results show that, although we can notice a slight performance improvement
 
 In the following subsections are described the experimental results for each analyzed test case. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and Precision-Recall curves\cite{Davis:2006:RPR:1143844.1143874}. 
 
-\subsubsection{Test case 1: performance on DSO-1 dataset}
+\subsubsection{Performance on DSO-1 dataset}
 
 
 \begin{figure}[h!]
@@ -197,7 +197,7 @@ In the following subsections are described the experimental results for each ana
     \label{fig:train_dso_crossvalidation_prec_rec}
 \end{figure}
 
-\subsubsection{Test case 2: performance on DSI-1 dataset}
+\subsubsection{Performance on DSI-1 dataset}
 
 \begin{figure}[h!]
   \centering
@@ -213,7 +213,7 @@ In the following subsections are described the experimental results for each ana
     \label{fig:train_dsi_crossvalidation_prec_rec}
 \end{figure}
 
-\subsubsection{Test case 3: cross dataset performance on DSO-1}
+\subsubsection{Cross dataset performance on DSO-1}
 
 \begin{figure}[h!]
   \centering
@@ -229,7 +229,7 @@ In the following subsections are described the experimental results for each ana
     \label{fig:train_dsi_test_dso}
 \end{figure}
 
-\subsubsection{Test case 4: cross dataset performance on DSI-1}
+\subsubsection{Cross dataset performance on DSI-1}
 
 
 \begin{figure}[h!]
@@ -248,9 +248,101 @@ In the following subsections are described the experimental results for each ana
 
 \section{Regions forgery detection module performance}
 
+This section describes the experiments performed to evaluate the regions forgery detection module.
 
-In the classification stage, we used a 10-fold cross validation protocol, an SVM classifier with an RBF
-kernel, and classical grid search for adjusting parameters in training samples \cite{bishop2007pattern}.
+\subsection{Creating the training set}
+
+Since the method is based on the classification of entire bands of images, in order to train the SVM classifiers were created two different training set with specific requirements:
+\begin{itemize}
+\item Each image must have only one spliced band (either horizontal or vertical)
+\item The spliced region of the image must consist only int the whole band
+\item The spliced region position in the image must be chosen randomly
+\end{itemize}
+
+Each image in the dataset must be shipped with its spliced band position as groundtruth (for performance evaluation).
+
+For the two new training set, the DSO-1 and ColorChecker datasets were used respectively as source. Each training set is splitted into two subset containing only vertical or horizontal spliced bands.
+
+\begin{algorithm}[!h]
+\begin{algorithmic}[1]
+\State Let $d \in \{vertical, horizontal\}$ a direction
+\State Let $S$ the band size
+\For Each image {$i \in SourceDataset$}
+\State Select another image $j$ randomly from the same set with $i \neq j$
+\State Resize $j$ to fit $i$
+\State Select a band $b$ of direction $d$ randomly from $j$
+\State Put $b$ in $i$ at the same original position
+\State Save $i$ as image
+\EndFor
+\end{algorithmic}\caption{Spliced dataset creation algorithm}\label{alg:spliceddatasetcreation}
+\end{algorithm}
+
+The pseudocode used for generating the spliced datasets is proposed in Algorithm \ref{alg:spliceddatasetcreation}. That procedure is repeated for each both DSO-1 and ColorChecher as $SourceDataset$ and for each direction. We called \emph{SplicedDSO} the dataset generated from DSO-1, \emph{SplicedCC} the one from ColorCherer. Both have 200 images vertically and horizontally spliced.
+
+\begin{figure}[!htb]
+\minipage{0.48\textwidth}
+  \includegraphics[width=\linewidth]{splicedcchor}
+\endminipage\hfill
+\minipage{0.48\textwidth}
+  \includegraphics[width=\linewidth]{splicedccver}
+\endminipage
+\caption{Example images from the generated \emph{SplicedCC} dataset. Left with horizontal spliced band, right with vertical.}\label{fig:splicedccsamples}
+\end{figure}
+
+\begin{figure}[!htb]
+\minipage{0.48\textwidth}
+  \includegraphics[width=\linewidth]{spliceddsohor}
+\endminipage\hfill
+\minipage{0.48\textwidth}
+  \includegraphics[width=\linewidth]{spliceddsover}
+\endminipage
+\caption{Example images from the generated \emph{SplicedDSO} dataset. Left with horizontal spliced band, right with vertical.}\label{fig:spliceddsosamples}
+\end{figure}
+
+Figure \ref{splicedccsamples} and \ref{fig:spliceddsosamples} show some example of generated images from both dataset. 
+
+\subsection{Evaluating module performance}
+
+The proposed method output consists in a\emph{ detection map} related to the analyzed image. In order to evaluate the performance of the module, we consider the single pixels classification accuracies. The evaluation dataset for all the experiments is the original DSO-1 dataset (considering only the spliced images).
+
+Given a set of $m$ images as validation test, for each test in the suite:
+\begin{enumerate}
+\item Let $I$ the $i$-th analyzed image, a detection map $D_i$ is computed with our module.
+\item Let $\mathcal{P}_i$ the subset of pixels in the image corresponding to the spliced region and let $\mathcal{S}_{\mathcal{P}_i}$ their corresponding values extracted from $D$. Finally, let $N_i$ the subset of pixels in the image corresponding to its original part and let $\mathcal{S}_{\mathcal{N}_i}$ their corresponding values extracted from $D_i$.
+\item Step 1 and 2 are repeated for each image in the validation step, joining the resulting sets of scores:
+$$
+\mathcal{S}_{\mathcal{P}} = \cup_{i = 1}^{m} \mathcal{S}_{\mathcal{P}_i}
+$$
+$$
+\mathcal{S}_{\mathcal{N}} = \cup_{i = 1}^{m} \mathcal{S}_{\mathcal{N}_i}
+$$
+\end{enumerate}
+
+The two resulting sets of scores, $\mathcal{S}_{\mathcal{P}}$ and $\mathcal{S}_{\mathcal{N}}$ are used for evaluating overall performances.
+
+The size of the evaluation dataset is limited to 25 image due the  required computational time. In the classification stage, we used an SVM classifier with an RBF kernel, and classical grid search for adjusting parameters in training samples \cite{bishop2007pattern}.
+
+Experimental results are collected in Table \ref{table:performanceregionaldet}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c c c c c} 
+\hline \hline 
+\textbf{Test case} & \textbf{Train} & \textbf{RC} & \textbf{ACC} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
+\hline
+Test 1 & - & Median & 0.49 & 0.32 & 0.25\\
+Test 2 & - & Global & 0.52 & 0.40 & 0.27\\
+Test 3 & SplicedCC & Median & 0.54 & 0.53 & 0.26\\
+Test 4 & SplicedCC & Global & 0.57 & 0.57 & 0.31\\
+Test 5 &	 SplicedDSO & Median & 0.53 & 0.50 & 0.27\\
+Test 6 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
+\hline
+\end{tabular}
+\caption{Performance of region forgery detection module.}
+\label{table:performanceregionaldet}
+\end{table}
+
+
 
 
 
