@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import regionSplicingDetection
+import faceSplicingDetector
 import math
 from random import randint
 from sklearn.svm import SVC
@@ -402,4 +403,33 @@ def trainSVM(balanced = False, normalized = False):
     joblib.dump(clf, 'trained_data.pkl')
     print(clf.score(X, Y))
 
-trainSVM(True, True)
+#trainSVM(True, True)
+
+
+def evaluateSingleFaceDetection():
+    delta = 20
+    detector = faceSplicingDetector.FaceSplicingDetector(False, False, False, False, False)
+    counter = 0
+    images, labels = loadDatasets.load()
+    TP, TN, FP, FN = 0, 0, 0, 0
+    for i in range(len(images)):
+        tp, tn, fp, fn = detector.detect(images[i], None, labels[i])
+        TP += tp
+        TN += tn
+        FP += fp
+        FN += fn
+
+        print('TP: ' + str(TP) + ', TN: ' + str(TN) + ', FP: ' + str(FP) + ', FN: ' + str(FN))
+
+    print('-- TOTAL --')
+    print('Total faces: ' + str(TP + TN + FP + FN))
+
+    print('TP: ' + str(TP) + ', TN: ' + str(TN) + ', FP: ' + str(FP) + ', FN: ' + str(FN))
+    ACC = (TP + TN) / (TP + TN + FP + FN)
+    PREC = TP / (TP + FP)
+    REC = TP /(TP + FN)
+    print('Accuracy: ' + str(ACC) + ', Recall: ' + str(REC))
+
+
+
+evaluateSingleFaceDetection()
