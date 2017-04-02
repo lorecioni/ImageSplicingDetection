@@ -11,10 +11,7 @@ import illuminantMaps
 import config
 import utils
 import os
-from sklearn import metrics
-import matplotlib.pyplot as plt
 import scipy.io
-import loadDatasets
 
 
 '''
@@ -39,7 +36,7 @@ class FaceSplicingDetector:
     Detect splicing in the given image
     @param img: the image filenames
     '''
-    def detect(self, img, output):
+    def detect(self, img, output, groudtruth = None):
         filename = utils.getFilename(img)
         print('Processing ' + filename)
 
@@ -47,7 +44,7 @@ class FaceSplicingDetector:
 
         # Extracting image features
         # Extract the faces in the image
-        faces = self.extractFaces(img)
+        faces, labels = self.extractFaces(img, groudtruth)
 
         #Prediction map
         predictions = {}
@@ -66,7 +63,7 @@ class FaceSplicingDetector:
                     clfPath = config.classification_folder + 'model_' + illum + '_' + desc.lower() + '.pkl'
                     if os.path.isfile(clfPath):
                         clf = KNNClassifier.load(clfPath)
-                        features = self.extractFeatures(img, faces=faces, illum=illum, descriptor=desc, output=True)
+                        features = self.extractFeatures(img, label=groudtruth, faces=faces, illum=illum, descriptor=desc, output=True)
                         #Predict over sample
                         for sample in features:
                             prediction = clf.predict(np.array(sample.feature.split(), dtype=float).reshape((1, -1)), True)[0][1]
@@ -80,6 +77,10 @@ class FaceSplicingDetector:
             score = 0
             detected = False
             fakeFaces = []
+
+            #Evaluation (if GT provided)
+            TP, TN, FN, FP = 0, 0, 0, 0
+
             for i in predictions:
                 if predictions[i]/counters[i] > threshold:
                     if score < predictions[i]/counters[i]:
@@ -87,10 +88,22 @@ class FaceSplicingDetector:
 
                     fakeFaces.append(i)
                     print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(score) )
+
+                    if groudtruth is not None:
+                        if labels[i] == 1:
+                            TP += 1
+                        else:
+                            FP += 1
+
                     if not detected:
                         detected = not detected
                 else:
                     print('\tFace ' + str(i + 1) + ' is NORMAL. Score ' + str(predictions[i]/counters[i]))
+                    if groudtruth is not None:
+                        if labels[i] == 0:
+                            TN += 1
+                        else:
+                            FN += 1
 
             if detected:
                 print('Image is FAKE - Score: ' + str(score))
@@ -130,11 +143,13 @@ class FaceSplicingDetector:
                     cv2.waitKey(0)
 
                 # Write output mask
-                outputMask *= 255
-                cv2.imwrite(output, outputMask)
+                #outputMask *= 255
+                #cv2.imwrite(output, outputMask)
 
             else:
                 print('Image is NORMAL - Score: ' + str(score))
+
+            return TP, TN, FP, FN
 
         else:
             # discard the current image
@@ -152,7 +167,7 @@ class FaceSplicingDetector:
         if self.extract_features or self.extract_maps:
             for i in range(len(images)):
                 #Extract the faces in the image
-                faces = self.extractFaces(images[i], labels[i])
+                faces, _ = self.extractFaces(images[i], labels[i])
                 if len(faces) > 1:
                     #If there are two or more faces, process the image
                     filename = utils.getFilename(images[i])
@@ -306,12 +321,17 @@ class FaceSplicingDetector:
     '''
     def extractFaces(self, img, label = None, display = False):
         orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
+        labels = []
         if self.verbose:
             print('Detecting image faces')
         if label is not None:
             faces = []
             for entry in label:
                 face = (int(entry[2]), int(entry[4]), int(entry[3]) - int(entry[2]), int(entry[5]) - int(entry[4]))
+                if entry[1] != config.positiveLabel:
+                    labels.append(1)
+                else:
+                    labels.append(0)
                 faces.append(face)
         else:
             faces = self.face_cascade.detectMultiScale(
@@ -331,7 +351,7 @@ class FaceSplicingDetector:
             cv2.imshow('img', orig)
             cv2.waitKey(0)
 
-        return faces
+        return faces, labels
 
 
     '''

@@ -242,36 +242,42 @@ class RegionSplicingDetector:
 
 
             # Recover detection map max value
-            max_value = np.ndarray.max(detectionMap_svm_global)
-            score = max_value/8
-            if score < 0.8:
-                print('Image is NORMAL - Score: ' + str(score))
+            splicedPercent = len(np.where(detectionMap_global > config.fakeThreshold)[0])/detectionMap_global.size
+            print('Area: ' + str(splicedPercent))
+            if splicedPercent > config.splicedTolerance:
+                print('Image is SPLICED - Score: ')
             else:
-                print('Image is FAKE - Score: ' + str(score))
+                print('Image is FAKE - Score: ')
 
-            # Normalization
+            #
+            '''
+            max_value = np.ndarray.max(detectionMap)
             detectionMap = detectionMap / max_value
+            max_value = np.ndarray.max(detectionMap_global)
+            detectionMap_global = detectionMap_global / max_value
             max_value = np.ndarray.max(detectionMap_svm)
             detectionMap_svm = detectionMap_svm / max_value
             max_value = np.ndarray.max(detectionMap_svm_global)
-            detectionMap_svm_global = detectionMap_svm_global / max_value
+            detectionMap_svm_global = detectionMap_svm_global / max_value'''
 
-            if maskImage is not None:
+            if False and maskImage is not None:
                 maskImage = utils.resizeImage(maskImage, 1200)
                 scipy.io.savemat(self.filename + '_detection_map.mat', dict(positive=detectionMap[maskImage > 200], negative=detectionMap[maskImage <= 200]))
                 scipy.io.savemat(self.filename + '_detection_map_global.mat', dict(positive=detectionMap_global[maskImage > 200], negative=detectionMap_global[maskImage <= 200]))
                 scipy.io.savemat(self.filename + '_detection_map_svm.mat', dict(positive=detectionMap_svm[maskImage > 200], negative=detectionMap_svm[maskImage <= 200]))
                 scipy.io.savemat(self.filename + '_detection_map_svm_global.mat', dict(positive=detectionMap_svm_global[maskImage > 200], negative=detectionMap_svm_global[maskImage <= 200]))
 
-            outputMask = detectionMap_svm_global.copy()
-            outputMask[outputMask < 0.8] = 0
-            outputMask[outputMask >= 0.8] = 1
+            outputMask = detectionMap_global.copy()
+            outputMask[outputMask < config.fakeThreshold] = 0
+            outputMask[outputMask >= config.fakeThreshold] = 1
 
-            detectionMap_svm_global *= 255
+            max_value = np.ndarray.max(detectionMap_global)
+            detectionMap_global = detectionMap_global / max_value
+            detectionMap_global *= 255
 
             if self.display_result:
                 # Display color map
-                color_map = detectionMap_svm_global
+                color_map = detectionMap_global
                 color_map = color_map.astype(np.uint8)
                 color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
                 out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)

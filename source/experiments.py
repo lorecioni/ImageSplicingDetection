@@ -407,9 +407,7 @@ def trainSVM(balanced = False, normalized = False):
 
 
 def evaluateSingleFaceDetection():
-    delta = 20
     detector = faceSplicingDetector.FaceSplicingDetector(False, False, False, False, False)
-    counter = 0
     images, labels = loadDatasets.load()
     TP, TN, FP, FN = 0, 0, 0, 0
     for i in range(len(images)):
@@ -428,8 +426,6 @@ def evaluateSingleFaceDetection():
     ACC = (TP + TN) / (TP + TN + FP + FN)
     PREC = TP / (TP + FP)
     REC = TP /(TP + FN)
-    print('Accuracy: ' + str(ACC) + ', Recall: ' + str(REC))
-
-
+    print('Accuracy: ' + str(ACC) + ', Precision: ' + str(PREC) + ', Recall: ' + str(REC))
 
 evaluateSingleFaceDetection()

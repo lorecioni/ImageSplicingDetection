@@ -6,7 +6,7 @@ Created on 05 ott 2016
 
 
 '''General configuration'''
-dataset = 'DSO-1'
+dataset = 'DSI-1'
 #dataset = 'DSI-1'
 #dataset = 'COLORCHECKER'
 #dataset = 'SPLICED_COLORCHECKER'
@@ -72,7 +72,7 @@ positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
 descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
-descriptors_weights = {'ACC': 0.8, 'BIC': 1.2, 'CCV': 0.6, 'LCH': 1.5}
+#descriptors_weights = {'ACC': 0.8, 'BIC': 1.2, 'CCV': 0.6, 'LCH': 1.5}
 descriptors_weights = {'ACC': 1, 'BIC': 1, 'CCV': 1, 'LCH': 1}
 
 KNeighbours = 5
@@ -87,3 +87,6 @@ bandWidth = 120
 bandHeight = 120
 bandDeltaFactor = 4 #Delta move is bandWidth/bandDeltaFactor
 
+splicedTolerance = 0.05 # Min area percentage spliced
+
+fakeThreshold = 300 # Map global best value
