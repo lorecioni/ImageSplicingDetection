@@ -59,7 +59,7 @@ After characterizing an image with a specific image descriptor, the next step co
 
 the proposed method method focuses on using complementary information, the color descriptors, to describe the Illuminant Maps. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the k-Nearest Neighbor (kNN) classifier instead of more powerful and computational intensive ones such as Support Vector Machines (SVM) due fact that, SVM and kNN, or even fusion of both learning methods, present very similar results, enforcing the choice for a simpler learning technique (kNN)\cite{carvalho2016illuminant}. The value of \emph{k} is set to 5. 
 
-For all image descriptors, we have used the standard con- figuration proposed by \emph{Penatti et al.} \cite{penatti2012comparative}.
+For all image descriptors, we have used the standard configuration proposed by \emph{Penatti et al.} \cite{penatti2012comparative}.
 
 As described in Chapter 2, eight different kNN models are trained and used for the classification, considering all the possible combinations of the couples composed by a IMs transformed space (GGE e IIC)and a color descriptor (chosen from ACC, BIC, CCV and LCH).
 
@@ -89,7 +89,6 @@ Table \ref{table:colordescriptorperformance} shows the results of all tested com
 
 After analyzing each single descriptor accuracy, we proceeded to evaluate the overall module using a combination of all of them, as described in Chapter 2. Since not all the color descriptors perform equally, a different weight is given at each classifier.
 
-
 In the following experiments, the  method has been applied for classifying a face pair as fake or real using uniform (Table \ref{table:performancefacedet}) and non-uniform (Table \ref{table:performancefacedetnonun}) weights. Essentially, these experiments evaluate the forgery detection performances.
 
 For each test case in the suite it is reported:
@@ -103,7 +102,7 @@ For each test case in the suite it is reported:
 
 Accordingly with \emph{Jeni et al.} \cite{jeni2013facing}, when dealing with AUC score to measure the performance of classifier, one of the major drawbacks relies on the fact that an increasing of AUC doesn't really mean a better classifier, but it could be just the side-effect of too many negative examples used in training.
 
-Therefore, also another classification accuracy score is provided, the \emph{F-Score}. Given $TP$, $FP$ and $FN$ the true positives, false positives and false negatives values. 
+Therefore, another classification accuracy score is also provided, the \emph{F-Score}. Given $TP$, $FP$ and $FN$ the true positives, false positives and false negatives values. 
 
 Let the classification \emph{precision} score given by
 
@@ -163,10 +162,10 @@ Test 4 &	DSI-1 & DSO-1 & 0.63 & 0.60 & 0.54\\ [1ex]
 \hline
 \end{tabular}
 \caption{Performance of face forgery detection module over paired faces using non-uniform weights.}
-\label{table:performancefacedet}
+\label{table:performancefacedetnonun}
 \end{table}
 
-Resulting accuracy scores are obtained as average over 5 consecutive runs of the algorithm. 
+Resulting accuracy scores are obtained as average over 5 consecutive runs of the algorithm. For a better visualization, Figure \ref{fig:compareknnweights} depicts a direct comparison between the accuracy of both results as a bar graph.
 
 \begin{figure}[h!]
   \centering
@@ -177,73 +176,96 @@ Resulting accuracy scores are obtained as average over 5 consecutive runs of the
 
 These results show that, although we can notice a slight performance improvement in all test cases, the use of non-uniform weights do not affect much on the final classification results.
 
-In the following subsections are described the experimental results for each analyzed test case. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and Precision-Recall curves\cite{Davis:2006:RPR:1143844.1143874}. 
+In the following subsections are described the experimental results for each analyzed test case using non-uniform weights. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and Precision-Recall curves\cite{Davis:2006:RPR:1143844.1143874}. 
 
 \subsubsection{Performance on DSO-1 dataset}
 
+In this experiment, we applied the proposed method for classifying a face pair as fake or real considering only the DSO-1 dataset. We reached an average accuracy of 84\%.
 
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dso_crossvalidation}
-    \caption{The ROC curve  for DSO-1 cross-validation}
-    \label{fig:train_dso_crossvalidation}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dso_crossvalidation_prec_rec}
-    \caption{The Precision-Recall curve for DSO-1 cross-validation}
-    \label{fig:train_dso_crossvalidation_prec_rec}
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_dso_crossvalidation}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_dso_crossvalidation_prec_rec}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for DSO-1 cross-validation classification of paired faces.}\label{fig:regiondetnormal}
 \end{figure}
 
 \subsubsection{Performance on DSI-1 dataset}
 
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dsi_crossvalidation}
-    \caption{The ROC curve  for DSI-1 cross-validation}
-    \label{fig:train_dsi_crossvalidation}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dsi_crossvalidation_prec_rec}
-    \caption{The Precision-Recall curve for DSI-1 cross-validation}
-    \label{fig:train_dsi_crossvalidation_prec_rec}
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_dsi_crossvalidation}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_dsi_crossvalidation_prec_rec}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for DSI-1 cross-validation classification of paired faces.}\label{fig:regiondetnormal}
 \end{figure}
 
 \subsubsection{Cross dataset performance on DSO-1}
 
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dsi_test_dso}
-    \caption{The ROC curve  for DSO-1 cross-validation}
-    \label{fig:train_dsi_test_dso}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dsi_test_dso_prec_rec}
-    \caption{The Precision-Recall curve for DSO-1 cross-validation}
-    \label{fig:train_dsi_test_dso}
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_dsi_test_dso}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_dsi_test_dso_prec_rec}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for DSO-1 paired faces classification using trained data on DSI-1.}\label{fig:regiondetnormal}
 \end{figure}
 
 \subsubsection{Cross dataset performance on DSI-1}
 
-
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dso_test_dsi}
-    \caption{The ROC curve  for DSI-1 cross-validation}
-    \label{fig:train_dso_test_dsi}
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_dso_test_dsi}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_dso_test_dsi_prec_rec}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for DSI-1 paired faces classification using trained data on DSO-1.}\label{fig:regiondetnormal}
 \end{figure}
 
-\begin{figure}[h!]
-  \centering
-    \includegraphics[width=0.85\textwidth]{train_dso_test_dsi_prec_rec}
-    \caption{The Precision-Recall curve for DSI-1 cross-validation}
-    \label{fig:train_dso_test_dsi_prec_rec}
-\end{figure}
+
+\subsubsection{Forgery detection performance}
+
+In the following experiments, we used the proposed module to detect the face with the highest probability of being the fake face in an image tagged as fake by the classifier. 
+
+In this round of experiments, we assume that the input image $I$ has already been classified as fake by the classifier (i.e. at least one couple of faces has been classified as fake). 
+
+We performed this kind of experiments using both DSO-1 and DSI-1 datasets. For each test in the suite it is reported:
+\begin{itemize}
+\item The training dataset (\textbf{Train})
+\item The evaluation dataset (\textbf{Test})
+\item The total number of faces detected in the images (\textbf{Faces})
+\item The true positive rate (\textbf{TPR})
+\item The classification accuracy (\textbf{ACC})
+\item The classification precision (\textbf{PREC})
+\item The classification recall (\textbf{REC})
+\item The $F_1$ score (\textbf{F-Score})
+\end{itemize}
+
+Experimental results are collected in Table \ref{forgerydetections}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c c c c c c c} 
+\hline \hline 
+\textbf{N.} & \textbf{Train} & \textbf{Test} & \textbf{Faces} & \textbf{PREC} & \textbf{REC} & \textbf{ACC} & \textbf{F-Score} \\ [0.5ex]
+\hline
+1 & DSO-1 & DSO-1 &	540 & 0.58 & 0.89 & 0.81	& 0.64\\
+2 & DSI-1 & DSI-1 &	133 & 0.56 & 0.95 & 0.75 & 0.66\\
+3 &	DSO-1 & DSI-1 & 540 & 0.31 & 0.18 & 0.63 & 0.25\\ 
+4 &	DSI-1 &	DSO-1 &	130 & 0.34 & 0.43 & 0.67 & 0.37\\[1ex]
+
+\hline
+\end{tabular}
+\caption{Performance of face forgery detection module over single faces using non-uniform weights.}
+\label{table:forgerydetections}
+\end{table}
+
 
 \section{Regions forgery detection module performance}
 
@@ -408,6 +430,4 @@ Test 6 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
 \endminipage
 \caption{ROC curve and Precision-Recall curve for classification with SVM training on \emph{SplicedDSO}, using the global reference value.}\label{fig:regiondetnormal}
 \end{figure}
-
-
 
