@@ -6,7 +6,6 @@ This chapter describes the experiments we performed to show the effectiveness of
 To quantitatively evaluate the proposed methods, and to compare it to related work,
 we considered two datasets: the DSO-1 and DSI-1 datasets\footnote{Public available for download at https://recodbr.wordpress.com/code-n-data}. Each dataset comes with a face position groundtruth and a splicing mask. Additionally, the ColorChecker dataset \cite{gehler2008bayesian} is used as a source of pristine images.
 
-
 This dataset has been mainly used for experimenting on pristine data: due its characteristics is very varied and lends itself well to image analysis based on color.
 
 \subsection{DSO-1}
@@ -342,7 +341,73 @@ Test 6 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
 \label{table:performanceregionaldet}
 \end{table}
 
+\subsection{Test cases}
 
+\subsubsection{Performance without training}
+
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/roc_normal}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/prec_rec_normal}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for classification without training, using the median reference value.}\label{fig:regiondetnormal}
+\end{figure}
+
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/roc_normal_global}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/prec_rec_normal_global}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for classification without training, using the global reference value.}\label{fig:regiondetnormal}
+\end{figure}
+
+\subsubsection{Performance with SVM training over \emph{SplicedCC}}
+
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/roc_svm}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/prec_rec_svm}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for classification with SVM training on \emph{SplicedCC}, using the global reference value.}\label{fig:regiondetnormal}
+\end{figure}
+
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/roc_svm_global}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_cc/prec_rec_svm_global}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for classification with SVM training on \emph{SplicedCC}, using the global reference value.}\label{fig:regiondetnormal}
+\end{figure}
+
+\subsubsection{Performance with SVM training over \emph{SplicedDSO}}
+
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_dso/roc_svm}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_dso/prec_rec_svm}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for classification with SVM training on \emph{SplicedDSO}, using the global reference value.}\label{fig:regiondetnormal}
+\end{figure}
+
+\begin{figure}[!htb]
+\minipage{0.42\textwidth}
+  \includegraphics[width=\linewidth]{train_dso/roc_svm_global}
+\endminipage\hfill
+\minipage{0.53\textwidth}
+  \includegraphics[width=\linewidth]{train_dso/prec_rec_svm_global}
+\endminipage
+\caption{ROC curve and Precision-Recall curve for classification with SVM training on \emph{SplicedDSO}, using the global reference value.}\label{fig:regiondetnormal}
+\end{figure}
 
 
 
