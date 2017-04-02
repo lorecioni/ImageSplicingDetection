@@ -287,8 +287,8 @@ For the two new training set, the DSO-1 and ColorChecker datasets were used resp
 \begin{algorithm}[!h]
 \begin{algorithmic}[1]
 \State Let $d \in \{vertical, horizontal\}$ a direction
-\State Let $S$ the band size
-\For Each image {$i \in SourceDataset$}
+\State Let $S$ be the band size
+\For {each image $i \in SourceDataset$}
 \State Select another image $j$ randomly from the same set with $i \neq j$
 \State Resize $j$ to fit $i$
 \State Select a band $b$ of direction $d$ randomly from $j$
@@ -298,7 +298,7 @@ For the two new training set, the DSO-1 and ColorChecker datasets were used resp
 \end{algorithmic}\caption{Spliced dataset creation algorithm}\label{alg:spliceddatasetcreation}
 \end{algorithm}
 
-The pseudocode used for generating the spliced datasets is proposed in Algorithm \ref{alg:spliceddatasetcreation}. That procedure is repeated for each both DSO-1 and ColorChecher as $SourceDataset$ and for each direction. We called \emph{SplicedDSO} the dataset generated from DSO-1, \emph{SplicedCC} the one from ColorCherer. Both have 200 images vertically and horizontally spliced.
+The pseudocode used for generating the spliced datasets is proposed in Algorithm \ref{alg:spliceddatasetcreation}. That procedure is repeated for both DSO-1 and ColorChecher as $SourceDataset$ and for each direction. We called \emph{SplicedDSO} the dataset generated from DSO-1, \emph{SplicedCC} the one from ColorCherer. Both have 200 images vertically and horizontally spliced.
 
 \begin{figure}[!htb]
 \minipage{0.48\textwidth}
