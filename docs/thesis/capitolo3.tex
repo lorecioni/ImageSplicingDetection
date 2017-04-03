@@ -4,13 +4,13 @@ This chapter describes the experiments we performed to show the effectiveness of
 
 \section{Evaluation datasets}
 To quantitatively evaluate the proposed methods, and to compare it to related work,
-we considered two datasets: the DSO-1 and DSI-1 datasets\footnote{Public available for download at https://recodbr.wordpress.com/code-n-data}. Each dataset comes with a face position groundtruth and a splicing mask. Additionally, the ColorChecker dataset \cite{gehler2008bayesian} is used as a source of pristine images.
+we considered two datasets: the DSO-1 and DSI-1 datasets\footnote{Public available for download at https://recodbr.wordpress.com/code-n-data}. Each dataset comes with a face position groundtruth and a splicing region mask. Additionally, the ColorChecker dataset \cite{gehler2008bayesian} is used as a source of pristine images.
 
-This dataset has been mainly used for experimenting on pristine data: due its characteristics is very varied and lends itself well to image analysis based on color.
+The latter dataset has been mainly used for experimenting on pristine data: due its characteristics it is very varied and lends itself well to image analysis based on color.
 
 \subsection{DSO-1}
 
-The DSO-1 dataset is composed of 200 indoor and outdoor images with image resolution of 2048 × 1536 pixels. Out of this set of images, 100 are original, i. e., have no adjustments whatsoever, and 100 are forged. 
+The DSO-1 dataset is composed of 200 indoor and outdoor images with the resolution of 2048 × 1536 pixels. Out of this set of images, 100 are original, i. e. they have no adjustments, and 100 are forged. 
 
 \begin{figure}[!htb]
 \minipage{0.48\textwidth}
@@ -23,11 +23,11 @@ The DSO-1 dataset is composed of 200 indoor and outdoor images with image resolu
 \endminipage
 \end{figure}
 
-The forgeries were created by adding one or more individuals in a source image that already contained one or more people. When necessary, we complemented an image splicing operation with post-processing operations (such as color and brightness adjustments) in order to increase photorealism.
+The forgeries were created by adding one or more individuals in a source image that already contained one or more people. When necessary, some post-processing operations were made (such as color and brightness adjustments) in order to increase photorealism.
 
 \subsection{DSI-1}
 
-The DSI-1 dataset is composed of 50 images (25 original and 25 doctored) downloaded from different websites in the Internet with different resolutions. Original images were downloaded from Flickr and doctored images were collected from different websites such as Worth 1000, Benetton Group 2011, Planet Hiltron, etc.
+The DSI-1 dataset is composed of 50 images with different resolutions (25 original and 25 doctored) downloaded from different websites in the Internet. Original images were downloaded from Flickr and doctored images were collected from different websites such as \emph{Worth 1000}, \emph{Benetton Group 2011}, \emph{Planet Hiltron}, etc.
 
 \begin{figure}[!htb]
 \minipage{0.46\textwidth}
