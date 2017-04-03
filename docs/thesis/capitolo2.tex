@@ -29,7 +29,7 @@ The algorithm can be used on an image that contains at least two human faces, lo
 
 The algorithm requires an initial training phase, so a dataset with annotated human faces is needed. 
 
-This module consists of 4 consecutive stages:
+This module consists of 5 consecutive stages:
 
 \begin{enumerate}
 \item \textbf{Illuminant maps extraction}: given an input image, two different illuminant maps are evaluated, using the IIC and GGE extraction methods.
@@ -39,13 +39,21 @@ This module consists of 4 consecutive stages:
 \item \textbf{Forgery detection and classification}: in this step an image is classified as fake or normal. Given an image classified as fake, the analysis is refined pointing out which face of the image is the result of a composition.
 \end{enumerate}
 
-In the following, these four steps will be described in detail.
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=1\textwidth]{pipeline_faces}
+    \caption{Image face splicing detection module pipeline.}
+    \label{fig:facedetectionmodulepipeline}
+\end{figure}
+
+Figure \ref{fig:facedetectionmodulepipeline} gives an overview of the proposed module.In the following, these five steps will be described in detail.
 
 \subsection{Illuminant maps extraction}
 
 Given a single image $I$ the two different illuminant maps are extracted: both generalized grayworld algorithm (GGE) and inverse-intensity chromaticity estimation (IIC) are used.
 
 \begin{figure}[!htb]
+\vspace{1cm}
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{splicing-33.jpg}
   \caption{The original image}\label{fig:awesome_image1}
@@ -81,8 +89,9 @@ This detector combines four key concepts:
 The used rectangle combinations are not true \emph{Haar wavelets}\cite{haar1910theorie}. Instead, they contain better suited rectangle combinations used for visual object detection. The presence of an Haar feature is determined by subtracting the pixel values of the dark region from the pixel values of the light one. If the difference exceeds a threshold value set during the training process, the feature is said to be present. 
 
 \begin{figure}[h!]
+\vspace{1cm}
   \centering
-    \includegraphics[width=0.5\textwidth]{facedetected}
+    \includegraphics[width=0.65\textwidth]{facedetected}
     \caption{The output of the Viola and Jones face detector}
     \label{fig:facesdetected}
 \end{figure}
@@ -92,8 +101,9 @@ The used rectangle combinations are not true \emph{Haar wavelets}\cite{haar1910t
 Figure \ref{fig:facesdetected} shows the output of the face detector module. Given the output faces bounding boxes, the corresponding regions in the illuminant maps are extracted, Figure \ref{fig:facesdetectedmaps}.
 
 \begin{figure}[h!]
+	\vspace{1cm}
   \centering
-    \includegraphics[width=0.5\textwidth]{splicing-33_gge_map_faces}
+    \includegraphics[width=0.65\textwidth]{splicing-33_gge_map_faces}
     \caption{The extracted faces from illuminant map}
     \label{fig:facesdetectedmaps}
 \end{figure}
@@ -320,12 +330,14 @@ In order to collect all the classification outputs, a detection map is built and
 At the end of the process, the splicing region pixels should have greater values than the others. At this stage a color map is displayed to give a visual feedback for locating the splicing image parts.
 
 \begin{figure}[h!]
+\vspace{1cm}
   \centering
     \includegraphics[width=0.9\textwidth]{detectionmapresult}
     \caption{The classification map for an input image. The map is presented in the \emph{jet} color map representation. The map matrix intensities are in the range $[0, 1]$, and the color scheme is presented in Figure \ref{fig:colormapjet}.}\label{fig:regionsdetectionmap}
 \end{figure}
 
 \begin{figure}[h!]
+\vspace{1cm}
   \centering
     \includegraphics[width=0.5\textwidth]{colormap_jet}
     \caption{The \emph{jet} color map scheme. The color intensities ranges from 0 (\emph{cold} colors) to 1 (\emph{hot} colors)}
@@ -341,3 +353,5 @@ Finally, the detection map is thresholded for selecting the output detected spli
     \includegraphics[width=0.9\textwidth]{regiondetectionoutput}
     \caption{The detection output of the regional detection module.}\label{fig:regiondetectionoutput}
 \end{figure}
+
+An example of the algorithm output is proposed in Figure \ref{fig:regiondetectionoutput}.
