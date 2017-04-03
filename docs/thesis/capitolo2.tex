@@ -148,9 +148,9 @@ The implemented version splits the image in 16 regions (4x4 grid) and quantizes 
 
 \subsubsection{Paired features}
 
-In order to detect a face forgery, we need to compare the current analyzed image region (i.e. the current face) against another one, looking for color inconsistencies. Thus, instead of considering each face separately, faces are encoded in pairs.
+In order to detect a face forgery, we need to compare the current analyzed image region (\emph{i.e.} the current face) against another one, looking for color inconsistencies. Thus, instead of considering each face separately, faces are encoded in pairs.
 
-Given two face feature vectors of the same type (i.e. extracted with the same color descriptor), $\mathcal{D}_1$ and $\mathcal{D}_2$, whose length depends on the color descriptor used, the final descriptor is computed concatenating them into a single feature vector $\mathcal{P}$. So, in an image $I$ containing $q$ faces, a set $S$ of feature vectors are extracted, with
+Given two face feature vectors of the same type (\emph{i.e.} extracted with the same color descriptor), $\mathcal{D}_1$ and $\mathcal{D}_2$, whose length depends on the color descriptor used, the final descriptor is computed concatenating them into a single feature vector $\mathcal{P}$. So, in an image $I$ containing $q$ faces, a set $S$ of feature vectors are extracted, with
 
 $$
 S = \{\mathcal{P}_1, \ldots, \mathcal{P}_m\} \quad \textrm{  where } m = \frac{q (q-1)}{2}
@@ -170,9 +170,9 @@ Accordingly to the analysis presented in \cite{carvalho2016illuminant}, the valu
 
 Given a set of paired feature vectors $\mathcal{P}$, extracted from a new image $I$, each classifier $C_i$ ($i = 1, \ldots, 8$) predicts a label (forgery or real) for these feature vectors, producing $k$ outcomes. All the outcomes are used as input of a fusion technique (in this case, majority voting) that takes the final decision regarding the definition of each paired feature vector $\mathcal{P}$ extracted from $I$.
 
-$$
+\begin{equation}\label{eq:faceknnscores}
 Score(\mathcal{P}) = \sum_{i = 1}^{8} prediction_{C_i}(\mathcal{P}) \quad \textrm{ where } prediction_{C_i}(\mathcal{P}) \in [0, 1]
-$$
+\end{equation}
 
 Finally, $\mathcal{P}$ is considered as fake if its score is higher than a given threshold. 
 

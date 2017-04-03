@@ -42,7 +42,7 @@ The DSI-1 dataset is composed of 50 images with different resolutions (25 origin
 
 \subsection{ColorChecker}
 
-The ColorChecker dataset is a collection of images for evaluating Color Constancy algorithms built as additional material to \cite{gehler2008bayesian}. It consists in 568 RGB colored images of different scenes, both indoor and outdoor taken under different illuminations. In each scene a \emph{Gretag MacBeth Color Checker Chart}\footnote{The \emph{ColorChecker} consists of a series of six gray patches, plus typical additive (Red-Green-Blue) and subtractive (Cyan-Magenta-Yellow) primaries, plus other \emph{natural} colors such as light and dark skin, sky-blue, foliage, etc. It is usually used for color calibration of digital cameras. The color pigments were selected for optimum color constancy when comparing pictures of the chart with pictures of the natural colors. The ColorChecker was introduced in a 1976 paper by McCamy, Marcus, and Davidson in the Journal of Applied Photographic Engineering \cite{mccamy1976color}.}  was placed such that it was illuminated by the main scene illuminant and thus its color could be retrieved. The data is available in Canon RAW format free of any correction.
+The ColorChecker dataset is a collection of images for evaluating Color Constancy algorithms built as additional material to \cite{gehler2008bayesian}. It consists in 568 RGB colored images of different scenes, both indoor and outdoor taken under different illuminations. In each scene a \emph{Gretag MacBeth Color Checker Chart}\footnote{The \emph{ColorChecker} consists in a rectangular card measuring about 11 × 8.25 inches containing a series of six gray patches, plus typical additive (Red-Green-Blue) and subtractive (Cyan-Magenta-Yellow) primaries, plus other \emph{natural} colors such as light and dark skin, sky-blue, foliage, etc. It is usually used for color calibration of digital cameras. The color pigments were selected for optimum color constancy when comparing pictures of the chart with pictures of the natural colors. The ColorChecker was introduced in a 1976 paper by McCamy, Marcus, and Davidson in the \emph{Journal of Applied Photographic Engineering} \cite{mccamy1976color}.}  was placed such that it was illuminated by the main scene illuminant and thus its color could be retrieved. The data is available in Canon RAW format free of any correction.
 
 \begin{figure}[h!]
   \centering
@@ -55,13 +55,11 @@ The ColorChecker dataset is a collection of images for evaluating Color Constanc
 
 This section describes the experiments performed to evaluate the face forgery detection module. In these experiments, the DSO-1 and the DSI-1 datasets are used for evaluation.
 
-After characterizing an image with a specific image descriptor, the next step consists of using an appropriate learning method.
+After characterizing an image with a specific image descriptor, the next step consists of training a classifier (a kNN model in our case).
 
-the proposed method method focuses on using complementary information, the color descriptors, to describe the Illuminant Maps. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the k-Nearest Neighbor (kNN) classifier instead of more powerful and computational intensive ones such as Support Vector Machines (SVM) due fact that, SVM and kNN, or even fusion of both learning methods, present very similar results, enforcing the choice for a simpler learning technique (kNN)\cite{carvalho2016illuminant}. The value of \emph{k} is set to 5. 
+The proposed method focuses on using complementary information (i.e the color descriptors) to describe the computed \emph{illuminant maps}. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the \emph{k-Nearest Neighbor (kNN)} classifier instead of more powerful and computational intensive ones such as \emph{Support Vector Machines (SVM)} due fact that the two types of classifiers (or even fusion of both learning methods) present very similar results. For that reasons, a simpler learning techinque is chosen\cite{carvalho2016illuminant}. As in \cite{carvalho2016illuminant}, the value of \emph{k} for the kNN classifiers is set to 5. 
 
-For all image descriptors, we have used the standard configuration proposed by Penatti \emph{et al.} \cite{penatti2012comparative}.
-
-As described in Chapter 2, eight different kNN models are trained and used for the classification, considering all the possible combinations of the couples composed by a IMs transformed space (GGE e IIC)and a color descriptor (chosen from ACC, BIC, CCV and LCH).
+For all considered color descriptors (ACC, BIC, CCV and LCH), we have used the standard configuration proposed by Penatti \emph{et al.} \cite{penatti2012comparative}. As described in Chapter 2, eight different kNN models are trained and used for the classification, considering all the possible combinations of the couples composed by a IMs transformed space (GGE e IIC)and a color descriptor (chosen from ACC, BIC, CCV and LCH).
 
 \subsection{Color descriptors accuray}
 
@@ -87,22 +85,28 @@ Table \ref{table:colordescriptorperformance} shows the results of all tested com
 
 \subsection{Test cases}
 
-After analyzing each single descriptor accuracy, we proceeded to evaluate the overall module using a combination of all of them, as described in Chapter 2. Since not all the color descriptors perform equally, a different weight is given at each classifier.
+After analyzing each single descriptor accuracy, we proceeded to evaluate the overall module performance using a combination of all of them, as described in Chapter 2. Since not all the color descriptors perform equally, a different weight $w$ is given at each classifier. Thus, the Eq.(\ref{eq:faceknnscores}) presented in Chapter 2 becomes:
 
-In the following experiments, the  method has been applied for classifying a face pair as fake or real using uniform (Table \ref{table:performancefacedet}) and non-uniform (Table \ref{table:performancefacedetnonun}) weights. Essentially, these experiments evaluate the forgery detection performances.
+\begin{equation}
+Score(\mathcal{P}) = \sum_{i = 1}^{8} w_i * prediction_{C_i}(\mathcal{P})
+\end{equation}
+
+where $\mathcal{P}$ is the considered paired face feature, $C_i$ is the $i$-th kNN classifier, $prediction_{C_i}(\mathcal{P}) \in [0, 1]$ and $w_i \geq 1 \; \forall i = 1, \ldots, 8$.
+
+In the following experiments, the  method has been applied for classifying a face pair as fake or real using uniform (Table \ref{table:performancefacedet}) and non-uniform (Table \ref{table:performancefacedetnonun}) weights. Essentially, these experiments evaluate the forgery detection performances of the face detector module.
 
 For each test case in the suite it is reported:
 \begin{enumerate}
 \item The training dataset (\textbf{\emph{Train}});
 \item The evaluation dataset (\textbf{\emph{Test}});
-\item The classification accuracy score (\textbf{\emph{Accuracy}});
-\item The area under the R\emph{eceiver Operator Characteristic (ROC)} curve (\textbf{\emph{AUC}})
+\item The classification accuracy score (\textbf{\emph{ACC}});
+\item The area under the \emph{Receiver Operator Characteristic (ROC)} curve (\textbf{\emph{AUC}})
 \item The accuracy score expressed through the $F_1$ score (also known as \textbf{\emph{F-Score}})
 \end{enumerate}
 
 Accordingly with Jeni \emph{et al.} \cite{jeni2013facing}, when dealing with AUC score to measure the performance of classifier, one of the major drawbacks relies on the fact that an increasing of AUC doesn't really mean a better classifier, but it could be just the side-effect of too many negative examples used in training.
 
-Therefore, another classification accuracy score is also provided, the \emph{F-Score}. Given $TP$, $FP$ and $FN$ the true positives, false positives and false negatives values. 
+Therefore, another classification accuracy score is also provided, the \emph{F-Score}. 
 
 Let the classification \emph{precision} score given by
 
@@ -112,24 +116,40 @@ $$
 
 where $TP$ and $FP$ are true positives and false positives respectively.
 
-The \emph{recall} value is defined as
+The classification \emph{recall} value is defined as
 $$
 recall = \frac{TP}{TP + FN}
 $$
-where $FN$ stands for false negatives. The $F_{\beta}$ score is defined as the harmonic mean of precision and recall values:
+where $FN$ stands for false negatives. The $F_{\beta}$ score is defined as the harmonic mean of \emph{precision} and \emph{recall} values:
 
 \begin{equation}
 F_{\beta} = (1 + \beta^2) * \frac{precision * recall}{(\beta^2 * precision) + recall}
 \end{equation}
 
-where $\beta$ states for the relative importance given to precision comparing to recall. In our experiments, we considered $\beta = 1$ (i.e. the $F_1$ score), so:
+where $\beta$ states for the relative importance given to precision comparing to recall. In our experiments, we considered $\beta = 1$ (\emph{i.e.} the $F_1$ score), so:
 \begin{equation}
 F_{1} = 2 * \frac{precision * recall}{precision + recall}  = \cdots = \frac{2 * TP}{2 * TP + FP + FN}
 \end{equation}
 
-In order to proceed with the comparison between using uniform and non-uniform weights for classifiers, we have to determine the most appropriate weight values for each descriptor. The weights have been found with an exhaustive search by evaluating the performance of the currently analyzed weights combination over the DSO-1 dataset with a 10-fold cross-validation protocol. 
+In order to proceed with the comparison between using uniform and non-uniform weights for classifiers, we had to determine the most appropriate weight values for each descriptor. These values have been found with an exhaustive search by evaluating the performance of the currently analyzed weights combination over the DSO-1 dataset with a 10-fold cross-validation protocol. 
 
-To reduce the computational cost, we limited the range of values to be explored for each classifier basing on the results reached for each single descriptor, presented in Table \ref{table:colordescriptorperformance}, giving more importance to LCH descriptor.
+To reduce the computational cost, we limited the range of values to be explored for each classifier basing on the results reached for each single descriptor (presented in Table \ref{table:colordescriptorperformance}) giving more importance to LCH descriptor. Table \ref{table:classifiersweights} reports the used classifiers weights.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c} 
+\hline \hline 
+\textbf{Descriptor} & \textbf{Weight}\\ [0.5ex]
+\hline
+ACC & 1.10\\
+BIC & 1.25\\
+CCV & 1\\
+LCH & 1.56\\ [1ex]
+\hline
+\end{tabular}
+\caption{The weights used for each classifier in the non-uniform case.}
+\label{table:classifiersweights}
+\end{table}
 
 Experimental results are collected in Table \ref{table:performancefacedet}, for the uniform weights case, and in Table \ref{table:performancefacedetnonun}, for non-uniform case. 
 
@@ -165,7 +185,7 @@ Test 4 &	DSI-1 & DSO-1 & 0.63 & 0.60 & 0.54\\ [1ex]
 \label{table:performancefacedetnonun}
 \end{table}
 
-Resulting accuracy scores are obtained as average over 5 consecutive runs of the algorithm. For a better visualization, Figure \ref{fig:compareknnweights} depicts a direct comparison between the accuracy of both results as a bar graph.
+Resulting accuracy scores are obtained as average over 5 consecutive runs of the algorithm. For a better visualization, Figure \ref{fig:compareknnweights} depicts a direct comparison between the accuracy of both experimental results as a bar graph.
 
 \begin{figure}[h!]
   \centering
@@ -176,11 +196,11 @@ Resulting accuracy scores are obtained as average over 5 consecutive runs of the
 
 These results show that, although we can notice a slight performance improvement in all test cases, the use of non-uniform weights do not affect much on the final classification results.
 
-In the following subsections are described the experimental results for each analyzed test case using non-uniform weights. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and Precision-Recall curves\cite{Davis:2006:RPR:1143844.1143874}. 
+In the following subsections are described the experimental results for each analyzed test case using non-uniform weights. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and \emph{Precision-Recall} curves\cite{Davis:2006:RPR:1143844.1143874}. 
 
 \subsubsection{Performance on DSO-1 dataset}
 
-In this experiment, we applied the proposed method for classifying a face pair as fake or real considering only the DSO-1 dataset. We reached an average accuracy of 84\%.
+In this experiment, we applied the proposed method for classifying a face pair as fake or real considering only the DSO-1 dataset. We reached an average accuracy of 84\% using the 10-fold cross-validation protocol.
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
@@ -194,6 +214,8 @@ In this experiment, we applied the proposed method for classifying a face pair a
 
 \subsubsection{Performance on DSI-1 dataset}
 
+In this experiment, we applied the proposed method for classifying a face pair as fake or real considering only the DSI-1 dataset. We reached an average accuracy of 89\% using the 10-fold cross-validation protocol.
+
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
   \includegraphics[width=\linewidth]{train_dsi_crossvalidation}
@@ -205,6 +227,8 @@ In this experiment, we applied the proposed method for classifying a face pair a
 \end{figure}
 
 \subsubsection{Cross dataset performance on DSO-1}
+
+In this round of experiment, we performed a cross-dataset validation in which we train our method with images from DSI-1 and test it against images from the DSO-1 dataset. We achieved an average classification accuracy of 63\%. 
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
@@ -218,6 +242,8 @@ In this experiment, we applied the proposed method for classifying a face pair a
 
 \subsubsection{Cross dataset performance on DSI-1}
 
+In this round of experiment, we performed a cross-dataset validation in which we train our method with images from DSO-1 and test it against images from the Internet (DSI-1). We achieved an average classification accuracy of 59\%. 
+
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
   \includegraphics[width=\linewidth]{train_dso_test_dsi}
@@ -228,12 +254,13 @@ In this experiment, we applied the proposed method for classifying a face pair a
 \caption{ROC curve and Precision-Recall curve for DSI-1 paired faces classification using trained data on DSO-1.}\label{fig:regiondetnormal}
 \end{figure}
 
+In the two previously considered cases, both of cross dataset classification, the differences between the two dataset compositions greatly influence the evaluated final evaluated performance. Almost all the images in the DSO-1, in fact, present similar lighting conditions. In addition, this dataset contains almost always the same people (and thus the same faces) in every picture. This fact makes the model trained using this dataset less expressive than the one trained using a more heterogeneous set of images, as in the case of DSI-1.
 
 \subsubsection{Forgery detection performance}
 
 In the following experiments, we used the proposed module to detect the face with the highest probability of being the fake face in an image tagged as fake by the classifier. 
 
-In this round of experiments, we assume that the input image $I$ has already been classified as fake by the classifier (i.e. at least one couple of faces has been classified as fake). 
+In this round of experiments, we assume that the input image $I$ has already been classified as fake by the classifier (\emph{i.e.} at least one couple of faces has been classified as fake). 
 
 We performed this kind of experiments using both DSO-1 and DSI-1 datasets. For each test in the suite it is reported:
 \begin{itemize}
@@ -247,7 +274,7 @@ We performed this kind of experiments using both DSO-1 and DSI-1 datasets. For e
 \item The $F_1$ score (\textbf{F-Score})
 \end{itemize}
 
-Experimental results are collected in Table \ref{forgerydetections}.
+Experimental results are collected in Table \ref{table:forgerydetections}.
 
 \begin{table}[h!]
 \centering
@@ -282,14 +309,14 @@ Since the method is based on the classification of entire bands of images, in or
 
 Each image in the dataset must be shipped with its spliced band position as groundtruth (for performance evaluation).
 
-For the two new training set, the DSO-1 and ColorChecker datasets were used respectively as source. Each training set is splitted into two subset containing only vertical or horizontal spliced bands.
+For the two new training datasets, the DSO-1 and ColorChecker datasets were used respectively as source. Each generated dataset is splitted into two subset containing only vertical or horizontal spliced bands.
 
 \begin{algorithm}[!h]
 \begin{algorithmic}[1]
 \State Let $d \in \{vertical, horizontal\}$ a direction
 \State Let $S$ be the band size
 \For {each image $i \in SourceDataset$}
-\State Select another image $j$ randomly from the same set with $i \neq j$
+\State Select another image $j$ randomly chosen from the same set with $i \neq j$
 \State Resize $j$ to fit $i$
 \State Select a band $b$ of direction $d$ randomly from $j$
 \State Put $b$ in $i$ at the same original position
@@ -298,7 +325,7 @@ For the two new training set, the DSO-1 and ColorChecker datasets were used resp
 \end{algorithmic}\caption{Spliced dataset creation algorithm}\label{alg:spliceddatasetcreation}
 \end{algorithm}
 
-The pseudocode used for generating the spliced datasets is proposed in Algorithm \ref{alg:spliceddatasetcreation}. That procedure is repeated for both DSO-1 and ColorChecher as $SourceDataset$ and for each direction. We called \emph{SplicedDSO} the dataset generated from DSO-1, \emph{SplicedCC} the one from ColorCherer. Both have 200 images vertically and horizontally spliced.
+The pseudocode used for generating the spliced datasets is proposed in Algorithm \ref{alg:spliceddatasetcreation}. That procedure is repeated for both DSO-1 and ColorChecher as $SourceDataset$ and for each direction. We called \emph{SplicedDSO} the dataset generated from DSO-1, \emph{SplicedCC} the one from ColorChecker. Both have 200 images vertically and horizontally spliced.
 
 \begin{figure}[!htb]
 \minipage{0.48\textwidth}
@@ -320,7 +347,7 @@ The pseudocode used for generating the spliced datasets is proposed in Algorithm
 \caption{Example images from the generated \emph{SplicedDSO} dataset. Left with horizontal spliced band, right with vertical.}\label{fig:spliceddsosamples}
 \end{figure}
 
-Figure \ref{splicedccsamples} and \ref{fig:spliceddsosamples} show some example of generated images from both dataset. 
+Figures \ref{fig:splicedccsamples} and \ref{fig:spliceddsosamples} show two examples of generated images from both dataset. 
 
 \subsection{Evaluating module performance}
 
