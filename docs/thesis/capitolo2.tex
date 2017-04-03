@@ -1,6 +1,6 @@
 \chapter{Proposed approach}
 
-In the previous chapter, a review of two splicing detection methods based on illuminant colors analysis has been presented. However, their effectiveness still need to be improved for real forensic applications.
+In the previous chapter, a review of two splicing detection methods based on illuminant colors analysis has been presented. However, their effectiveness still to be improved for real forensic applications.
 
 The approach proposed in this chapter has been developed to correct some of the two approaches drawbacks and mainly to combine them together in order to realize a more general algorithm for image forgery detection. 
 
@@ -10,16 +10,16 @@ Most of the times, the splicing detection process relies on the expert's experie
 
 This approach to detecting image splicing is developed aiming at minimizing the user interaction. 
 
-The two methods, presented in the previous chapter \cite{carvalho2016illuminant} and \cite{fan2015image}, are now being used in synergy, going to analyze the suspicious image and at the same time looking for potential signs of forgery.
+The two methods, presented in the previous chapter (\cite{carvalho2016illuminant} and \cite{fan2015image}), are now being used in synergy, to analyze the suspicious image and at the same time looking for potential signs of forgery.
 
 Starting from an image we want to analyze, the method will output a set of results.
 \begin{itemize}
-\item A classification \textbf{label} indicating whether an image is believed to be original or counterfeit.
+\item A classification \textbf{label} indicating whether an image is believed to be original.
 \item A classification \textbf{score} indicating the confidence of the algorithm output.
 \item A \textbf{detection map} highlighting the detected spliced regions.
 \end{itemize}
 
-The proposed approach minimizes the needed human interaction and aims at being a fully automated process. However, not both the modules can operate in any circumstance. The face splicing detection module works only if there is a number of faces greater than or equal to two.
+The proposed approach minimizes the needed human interaction and aims at being a fully automated process. However, face splicing detection module works only if the number of faces in the image is greater than or equal to two.
 
 \section{Face splicing detection module}
 
@@ -35,9 +35,11 @@ This module consists of 4 consecutive stages:
 \item \textbf{Illuminant maps extraction}: given an input image, two different illuminant maps are evaluated, using the IIC and GGE extraction methods.
 \item \textbf{Face detection}: after the illuminant maps extraction, the human faces in the image are detected. In the training phase the faces positions are read from the groundtruth file. If the given image contains less than two faces, it is discarded.
 \item \textbf{Paired face feature extraction}: human faces are considered and classified in pairs. From each extracted face in the previous step, a color descriptor is used in order to extract features.
-\item \textbf{KNN models training}: fixed a value of $K$, a set of KNN models are trained using previous feature vectors.
+\item \textbf{KNN models training}: fixed a value of $k$\footnote{In kNN classification, an object is classified by a majority vote of its neighbors, with the object being assigned to the class most common among its $k$ nearest neighbors ($k$ is a positive integer). If $k = 1$, then the object is simply assigned to the class of that single nearest neighbor.}, a set of kNN models are trained using previous feature vectors.
 \item \textbf{Forgery detection and classification}: in this step an image is classified as fake or normal. Given an image classified as fake, the analysis is refined pointing out which face of the image is the result of a composition.
 \end{enumerate}
+
+In the following, these four steps will be described in detail.
 
 \subsection{Illuminant maps extraction}
 
@@ -58,15 +60,15 @@ Given a single image $I$ the two different illuminant maps are extracted: both g
 \endminipage
 \end{figure}
 
-Differently from de Carvalho et al. \cite{carvalho2016illuminant}, who have used the conversion of IMs to the YCbCr color space, the two IMs are considered as two different color maps theirself.
+Differently from de Carvalho \emph{et al.} \cite{carvalho2016illuminant}, who have used the conversion of IMs to the YCbCr color space, the two IMs are here considered as two different color maps theirself.
 
-The illuminant maps extraction algorithm implementation used is the one proposed by Riess et. al. for \cite{riess2010scene} and downloadable in the project page\footnote{Homepage of the project \cite{riess2010scene} - www5.cs.fau.de/research/areas/computer-vision/image-forensics/scene-illumination-as-an-indicator-of-image-manipulation}. The code provides an implementation of both of the two illuminant map extraction methods, using a local estimation approach.
+The illuminant maps extraction algorithm implementation used is the one proposed by Riess \emph{et al.} for \cite{riess2010scene} and downloadable in the project page\footnote{Homepage of the project \cite{riess2010scene} - www5.cs.fau.de/research/areas/computer-vision/image-forensics/scene-illumination-as-an-indicator-of-image-manipulation}. The code provides an implementation of the two illuminant map extraction methods, using a local estimation approach.
 
 \subsection{Face detection}
 
-One of the drawback of the method proposed by Carvalho et al. \cite{carvalho2016illuminant} relies on the user interaction needed for detecting human faces in the image. In this approach a common face detection module is used to achieve the same results, aiming at minimizing the user dependency and making the entire algorithm user independent.
+One of the drawback of the method proposed by Carvalho et al. \cite{carvalho2016illuminant} relies on the user interaction needed for detecting human faces in the image. In this approach a face detection module is used to achieve the same results, aiming at minimizing the user dependency and making the entire algorithm user independent.
 
-The face detector used is the one initially proposed by Viola and Jones \cite{viola2001rapid}\cite{viola2004robust} and improved by Lienhart et al. \cite{lienhart2002extended}. Usually called simply \emph{Viola-Jones}, its original motivation was face detection, but it can be trained to detect different object classes. 
+The face detector used is the one initially proposed by Viola and Jones \cite{viola2001rapid}\cite{viola2004robust} and improved by Lienhart \emph{et al.} \cite{lienhart2002extended}. Usually called simply \emph{Viola-Jones}, its original motivation was face detection, but it can be trained to detect different object classes. 
 
 This detector combines four key concepts: 
 \begin{itemize}
@@ -100,13 +102,13 @@ Figure \ref{fig:facesdetected} shows the output of the face detector module. Giv
 
 From each extracted face in the previous step, we need to find telltales that allow identification of spliced images. 
 
-According to Riess and Angelopoulou \cite{riess2010scene}, when the output illumination maps are analyzed by an expert for detecting forgeries, the main observed feature is color. Thus, differently from Carvalho et al. \cite{carvalho2016illuminant} who have explored a large set of descriptors of different visual properties (e.g., texture, shape, color, among others) we focused our attention on color descriptors.
+According to Riess and Angelopoulou \cite{riess2010scene}, when the output illumination maps are analyzed by an expert for detecting forgeries, the main observed feature is color. Thus, differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant} who have explored a large set of descriptors of different visual properties (e.g., texture, shape, color, among others) we focused our attention on color descriptors.
 
 The considered color description techniques are ACC \cite{huang1997image}, BIC \cite{stehling2002compact}, CCV \cite{pass1997comparing}, and LCH \cite{swain1991color}.
 
 \subsubsection{ACC descriptor}
 
-\emph{Color Autocorrelogram (ACC) }\cite{huang1997image} maps the spatial information of colors by pixels correlations in different distances. Let $I$ an image, the \emph{autocorrelogram} (the term \emph{“correlogram”} is adapted from spatial data analysis \cite{upton1985spatial}) computes the probability of finding two pixels in $I$ with a color $c$ in a distance $d$ from each other. 
+\emph{Color Autocorrelogram (ACC) }\cite{huang1997image} maps the spatial information of colors. Let $I$ an image, the \emph{autocorrelogram} (the term \emph{correlogram} is adapted from spatial data analysis \cite{upton1985spatial}) computes the probability of finding two pixels in $I$ with a color $c$ in a distance $d$ from each other. 
 
 After the autocorrelogram computation, a set of $m$ probability values for each distance $d$ are considered, where $m$ stands for the number of colors in the quantized space. 
 
@@ -131,8 +133,7 @@ Both histograms are concatenated to compose the final feature vector. The RGB co
 \emph{Local Color Histogram (LCH)} \cite{swain1991color} is one of the most popular descriptors that is based on fixed size regions to describe image properties. Its extraction algorithm splits the image into fixed size blocks and computes a color histogram for each region. After that, the histograms of each region
 are concatenated to compose one single histogram. 
 
-The implemented version splits the image
-in 16 regions (4x4 grid) and quantized the RGB color space into 64 bins. This generated feature vectors with 1024 values. The L1 distance function is used.
+The implemented version splits the image in 16 regions (4x4 grid) and quantizes the RGB color space into 64 bins. This generated feature vectors with 1024 values. The L1 distance function is used.
 
 
 \subsubsection{Paired features}
@@ -151,7 +152,7 @@ Each paired face descriptor is computed twice for each considered color descript
 
 \subsection{KNN models training}
 
-As in the Carvalho \emph{et al.}\cite{carvalho2016illuminant}, k-Nearest Neighbor (kNN) classifier\cite{bishop2007pattern} are chosen for the classification step.
+As in the Carvalho \emph{et al.}\cite{carvalho2016illuminant}, k-Nearest Neighbor (kNN) classifiers\cite{bishop2007pattern} are chosen for the classification step.
 
 After the feature vectors are extracted from all faces in the images, a set of 8 \emph{k-nearest neighbors} binary classifiers are trained, 4 models based on the GGE map and 4 based on the IIC map. 
 
@@ -171,7 +172,7 @@ An alternative approach for the feature score evaluation has been experimented a
 
 Differently from Carvalho \emph{et al.} \cite{carvalho2016illuminant}, we used another approach for classifying the single face as fake using the results of the paired faces classification. 
 
-Let $P_{i, j}$ the paired feature vector computed concatenating the $i$-th and the $j$-th face feature. If $P_{i, j}$ is classified as fake, the scores of the considered images are incremented the prediction output values. At the end of the process, faces with higher associated scores have been classified as fake multiple times.
+Let $P_{i, j}$ the paired feature vector computed concatenating the $i$-th and the $j$-th face feature. If $P_{i, j}$ is classified as fake, the scores of the considered faces are increased by the prediction output value. At the end of the process, the faces with higher associated scores have been classified as fake multiple times.
 
 The resulting scores are then thresholded for selecting the most probably doctored faces. 
 
@@ -217,7 +218,7 @@ The second module is based on the work of Fan \emph{et al.}\cite{fan2015image} (
 In summary, this module consists of the 6 main steps:
 
 \begin{itemize}
-\item \textbf{Image segmentation}: relies on vertical and horizontal image segmentation. The outputs of this stage are two set of directional image bands. 
+\item \textbf{Image segmentation}: relies on vertical and horizontal image segmentation. The outputs of this stage are two sets of directional image bands. 
 \item \textbf{Band illuminant estimation}: consists in estimating the illuminant color for each segmented band using 5 different GGE algorithms.
 \item \textbf{Reference illuminant estimation}: consists in estimating an illuminant reference value.
 \item \textbf{Feature vector evaluation}: relies on encoding the singular band illuminant information into a feature vector for further classification. The feature vector elements are the differences between the current illuminant color and the illuminant reference.
@@ -232,7 +233,7 @@ In summary, this module consists of the 6 main steps:
     \label{fig:regionsmodulepipeline}
 \end{figure}
 
-The Figure \ref{fig:regionsmodulepipeline} summarize the module pipeline.
+The Figure \ref{fig:regionsmodulepipeline} summarizes the module pipeline.
 
 \subsection{Image segmentation}
 
@@ -257,7 +258,7 @@ The dimension of $B$ is given by the sum of the number of vertical ($n$) and hor
 The resulting image bands are now processed in order to evaluate their illuminant colors using 5 different techniques.
 
 For this step, the Generalized Grayworld \cite{van2007edge} algorithms are used, as presented in Chapter 1. For each band, the illumination estimation is accomplished by using one of the algorithms composed of Grey-World, Max-RGB, Shades of Grey, first-order Grey-Edge and second-order Grey-Edge. Thus, we get 5 illuminant estimates for each band.
-Table \ref{table:ggemethods} in Chapter 1 summarize the algorithms parameters.
+Table \ref{table:ggemethods} in Chapter 1 summarizes the algorithms parameters.
 
 $$
 \forall b \in B \qquad R_a(b) = GGE_a(b) \qquad a \in \mathcal{A}
@@ -280,13 +281,13 @@ $$
 
 where $RV_a$ and $RH_a$ are the reference illuminant colors for the $a$ algorithm for vertical and horizontal direction respectively. As these two values are calculated using the median, they will be identical to one of the value of a band of that same direction.
 
-More simply, in our case the considered reference colors are the estimation results of the 5 different algorithms over the while image. A comparison between the two estimation approaches is presented in Chapter 3.
+More simply, in our case the considered reference colors are the estimation results of the 5 different algorithms over the whole image. A comparison between the two estimation approaches is presented in Chapter 3.
 
 \subsection{Feature vector estimation}
 
-Given the two reference color for each of the two directions, a feature band for each single image band can be built.
+Given the two reference colors for each of the two directions, a feature band for each single image band can be built.
 
-Assuming a single light source in the image, all the evaluated illuminant will point at the same color.
+Assuming a single light source in the image, all the evaluated illuminants will point at the same color.
 Based on this assumption, a feature vector aimed at capturing illuminant colors inconsistencies can be computed.
 
 Let $b \in B$ a single band lying on $d \in \{vertical, horizontal\}$ direction. The feature vector for $b$ will be:
@@ -306,7 +307,7 @@ Given a feature vector, a machine learning approach is used to automatically cla
 
 After training a Support Vector Machine (SVM)\cite{bishop2007pattern} classifier with a radial basis function (RBF) kernel, we classify the resulting multidimensional feature vector $f_b$ and collect the positive output probability of this input vector, considering it as the band score.
 
-For the SVM model training two custom dataset were specifically built containing images with single spliced band. More details about training are given in Chapter 3. 
+For the SVM model training two custom datasets were specifically built containing images with single spliced band. More details about training are given in Chapter 3. 
 
 $$
 \forall \; b \in B \quad Score(b) = SVM(f_b)
@@ -331,7 +332,7 @@ At the end of the process, the splicing region pixels should have greater values
     \label{fig:colormapjet}
 \end{figure}
 
-In Figure \ref{fig:regionsdetectionmap} is presented an example of a generated detection map In this case, the splicing region consists in the woman in the middle of the scene (Figure \ref{fig:splicingmask}). As the map underlines, the more interesting region is located precisely in the middle.
+In Figure \ref{fig:regionsdetectionmap} is presented an example of a generated detection map. In this case, the spliced region consists in the woman in the middle of the scene. As the map underlines, the more interesting region is located precisely in the middle.
 
 Finally, the detection map is thresholded for selecting the output detected spliced regions.
 
