@@ -4,45 +4,45 @@ The top-level auxiliary file: tesi.aux
 The style file: ieee.bst
 Database file #1: bibliography.bib
 Warning--empty journal in farid2009digital
-You've used 51 entries,
+You've used 52 entries,
             2120 wiz_defined-function locations,
-            806 strings with 12780 characters,
-and the built_in function-call counts, 19474 in all, are:
-= -- 2010
-> -- 828
+            812 strings with 12894 characters,
+and the built_in function-call counts, 19822 in all, are:
+= -- 2045
+> -- 846
 < -- 27
-+ -- 336
-- -- 274
-* -- 1337
-:= -- 3080
-add.period$ -- 173
-call.type$ -- 51
-change.case$ -- 285
++ -- 344
+- -- 280
+* -- 1366
+:= -- 3139
+add.period$ -- 176
+call.type$ -- 52
+change.case$ -- 291
 chr.to.int$ -- 0
-cite$ -- 52
-duplicate$ -- 779
-empty$ -- 1551
-format.name$ -- 274
-if$ -- 4211
+cite$ -- 53
+duplicate$ -- 790
+empty$ -- 1576
+format.name$ -- 280
+if$ -- 4280
 int.to.chr$ -- 0
-int.to.str$ -- 51
-missing$ -- 55
-newline$ -- 258
-num.names$ -- 102
-pop$ -- 312
+int.to.str$ -- 52
+missing$ -- 56
+newline$ -- 263
+num.names$ -- 104
+pop$ -- 316
 preamble$ -- 1
-purify$ -- 238
+purify$ -- 243
 quote$ -- 0
-skip$ -- 561
+skip$ -- 568
 stack$ -- 0
-substring$ -- 1329
-swap$ -- 230
+substring$ -- 1354
+swap$ -- 231
 text.length$ -- 27
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 196
+type$ -- 200
 warning$ -- 1
-while$ -- 207
-width$ -- 53
-write$ -- 585
+while$ -- 211
+width$ -- 54
+write$ -- 596
 (There was 1 warning)
