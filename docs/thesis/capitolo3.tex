@@ -59,7 +59,7 @@ After characterizing an image with a specific image descriptor, the next step co
 
 the proposed method method focuses on using complementary information, the color descriptors, to describe the Illuminant Maps. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the k-Nearest Neighbor (kNN) classifier instead of more powerful and computational intensive ones such as Support Vector Machines (SVM) due fact that, SVM and kNN, or even fusion of both learning methods, present very similar results, enforcing the choice for a simpler learning technique (kNN)\cite{carvalho2016illuminant}. The value of \emph{k} is set to 5. 
 
-For all image descriptors, we have used the standard configuration proposed by \emph{Penatti et al.} \cite{penatti2012comparative}.
+For all image descriptors, we have used the standard configuration proposed by Penatti \emph{et al.} \cite{penatti2012comparative}.
 
 As described in Chapter 2, eight different kNN models are trained and used for the classification, considering all the possible combinations of the couples composed by a IMs transformed space (GGE e IIC)and a color descriptor (chosen from ACC, BIC, CCV and LCH).
 
@@ -100,7 +100,7 @@ For each test case in the suite it is reported:
 \item The accuracy score expressed through the $F_1$ score (also known as \textbf{\emph{F-Score}})
 \end{enumerate}
 
-Accordingly with \emph{Jeni et al.} \cite{jeni2013facing}, when dealing with AUC score to measure the performance of classifier, one of the major drawbacks relies on the fact that an increasing of AUC doesn't really mean a better classifier, but it could be just the side-effect of too many negative examples used in training.
+Accordingly with Jeni \emph{et al.} \cite{jeni2013facing}, when dealing with AUC score to measure the performance of classifier, one of the major drawbacks relies on the fact that an increasing of AUC doesn't really mean a better classifier, but it could be just the side-effect of too many negative examples used in training.
 
 Therefore, another classification accuracy score is also provided, the \emph{F-Score}. Given $TP$, $FP$ and $FN$ the true positives, false positives and false negatives values. 
 

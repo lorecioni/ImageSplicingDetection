@@ -195,7 +195,7 @@ Dichromatic planes can also be estimated using principal component analysis (PCA
 
 For distinct objects illuminated by the same light source, the intersection point produced by their dichromatic line intersection represents the illuminant color. If the image has more than one illuminant, it will present more than one intersection point, which is not expected to happen in pristine (non-forged images). This method represented the first important step toward forgery detection using illuminant colors, but has some limitations such as the need of well defined specular highlight regions for estimating the illuminants.
 
-Following Gholap and Bora’s work, Riess and Angelopoulou\cite{riess2010scene} used an extension of the \emph{Inverse-Intensity Chromaticity Space}, originally proposed by Tan et al.\cite{tan2004color}, to estimate illuminants locally from different parts of an image for detecting forgeries.
+Following Gholap and Bora’s work, Riess and Angelopoulou\cite{riess2010scene} used an extension of the \emph{Inverse-Intensity Chromaticity Space}, originally proposed by Tan \emph{et al.}\cite{tan2004color}, to estimate illuminants locally from different parts of an image for detecting forgeries.
 
 In addition, Wu and Fang\cite{wu2011image} proposed a new way to detect forgeries using illuminant colors. Their method divides a color image into overlapping blocks estimating the illuminant color for each block. To estimate the illuminant color, the authors proposed to use the algorithms Gray-World, Gray-Shadow and Gray-Edge \cite{van2007edge}.
 
@@ -241,7 +241,7 @@ The final decision of this approach is delegated to an expert and not to the alg
 
 The starting point is the \emph{gray world assumption}, proposed by Buchsbaum\cite{Buchsbaum19801}. In its simplest version, it is assumed that information in the average of each channel of the image is the representative gray level.
 
-Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer et al. assumes that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
+Let $f(x) = (\Gamma_R(x), \Gamma_G(x), \Gamma_B(x))^T$ the RGB color of a pixel at position $x$ and $\Gamma_i(x)$ the intensity of that pixel in the $i$-th channel. In their paper, Van de Weijer \emph{et al.} assumes that the camera response is linear. It is also assumed that the scene is illuminated by a single light source.
 
 The RGB color $f(x)$ can also be rewritten as
 
@@ -251,7 +251,7 @@ f(x) = \int_{\omega} e(\beta, x) s(\beta, x) c(\beta) d\beta
 
 where $\omega$ is the visible light spectrum, $\beta$ is the light wavelenght, $e(\beta, x)$ is the illuminant spectrum, $s(\beta, x)$ is the surface reflectance of an object and $c(\beta)$ is the color sensitivity of the camera for each channel.
 
-As an alternative to the gray-world hypothesis, Van de Weijer et al.\cite{van2007edge} proposed the \emph{gray-edge hypothesis}: the average of the reflectance differences in a scene is achromatic.
+As an alternative to the gray-world hypothesis, Van de Weijer \emph{et al.}\cite{van2007edge} proposed the \emph{gray-edge hypothesis}: the average of the reflectance differences in a scene is achromatic.
 
 This idea led to a framework for low-level based illuminant estimation, called \emph{Generalized Grayworld}.
 
@@ -293,7 +293,7 @@ Max-Edge & $e^{1, \infty, \sigma}$ & $(\int |f^{\sigma}_{x}(x)|^{\infty} dx)^{\f
 
 \subsubsection{Inverse Intensity-Chromaticity estimation}
 
-The other considered illuminant estimation method is based on the idea proposed by Tan et al.\cite{tan2004color}, called \emph{inverse intensity-chromaticity}.
+The other considered illuminant estimation method is based on the idea proposed by Tan \emph{et al.}\cite{tan2004color}, called \emph{inverse intensity-chromaticity}.
 
 The base for this kind of approaches is the dichromatic reflectance model\cite{gholap2008illuminant}, which states that the amount of light reflected from a point, $x$, of a dielectric, non-uniform material is a linear combination of diffuse reflection and specular reflection. Further assumptions assume that the color of the specularities approximates the color of the illuminant, and that the camera response is linear.
 
@@ -323,7 +323,7 @@ Thus the Eq. \ref{eq:sensorrespiic} can be rewritten as
 I_c(x) = m_S(x) \Delta_c(x) + m_B(x) \Gamma_c(x)
 \end{equation}
 
-Tan et al.\cite{tan2004color} derived a linear relationship between diffuse, specular and image chromaticities:
+Tan \emph{et al.}\cite{tan2004color} derived a linear relationship between diffuse, specular and image chromaticities:
 
 \begin{equation}
 \sigma_c(x) = m(x) \frac{1}{\sum_{i} I_i(x)} + \Gamma_c(x)
@@ -343,13 +343,13 @@ The 2D space defined by $\frac{1}{\sum_{i} I_i(x)}$ as domain and $0 \leq \sigma
 An example of the IIC plots for a single channel of a synthetic image is shown in Fig. \ref{fig:iic_space}.
 Pixels from the green and purple balls form two clusters. The clusters have spikes that point towards the same location on the $y$-axis. Considering only such spikes from each cluster, the illuminant chromaticity is estimated from the joint $y$-axis intercept of all spikes in IIC space.
 
-Instead of examining the entire pixel distribution, Riess et al.\cite{riess2010scene} perform the analysis over small connected image regions of roughly uniform object color (\emph{superpixels}). Depending on the outcome of our shape analysis, we can either use this local region to obtain an illuminant estimate, or reject it if it does not seem to fulfill the underlying assumptions of the proposed model. Using local regions allows us to incorporate multiple sampling and voting in the estimation of local illuminants.
+Instead of examining the entire pixel distribution, Riess \emph{et al.}\cite{riess2010scene} perform the analysis over small connected image regions of roughly uniform object color (\emph{superpixels}). Depending on the outcome of our shape analysis, we can either use this local region to obtain an illuminant estimate, or reject it if it does not seem to fulfill the underlying assumptions of the proposed model. Using local regions allows us to incorporate multiple sampling and voting in the estimation of local illuminants.
 
 \section{Human faces splicing detection}
 
-The approach proposed in Chapter 2 is based on two different works, published by Carvalho et al.\cite{carvalho2016illuminant} and Fan et al.\cite{fan2015image}.
+The approach proposed in Chapter 2 is based on two different works, published by Carvalho \emph{et al.}\cite{carvalho2016illuminant} and Fan \emph{et al.}\cite{fan2015image}.
 
-The method proposed by Carvalho et al.\cite{carvalho2016illuminant} aims to detect splicing focusing on human faces, minimizing the user interaction. Faces are previously labeled by a human selecting the box within is contained, than the process will associate a label to each face (i.e. \emph{normal} or \emph{fake}).
+The method proposed by Carvalho \emph{et al.}\cite{carvalho2016illuminant} aims to detect splicing focusing on human faces, minimizing the user interaction. Faces are previously labeled by a human selecting the box within is contained, than the process will associate a label to each face (i.e. \emph{normal} or \emph{fake}).
 
 The method can be divided into four steps:
 
@@ -394,7 +394,7 @@ In addition, this method is based on the observation that, given two faces (a pr
 
 \section{Region splicing detection}
 
-The other considered approach is based on the work of Fan et al.\cite{fan2015image}. This method relies on the Van de Weijer et al.\cite{van2007edge} Generalized Gray-World framework \ref{eq:ggeframework} in Eq. \ref{eq:ggeframework}. This algorithm performs better on a scene when it is rich of colors, but in a splicing detection scenario we are interested in a specific region of the image.
+The other considered approach is based on the work of Fan \emph{et al.}\cite{fan2015image}. This method relies on the Van de Weijer \emph{et al.}\cite{van2007edge} Generalized Gray-World framework \ref{eq:ggeframework} in Eq. \ref{eq:ggeframework}. This algorithm performs better on a scene when it is rich of colors, but in a splicing detection scenario we are interested in a specific region of the image.
 
 This approach splits the image in vertical and horizontal bands (rectangular regions), assuming that each band contains sufficient colors for a correct illuminant estimation. Five different algorithms are used, deduced from Eq. \ref{eq:ggeframework}: Grey-World, Max-RGB, Shades of Grey, first- order Grey-Edge and second-order Grey-Edge, in order to have as many illuminant estimates for each band.
 
