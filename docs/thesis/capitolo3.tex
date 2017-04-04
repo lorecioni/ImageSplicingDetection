@@ -6,7 +6,7 @@ This chapter describes the experiments we performed to show the effectiveness of
 To quantitatively evaluate the proposed methods, and to compare it to related work,
 we considered two datasets: the DSO-1 and DSI-1 datasets\footnote{Public available for download at https://recodbr.wordpress.com/code-n-data}. Each dataset comes with a face position groundtruth and a splicing region mask. Additionally, the ColorChecker dataset \cite{gehler2008bayesian} is used as a source of pristine images.
 
-The latter dataset has been mainly used for experimenting on pristine data: due its characteristics it is very varied and lends itself well to image analysis based on color.
+The latter dataset has been mainly used for experimenting on pristine data: due to its characteristics it is very varied and lends itself well to image analysis based on color.
 
 \subsection{DSO-1}
 
@@ -55,13 +55,13 @@ The ColorChecker dataset is a collection of images for evaluating Color Constanc
 
 This section describes the experiments performed to evaluate the face forgery detection module. In these experiments, the DSO-1 and the DSI-1 datasets are used for evaluation.
 
-After characterizing an image with a specific image descriptor, the next step consists of training a classifier (a kNN model in our case).
+After having characterized an image with a specific image descriptor, the next step consists of training a classifier (a kNN model in our case).
 
-The proposed method focuses on using complementary information (i.e the color descriptors) to describe the computed \emph{illuminant maps}. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the \emph{k-Nearest Neighbor (kNN)} classifier instead of more powerful and computational intensive ones such as \emph{Support Vector Machines (SVM)} due fact that the two types of classifiers (or even fusion of both learning methods) present very similar results. For that reasons, a simpler learning techinque is chosen\cite{carvalho2016illuminant}. As in \cite{carvalho2016illuminant}, the value of \emph{k} for the kNN classifiers is set to 5. 
+The proposed method focuses on using complementary information (i.e the color descriptors) to describe the computed \emph{illuminant maps}. Accordingly to Carvalho \emph{et al. }\cite{carvalho2016illuminant}, we selected the \emph{k-Nearest Neighbor (kNN)} classifier instead of more powerful and computational intensive ones such as \emph{Support Vector Machines (SVM)} due to the fact that the two types of classifiers (or even fusion of both learning methods) present very similar results. For that reasons, a simpler learning techinque is chosen\cite{carvalho2016illuminant}. As in \cite{carvalho2016illuminant}, the value of \emph{k} for the kNN classifiers is set to 5. 
 
 For all considered color descriptors (ACC, BIC, CCV and LCH), we have used the standard configuration proposed by Penatti \emph{et al.} \cite{penatti2012comparative}. As described in Chapter 2, eight different kNN models are trained and used for the classification, considering all the possible combinations of the couples composed by a IMs transformed space (GGE e IIC)and a color descriptor (chosen from ACC, BIC, CCV and LCH).
 
-\subsection{Color descriptors accuray}
+\subsection{Color descriptors accuracies}
 
 Since the final classification output is given by majority voting of all the selected classifiers, the first round of experiments aimed at evaluating the accuracy of each image descriptors.
 
@@ -81,7 +81,7 @@ Test 4 &	DSI-1 & DSO-1 & 0.58 & 0.55 & 0.51 & \textbf{0.59}\\ [1ex]
 \label{table:colordescriptorperformance}
 \end{table}
 
-Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of train and test set. The classification results show that, generally, LCH color descriptor yielded the higher accurary, but there is not a descriptor that outperforms the others.
+Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of training and test set. The classification results show that, generally, LCH color descriptor yielded the higher accurary, but there is not a descriptor that outperforms the others.
 
 \subsection{Test cases}
 
@@ -194,7 +194,7 @@ Resulting accuracy scores are obtained as average over 5 consecutive runs of the
     \label{fig:compareknnweights}
 \end{figure}
 
-These results show that, although we can notice a slight performance improvement in all test cases, the use of non-uniform weights do not affect much on the final classification results.
+These results show that, although we can notice a slight performance improvement in all test cases, the use of non-uniform weights do not affect much the final classification results.
 
 In the following subsections are described the experimental results for each analyzed test case using non-uniform weights. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and \emph{Precision-Recall} curves\cite{Davis:2006:RPR:1143844.1143874}. 
 
@@ -214,7 +214,7 @@ In this experiment, we applied the proposed method for classifying a face pair a
 
 \subsubsection{Performance on DSI-1 dataset}
 
-In this experiment, we applied the proposed method for classifying a face pair as fake or real considering only the DSI-1 dataset. We reached an average accuracy of 89\% using the 10-fold cross-validation protocol.
+In this experiment we applied the proposed method for classifying a face pair as fake or real considering only the DSI-1 dataset. We reached an average accuracy of 89\% using the 10-fold cross-validation protocol.
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
@@ -228,7 +228,7 @@ In this experiment, we applied the proposed method for classifying a face pair a
 
 \subsubsection{Cross dataset performance on DSO-1}
 
-In this round of experiment, we performed a cross-dataset validation in which we train our method with images from DSI-1 and test it against images from the DSO-1 dataset. We achieved an average classification accuracy of 63\%. 
+In this experiment we performed a cross-dataset validation in which we trained our method with images from DSI-1 and test it against images from the DSO-1 dataset. We achieved an average classification accuracy of 63\%. 
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
@@ -242,7 +242,7 @@ In this round of experiment, we performed a cross-dataset validation in which we
 
 \subsubsection{Cross dataset performance on DSI-1}
 
-In this round of experiment, we performed a cross-dataset validation in which we train our method with images from DSO-1 and test it against images from the Internet (DSI-1). We achieved an average classification accuracy of 59\%. 
+In this experiment we performed a cross-dataset validation in which we trained our method with images from DSO-1 and test it against images from the Internet (DSI-1). We achieved an average classification accuracy of 59\%. 
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
@@ -254,7 +254,7 @@ In this round of experiment, we performed a cross-dataset validation in which we
 \caption{ROC curve and Precision-Recall curve for DSI-1 paired faces classification using trained data on DSO-1.}\label{fig:regiondetnormal}
 \end{figure}
 
-In the two previously considered cases, both of cross dataset classification, the differences between the two dataset compositions greatly influence the evaluated final evaluated performance. Almost all the images in the DSO-1, in fact, present similar lighting conditions. In addition, this dataset contains almost always the same people (and thus the same faces) in every picture. This fact makes the model trained using this dataset less expressive than the one trained using a more heterogeneous set of images, as in the case of DSI-1.
+In the two previously considered cases, both of cross dataset classification, the differences between the two dataset compositions greatly influence the final evaluated performance. Almost all the images in the DSO-1, in fact, present similar lighting conditions. In addition, this dataset contains almost always the same people (and thus the same faces) in every picture. This fact makes the model trained using this dataset less expressive than the one trained using a more heterogeneous set of images, as in the case of DSI-1.
 
 \subsubsection{Forgery detection performance}
 
@@ -296,7 +296,7 @@ Experimental results are collected in Table \ref{table:forgerydetections}.
 
 \section{Regions forgery detection module performance}
 
-This section describes the experiments performed to evaluate the regions forgery detection module.
+This section describes the experiments performed to evaluate the regional forgery detection module.
 
 \subsection{Creating the training set}
 
@@ -351,7 +351,7 @@ Figures \ref{fig:splicedccsamples} and \ref{fig:spliceddsosamples} show two exam
 
 \subsection{Evaluating module performance}
 
-The proposed method output consists in a\emph{ detection map} related to the analyzed image. In order to evaluate the performance of the module, we consider the single pixels classification accuracies. The evaluation dataset for all the experiments is the original DSO-1 dataset (considering only the spliced images).
+The proposed method output consists in a\emph{ detection map} related to the analyzed image. In order to evaluate the performance of the module, we consider the single pixel classification accuracies. The evaluation dataset for all the experiments is the original DSO-1 dataset (considering only the spliced images).
 
 Given a set of $m$ images as validation test, for each test in the suite:
 \begin{enumerate}
