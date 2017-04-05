@@ -486,8 +486,14 @@ Also in this test case, we applied the proposed method for classifying each pixe
 
 \section{Final remarks}
 
-Experimental results presented for the face forgery detection module 
-Good results are also achieved over internet images and under cross-database training/testing.
-Although the proposed method is custom-tailored to detect splicing on images con- taining faces, there is no principal hindrance in applying it to other, problem-specific
+Experimental results presented for the face forgery detection module show that the proposed approach is a good starting point for detecting image composition involving people. Using just simple kNN classifiers and a set of color descriptors over the evaluated image illuminant maps, we achieved an accuracy rate of 81\%  (with an $F_1$ score of 64\%) in face forgery detection (using cross-validation protocol) and an accuracy rate of 67\% (with an $F_1$ score of 37\%) in a cross dataset scenario.
 
+Good results are also achieved over internet images (the DSI-1 dataset), also under cross-database training/testing.
 
+Results shown in Table \ref{table:performancefacedetnonun} also highlight that the final classification accuracy depends a lot on the kNN models strength: especially in a cross-dataset scenario better results are achieved using a varied training set. 
+
+Regarding the second considered module, the more promising results are obtained using a machine learning approach for regional features classification. Table \ref{table:performanceregionaldet} shows distinctly that the experiments led using SVM classifiers insted of a simple detection map based on the sum of distances achieved preferable performances. We noted also that using a global image illuminant reference color instead of evaluating the median of the illuminants for each direction is a more suitable approach.
+
+Also in this case, the better the SVM models trained, the higher the classification accuracies reached for the evaluation set. Using the models trained over a set of images closer to those occurring in the test set led to better results, as in the case of the \emph{SplicedDSO} as training set and DSO-1 as test set, which reached the higher accuracy score, 61\% of image pixels correctly classified.
+
+In summary, the face forgery detection module reached remarkable results, but it is bound at a specific type of image composition. On the contrary, the regional forgery detection module is a totally blind approach that do not require any assumption on the image content, but we pay this major advantage with a loss of detection accuracy.

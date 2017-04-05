@@ -1,14 +1,29 @@
 \chapter{Command line tool}
 
-Command line tool description
+In this Appendix some implementation details are presented regarding the source code of the proposed approach. Source code of illuminant maps generation is available online\footnote{Christian Riess reasearch page for \emph{Scene Illumination as an Indicator of Image Manipulation} - https://www5.cs.fau.de/research/areas/computer-vision/image-forensics/scene-illumination-as-an-indicator-of-image-manipulation}.
 
+The source code is divided into three parts:
+\begin{itemize}
+\item The two modules implemented separately (\emph{face-detector} and \emph{region-detector});
+\item Illuminant maps estimation using IIC and GGE algorithms;
+\item Image color descriptor extraction.
+\end{itemize}
+
+All code for the two main modules is written in Python using the open source computer vision library \emph{OpenCV}\footnote{OpenCV, Open Source Computer Vision Library -http://opencv.org}. OpenCV is an open source computer vision and machine learning software library built to provide a common infrastructure for computer vision applications. The library is written natively in C++, but it has C, Python, Java and MATLAB interfaces and supports Windows, Linux, Android and Mac OS.
+
+Python version used is the \emph{3.4.2} and we used \emph{OpenCV 3.0.0}. 
+
+The illuminant maps estimation algorithms implementation and image color descriptor codes are written in C++.
+
+\begin{footnotesize}
 \begin{verbatim}
 ImageSplicingDetection v.0.5.1
-usage: main.py [-h] [--face-detector] [--region-detector] [--train] [--detect]
-               [--evaluate] [--output-mask OUTPUT_MASK] [--display-result]
-               [--crossvalidate] [--extract-single-features]
-               [--no-extract-features] [--no-extract-maps] [--img IMG]
-               [--euclidean-distances] [--heat-map] [--verbose]
+usage: main.py 
+            [-h] [--face-detector] [--region-detector] [--train] [--detect]
+            [--evaluate] [--output-mask OUTPUT_MASK] [--display-result]
+            [--crossvalidate] [--extract-single-features]
+            [--no-extract-features] [--no-extract-maps] [--img IMG]
+            [--euclidean-distances] [--heat-map] [--verbose]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -33,3 +48,4 @@ optional arguments:
   --verbose             display all messages
 
 \end{verbatim}
+\end{footnotesize}
