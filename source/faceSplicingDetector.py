@@ -36,12 +36,16 @@ class FaceSplicingDetector:
     Detect splicing in the given image
     @param img: the image filenames
     '''
-    def detect(self, img, output, groudtruth = None):
+    def detect(self, img, groudtruth = None):
         filename = utils.getFilename(img)
         print('Processing ' + filename)
 
-        #Loads classifier
+        image = cv2.imread(img)
+        if image is None:
+            print('Error processing ' + filename + ': image not found')
+            return
 
+        #Loads classifier
         # Extracting image features
         # Extract the faces in the image
         faces, labels = self.extractFaces(img, groudtruth)
@@ -73,7 +77,7 @@ class FaceSplicingDetector:
                             counters[sample.second] += 1
 
             #Majority voting
-            threshold = 0.5
+            threshold = config.majorityVotingThreshold
             score = 0
             detected = False
             fakeFaces = []
@@ -143,18 +147,17 @@ class FaceSplicingDetector:
                     cv2.waitKey(0)
 
                 # Write output mask
-                #outputMask *= 255
-                #cv2.imwrite(output, outputMask)
+                outputMask *= 255
+                cv2.imwrite(config.faceOutputDetectionImage, outputMask)
 
             else:
-                print('Image is NORMAL - Score: ' + str(score))
+                print('Image is ORIGINAL - Score: ' + str(score))
 
             return TP, TN, FP, FN
 
         else:
             # discard the current image
             print('Not suitable number of faces found in the image')
-
         return
 
     '''
@@ -418,7 +421,6 @@ class FaceSplicingDetector:
             files.close()
         else:
             return features
-
 
     '''
     Evaluate current trained models over a set of images

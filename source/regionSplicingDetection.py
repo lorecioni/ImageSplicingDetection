@@ -8,9 +8,6 @@ import numpy as np
 import illuminantMaps
 import config
 import utils
-import scipy.io
-
-from sklearn.svm import SVC
 from sklearn.externals import joblib
 
 '''
@@ -48,6 +45,7 @@ class RegionSplicingDetector:
 
         self.filename = ''
 
+        #Creating temporary folder
         utils.createTempFolder()
 
         self.clf = {
@@ -57,17 +55,152 @@ class RegionSplicingDetector:
             'horizontal_global': joblib.load(config.data_folder + 'regions_module/models/trained_model_horizontal_dso_global.pkl')
         }
 
+    '''
+    Detection algorithm
+    '''
+    def detect(self, img, groundtruth = True):
+        self.filename = utils.getFilename(img)
+        print('Processing ' + self.filename)
 
+        # Reads image
+        image = cv2.imread(img)
+        if image is None:
+            print('Error processing ' + self.filename + ': image not found')
+            return
+
+        image = utils.resizeImage(image, 1200)
+
+        # Mask
+        if groundtruth:
+            maskImage = cv2.imread(config.masks_folder + self.filename + '.png', cv2.IMREAD_GRAYSCALE)
+            if maskImage is not None:
+                maskImage = np.invert(maskImage)
+                maskImage = utils.resizeImage(maskImage, 1200)
+        else:
+            maskImage = None
+
+        if image is not None:
+
+            self.evaluateIlluminantMaps(image, maskImage)
+            rows, cols, _ = image.shape
+            detectionMap = np.zeros((rows, cols))
+
+            global_references = self.extractGlobalReferences(img)
+
+            # Evaluate distances
+            medians = {}
+            for i in range(self.verticalBands):
+                filename = config.temp_folder + 'vertical_band_' + str(i) + "_gge_map_"
+                for alg in self.algorithms:
+                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
+
+                band = self.bands['vertical'][i]
+                band_feature = []
+
+                for alg in self.algorithms:
+                    if config.referenceColorType == 'median':
+                        distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
+                    elif config.referenceColorType == 'global':
+                        distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
+                    band_feature.append(distance)
+
+                    if config.regionalTrainingType is None:
+                        detectionMap = band.incrementDetection(detectionMap, distance)
+
+                if config.regionalTrainingType == 'svm':
+                    clf_type = 'vertical'
+                    if config.referenceColorType == 'global':
+                        clf_type += '_global'
+
+                    prediction = self.clf[clf_type].predict_proba(np.asarray(band_feature).reshape((1, -1)))
+                    detectionMap = band.incrementDetection(detectionMap, prediction[0][1])
+
+                print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands) + ' vertical bands')
+
+            for i in range(self.horizontalBands):
+                filename = config.temp_folder + 'horizontal_band_' + str(i) + "_gge_map_"
+                for alg in self.algorithms:
+                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
+
+                band = self.bands['horizontal'][i]
+                band_feature = []
+
+                for alg in self.algorithms:
+                    if config.referenceColorType == 'median':
+                        distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
+                    elif config.referenceColorType == 'global':
+                        distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
+                    band_feature.append(distance)
+
+                    if config.regionalTrainingType is None:
+                        detectionMap = band.incrementDetection(detectionMap, distance)
+
+                if config.regionalTrainingType == 'svm':
+                    clf_type = 'horizontal'
+                    if config.referenceColorType == 'global':
+                        clf_type += '_global'
+
+                    prediction = self.clf[clf_type].predict_proba(np.asarray(band_feature).reshape((1, -1)))
+                    detectionMap = band.incrementDetection(detectionMap, prediction[0][1])
+
+                print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
+
+            # Recover detection map max value
+            splicedPercent = len(np.where(detectionMap > config.fakeThreshold)[0]) / detectionMap.size
+            print('Spliced area (%): ' + str(splicedPercent))
+
+            if splicedPercent > config.splicedTolerance:
+                print('Image is SPLICED - Score: ' + str(splicedPercent))
+                outputMask = detectionMap.copy()
+                outputMask[outputMask < config.fakeThreshold] = 0
+                outputMask[outputMask >= config.fakeThreshold] = 1
+
+                max_value = np.ndarray.max(detectionMap)
+                detectionMap = detectionMap / max_value
+                detectionMap *= 255
+
+                if self.display_result:
+                    # Display color map
+                    color_map = detectionMap
+                    color_map = color_map.astype(np.uint8)
+                    color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
+                    out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
+                    cv2.imshow('output', out)
+                    cv2.waitKey(0)
+
+                    # Display spliced regions
+                    regionMask = np.zeros(image.shape, 'uint8')
+                    regionMask[..., 0] = outputMask.copy()
+                    regionMask[..., 1] = outputMask.copy()
+                    regionMask[..., 2] = outputMask.copy()
+                    splicedRegions = np.multiply(image, regionMask)
+                    out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(splicedRegions, 500)),
+                                         axis=1)
+                    cv2.imshow('output', out)
+                    cv2.waitKey(0)
+
+                # Write output mask
+                outputMask *= 255
+                cv2.imwrite(config.regionOutputDetectionImage, outputMask)
+
+            else:
+                print('Image is ORIGINAL - Score: ' + str(splicedPercent))
+
+        else:
+            print('No image found: ' + img)
+
+    '''
+    Perform detection over a set of images
+    '''
     def evaluate(self, images, output):
         for i in range(len(images)):
             img = images[len(images) - 20 - i]
             self.detect(img, output, True)
-            if i == 15:
-                break
 
+    '''
+    Train the classifiers
+    '''
     def train(self, images, labels, direction = 'vertical'):
-        featureFile = open('trained_features.txt', 'w');
-        featureFile.close()
         for i in range(len(images)):
             featureFile = open('trained_features' + direction +'.txt', 'a');
             img = images[i]
@@ -151,176 +284,6 @@ class RegionSplicingDetector:
                 featureFile.write("\n")
 
             featureFile.close()
-
-    '''
-    Detection algorithm
-    '''
-    def detect(self, img, output, groundtruth = True):
-        self.filename = utils.getFilename(img)
-        print('Processing ' + self.filename)
-
-        #Reads image
-        image = cv2.imread(img)
-        image = utils.resizeImage(image, 1200)
-
-        #Mask
-        if groundtruth:
-            maskImage = cv2.imread(config.masks_folder + self.filename + '.png', cv2.IMREAD_GRAYSCALE)
-            if maskImage is not None:
-                maskImage = np.invert(maskImage)
-        else:
-            maskImage = None
-
-        if image is not None:
-
-            self.evaluateIlluminantMaps(image, maskImage)
-            rows, cols, _ = image.shape
-            detectionMap = np.zeros((rows, cols))
-            detectionMap_global = np.zeros((rows, cols))
-            detectionMap_svm = np.zeros((rows, cols))
-            detectionMap_svm_global = np.zeros((rows, cols))
-
-            global_references = self.extractGlobalReferences(img)
-
-            detected = 0
-
-            #Evaluate distances
-            medians = {}
-            for i in range(self.verticalBands):
-                filename = config.temp_folder + 'vertical_band_' + str(i) + "_gge_map_"
-                for alg in self.algorithms:
-                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
-
-                band = self.bands['vertical'][i]
-                band_feature = []
-                band_feaure_global = []  # Feature vector evaluated on the global references
-
-                for alg in self.algorithms:
-                    distance = utils.euclideanDistanceRGB(medians[alg], self.verticalReferences[alg])
-                    band_feature.append(distance)
-                    detectionMap = band.incrementDetection(detectionMap, distance)
-
-                    distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
-                    band_feaure_global.append(distance)
-                    detectionMap_global = band.incrementDetection(detectionMap_global, distance)
-
-                prediction = self.clf['vertical'].predict_proba(np.asarray(band_feature).reshape((1, -1)))
-                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0][1])
-                prediction = self.clf['vertical_global'].predict_proba(np.asarray(band_feaure_global).reshape((1, -1)))
-                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0][1])
-
-                print('\tEvaluated ' + str(i + 1) + '/' + str(self.verticalBands) + ' vertical bands')
-
-
-            for i in range(self.horizontalBands):
-                filename = config.temp_folder + 'horizontal_band_' + str(i) + "_gge_map_"
-                for alg in self.algorithms:
-                    medians[alg] = utils.evaluateRGBMedian(filename + alg + ".png")
-
-                band = self.bands['horizontal'][i]
-                band_feature = []
-                band_feaure_global = []  # Feature vector evaluated on the global references
-
-                for alg in self.algorithms:
-                    distance = utils.euclideanDistanceRGB(medians[alg], self.horizontalReferences[alg])
-                    band_feature.append(distance)
-                    detectionMap = band.incrementDetection(detectionMap, distance)
-
-                    distance = utils.euclideanDistanceRGB(medians[alg], global_references[alg])
-                    band_feaure_global.append(distance)
-                    detectionMap_global = band.incrementDetection(detectionMap_global, distance)
-
-                prediction = self.clf['horizontal'].predict_proba(np.asarray(band_feature).reshape((1, -1)))
-                detectionMap_svm = band.incrementDetection(detectionMap_svm, prediction[0][1])
-                prediction = self.clf['horizontal_global'].predict_proba(np.asarray(band_feaure_global).reshape((1, -1)))
-                detectionMap_svm_global = band.incrementDetection(detectionMap_svm_global, prediction[0][1])
-
-                print('\tEvaluated ' + str(i + 1) + '/' + str(self.horizontalBands) + ' horizontal bands')
-
-
-            print('Detected: ' + str(detected))
-
-
-            # Recover detection map max value
-            splicedPercent = len(np.where(detectionMap_global > config.fakeThreshold)[0])/detectionMap_global.size
-            print('Area: ' + str(splicedPercent))
-            if splicedPercent > config.splicedTolerance:
-                print('Image is SPLICED - Score: ')
-            else:
-                print('Image is FAKE - Score: ')
-
-            #
-            '''
-            max_value = np.ndarray.max(detectionMap)
-            detectionMap = detectionMap / max_value
-            max_value = np.ndarray.max(detectionMap_global)
-            detectionMap_global = detectionMap_global / max_value
-            max_value = np.ndarray.max(detectionMap_svm)
-            detectionMap_svm = detectionMap_svm / max_value
-            max_value = np.ndarray.max(detectionMap_svm_global)
-            detectionMap_svm_global = detectionMap_svm_global / max_value'''
-
-            if False and maskImage is not None:
-                maskImage = utils.resizeImage(maskImage, 1200)
-                scipy.io.savemat(self.filename + '_detection_map.mat', dict(positive=detectionMap[maskImage > 200], negative=detectionMap[maskImage <= 200]))
-                scipy.io.savemat(self.filename + '_detection_map_global.mat', dict(positive=detectionMap_global[maskImage > 200], negative=detectionMap_global[maskImage <= 200]))
-                scipy.io.savemat(self.filename + '_detection_map_svm.mat', dict(positive=detectionMap_svm[maskImage > 200], negative=detectionMap_svm[maskImage <= 200]))
-                scipy.io.savemat(self.filename + '_detection_map_svm_global.mat', dict(positive=detectionMap_svm_global[maskImage > 200], negative=detectionMap_svm_global[maskImage <= 200]))
-
-            outputMask = detectionMap_global.copy()
-            outputMask[outputMask < config.fakeThreshold] = 0
-            outputMask[outputMask >= config.fakeThreshold] = 1
-
-            max_value = np.ndarray.max(detectionMap_global)
-            detectionMap_global = detectionMap_global / max_value
-            detectionMap_global *= 255
-
-            if self.display_result:
-                # Display color map
-                color_map = detectionMap_global
-                color_map = color_map.astype(np.uint8)
-                color_map = cv2.applyColorMap(color_map, cv2.COLORMAP_JET)
-                out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(color_map, 500)), axis=1)
-                cv2.imshow('output', out)
-                cv2.waitKey(0)
-
-                #Display spliced regions
-                regionMask = np.zeros(image.shape, 'uint8')
-                regionMask[..., 0] = outputMask.copy()
-                regionMask[..., 1] = outputMask.copy()
-                regionMask[..., 2] = outputMask.copy()
-                splicedRegions = np.multiply(image, regionMask)
-                out = np.concatenate((utils.resizeImage(image, 500), utils.resizeImage(splicedRegions, 500)), axis=1)
-                cv2.imshow('output', out)
-                cv2.waitKey(0)
-
-            if maskImage is not None:
-                # Normalization
-                maskImage[maskImage < 120] = 0
-                maskImage[maskImage >= 120] = 1
-                w, h = maskImage.shape
-                totalSplicedPixels = (maskImage == 1).sum()
-                diffMask = maskImage - outputMask
-                fn = (diffMask == 1).sum()
-                fp = (diffMask == -1).sum()
-                tp = totalSplicedPixels - fn
-                tn = w * h - totalSplicedPixels - fp
-
-                precision = tp/(tp + fp)
-                recall = tp/(tp + fn)
-                accuracy = (tp + tn)/(tp + tn + fp + fn)
-                print('Precision: ' + str(precision) + ' - Recall: ' + str(recall))
-
-            #Write output mask
-            #outputMask *= 255
-            #cv2.imwrite(output, outputMask)
-
-            #featureFile.close()
-            # Print score
-            print("Splicing score: " + str(score))
-
-        else:
-            print('No image found: ' + img)
 
     '''
     Evaluate Illuminant map and references

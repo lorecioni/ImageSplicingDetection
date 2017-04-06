@@ -6,45 +6,40 @@ Created on 05 ott 2016
 
 
 '''General configuration'''
-dataset = 'DSI-1'
-#dataset = 'DSI-1'
-#dataset = 'COLORCHECKER'
-#dataset = 'SPLICED_COLORCHECKER'
-# dataset = 'SPLICED_DSO1'
 
-#imagesFolder = '../datasets/SplicedColorChecker/vertical/'
+#The name of the dataset to be load
+dataset = 'DSO-1'
+
+#The path of the images
 imagesFolder = '../datasets/' + dataset + '/Images/'
-#imagesFolder = '../datasets/ColorChecker/srgb8bit/'
-#imagesFolder = '../datasets/SplicedDSO1/vertical/'
-
+#The path of the images labels
 labelsFolder = '../datasets/' + dataset + '/Labels/'
+#Output path where will be stored the IMs
 maps_folder = '../datasets/' + dataset + '/Maps/'
-#maps_folder = '../datasets/ColorChecker/maps/'
 
+#Path of the features
 features_folder = '../datasets/' + dataset + '/Features/'
+#Temp path for saving faces
 faces_folder = '../datasets/' + dataset + '/Faces/'
+#Temp path for saving descriptors
 descriptors_folder = '../datasets/' + dataset + '/Descriptors/'
+#Path of the mask (if provided)
 masks_folder = '../datasets/' + dataset + '/Masks/'
 
-
+#Data folder (for application models)
 data_folder = 'data/'
+#Temporary folder
 temp_folder = 'temp/'
 
-classification_folder = data_folder + 'face_module/DSI-1/'
 
-output_spliced_dataset_folder = '../datasets/SplicedDSO1/'
-
-#Convert binaries
-convertBinary = '/opt/local/bin/convert'
+''' 
+----------------------------
+ILLUMINANT MAPS EXTRACTION
+----------------------------
+'''
 voleBinary= 'illuminants/build/bin/./vole'
 
-#Face detector cascade
-cascadePath = 'data/face_module/haarcascade_frontalface_default.xml'
-
-#Illuminant maps extraction
-forceMapsExtraction = False
-
-'''Illuminant maps extraction'''
+#Segmentation parameters
 max_intensity = 0.98823529411764705882
 min_intensity = .05882352941176470588
 
@@ -62,17 +57,28 @@ gge_p = 1
 
 #IIC Map
 config_iic = "illuminants/build/config.txt"
-#config_iic = "illuminants/lille/config/config_iebv_lenient.txt"
 
+#Illuminant maps extraction. If False, if a map is already present, skipt the extraction
+forceMapsExtraction = False
 
-'''Face splicing detector'''
+### Descriptors ###
+
+#Image converting tool
+# ImageMagick 6.8.9-0 Q16 x86_64 2014-08-02 http://www.imagemagick.org
+convertBinary = '/opt/local/bin/convert'
+
+''' 
+----------------------------
+FACE DETECTION CONFIGURATION 
+----------------------------
+'''
+
 faceMinSize = (120, 150)
 inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'
 illuminantTypes = ['GGE', 'IIC'] #Must be an array
 descriptors = ['ACC', 'BIC', 'CCV', 'LCH'] #Color descriptors
-#descriptors_weights = {'ACC': 0.8, 'BIC': 1.2, 'CCV': 0.6, 'LCH': 1.5}
 descriptors_weights = {'ACC': 1, 'BIC': 1, 'CCV': 1, 'LCH': 1}
 
 KNeighbours = 5
@@ -81,12 +87,39 @@ folds = 10
 label_position = 1
 feature_vector_length = 6
 
+#Classification
+majorityVotingThreshold = 0.5
 
-'''Region splicing detection'''
+#Path of the kNN models
+classification_folder = data_folder + 'face_module/DSO-1/'
+
+#Face detector cascade
+cascadePath = 'data/face_module/haarcascade_frontalface_default.xml'
+
+faceOutputDetectionImage = 'face_detection_output.png'
+
+''' 
+----------------------------
+REGION DETECTION CONFIGURATION 
+----------------------------
+'''
+
+#Segmented band width (for vertical bands)
 bandWidth = 120
+#Segmented band height (for horizontal bands)
 bandHeight = 120
-bandDeltaFactor = 4 #Delta move is bandWidth/bandDeltaFactor
-
+bandDeltaFactor = 4 #Slinding window move is bandWidth/bandDeltaFactor
 splicedTolerance = 0.05 # Min area percentage spliced
 
-fakeThreshold = 300 # Map global best value
+#fakeThreshold = 2.82 # Map global best value
+fakeThreshold = 200
+
+#Training model ('svm' or None)
+regionalTrainingType = None
+#Reference color used ('global' or 'median')
+referenceColorType = 'global'
+
+#The path for the generated dataset
+output_spliced_dataset_folder = '../datasets/SplicedDSO1/'
+
+regionOutputDetectionImage = 'regional_detection_output.png'
