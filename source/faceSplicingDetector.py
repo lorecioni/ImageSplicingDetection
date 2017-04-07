@@ -28,7 +28,10 @@ class FaceSplicingDetector:
         self.face_cascade = cv2.CascadeClassifier(config.cascadePath)
         self.cross_validation = crossVal
         self.display_result = displayResult
-        
+
+        # Creating temporary folder
+        utils.createTempFolder()
+
         #Descriptors
         self.descriptors = config.descriptors
 
@@ -38,6 +41,11 @@ class FaceSplicingDetector:
     '''
     def detect(self, img, groudtruth = None):
         filename = utils.getFilename(img)
+
+        config.maps_folder = config.temp_folder
+        config.faces_folder = config.temp_folder
+        config.descriptors_folder = config.temp_folder
+
         print('Processing ' + filename)
 
         image = cv2.imread(img)
@@ -473,3 +481,9 @@ class FaceSplicingDetector:
             print('Misclassified: ' + str(misclassified) + '/' + str(totalSamples))
             accuracy = (totalSamples - misclassified) / totalSamples
             print('Accuracy: ' + str(accuracy))
+
+
+    '''Clear temp folder'''
+    def __del__(self):
+        print('Cleaning up')
+        utils.removeTempFolder()
