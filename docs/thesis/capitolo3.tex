@@ -63,7 +63,7 @@ For all considered color descriptors (ACC, BIC, CCV and LCH), we have used the s
 
 \subsection{Color descriptors accuracies}
 
-Since the final classification output is given by majority voting of all the selected classifiers, the first round of experiments aimed at evaluating the accuracy of each image descriptors.
+Since the final classification output is given by majority voting of all the selected classifiers, the first round of experiments aimed at evaluating the accuracy of each image descriptor.
 
 \begin{table}[h!]
 \centering
@@ -81,7 +81,7 @@ Test 4 &	DSI-1 & DSO-1 & 0.58 & 0.55 & 0.51 & \textbf{0.59}\\ [1ex]
 \label{table:colordescriptorperformance}
 \end{table}
 
-Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of training and test set. The classification results show that, generally, LCH color descriptor yielded the higher accurary, but there is not a descriptor that outperforms the others.
+Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of training and test set. The classification results show that, generally, LCH color descriptor yielded the higher accurary, but there is not a descriptor that clearly outperforms the others.
 
 \subsection{Test cases}
 
@@ -99,7 +99,7 @@ For each test case in the suite it is reported:
 \begin{enumerate}
 \item The training dataset (\textbf{\emph{Train}});
 \item The evaluation dataset (\textbf{\emph{Test}});
-\item The classification accuracy score (\textbf{\emph{ACC}});
+\item The classification accuracy score (\textbf{\emph{Accuracy}});
 \item The area under the \emph{Receiver Operator Characteristic (ROC)} curve (\textbf{\emph{AUC}})
 \item The accuracy score expressed through the $F_1$ score (also known as \textbf{\emph{F-Score}})
 \end{enumerate}
@@ -157,7 +157,7 @@ Experimental results are collected in Table \ref{table:performancefacedet}, for 
 \centering
 \begin{tabular}{l c c c c c} 
 \hline \hline 
-\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{ACC} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
+\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{Accuracy} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
 \hline
 Test 1 & DSO-1 & DSO-1 &	0.82 & 0.88	& 0.77\\
 Test 2 & DSI-1 & DSI-1 &	0.87 & 0.92 & 0.87\\
@@ -173,7 +173,7 @@ Test 4 &	DSI-1 & DSO-1 & 0.62 & 0.59 & 0.53\\ [1ex]
 \centering
 \begin{tabular}{l c c c c c} 
 \hline \hline 
-\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{ACC} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
+\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{Accuracy} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
 \hline
 Test 1 & DSO-1 & DSO-1 &	0.84 & 0.90	& 0.78\\
 Test 2 & DSI-1 & DSI-1 &	0.89 & 0.92 & 0.89\\
@@ -196,7 +196,7 @@ Resulting accuracy scores are obtained as average over 5 consecutive runs of the
 
 These results show that, although we can notice a slight performance improvement in all test cases, the use of non-uniform weights do not affect much the final classification results.
 
-In the following subsections are described the experimental results for each analyzed test case using non-uniform weights. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and \emph{Precision-Recall} curves\cite{Davis:2006:RPR:1143844.1143874}. 
+In the following subsections the experimental results for each analyzed test case using non-uniform weights are described. We show results using classical \emph{Receiver Operator Characteristic (ROC)} \cite{fawcett2006introduction} and \emph{Precision-Recall} curves\cite{Davis:2006:RPR:1143844.1143874}. 
 
 \subsubsection{Performance on DSO-1 dataset}
 
@@ -254,7 +254,7 @@ In this experiment we performed a cross-dataset validation in which we trained o
 \caption{ROC curve and Precision-Recall curve for DSI-1 paired faces classification using trained data on DSO-1.}\label{fig:regiondetnormal}
 \end{figure}
 
-In the two previously considered cases, both of cross dataset classification, the differences between the two dataset compositions greatly influence the final evaluated performance. Almost all the images in the DSO-1, in fact, present similar lighting conditions. In addition, this dataset contains almost always the same people (and thus the same faces) in every picture. This fact makes the model trained using this dataset less expressive than the one trained using a more heterogeneous set of images, as in the case of DSI-1.
+In the two previously considered cases, both of cross dataset classification, the differences between the two dataset compositions greatly influences the final evaluated performance. Almost all the images in the DSO-1, in fact, present similar lighting conditions. In addition, this dataset contains almost always the same people (and thus the same faces) in every picture. This fact makes the model trained using this dataset less expressive than the one trained using a more heterogeneous set of images, as in the case of DSI-1.
 
 \subsubsection{Forgery detection performance}
 
@@ -268,7 +268,7 @@ We performed this kind of experiments using both DSO-1 and DSI-1 datasets. For e
 \item The evaluation dataset (\textbf{Test})
 \item The total number of faces detected in the images (\textbf{Faces})
 \item The true positive rate (\textbf{TPR})
-\item The classification accuracy (\textbf{ACC})
+\item The classification accuracy (\textbf{Accuracy})
 \item The classification precision (\textbf{PREC})
 \item The classification recall (\textbf{REC})
 \item The $F_1$ score (\textbf{F-Score})
@@ -280,7 +280,7 @@ Experimental results are collected in Table \ref{table:forgerydetections}.
 \centering
 \begin{tabular}{l c c c c c c c} 
 \hline \hline 
-\textbf{N.} & \textbf{Train} & \textbf{Test} & \textbf{Faces} & \textbf{PREC} & \textbf{REC} & \textbf{ACC} & \textbf{F-Score} \\ [0.5ex]
+\textbf{N.} & \textbf{Train} & \textbf{Test} & \textbf{Faces} & \textbf{PREC} & \textbf{REC} & \textbf{Accuracy} & \textbf{F-Score} \\ [0.5ex]
 \hline
 1 & DSO-1 & DSO-1 &	540 & 0.58 & 0.89 & 0.81	& 0.64\\
 2 & DSI-1 & DSI-1 &	133 & 0.56 & 0.95 & 0.75 & 0.66\\
@@ -300,16 +300,16 @@ This section describes the experiments performed to evaluate the regional forger
 
 \subsection{Creating the training set}
 
-Since the method is based on the classification of entire bands of images, in order to train the SVM classifiers were created two different training set with specific requirements:
+Since the method is based on the classification of entire bands of images, in order to train the SVM classifiers two different training set with specific requirements were created:
 \begin{itemize}
 \item Each image must have only one spliced band (either horizontal or vertical)
-\item The spliced region of the image must consist only int the whole band
+\item The spliced region of the image must consist only into the whole band
 \item The spliced region position in the image must be chosen randomly
 \end{itemize}
 
 Each image in the dataset must be shipped with its spliced band position as groundtruth (for performance evaluation).
 
-For the two new training datasets, the DSO-1 and ColorChecker datasets were used respectively as source. Each generated dataset is splitted into two subset containing only vertical or horizontal spliced bands.
+For the two new training datasets, the DSO-1 and ColorChecker datasets were used respectively as source. Each generated dataset is split into two subsets containing only vertical or horizontal spliced bands.
 
 \begin{algorithm}[!h]
 \begin{algorithmic}[1]
@@ -347,7 +347,7 @@ The pseudocode used for generating the spliced datasets is proposed in Algorithm
 \caption{Example images from the generated \emph{SplicedDSO} dataset. Left with horizontal spliced band, right with vertical.}\label{fig:spliceddsosamples}
 \end{figure}
 
-Figures \ref{fig:splicedccsamples} and \ref{fig:spliceddsosamples} show two examples of generated images from both dataset. 
+Figures \ref{fig:splicedccsamples} and \ref{fig:spliceddsosamples} show two examples of generated images from both datasets. 
 
 \subsection{Evaluating module performance}
 
@@ -365,10 +365,11 @@ $$
 \mathcal{S}_{\mathcal{N}} = \cup_{i = 1}^{m} \mathcal{S}_{\mathcal{N}_i}
 $$
 \end{enumerate}
+where $m$ is the number of images into the validation set.
 
 The two resulting sets of scores, $\mathcal{S}_{\mathcal{P}}$ and $\mathcal{S}_{\mathcal{N}}$ are used for evaluating overall module performances.
 
-The size of the evaluation dataset is limited to 25 image due the required computational time. In the classification stage (in the test cases with a training phase needed), we used an SVM classifier with an RBF kernel, and classical grid search for adjusting parameters in training samples \cite{bishop2007pattern}.
+The size of the evaluation dataset is limited to 25 images due the required computational time. In the classification stage (in the test cases with a training phase needed), we used an SVM classifier with an RBF kernel, and classical grid search for adjusting parameters in training samples \cite{bishop2007pattern}.
 
 In the training process, the images are segmented by non overlapping bands: in this way when dealing with a single image portion (a stripe) all contained pixels are original or modified. Contrary, in the evaluation process, the images are segmented by overlapping stripes. In this way each pixel in the image is classified more than once (depending on the sliding delta size). We considered a delta offset equals to $\frac{1}{4}$ of the band size, so each pixel is evaluated 8 times during all the evaluation process, 4 times as a part of horizontal bands and 4 times as a part of vertical bands.
 
@@ -402,7 +403,7 @@ In the first type of approach, no SVM model is required for classification. Let 
 $$
 D_{i, j} = D_{i, j} + \sum_{k = 1}^{5} d_i
 $$
-for all pixel of $D$ at position $(i, j)$ contained in $B$, where $d_i$ is the RGB Euclidean distance between the illuminant color of $B$ and the considered reference color.
+for all pixels of $D$ at position $(i, j)$ contained in $B$, where $d_i$ is the RGB Euclidean distance between the illuminant color of $B$ and the considered reference color.
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
@@ -434,7 +435,7 @@ Let $D$ be the \emph{detection map} and $I$ be the input image. For each extract
 $$
 D_{i, j} = D_{i, j} + Score(f_B)
 $$
-or all pixel of $D$ at position $(i, j)$ contained in $B$, where $Score(f_B)$ is the classification output score.
+or all pixels of $D$ at position $(i, j)$ contained in $B$, where $Score(f_B)$ is the classification output score.
 
 \begin{figure}[!htb]
 \minipage{0.42\textwidth}
