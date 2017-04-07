@@ -111,47 +111,43 @@ class FaceSplicingDetector:
 
             if detected:
                 print('Image is FAKE - Score: ' + str(score))
-
-                if self.display_result:
-                    orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
-                    #Display spliced faces
-                    rows, cols, _ = orig.shape
-                    outputMask = np.zeros((rows, cols), dtype=int)
-
-                    for i in fakeFaces:
-                        (x, y, w, h) = faces[i]
-                        outputMask[y:y + h, x:x + w] = 1
-
-                    regionMask = np.zeros(orig.shape, 'uint8')
-
-                    regionMask[..., 0] = outputMask.copy()
-                    regionMask[..., 1] = outputMask.copy()
-                    regionMask[..., 2] = outputMask.copy()
-                    splicedRegions = np.multiply(orig, regionMask)
-
-                    faceScores = orig.copy()
-                    idx = 0
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    for (x, y, w, h) in faces:
-                        if idx not in fakeFaces:
-                            cv2.rectangle(faceScores, (x, y), (x + w, y + h), (0, 255, 0), 8)
-                            cv2.putText(faceScores, str("{:.3f}".format(predictions[idx]/counters[i])), (x, y + h + 80), font, 1.8, (0, 255, 0), 3)
-                        else:
-                            cv2.rectangle(faceScores, (x, y), (x + w, y + h), (0, 0, 255), 8)
-                            cv2.putText(faceScores, str("{:.3f}".format(predictions[idx]/counters[i])), (x, y + h + 80), font, 1.8, (0, 0, 255), 3)
-                        idx += 1
-                    faceScores = utils.resizeImage(faceScores, 500)
-
-                    out = np.concatenate((faceScores, utils.resizeImage(splicedRegions, 500)), axis=1)
-                    cv2.imshow('output', out)
-                    cv2.waitKey(0)
-
-                # Write output mask
-                outputMask *= 255
-                cv2.imwrite(config.faceOutputDetectionImage, outputMask)
-
             else:
                 print('Image is ORIGINAL - Score: ' + str(score))
+
+
+            orig = cv2.imread(img, cv2.COLOR_BGR2GRAY)
+            #Display spliced faces
+            rows, cols, _ = orig.shape
+            outputMask = np.zeros((rows, cols))
+
+            faceScores = orig.copy()
+            idx = 0
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            for (x, y, w, h) in faces:
+                face_score = predictions[idx]/counters[i]
+                if idx not in fakeFaces:
+                    cv2.rectangle(faceScores, (x, y), (x + w, y + h), (0, 255, 0), 8)
+                    cv2.putText(faceScores, str("{:.3f}".format(face_score)), (x, y + h + 80), font, 1.8, (0, 255, 0), 3)
+                else:
+                    cv2.rectangle(faceScores, (x, y), (x + w, y + h), (0, 0, 255), 8)
+                    cv2.putText(faceScores, str("{:.3f}".format(face_score)), (x, y + h + 80), font, 1.8, (0, 0, 255), 3)
+
+                #Set score in detection map
+                outputMask[y:y + h, x:x + w] = face_score
+                idx += 1
+            faceScores = utils.resizeImage(faceScores, 500)
+
+            if self.display_result:
+                cv2.imshow('output', faceScores)
+                cv2.waitKey(0)
+
+            regionMask = np.zeros(orig.shape)
+            regionMask[..., 0] = outputMask.copy()
+            regionMask[..., 1] = outputMask.copy()
+            regionMask[..., 2] = outputMask.copy()
+            # Write output mask
+            outputMask *= 255
+            cv2.imwrite(config.faceOutputDetectionImage, outputMask)
 
             return TP, TN, FP, FN
 

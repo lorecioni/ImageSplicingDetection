@@ -120,6 +120,6 @@ regionalTrainingType = None
 referenceColorType = 'global'
 
 #The path for the generated dataset
-output_spliced_dataset_folder = '../datasets/SplicedDSO1/'
+output_spliced_dataset_folder = '../datasets/SplicedDSI1/'
 
 regionOutputDetectionImage = 'regional_detection_output.png'
