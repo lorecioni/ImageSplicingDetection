@@ -1,3 +1,12 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,15 +17,12 @@
 using namespace std;
 using namespace boost::program_options;
 
-/* NOTE: use #define SINGLE to build the single-command version! */
-
 void printVoleOnce() {
 	static bool already_printed = false;
 	if (already_printed)
 		return;
 	already_printed = true;
 
-#ifndef WITH_GERBIL_COMMON
 	cout << "\n"
 	        "          =x= vole image forensics toolkit =x=  \n"
 	        "\n"
@@ -28,27 +34,12 @@ void printVoleOnce() {
 	        "                '-'---'--'``\\__, _.-'--\"\"-.  \n"
 	        "           jgs               (.-'        ,-`    \n"
 	        "\n" << endl;
-#else
-	cout << "\n"
-			"            .s_,  ._ssaoXXXZqaa,.              \n"
-			"           _mmZmaoZXSnooooXXZmWWma.            \n"
-			"         _mQWmZZoo2ooonnnnnXZ#mWWBma.          \n"
-			"        <QWQB#ZXnnoo2onvnnnXX#mBmWWWm,.        \n"
-			"       =WWmW#ZenvnoonI|+|+{nX##WBWBWBWWga,     \n"
-			"       ???Y?\"---<vIl|i=====I3X#mWmBm###:?Wc    \n"
-			"             )nnii\"----   ---*YX##!~-   .mk    \n"
-			"              -           :iiv?!~-   . .j#~    \n"
-			"                                     _saZ!`     \n"
-			"  \x1b[1mG E R B I L\x1b[0m        -{I;_asssas%IY!!^         \n"
-			"\n" << endl;
-#endif
 }
 
-void printGeneralHelp(const char *program_name, bool withLogo, bool single) {
+void printGeneralHelp(const char *program_name, bool withLogo) {
 	if (withLogo)
 		printVoleOnce();
-	cout << "Usage: " << program_name << " [--help]" << (single ? " " : " command ");
-	cout << "[configfile] [options ...]" << endl << endl;
+	cout << "Usage: " << program_name << " [--help] command [configfile] [options ...]" << endl << endl;
 	cout << "All options can also be given in the specified config file." << endl;
 	cout << "Options given in the command line will overwrite options from the file.";
 	cout << endl << endl;
@@ -62,13 +53,12 @@ void printAvailableCommands(const vole::Modules &m) {
 	}
 }
 
-void printSpecificHelp(vole::Command *cmd, bool single) {
+void printSpecificHelp(vole::Command *cmd) {
 	cout << "--------------------------------------------------------------------------------" << endl;
 	cmd->printHelp();
 	cout << "--------------------------------------------------------------------------------" << endl;
 	cout << endl;
-	if (!single)
-		cout << "Options for " << cmd->getName() << ":" << endl;
+	cout << "Options for " << cmd->getName() << ":" << endl;
 	cout << cmd->getConfig().options;
 }
 
@@ -78,7 +68,7 @@ vole::Command* grab_command(int argc, char** argv, const vole::Modules &m) {
 		firsthelp = ((strncmp(argv[1], "--help", 6) == 0) || (strncmp(argv[1], "-H", 2) == 0));
 	// catch --help and no command at all
 	if ((argc == 1) || ((argc == 2) && firsthelp)) {
-		printGeneralHelp(argv[0], true, false);
+		printGeneralHelp(argv[0], true);
 		printAvailableCommands(m);
 		return NULL;
 	}
@@ -97,7 +87,7 @@ vole::Command* grab_command(int argc, char** argv, const vole::Modules &m) {
 	return cmd;
 }
 
-bool parse_opts(int argc, char** argv, vole::Command *cmd, bool single) {
+bool parse_opts(int argc, char** argv, vole::Command *cmd) {
 	string configfile, placeholder;
 	string command = cmd->getName();
 	vole::Config& config = cmd->getConfig();
@@ -113,11 +103,9 @@ bool parse_opts(int argc, char** argv, vole::Command *cmd, bool single) {
 			("help,H", "Give help (on command)")
 			("configfile", value(&configfile)->default_value(""), "configuration file")
 		;
-		if (!single) { // needed such that given command does not confuse parser 
-			cmdline.add_options()
-				("command", value(&placeholder)->default_value(""), "command to execute");
-			p.add("command", 1);
-		}
+		cmdline.add_options()
+			("command", value(&placeholder)->default_value(""), "command to execute");
+		p.add("command", 1);
 		p.add("configfile", 1);
 
 		// parse commandline
@@ -127,8 +115,7 @@ bool parse_opts(int argc, char** argv, vole::Command *cmd, bool single) {
 		notify(vm);
 
 		if (vm.count("help")) {
-//			printGeneralHelp(argv[0], config.verbosity > 0, single);
-			printSpecificHelp(cmd, single);
+			printSpecificHelp(cmd);
 			return false;
 		}
 
@@ -149,15 +136,10 @@ bool parse_opts(int argc, char** argv, vole::Command *cmd, bool single) {
 }
 
 int main(int argc, char *argv[]) {
-#ifdef SINGLE
-	bool single = true;
-#else
-	bool single = false;
-#endif
 	vole::Modules m;
 	assert(!m.empty());
-	vole::Command *c = (single ? m.begin()->second : grab_command(argc, argv, m));
-	if (!c || !parse_opts(argc, argv, c, single)) return 1;
+	vole::Command *c = grab_command(argc, argv, m);
+	if (!c || !parse_opts(argc, argv, c)) return 1;
 	if (c->getConfig().verbosity > 0)
 		printVoleOnce();
 	return c->execute();	// all command destructors are called here

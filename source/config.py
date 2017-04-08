@@ -37,7 +37,7 @@ temp_folder = 'temp/'
 ILLUMINANT MAPS EXTRACTION
 ----------------------------
 '''
-voleBinary= 'illuminants/build/bin/./vole'
+voleBinary= 'illuminants/build/./vole'
 
 #Segmentation parameters
 max_intensity = 0.98823529411764705882
@@ -64,7 +64,7 @@ forceMapsExtraction = False
 ### Descriptors ###
 
 #Image converting tool
-# ImageMagick 6.8.9-0 Q16 x86_64 2014-08-02 http://www.imagemagick.org
+# ImageMagick http://www.imagemagick.org
 convertBinary = '/opt/local/bin/convert'
 
 ''' 

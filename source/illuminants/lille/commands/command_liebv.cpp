@@ -1,9 +1,18 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #include "command_liebv.h"
 #include "img_read.h"
 #include "superpixelsegmentation.h"
 #include "paint_superpixel.h"
 #include "illuminantestimator.h"
-#include "iic/estimator/iebv.h"
+#include "iic/iebv.h"
 
 #include <opencv2/highgui/highgui.hpp>
 

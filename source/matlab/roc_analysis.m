@@ -1,38 +1,55 @@
-function [pd,fa,th,acc,acc2,auc] = roc_analysis(data1,data0)
-%% ROC building varying threshold
-%% INPUT:
-%   data1: data from negative class;
-%   data0: data from positive class;
 
-th = sort([data1;data0]);
-l = length(th);
-ss = length(data1);
-sf = length(data0);
+images_path = 'data';
+pattern = 'splicing-';
+folders = dir(images_path);
+i = 1;
 
-TP = zeros(l,1);
-TN = zeros(l,1);
-pd = zeros(l,1);
-fa = zeros(l,1);
-acc = zeros(l,1);
-acc2 = zeros(l,1);
-
-for i = 1:l
-    TP(i) = sum(data0<th(i));
-    pd(i) = TP(i)/sf;
-    TN(i) = sum(data1 >= th(i));
-    fa(i) = 1 - (TN(i))/ss;
-    acc(i) = (TP(i) + TN(i))/(ss+sf);
-    acc2(i) = (pd(i) + (1-fa(i)))/2;
-end
+positive = zeros(0);
+negative = zeros(0);
+count = 0;
+while i <= size(folders, 1)
+    f = folders(i);
+    if(~strcmp(f.name, '.') && ~strcmp(f.name, '..') ...
+            && ~f.isdir && strncmpi(f.name, pattern, length(pattern)) ...
+            && length(strfind(f.name,'svm')) == 0)
+        
+        image = [images_path, '/', f.name]; 
+        disp(image);
+        data = load(image);
+        positive = horzcat(positive, data.positive);
+        negative = horzcat(negative, data.negative);
+        
+        
+        
+        count = count + 1;
+    end
+    i=i+1;
     
-% pd(1)=0;
-cc = rand(3,1);
-%figure
-plot(fa,pd,'LineWidth',1.2,'Color',cc,'Marker','*','MarkerSize',3)
-axis square
-title('ROC')
-xlabel('PFA')
-ylabel('PD')
-
-auc = trapz(fa,pd);
+    %if count == 1
+        %break;
+    %end
 end
+
+
+
+Labels = [zeros(1, length(negative)) ones(1, length(positive))];
+Scores = [negative positive];
+
+%Curva ROC
+plotroc(Labels,Scores)
+
+        %Recupero valore di soglia ottimale
+        [X,Y,T,AUC,OPTROCPT] = perfcurve(Labels,Scores,1);
+        ACC = ((1-X)+Y)/2;
+        %Calcolo accuracy (M)
+        [M idx] = max(ACC);
+        fprintf('\tAccuracy: %f\n', M);
+        %Valore di soglia
+        Th = T(idx);
+        fprintf('\tThreshold: %f\n', Th);
+
+%Labels ottenute (0 e 1)
+%Labels=[zeros(100,1)' ones(100,1)'];
+%Scores relativi (valori ottenuti)
+%Score =[rand(100,1)' 10*rand(100,1)'];
+

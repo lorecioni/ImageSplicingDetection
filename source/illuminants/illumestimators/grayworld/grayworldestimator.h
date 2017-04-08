@@ -1,3 +1,12 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #ifndef ILLUMESTIMATORS_GRAYWORLD_GRAYWORLDESTIMATOR_H
 #define ILLUMESTIMATORS_GRAYWORLD_GRAYWORLDESTIMATOR_H
 
@@ -57,12 +66,6 @@ public:
 	Illum estimateIlluminant(const cv::Mat_<cv::Vec3d>& image, const cv::Mat_<unsigned char>& mask) const;
 	Illum estimateIlluminant(const cv::Mat_<cv::Vec3d>& image, const superpixels::Superpixel &superpixel, const cv::Mat_<unsigned char>& mask) const;
 
-public:
-	bool train(const std::vector<std::string>& imageFiles, const std::vector<std::string>& colorspaces, const std::vector<cv::Vec3d>& illuminants, const std::vector<std::string>& maskFiles);
-
-public:
-	bool save(const std::string& filename) const;
-	bool load(const std::string& filename);
 	virtual int error();
 
 	/** Run preprocessing on the input image data.

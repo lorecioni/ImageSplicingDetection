@@ -1,6 +1,16 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #include "mask.h"
 #include <math.h>
 #include <algorithm>
+#include <iostream>
 
 namespace illumestimators {
 
@@ -164,12 +174,6 @@ void Mask::maskBorderPixels(const cv::Mat_<cv::Vec3d>& image, cv::Mat_<unsigned 
 cv::Mat_<unsigned char> Mask::fromSuperpixel(const cv::Mat_<cv::Vec3d>& image, const superpixels::Superpixel& superpixel, bool maskSuperpixel)
 {
 	cv::Mat_<unsigned char> mask;// (image.rows, image.cols);
-
-//	if ((mask.rows != image.rows) || (mask.cols != image.cols)) {
-//		std::cerr << "Image and mask size mismatch!" << std::endl;
-//
-//		return mask;
-//	}
 
 	if (maskSuperpixel) {
 		mask = cv::Mat_<unsigned char>(image.rows, image.cols, (unsigned char)0);

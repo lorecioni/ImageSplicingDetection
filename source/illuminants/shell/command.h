@@ -1,3 +1,12 @@
+/*	
+	Copyright(c) 2012 Christian Riess <christian.riess@cs.fau.de>
+	and Johannes Jordan <johannes.jordan@cs.fau.de>.
+
+	This file may be licensed under the terms of of the GNU General Public
+	License, version 3, as published by the Free Software Foundation. You can
+	find it here: http://www.gnu.org/licenses/gpl.html
+*/
+
 #ifndef COMMAND_H
 #define COMMAND_H
 
@@ -5,7 +14,6 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 #include "config.h"
-#include "progress_observer.h"
 
 namespace vole {
 
@@ -25,7 +33,6 @@ public:
 	virtual const std::string& getContributorMail() const { return contributor_mail; }
 	virtual Config& getConfig() { return abstract_config; }
 	virtual int execute() = 0;
-	virtual std::map<std::string, boost::any> execute(std::map<std::string, boost::any> &input, ProgressObserver *progress = NULL) { /*dummy*/ assert(false); std::map<std::string, boost::any> a; return a; }
 	virtual void printShortHelp() const = 0;
 	virtual void printHelp() const = 0;
 
