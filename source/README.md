@@ -39,3 +39,17 @@ Before you can build this project, you must install and configure the following 
 ```
 git clone https://github.com/lorecioni/ImageSplicingDetection.git
 ```
+
+1. Compile illuminant maps extraction code. Instructions can be found in the **illuminants** directory.
+
+1. Compile each image color descriptors. For each folder contained in **descriptors**:
+
+    1. Move into the descriptor **source** folder: ``` cd source```
+    1.  ``` make clean```
+    1.  ``` make```
+    1.  ``` cd app```
+    1.  ``` make [desc]_extraction``` where [desc] is the current descriptor name (e.g. ``` make acc_extraction```)
+
+1. Setting up correct configurations
+    1. Check that the the *config.txt* path (can be found in *illuminants/config.txt*) is correct in *config.py* property **config_iic**
+    1. Set the *convert* binary of * ImageMagick* in *config.py* property *convertBinary*
