@@ -53,3 +53,18 @@ git clone https://github.com/lorecioni/ImageSplicingDetection.git
 1. Setting up correct configurations
     1. Check that the the *config.txt* path (can be found in *illuminants/config.txt*) is correct in *config.py* property **config_iic**
     1. Set the *convert* binary of * ImageMagick* in *config.py* property *convertBinary*
+
+##Running
+
+Run the algorithm with **main.py** script passing arguments.
+
+* **--face-detector** use the face detector module
+* **--region-detector** use the region detector module
+* **--detect** run forgery detection over an image
+* **--train** train a selected detector
+* **--evaluate** evaluate a trained detector over a validation set
+* **--img** the path of the input image (required for detection)
+* **--display-result** display resulting images
+* **--verbose** print some additional running information
+
+###Examples

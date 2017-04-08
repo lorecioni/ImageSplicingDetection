@@ -85,12 +85,7 @@ def extractIICMap(img, segmentedImg, verbose):
     if not os.path.isfile(outfile) or config.forceMapsExtraction:
         if verbose:
             print('Extracting IIC map...')
-        filename = img.split('/')
-        filename = filename[len(filename) - 1]
-        if not config.use_riess_default:
-            command = config.voleBinary + " liebv --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --iebv_config " + config.config_iic
-        else:
-            command = config.voleBinary + " liebv --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --iebv_config illuminants_riess/lille/config/config_iebv_lenient.txt"
+        command = config.voleBinary + " liebv --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --iebv_config " + config.config_iic
         subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
         if verbose:
             print('IIC map extracted')
