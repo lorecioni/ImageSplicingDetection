@@ -2,16 +2,16 @@
 
 This README file presents some notes about source code structure, compilation and execution.
 
-##Project structure
+## Project structure
 
-###Folders
+### Folders
 
 * **data**: the data folder, where trained models are stored
 * **descriptors**: the set of used image color descriptors (*written in C/C++*)
 * **illuminants**: the illuminant maps extraction algorithms (*written in C++*)
 * **matlab**: the Matlab scripts (for evaluating performances)
 
-###Scripts
+### Scripts
 
 * **classification.py**: a library wrapper for classification (kNN)
 * **config.py**: the configuration file
@@ -25,7 +25,7 @@ This README file presents some notes about source code structure, compilation an
 * **utils.py**: a set of utilities
 * **main.py**: the entry script
 
-##Installation
+## Installation
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
 
@@ -33,7 +33,7 @@ Before you can build this project, you must install and configure the following 
 * **[Python 3](https://www.python.org/downloads/)**: linked with OpenCV (*cv2 module*)
 * **[ImageMagick](https://www.imagemagick.org/script/index.php)**: tested with >= 6.0.3
 
-###Getting started
+### Getting started
 
 1. Clone the git repository
 ```
@@ -54,7 +54,7 @@ git clone https://github.com/lorecioni/ImageSplicingDetection.git
     1. Check that the the *config.txt* path (can be found in *illuminants/config.txt*) is correct in *config.py* property **config_iic**
     1. Set the *convert* binary of * ImageMagick* in *config.py* property *convertBinary*
 
-##Running
+## Running
 
 Run the algorithm with **main.py** script passing arguments.
 
@@ -67,4 +67,4 @@ Run the algorithm with **main.py** script passing arguments.
 * **--display-result** display resulting images
 * **--verbose** print some additional running information
 
-###Examples
+### Examples
