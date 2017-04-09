@@ -52,7 +52,7 @@ git clone https://github.com/lorecioni/ImageSplicingDetection.git
 
 1. Setting up correct configurations
     1. Check that the the *config.txt* path (can be found in *illuminants/config.txt*) is correct in *config.py* property **config_iic**
-    1. Set the *convert* binary of * ImageMagick* in *config.py* property *convertBinary*
+    1. Set the *convert* binary of *ImageMagick* in *config.py* property *convertBinary*
 
 ## Running
 
@@ -68,3 +68,19 @@ Run the algorithm with **main.py** script passing arguments.
 * **--verbose** print some additional running information
 
 ### Examples
+
+#### Face forgery detection
+
+Detect forgeries over human faces in the image using the face splicing detection module. Display the results in a visual way.
+
+```
+python3 main.py --face-detector --detect --img data/sample.png --display-result
+```
+
+#### Regional forgery detection
+
+Detect forgeries in the image using the face splicing detection module. Display the results in a visual way.
+
+```
+python3 main.py --region-detector --detect --img data/sample.png --display-result
+```
