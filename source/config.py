@@ -73,7 +73,7 @@ FACE DETECTION CONFIGURATION
 ----------------------------
 '''
 
-faceMinSize = (120, 150)
+faceMinSize = (100, 120)
 inverseFacePosition = True
 positiveLabel = 'NORMAL'
 negativeLabel = 'FAKE'

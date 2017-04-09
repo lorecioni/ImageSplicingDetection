@@ -143,11 +143,11 @@ class FaceSplicingDetector:
                 #Set score in detection map
                 outputMask[y:y + h, x:x + w] = face_score
                 idx += 1
-            faceScores = utils.resizeImage(faceScores, 500)
+            faceScores = utils.resizeImage(faceScores, 1000)
 
             if self.display_result:
                 cv2.imshow('output', faceScores)
-                cv2.waitKey(0)
+                cv2.waitKey()
 
             regionMask = np.zeros(orig.shape)
             regionMask[..., 0] = outputMask.copy()
