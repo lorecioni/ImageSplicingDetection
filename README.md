@@ -2,7 +2,7 @@
 
 A illuminant inconsistencies-based method for detecting image splicing. Master thesis project on illuminant maps analysis.
 
-##Project structure
+## Project structure
 
 * **articles**: a set of references
 * **docs**: the thesis documentations and reviews
