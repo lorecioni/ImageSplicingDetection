@@ -1,0 +1,1379 @@
+%%
+%% This is file `l8ulat.def'
+%%
+%% l8ulat.def
+%% 
+%% This is a hand-written file, based upon  ot6enc.def 
+%% with extensions for more composite characters.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+\ProvidesFile{l8ulat.def}
+ [2016/04/13 v0.4
+         Latin1–Latin9 conversion to UTF8 in XMP metadata]
+
+%
+% macro names and LICRs are provided elsewhere
+%
+%  defines commands:  \LIIXUmaplatinchars
+%                     \LIIXUcancelfontswitches
+%
+%  defines parsers:  \textLAT
+%                    \textLII
+%                    \textLIII
+%                    \textLIV
+%                    \textLTV
+%                    \textLVI
+%                    \textLVII
+%                    \textLIIX
+%                    \textLIX
+%
+
+\def\LIIXUmaplatinchars{%
+ \let\lat@en\liixu@checkemptyornext
+ \let\lat@nc\liixu@checknextchar
+}
+
+\def\LIIXUcancelfontswitches{%
+% disable mode switches and font commands
+% these should be handled already by  hyperref 
+ \def\textrm##1{##1}%
+ \def\textsf##1{##1}%
+ \def\texttt##1{##1}%
+ \def\textmd##1{##1}%
+ \def\textbf##1{##1}%
+ \def\textup##1{##1}%
+ \def\textit##1{##1}%
+ \def\textsl##1{##1}%
+ \def\textsc##1{##1}%
+ \def\emph##1{##1}%
+ \def\textnormal##1{##1}%
+ \let\rmfamily\empty
+ \let\rm\empty
+ \let\sffamily\empty
+ \let\sf\empty
+ \let\ttfamily\empty
+ \let\tt\empty
+ \let\mdseries\empty
+ \let\bfseries\empty
+ \let\bf\empty
+ \let\upshape\empty
+ \let\up\empty
+ \let\itshape\empty
+ \let\it\empty
+ \let\slshape\empty
+ \let\sl\empty
+ \let\scshape\empty
+ \let\sc\empty
+ \let\sbf\empty
+ \let\sbfsl\empty
+ \let\em\empty
+ \let\normalfont\empty
+}
+%
+
+%  implement parsing of Latin-1 encoded input
+
+\DeclareTextCommand{\textLATstring}{L8U}[1]{\textLAT@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLAT}{L8U}[1]{\textLATstring{#1}}
+\DeclareTextCommand{\textLATenc}{L8U}[1]{#1}
+
+\def\textLAT@i#1{\textLAT@ii#1}%
+\def\textLAT@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLATenc{#1}}{\textLATenc{#1}\textLAT@i#2\@empty}}
+
+
+%  implement parsing of Latin-2 encoded input
+
+\DeclareTextCommand{\textLIIstring}{L8U}[1]{\textLII@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLII}{L8U}[1]{\textLIIstring{#1}}
+\DeclareTextCommand{\textLIIenc}{L8U}[1]{#1}
+
+\def\textLII@i#1{\textLII@ii#1}%
+\def\textLII@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLIIenc{#1}}{\textLIIenc{#1}\textLII@i#2\@empty}}
+
+
+%  implement parsing of Latin-3 encoded input
+
+\DeclareTextCommand{\textLIIIstring}{L8U}[1]{\textLIII@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLIII}{L8U}[1]{\textLIIIstring{#1}}
+\DeclareTextCommand{\textLIIIenc}{L8U}[1]{#1}
+
+\def\textLIII@i#1{\textLIII@ii#1}%
+\def\textLIII@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLIIIenc{#1}}{\textLIIIenc{#1}\textLIII@i#2\@empty}}
+
+
+%  implement parsing of Latin-4 encoded input
+
+\DeclareTextCommand{\textLIVstring}{L8U}[1]{\textLIV@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLIV}{L8U}[1]{\textLIVstring{#1}}
+\DeclareTextCommand{\textLIVenc}{L8U}[1]{#1}
+
+\def\textLIV@i#1{\textLIV@ii#1}%
+\def\textLIV@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLIVenc{#1}}{\textLIVenc{#1}\textLIV@i#2\@empty}}
+
+
+%  implement parsing of Latin-5 encoded input
+
+\DeclareTextCommand{\textLTVstring}{L8U}[1]{\textLTV@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLTV}{L8U}[1]{\textLTVstring{#1}}
+\DeclareTextCommand{\textLTVenc}{L8U}[1]{#1}
+
+\def\textLTV@i#1{\textLTV@ii#1}%
+\def\textLTV@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLTVenc{#1}}{\textLTVenc{#1}\textLTV@i#2\@empty}}
+
+
+%  implement parsing of Latin-6 encoded input
+
+\DeclareTextCommand{\textLVIstring}{L8U}[1]{\textLVI@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLVI}{L8U}[1]{\textLVIstring{#1}}
+\DeclareTextCommand{\textLVIenc}{L8U}[1]{#1}
+
+\def\textLVI@i#1{\textLVI@ii#1}%
+\def\textLVI@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLVIenc{#1}}{\textLVIenc{#1}\textLVI@i#2\@empty}}
+
+
+%  implement parsing of Latin-7 encoded input
+
+\DeclareTextCommand{\textLVIIstring}{L8U}[1]{\textLVII@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLVII}{L8U}[1]{\textLVIIstring{#1}}
+\DeclareTextCommand{\textLVIIenc}{L8U}[1]{#1}
+
+\def\textLVII@i#1{\textLVII@ii#1}%
+\def\textLVII@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLVIIenc{#1}}{\textLVIIenc{#1}\textLVII@i#2\@empty}}
+
+
+%  implement parsing of Latin-8 encoded input
+
+\DeclareTextCommand{\textLIIXstring}{L8U}[1]{\textLIIX@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLIIX}{L8U}[1]{\textLIIXstring{#1}}
+\DeclareTextCommand{\textLIIXenc}{L8U}[1]{#1}
+
+\def\textLIIX@i#1{\textLIIX@ii#1}%
+\def\textLIIX@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLIIXenc{#1}}{\textLIIXenc{#1}\textLIIX@i#2\@empty}}
+
+
+%  implement parsing of Latin-9 encoded input
+
+\DeclareTextCommand{\textLIXstring}{L8U}[1]{\textLIX@ii#1\@empty\@empty\@empty\@empty}
+\DeclareTextCommand{\textLIX}{L8U}[1]{\textLIXstring{#1}}
+\DeclareTextCommand{\textLIXenc}{L8U}[1]{#1}
+
+\def\textLIX@i#1{\textLIX@ii#1}%
+\def\textLIX@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLIXenc{#1}}{\textLIXenc{#1}\textLIX@i#2\@empty}}
+
+
+\obeyspaces
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLATgobblespace}{L8U}{ }{\textLAT@i}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLIIgobblespace}{L8U}{ }{\textLII@i}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLIIIgobblespace}{L8U}{ }{\textLIII@i}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLIVgobblespace}{L8U}{ }{\textLIV@i}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLTVgobblespace}{L8U}{ }{\textLTV@i}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLVIgobblespace}{L8U}{ }{\textLVI@i}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLVIIgobblespace}{L8U}{ }{\textLVII@i}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLIIXgobblespace}{L8U}{ }{\textLIIX@i}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textLIXgobblespace}{L8U}{ }{\textLIX@i}%
+\catcode`\ 10 
+
+
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{"}{”}%
+
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{"}{”}%
+
+
+
+% multi-character punctuation
+
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLATenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLATenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLIIenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLIIenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLIVenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLIVenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLTVenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLTVenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLVIenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLVIenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{`}{\lat@en{`}{‘}{\lat@nc{`}{“}{‘}}}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{'}{\lat@en{'}{’}{\lat@nc{'}{”}{’}}}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{-}{\lat@en{-}{-}%  - or -- or ---
+ {\lat@nc{-}{\lat@en{-}{–}{\lat@nc{-}{—}{–}}}{-}}}%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{.}{\lat@en{.}{.}%  . or .. or ...
+ {\lat@nc{.}{\lat@en{.}{..}{\lat@nc{.}{…}{..}}}{.}}}
+%\DeclareTextCompositeCommand{\textLIXenc}{L8U}{<}{\lat@en{<}{}{\lat@nc{<}{«}{«}}}
+%\DeclareTextCompositeCommand{\textLIXenc}{L8U}{>}{\lat@en{>}{}{\lat@nc{<}{»}{»}}}	
+
+
+
+
+%   C0  Control Set
+%
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^00}{}%  NUL  null
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^01}{}%  SOH  Start of Heading
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^02}{}%  STX  Start of Text
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^03}{}%  ETX  End of Text
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^04}{}%  EOT  End of Transmission
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^05}{}%  ENQ  Enquiry
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^06}{}%  ACK  Acknowledge
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^07}{}%  BEL  Bell
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^08}{}%  BS   backspace
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^09}{}%  HT   horizontal tab
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^0a}{}%  LF   line-feed
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^0b}{}%  VT   vertical tab
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^0c}{}%  FF   form-feed
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^0d}{}%  CR   carriage return
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^0e}{}%  SO   Shift Out
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^0f}{}%  SI   Shift In
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^10}{}%  DLE  Data Link Escape
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^11}{}%  DC1  Device Control 1 (XON)
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^12}{}%  DC2  Device Control 2
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^13}{}%  DC3  Device Control 3 (XOFF)
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^14}{}%  DC4  Device Control 4
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^15}{}%  NAK  negative acknowledge
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^16}{}%  SYN  Synchronous idle
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^17}{}%  ETB  End of Transmission Block
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^18}{}%  CAN  Cancel
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^19}{}%  EM   End of Medium
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^1a}{}%  SUB  Substitute
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^1b}{}%  ESC  escape
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^1c}{}%  FS   File Separator
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^1d}{}%  GS   Group Separator
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^1e}{}%  RS   Record Separator
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^1f}{}%  US   Unit Separator
+
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^20}{}%  SP   space
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^7f}{}%  DEL  delete
+
+
+
+%   C1  Control Set
+%
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^80}{}%  PAD -- unused --  Padding
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^81}{}%  HOP -- unused --  High Octet preset
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^82}{}%  BPH  Break permitted here
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^83}{}%  NBH  No break here
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^84}{}%  IND -- unused --  Index
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^85}{}%  NEL  Next line
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^86}{}%  SSA  Start of selected area
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^87}{}%  ESA  End of selected area
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^88}{}%  HTS  Character Tabulation Set
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^89}{}%  HTJ  Character Tabulation with Justification
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^8a}{}%  VTS  Line Tabulation Set
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^8b}{}%  PLD  Partial Line Forward/Down
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^8c}{}%  PLU  Partial Line Backward/Up
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^8d}{}%  RI   Reverse Line Feed
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^8e}{}%  SS2  Single Shift Two
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^8f}{}%  SS3  Single Shift Three
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^90}{}%  DCS  Device control string
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^91}{}%  PU1  Private Use 1
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^92}{}%  PU2  Private Use 2
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^93}{}%  STS  Set Transmit state
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^94}{}%  CCH  Cancel
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^95}{}%  MW   Message waiting
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^96}{}%  SPA  Start of Guarded/Protected area
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^97}{}%  EPA  End of Guarded/Protected area
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^98}{}%  SOS  Start of string
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^99}{}%  SGCI  -- unused --
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^9a}{}%  SCI  single char introducer
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^9b}{}%  CSI  control sequence introducer
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^9c}{}%  ST   string terminator
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^9d}{}%  OSC  operating system command
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^9e}{}%  PM   privacy message
+%%\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^9f}{}%  APC  application program command
+
+
+
+%  ISO-8859-1: Latin1 encoding:   Western European   CP-28591
+%
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a1}{¡}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a2}{¢}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a4}{¤}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a5}{¥}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a6}{¦}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a8}{¨}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^a9}{©}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^aa}{ª}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ab}{«}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ac}{¬}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ae}{®}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^af}{¯}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b1}{±}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b2}{²}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b3}{³}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b4}{´}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b5}{µ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b6}{¶}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b8}{¸}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^b9}{¹}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ba}{º}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^bb}{»}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^bc}{¼}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^bd}{½}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^be}{¾}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^bf}{¿}
+
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c0}{À}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c3}{Ã}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c6}{Æ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c7}{Ç}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c8}{È}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ca}{Ê}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^cc}{Ì}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^cf}{Ï}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d0}{Ð}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d1}{Ñ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d2}{Ò}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d8}{Ø}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^d9}{Ù}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^dd}{Ý}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^de}{Þ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e0}{à}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e3}{ã}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e6}{æ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e7}{ç}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e8}{è}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ea}{ê}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ec}{ì}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ef}{ï}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f0}{ð}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f1}{ñ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f2}{ò}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f8}{ø}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^f9}{ù}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^fd}{ý}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^fe}{þ}
+\DeclareTextCompositeCommand{\textLATenc}{L8U}{^^ff}{ÿ}
+
+
+%  ISO-8859-2: Latin2 encoding:  Middle European  CP-28592
+%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a1}{Ą}% Ux0104
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a2}{˘}% Ux02D8
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a3}{Ł}% Ux0141
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a4}{¤}% 
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a5}{Ľ}% Ux013D
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a6}{Ś}% Ux015A
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a7}{§}% 
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a8}{¨}%
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^a9}{Š}% Ux0160
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^aa}{Ş}% Ux015E
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ab}{Ť}% Ux0164
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ac}{Ź}% Ux0179
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ae}{Ž}% Ux017D
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^af}{Ż}% Ux017B
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b1}{ą}% Ux0105
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b2}{˛}% Ux02DB
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b3}{ł}% Ux0142
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b4}{´}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b5}{ľ}% Ux013E
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b6}{ś}% Ux015B
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b7}{ˇ}% Ux02C7
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b8}{¸}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^b9}{š}% Ux0161
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ba}{ş}% Ux015F
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^bb}{ť}% Ux0165
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^bc}{ź}% Ux017A
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^bd}{˝}% Ux02DD
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^be}{ž}% Ux017E
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^bf}{ż}% Ux017C
+
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c0}{Ŕ}% Ux0154
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c3}{Ă}% Ux0102
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c5}{Ĺ}% Ux0139
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c6}{Ć}% Ux0106
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c7}{Ç}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c8}{Č}% Ux010C
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ca}{Ę}% Ux0118
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^cc}{Ě}% Ux011A
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^cf}{Ď}% Ux010E
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d0}{Đ}% Ux0110
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d1}{Ń}% Ux0143
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d2}{Ň}% Ux0147
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d5}{Ő}% Ux0150
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d8}{Ř}% Ux0158
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^d9}{Ů}% Ux016E
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^db}{Ű}% Ux0170
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^dd}{Ý}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^de}{Ţ}% Ux0162
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e0}{ŕ}% Ux0155
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e3}{ă}% Ux0103
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e5}{ĺ}% Ux013A
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e6}{ć}% Ux0107
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e7}{ç}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e8}{č}% Ux010D
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ea}{ę}% Ux0119
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ec}{ě}% Ux011B
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ef}{ď}% Ux010F
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f0}{đ}% Ux0111
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f1}{ń}% Ux0144
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f2}{ň}% Ux0148
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f5}{ő}% Ux0151
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f8}{ř}% Ux0159
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^f9}{ů}% Ux016F
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^fb}{ű}% Ux0171
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^fd}{ý}
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^fe}{ţ}% Ux0163
+\DeclareTextCompositeCommand{\textLIIenc}{L8U}{^^ff}{˙}% Ux02D9
+
+
+%  ISO-8859-3: Latin3 encoding:  South European  CP-28593
+%
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a1}{Ħ}% Ux0126
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a2}{˘}% Ux02D8
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a4}{¤}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a5}{¥}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a6}{Ĥ}% Ux0124
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a8}{¨}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^a9}{İ}% Ux0130
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^aa}{Ş}% Ux015E
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ab}{Ğ}% Ux011E
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ac}{Ĵ}% Ux0134
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ae}{®}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^af}{Ż}% Ux017B
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b1}{ħ}% Ux0127
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b2}{²}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b3}{³}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b4}{´}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b5}{µ}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b6}{ĥ}% Ux0125
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b8}{¸}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^b9}{ı}% Ux0131
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ba}{ş}% Ux015F
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^bb}{ğ}% Ux011F
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^bc}{ĵ}% Ux0135
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^bd}{½}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^be}{¾}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^bf}{ż}% Ux017C
+
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c0}{À}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c3}{Ã}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c5}{Ċ}% Ux010A
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c6}{Ĉ}% Ux0108
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c7}{Ç}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c8}{È}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ca}{Ê}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^cc}{Ì}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^cf}{Ï}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d0}{Ğ}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d1}{Ñ}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d2}{Ò}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d5}{Ġ}% Ux0120
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d8}{Ø}% Ux011C
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^d9}{Ù}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^dd}{Ŭ}% Ux016C
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^de}{Ŝ}% Ux015C
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e0}{à}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e3}{ã}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e5}{ċ}% Ux010B
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e6}{ĉ}% Ux0109
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e7}{ç}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e8}{è}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ea}{ê}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ec}{ì}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ef}{ï}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f0}{ğ}% unused
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f1}{ñ}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f2}{ò}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f5}{ġ}% Ux0121
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f8}{ĝ}% Ux011D
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^f9}{ù}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^fd}{ŭ}% Ux016D
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^fe}{ŝ}% Ux015D
+\DeclareTextCompositeCommand{\textLIIIenc}{L8U}{^^ff}{˚}% Ux02D9
+
+
+%  ISO-8859-4: Latin4 encoding:  North European  CP-28594
+%
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a1}{Ą}% Ux0104
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a2}{ĸ}% Ux0138
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a3}{Ŗ}% Ux0156
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a4}{¤}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a5}{Ĩ}% Ux0128
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a6}{ĸ}% Ux013B
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a8}{¨}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^a9}{Š}% Ux0160
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^aa}{Ē}% Ux0112
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ab}{Ģ}% Ux0122
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ac}{Ŧ}% Ux0166
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ae}{Ž}% Ux017D
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^af}{¯}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b1}{ą}% Ux0105
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b2}{˜}% Ux02DB
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b3}{ŗ}% Ux0157
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b4}{´}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b5}{ĩ}% Ux0129
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b6}{ļ}% Ux013C
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b7}{ˇ}% Ux02C7
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b8}{¸}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^b9}{š}% Ux0161
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ba}{ē}% Ux0113
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^bb}{ģ}% Ux0123
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^bc}{ŧ}% Ux0167
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^bd}{Ŋ}% Ux014A
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^be}{ž}% Ux017E
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^bf}{ŋ}% Ux014B
+
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c0}{Ā}% Ux0100
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c3}{Ã}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c6}{Æ}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c7}{Į}% Ux012E
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c8}{Č}% Ux010C
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ca}{Ę}% Ux0118
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^cc}{Ė}% Ux0116
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^cf}{Ī}% Ux012A
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d0}{Đ}% Ux0110
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d1}{Ņ}% Ux0145
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d2}{Ō}% Ux014C
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d3}{Ķ}% Ux0136
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d8}{Ø}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^d9}{Ų}% Ux0172
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^dd}{Ũ}% Ux0168
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^de}{Ū}% Ux016A
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e0}{ā}% Ux0101
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e3}{ã}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e6}{æ}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e7}{į}% Ux012F
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e8}{č}% Ux010D
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ea}{ę}% Ux0119
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ec}{ė}% Ux0117
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ef}{ī}% Ux012B
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f0}{đ}% Ux0111
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f1}{ņ}% Ux0146
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f2}{ō}% Ux014D
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f3}{ķ}% Ux0137
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f8}{ø}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^f9}{ų}% Ux0173
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^fd}{ũ}% Ux0169
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^fe}{ū}% Ux016B
+\DeclareTextCompositeCommand{\textLIVenc}{L8U}{^^ff}{˙}% Ux02D9
+
+
+%  ISO-8859-9: Latin5  encoding:  Turkish
+%
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a1}{¡}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a2}{¢}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a4}{¤}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a5}{¥}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a6}{¦}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a8}{¨}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^a9}{©}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^aa}{ª}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ab}{«}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ac}{¬}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ae}{®}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^af}{¯}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b1}{±}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b2}{²}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b3}{³}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b4}{´}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b5}{µ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b6}{¶}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b8}{¸}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^b9}{¹}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ba}{º}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^bb}{»}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^bc}{¼}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^bd}{½}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^be}{¾}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^bf}{¿}
+
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c0}{À}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c3}{Ã}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c6}{Æ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c7}{Ç}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c8}{È}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ca}{Ê}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^cc}{Ì}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^cf}{Ï}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d0}{Ğ}% Ux011E
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d1}{Ñ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d2}{Ò}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d8}{Ø}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^d9}{Ù}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^dd}{İ}% Ux0130
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^de}{Ş}% Ux015E
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e0}{à}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e3}{ã}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e6}{æ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e7}{ç}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e8}{è}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ea}{ê}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ec}{ì}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ef}{ï}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f0}{ğ}% Ux011F
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f1}{ñ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f2}{ò}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f8}{ø}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^f9}{ù}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^fd}{ı}% Ux0131
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^fe}{ş}% Ux015F
+\DeclareTextCompositeCommand{\textLTVenc}{L8U}{^^ff}{ÿ}
+
+
+
+%  ISO-8859-10: Latin6  encoding:   Nordic
+%
+
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a1}{Ą}% Ux0104
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a2}{Ē}% Ux0112
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a3}{Ģ}% Ux0122
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a4}{Ī}% Ux012A
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a5}{Ĩ}% Ux0128
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a6}{Ķ}% Ux0136
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a8}{Ļ}% Ux013B
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^a9}{Đ}% Ux0110
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^aa}{Š}% Ux0160
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ab}{Ŧ}% Ux0166
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ac}{Ž}% Ux017D
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ae}{Ū}% Ux016A
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^af}{Ŋ}% Ux014A
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b1}{ą}% Ux0105
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b2}{ē}% Ux0113
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b3}{ģ}% Ux0123
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b4}{ī}% Ux012B
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b5}{ĩ}% Ux0129
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b6}{ķ}% Ux0137
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b8}{ļ}% Ux013C
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^b9}{đ}% Ux0111
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ba}{š}% Ux0161
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^bb}{ŧ}% Ux0167
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^bc}{ž}% Ux017E
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^bd}{―}% Ux2015
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^be}{ū}% Ux016B
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^bf}{ŋ}% Ux014B
+
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c0}{Ā}% Ux0100
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c3}{Ã}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c6}{Æ}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c7}{Į}% Ux012E
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c8}{Č}% Ux010C
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ca}{Ę}% Ux0118
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^cc}{Ė}% Ux0116
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^cf}{Ï}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d0}{Ð}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d1}{Ņ}% Ux0145
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d2}{Ō}% Ux014C
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d7}{Ũ}% Ux0168
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d8}{Ø}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^d9}{Ų}% Ux0172
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^dd}{Ý}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^de}{Þ}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e0}{ā}% Ux0101
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e3}{ã}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e6}{æ}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e7}{į}% Ux012F
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e8}{č}% Ux010D
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ea}{ę}% Ux0119
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ec}{ė}% Ux0117
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ef}{ï}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f0}{ð}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f1}{ņ}% Ux0146
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f2}{ō}% Ux014D
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f7}{ũ}% Ux0169
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f8}{ø}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^f9}{ų}% Ux0173
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^fd}{ý}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^fe}{þ}
+\DeclareTextCompositeCommand{\textLVIenc}{L8U}{^^ff}{ĸ}% Ux0138
+
+
+%  ISO-8859-13: Latin7  encoding:   Baltic Rim   CP-28603
+%
+
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a1}{¡}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a2}{¢}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a4}{¤}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a5}{¥}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a6}{¦}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a8}{¨}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^a9}{©}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^aa}{ª}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ab}{«}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ac}{¬}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ae}{®}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^af}{¯}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b1}{±}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b2}{²}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b3}{³}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b4}{´}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b5}{µ}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b6}{¶}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b8}{¸}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^b9}{¹}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ba}{º}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^bb}{»}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^bc}{¼}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^bd}{½}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^be}{¾}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^bf}{¿}
+
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c0}{Ą}% Ux0104
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c1}{Į}% Ux012E
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c2}{Ā}% Ux0100
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c3}{Ć}% Ux0106
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c6}{Ę}% Ux0118
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c7}{Ē}% Ux0112
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c8}{Č}% Ux010C
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ca}{Ź}% Ux0179
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^cb}{Ė}% Ux0116
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^cc}{Ģ}% Ux0122
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^cd}{Ķ}% Ux0136
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ce}{Ī}% Ux012A
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^cf}{Ļ}% Ux013B
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d0}{Š}% Ux0160
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d1}{Ń}% Ux0143
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d2}{Ņ}% Ux0145
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d4}{Ō}% Ux014C
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d8}{Ų}% Ux0172
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^d9}{Ł}% Ux0141
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^da}{Ś}% Ux015A
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^db}{Ū}% Ux016A
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^dd}{Ż}% Ux017B
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^de}{Ž}% Ux017D
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e0}{ą}% Ux0105
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e1}{į}% Ux012F
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e2}{ā}% Ux0101
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e3}{ć}% Ux0107
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e6}{ę}% Ux0119
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e7}{ē}% Ux0113
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e8}{č}% Ux010D
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ea}{ź}% Ux017A
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^eb}{ė}% Ux0117
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ec}{ģ}% Ux0123
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ed}{ķ}% Ux0137
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ee}{ī}% Ux012B
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ef}{ļ}% Ux013C
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f0}{š}% Ux0161
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f1}{ń}% Ux0144
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f2}{ņ}% Ux0146
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f4}{ō}% Ux014D
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f8}{ų}% Ux0173
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^f9}{ł}% Ux0142
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^fa}{ś}% Ux015B
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^fb}{ū}% Ux016B
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^fd}{ż}% Ux017C
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^fe}{ž}% Ux017E
+\DeclareTextCompositeCommand{\textLVIIenc}{L8U}{^^ff}{’}% Ux2019
+
+
+%  ISO-8859-14: Latin8 encoding:   Celtic
+%
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a1}{Ḃ}% Ux1E02
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a2}{ḃ}% Ux1E03
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a4}{Ċ}% Ux010A
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a5}{ċ}% Ux010B
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a6}{Ḋ}% Ux1E0A
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a8}{Ẁ}% Ux1E80
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^a9}{©}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^aa}{Ẃ}% Ux1E82
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ab}{ḋ}% Ux1E0B
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ac}{Ỳ}% Ux1EF2
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ae}{®}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^af}{Ÿ}% Ux0178
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b0}{Ḟ}% Ux1E1E
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b1}{ḟ}% Ux1E1F
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b2}{Ġ}% Ux0120
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b3}{ġ}% Ux0121
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b4}{Ṁ}% Ux1E40
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b5}{ṁ}% Ux1E41
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b6}{¶}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b7}{Ṗ}% Ux1E56
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b8}{ẁ}% Ux1E81
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^b9}{ṗ}% Ux1E57
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ba}{ẃ}% Ux1E83
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^bb}{Ṡ}% Ux1E60
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^bc}{ỳ}% Ux1EF3
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^bd}{Ẅ}% Ux1E84
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^be}{ẅ}% Ux1E85
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^bf}{ṡ}% Ux1E61
+
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c0}{À}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c3}{Ã}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c6}{Æ}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c7}{Ç}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c8}{È}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ca}{Ê}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^cc}{Ì}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^cf}{Ï}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d0}{Ŵ}% Ux0174
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d1}{Ñ}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d2}{Ò}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d7}{Ṫ}% Ux1E6A
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d8}{Ø}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^d9}{Ù}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^dd}{Ý}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^de}{Ŷ}% Ux0176
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e0}{à}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e3}{ã}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e6}{æ}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e7}{ç}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e8}{è}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ea}{ê}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ec}{ì}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ef}{ï}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f0}{ŵ}% Ux0175
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f1}{ñ}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f2}{ò}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f7}{ṫ}% Ux1E6B
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f8}{ø}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^f9}{ù}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^fd}{ý}
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^fe}{ŷ}% Ux0177
+\DeclareTextCompositeCommand{\textLIIXenc}{L8U}{^^ff}{ÿ}
+
+
+%  ISO-8859-15: Latin9  encoding
+%
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a1}{¡}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a2}{¢}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a4}{€}% Ux20AC
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a5}{¥}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a6}{Š}% Ux0160
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a8}{š}% Ux0161
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^a9}{©}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^aa}{ª}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ab}{«}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ac}{¬}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ad}{­}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ae}{®}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^af}{¯}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b1}{±}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b2}{²}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b3}{³}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b4}{Ž}% Ux017D
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b5}{µ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b6}{¶}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b8}{ž}% Ux017E
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^b9}{¹}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ba}{º}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^bb}{»}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^bc}{Œ}% Ux0152
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^bd}{œ}% Ux0153
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^be}{Ÿ}% Ux0178
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^bf}{¿}
+
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c0}{À}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c1}{Á}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c2}{Â}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c3}{Ã}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c4}{Ä}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c5}{Å}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c6}{Æ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c7}{Ç}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c8}{È}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^c9}{É}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ca}{Ê}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^cb}{Ë}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^cc}{Ì}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^cd}{Í}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ce}{Î}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^cf}{Ï}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d0}{×}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d1}{Ñ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d2}{Ò}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d3}{Ó}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d4}{Ô}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d5}{Õ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d6}{Ö}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d7}{×}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d8}{Ø}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^d9}{Ù}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^da}{Ú}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^db}{Û}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^dc}{Ü}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^dd}{Ý}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^de}{Þ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^df}{ß}
+
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e0}{à}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e1}{á}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e2}{â}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e3}{ã}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e4}{ä}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e5}{å}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e6}{æ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e7}{ç}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e8}{è}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^e9}{é}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ea}{ê}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^eb}{ë}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ec}{ì}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ed}{í}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ee}{î}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ef}{ï}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f0}{ð}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f1}{ñ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f2}{ò}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f3}{ó}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f4}{ô}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f5}{õ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f6}{ö}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f7}{÷}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f8}{ø}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^f9}{ù}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^fa}{ú}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^fb}{û}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^fc}{ü}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^fd}{ý}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^fe}{þ}
+\DeclareTextCompositeCommand{\textLIXenc}{L8U}{^^ff}{ÿ}
+

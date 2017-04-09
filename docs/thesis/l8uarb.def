@@ -1,0 +1,161 @@
+%%
+%% This is file `l8uarb.def'
+%%
+%% l8uarb.def
+%% 
+%% This is a hand-written file, based upon  t1enc.def 
+%% with extensions for more composite characters.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+\ProvidesFile{l8uarb.def}
+ [2016/03/18 v0.4
+         Arabic support for UTF8 in XMP metadata]
+
+%
+% uses macro names from  puarenc.def  and ucs.sty
+%
+%  defines command:  \LIIXUmaparabicletters
+%
+%%%% Arabic Characters + marks  Ux0600 – Ux06FF
+%
+\DeclareTextCommand{\textarabichamza}{L8U}{ء}% U+0621
+\DeclareTextCommand{\textarabicalefmadda}{L8U}{آ}% U+0622
+\DeclareTextCommand{\textarabicalefhamza}{L8U}{أ}% U+0623
+\DeclareTextCommand{\textarabicwawhamza}{L8U}{ؤ}% U+0624
+\DeclareTextCommand{\textarabicaleflowerhamza}{L8U}{إ}% U+0625
+\DeclareTextCommand{\textarabicyahamza}{L8U}{ئ}% U+0626
+\DeclareTextCommand{\textarabicalef}{L8U}{ا}% U+0627
+\DeclareTextCommand{\textarabicbaa}{L8U}{ب}% U+0628
+\DeclareTextCommand{\textarabicT}{L8U}{ة}% U+0629
+\DeclareTextCommand{\textarabictaa}{L8U}{ت}% U+062A
+\DeclareTextCommand{\textarabicthaa}{L8U}{ث}% U+062B
+\DeclareTextCommand{\textarabicjeem}{L8U}{ج}% U+062C
+\DeclareTextCommand{\textarabicHaa}{L8U}{ح}% U+062D
+\DeclareTextCommand{\textarabickha}{L8U}{خ}% U+062E
+\DeclareTextCommand{\textarabicdal}{L8U}{د}% U+062F
+\DeclareTextCommand{\textarabicdhal}{L8U}{ذ}% U+0630
+\DeclareTextCommand{\textarabicra}{L8U}{ر}% U+0631
+\DeclareTextCommand{\textarabiczay}{L8U}{ز}% U+0632
+\DeclareTextCommand{\textarabicseen}{L8U}{س}% U+0633
+\DeclareTextCommand{\textarabicsheen}{L8U}{ش}% U+0634
+\DeclareTextCommand{\textarabicsad}{L8U}{ص}% U+0635
+\DeclareTextCommand{\textarabicdad}{L8U}{ض}% U+0636
+\DeclareTextCommand{\textarabicTa}{L8U}{ط}% U+0637
+\DeclareTextCommand{\textarabicza}{L8U}{ظ}% U+0638
+\DeclareTextCommand{\textarabicayn}{L8U}{ع}% U+0639
+\DeclareTextCommand{\textarabicghayn}{L8U}{غ}% U+063A
+%
+\DeclareTextCommand{\textarabictatweel}{L8U}{ـ}% U+0640
+\DeclareTextCommand{\textarabicfa}{L8U}{ف}% U+0641
+\DeclareTextCommand{\textarabicqaf}{L8U}{ق}% U+0642
+\DeclareTextCommand{\textarabickaf}{L8U}{ك}% U+0643
+\DeclareTextCommand{\textarabiclam}{L8U}{ل}% U+0644
+\DeclareTextCommand{\textarabicmeem}{L8U}{م}% U+0645
+\DeclareTextCommand{\textarabicnun}{L8U}{ن}% U+0646
+\DeclareTextCommand{\textarabicha}{L8U}{ه}% U+0647
+\DeclareTextCommand{\textarabicwaw}{L8U}{و}% U+0648
+\DeclareTextCommand{\textarabicalefmaqsura}{L8U}{ى}% U+0649
+\DeclareTextCommand{\textarabicya}{L8U}{ي}% U+064A
+\DeclareTextCommand{\textarabicnasb}{L8U}{ً}% U+064B
+\DeclareTextCommand{\textarabicraff}{L8U}{ٌ}% U+064C
+\DeclareTextCommand{\textarabicjarr}{L8U}{ٍ}% U+064D
+\DeclareTextCommand{\textarabicfatha}{L8U}{َ}% U+064E
+\DeclareTextCommand{\textarabicdamma}{L8U}{ُ}% U+064F
+\DeclareTextCommand{\textarabickasra}{L8U}{ِ}% U+0650
+\DeclareTextCommand{\textarabicshadda}{L8U}{ّ}% U+0651
+\DeclareTextCommand{\textarabicsukun}{L8U}{ْ}% U+0652
+%
+\DeclareTextCommand{\textarabicpeh}{L8U}{پ}% U+067E
+%
+\DeclareTextCommand{\textarabictcheh}{L8U}{چ}% U+0686
+%
+\DeclareTextCommand{\textarabicjeh}{L8U}{ژ}% U+0698
+%
+\DeclareTextCommand{\textarabicfarsikaf}{L8U}{ک}% U+06A9
+\DeclareTextCommand{\textarabicgaf}{L8U}{گ}% U+06AF
+%
+\DeclareTextCommand{\textarabicfarsiya}{L8U}{ی}% U+06CC
+
+\def\LIIXUmaparabicletters{%
+ \let\hamza\textarabichamza
+ \let\alefmadda\textarabicalefmadda
+ \let\alefhamza\textarabicalefhamza
+ \let\wawhamza\textarabicwawhamza
+ \let\aleflowerhamza\textarabicaleflowerhamza
+ \let\yahamza\textarabicyahamza
+ \let\alef\textarabicalef
+ \let\baa\textarabicbaa
+ \let\T\textarabicT
+ \let\taa\textarabictaa
+ \let\thaa\textarabicthaa
+ \let\jeem\textarabicjeem
+ \let\Haa\textarabicHaa
+ \let\kha\textarabickha
+ \let\dal\textarabicdal
+ \let\dhal\textarabicdhal
+ \let\ra\textarabicra
+ \let\zay\textarabiczay
+ \let\seen\textarabicseen
+ \let\sheen\textarabicsheen
+ \let\sad\textarabicsad
+ \let\dad\textarabicdad
+ \let\Ta\textarabicTa
+ \let\za\textarabicza
+ \let\ayn\textarabicayn
+ \let\ghayn\textarabicghayn
+ \let\tatweel\textarabictatweel
+ \let\fa\textarabicfa
+ \let\qaf\textarabicqaf
+ \let\kaf\textarabickaf
+ \let\lam\textarabiclam
+ \let\meem\textarabicmeem
+ \let\nun\textarabicnun
+ \let\ha\textarabicha
+ \let\waw\textarabicwaw
+ \let\alefmaqsura\textarabicalefmaqsura
+ \let\ya\textarabicya
+ \let\nasb\textarabicnasb
+ \let\raff\textarabicraff
+ \let\jarr\textarabicjarr
+ \let\fatha\textarabicfatha
+ \let\damma\textarabicdamma
+ \let\kasra\textarabickasra
+ \let\shadda\textarabicshadda
+ \let\sukun\textarabicsukun
+ \let\peh\textarabicpeh
+ \let\tcheh\textarabictcheh
+ \let\jeh\textarabicjeh
+ \let\farsikaf\textarabicfarsikaf
+ \let\gaf\textarabicgaf
+ \let\farsiya\textarabicfarsiya
+}
+
+%
+% General Punctuation
+%
+
+\DeclareTextCommand{\ZWNJ}{L8U}{‌}% U+200C
+\DeclareTextCommand{\noboundary}{L8U}{^^e2^^80^^8d}% U+200D
+
+
+%
+%  Arabic Supplement  Ux0750 – Ux077F
+%
+
+%
+%  Arabic Extended-A  Ux08A0 – Ux08FF
+%
+
+%
+%  Arabic Presentation Forms-A  UxFB50 – Ux0FDFF
+%
+
+%
+%  Arabic Presentation Forms-B  UxFE70 – Ux0FEFC
+%
+
+\endinput
+
+
+

@@ -1,0 +1,578 @@
+%%
+%% This is file `l8uarm.def'
+%%
+%% l8uarm.def
+%% 
+%% This is a hand-written file, based upon  ot6enc.def 
+%% with extensions for more composite characters.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+\ProvidesFile{l8uarm.def}
+ [2016/03/18 v0.4
+         Armenian support for UTF8 in XMP metadata]
+
+%
+% uses macro names from  armtex.sty  and ucs.sty
+%
+%  defines command:  \LIIXUmaparmenianletters
+%
+
+%%%% Armenian Characters + marks  Ux0530 – Ux058F
+%
+\DeclareTextCommand{\textArmayb}{L8U}{Ա}
+\DeclareTextCommand{\textArmben}{L8U}{Բ}
+\DeclareTextCommand{\textArmgim}{L8U}{Գ}
+\DeclareTextCommand{\textArmda}{L8U}{Դ}
+\DeclareTextCommand{\textArmech}{L8U}{Ե}
+\DeclareTextCommand{\textArmza}{L8U}{Զ}
+\DeclareTextCommand{\textArmeh}{L8U}{Է}
+\DeclareTextCommand{\textArmet}{L8U}{Ը}
+\DeclareTextCommand{\textArmto}{L8U}{Թ}
+\DeclareTextCommand{\textArmzhe}{L8U}{Ժ}
+\DeclareTextCommand{\textArmini}{L8U}{Ի}
+\DeclareTextCommand{\textArmliwn}{L8U}{Լ}
+\DeclareTextCommand{\textArmxeh}{L8U}{Խ}
+\DeclareTextCommand{\textArmca}{L8U}{Ծ}
+\DeclareTextCommand{\textArmken}{L8U}{Կ}
+\DeclareTextCommand{\textArmho}{L8U}{Հ}
+\DeclareTextCommand{\textArmja}{L8U}{Ձ}
+\DeclareTextCommand{\textArmghad}{L8U}{Ղ}
+\DeclareTextCommand{\textArmcheh}{L8U}{Ճ}
+\DeclareTextCommand{\textArmmen}{L8U}{Մ}
+\DeclareTextCommand{\textArmyi}{L8U}{Յ}
+\DeclareTextCommand{\textArmnow}{L8U}{Ն}
+\DeclareTextCommand{\textArmsha}{L8U}{Շ}
+\DeclareTextCommand{\textArmvo}{L8U}{Ո}
+\DeclareTextCommand{\textArmcha}{L8U}{Չ}
+\DeclareTextCommand{\textArmpeh}{L8U}{Պ}
+\DeclareTextCommand{\textArmjheh}{L8U}{Ջ}
+\DeclareTextCommand{\textArmra}{L8U}{Ռ}
+\DeclareTextCommand{\textArmseh}{L8U}{Ս}
+\DeclareTextCommand{\textArmvew}{L8U}{Վ}
+\DeclareTextCommand{\textArmtiwn}{L8U}{Տ}
+\DeclareTextCommand{\textArmreh}{L8U}{Ր}
+\DeclareTextCommand{\textArmco}{L8U}{Ց}
+\DeclareTextCommand{\textArmyiwn}{L8U}{Ւ}
+%\DeclareTextCommand{\textArmvovyun}{L8U}{Ւ}% ????
+\DeclareTextCommand{\textArmpiwr}{L8U}{Փ}
+\DeclareTextCommand{\textArmkeh}{L8U}{Ք}
+\DeclareTextCommand{\textArmoh}{L8U}{Օ}
+\DeclareTextCommand{\textArmfeh}{L8U}{Ֆ}
+
+\DeclareTextCommand{\textarmhalfring}{L8U}{ՙ}%   Ux0559
+\DeclareTextCommand{\textarmapostrophe}{L8U}{՚}% Ux055A
+\DeclareTextCommand{\textarmemphasis}{L8U}{՛}%   Ux055B
+\DeclareTextCommand{\textarmexclam}{L8U}{՜}%     Ux055C
+\DeclareTextCommand{\textarmsepmark}{L8U}{՝}%    Ux055D
+\DeclareTextCommand{\textarmquestion}{L8U}{՞}%   Ux055E
+\DeclareTextCommand{\textarmabbrev}{L8U}{՟}%     Ux055F
+
+\DeclareTextCommand{\textarmfullstop}{L8U}{։}%   Ux0589
+\DeclareTextCommand{\textarmhyphen}{L8U}{֊}%     Ux0589
+\DeclareTextCommand{\textarmuh}{L8U}{}% no character needed in XMP
+
+\DeclareTextCommand{\textarmendash}{L8U}{‐}%    Ux2010
+\DeclareTextCommand{\textarmemdash}{L8U}{—}%    Ux2014
+\DeclareTextCommand{\textarmdot}{L8U}{․}%       Ux2024
+\DeclareTextCommand{\textarmellipsis}{L8U}{…}%  Ux2026
+
+% normal ASCII range
+\DeclareTextCommand{\textarmparenright}{L8U}{)}
+\DeclareTextCommand{\textarmparenleft}{L8U}{(}
+\DeclareTextCommand{\textarmcomma}{L8U}{,}
+\DeclareTextCommand{\textarmbreaklig}{L8U}{}
+ 
+
+\DeclareTextCommand{\textarmayb}{L8U}{ա}
+\DeclareTextCommand{\textarmben}{L8U}{բ}
+\DeclareTextCommand{\textarmgim}{L8U}{գ}
+\DeclareTextCommand{\textarmda}{L8U}{դ}
+\DeclareTextCommand{\textarmech}{L8U}{ե}
+\DeclareTextCommand{\textarmza}{L8U}{զ}
+\DeclareTextCommand{\textarmeh}{L8U}{է}
+\DeclareTextCommand{\textarmet}{L8U}{ը}
+\DeclareTextCommand{\textarmto}{L8U}{թ}
+\DeclareTextCommand{\textarmzhe}{L8U}{ժ}
+\DeclareTextCommand{\textarmini}{L8U}{ի}
+\DeclareTextCommand{\textarmliwn}{L8U}{լ}
+\DeclareTextCommand{\textarmxeh}{L8U}{խ}
+\DeclareTextCommand{\textarmca}{L8U}{ծ}
+\DeclareTextCommand{\textarmken}{L8U}{կ}
+\DeclareTextCommand{\textarmho}{L8U}{հ}
+\DeclareTextCommand{\textarmja}{L8U}{ձ}
+\DeclareTextCommand{\textarmghad}{L8U}{ղ}
+\DeclareTextCommand{\textarmcheh}{L8U}{ճ}
+\DeclareTextCommand{\textarmmen}{L8U}{մ}
+\DeclareTextCommand{\textarmyi}{L8U}{յ}
+\DeclareTextCommand{\textarmnow}{L8U}{ն}
+\DeclareTextCommand{\textarmsha}{L8U}{շ}
+\DeclareTextCommand{\textarmvo}{L8U}{ո}
+\DeclareTextCommand{\textarmcha}{L8U}{չ}
+\DeclareTextCommand{\textarmpeh}{L8U}{պ}
+\DeclareTextCommand{\textarmjheh}{L8U}{ջ}
+\DeclareTextCommand{\textarmra}{L8U}{ռ}
+\DeclareTextCommand{\textarmseh}{L8U}{ս}
+\DeclareTextCommand{\textarmvew}{L8U}{վ}
+\DeclareTextCommand{\textarmtiwn}{L8U}{տ}
+\DeclareTextCommand{\textarmreh}{L8U}{ր}
+\DeclareTextCommand{\textarmco}{L8U}{ց}
+\DeclareTextCommand{\textarmyiwn}{L8U}{ւ}
+\DeclareTextCommand{\textarmvovyun}{L8U}{ու}% u, ow
+\DeclareTextCommand{\textarmpiwr}{L8U}{փ}
+\DeclareTextCommand{\textarmkeh}{L8U}{Ք}
+\DeclareTextCommand{\textarmoh}{L8U}{օ}
+\DeclareTextCommand{\textarmfeh}{L8U}{ֆ}
+\DeclareTextCommand{\textarmew}{L8U}{և}%  Ux0587
+
+% extra ligatures
+%
+\DeclareTextCommand{\textarmmennulig}{L8U}{ﬓ}%   UxFB13  mn
+\DeclareTextCommand{\textarmmenyechlig}{L8U}{ﬔ}% UxFB14  me
+\DeclareTextCommand{\textarmmeninilig}{L8U}{ﬕ}%  UxFB15  mi
+\DeclareTextCommand{\textarmvevnulig}{L8U}{ﬖ}%   UxFB16  vn
+\DeclareTextCommand{\textarmmenkhelig}{L8U}{ﬗ}%  UxFB17  mk
+
+
+\DeclareTextCommand{\textarmabr}{L8U}[1]{#1⃐}%  Ux20D0
+\DeclareTextCommand{\textarmreternity}{L8U}{^^d6^^8d}
+\DeclareTextCommand{\textarmleternity}{L8U}{^^d6^^8e}
+\DeclareTextCommand{\textarmdram}{L8U}{֏}
+%\DeclareTextCommand{\textanjgic}{L8U}{—}
+\DeclareTextCommand{\textArmTeX}{L8U}{ԱրմTeX}
+\DeclareTextCommand{\textlatArmTeX}{L8U}{ArmTeX}
+
+\def\LIIXUmaparmenianletters{%
+ \let\ArmTeX\textArmTeX
+ \let\latArmTeX\textlatArmTeX
+ \let\Armayb\textArmayb
+ \let\Armben\textArmben
+ \let\Armgim\textArmgim
+ \let\Armda\textArmda
+ \let\Armyech\textArmech
+ \let\Armza\textArmza
+ \let\Arme\textArmeh
+ \let\Armat\textArmet
+ \let\Armto\textArmto
+ \let\Armzhe\textArmzhe
+ \let\Armini\textArmini
+ \let\Armlyun\textArmliwn
+ \let\Armkhe\textArmxeh
+ \let\Armtsa\textArmca
+ \let\Armtsa\textArmca
+ \let\Armken\textArmken
+ \let\Armho\textArmho
+ \let\Armdza\textArmja
+ \let\Armghat\textArmghad
+ \let\Armcheh\textArmtche
+ \let\Armmen\textArmmen
+ \let\Armhi\textArmyi
+ \let\Armnu\textArmnow
+ \let\Armsha\textArmsha
+ \let\Armvo\textArmvo
+ \let\Armcha\textArmcha
+ \let\Armpe\textArmpeh
+ \let\Armje\textArmjheh
+ \let\Armra\textArmra
+ \let\Armse\textArmseh
+ \let\Armvev\textArmvew
+ \let\Armtyun\textArmtiwn
+ \let\Armre\textArmreh
+ \let\Armtso\textArmco
+ \let\Armvyun\textArmyiwn
+ \let\Armvovyun\textArmyiwn
+ \let\Armpyur\textArmpiwr
+ \let\Armke\textArmkeh
+ \let\Armo\textArmoh
+ \let\Armfe\textArmfeh
+%
+ \let\armayb\textarmayb
+ \let\armben\textbrmben
+ \let\armgim\textarmgim
+ \let\armda\textarmda
+ \let\armyech\textarmech
+ \let\armza\textarmza
+ \let\arme\textarmeh
+ \let\armat\textarmet
+ \let\armto\textarmto
+ \let\armzhe\textarmzhe
+ \let\armini\textarmini
+ \let\armlyun\textarmliwn
+ \let\armkhe\textarmxeh
+ \let\armtsa\textarmca
+ \let\armken\textarmken
+ \let\armho\textarmho
+ \let\armdza\textarmja
+ \let\armghat\textarmghad
+ \let\armcheh\textarmtche
+ \let\armmen\textarmmen
+ \let\armhi\textarmyi
+ \let\armnu\textarmnow
+ \let\armsha\textarmsha
+ \let\armvo\textarmvo
+ \let\armcha\textarmcha
+ \let\armpe\textarmpeh
+ \let\armje\textarmjheh
+ \let\armra\textarmra
+ \let\armse\textarmseh
+ \let\armvev\textarmvew
+ \let\armtyun\textarmtiwn
+ \let\armre\textarmreh
+ \let\armtso\textarmco
+ \let\armvyun\textarmyiwn
+ \let\armvovyun\textarmyiwn
+ \let\armpyur\textarmpiwr
+ \let\armke\textarmkeh
+ \let\armo\textarmoh
+ \let\armfe\textarmfeh
+ \let\armcomma\textarmcomma
+ \let\armsep\textarmsepmark
+ \let\armfullstop\textarmfullstop
+ \let\armapostrophe\textarmapostrophe
+ \let\armparenright\textarmparenright
+ \let\armparenleft\textarmparenleft
+% \let\armquotright\textquoteright
+ \let\armquotright\textguillemotright
+ \let\armquotleft\textguillemotleft
+% \let\armquotleft\textquoteleft
+ \let\armdot\textarmdot
+ \let\armew\textarmew
+ \let\armendash\textarmendash
+ \let\armyentamna\textarmhyphen
+ \let\armuh\textarmuh
+ \let\armexclam\textarmexclam
+ \let\armaccent\textarmemphasis
+ \let\armquestion\textarmquestion
+ \let\armeternity\textarmreternity
+ \let\armdram\textarmdram
+ \let\armnum\textarmhalfring
+ \let\armellipsis\textarmellipsis
+ \let\armsection\textsection
+ \let\textanjgic\textarmemdash
+ \let\armemdash\textarmemdash
+ \let\armbl\textarmbreaklig
+ \let\textbreaklig\textarmbreaklig
+ \let\armabbrev\textarmabbrev
+ \let\armabr\textarmabr
+% disable mode switches and font commands
+ \let\aroff\@empty
+ \def\armdate{}%
+ \def\armdateoff{}%
+ \def\armhyph{}%
+ \def\armhyphoff{}%
+ \def\armnames{}%
+ \def\armnamesoff{}%
+ \def\armtm{}%
+ \def\armtmfamily{}%
+ \def\armss{}%
+ \def\armssfamily{}%
+ \def\armmd{}%
+ \def\armmdseries{}%
+ \def\armbf{}%
+ \def\armbfseries{}%
+ \def\armup{}%
+ \def\armupshape{}%
+ \def\armit{}%
+ \def\armitshape{}%
+ \def\armsl{}%
+ \def\armslshape{}%
+ \def\artm{}%
+ \def\artmit{}%
+ \def\artmsl{}%
+ \def\artmbf{}%
+ \def\artmbfit{}%
+ \def\arss{}%
+ \def\arsssl{}%
+ \def\arssbf{}%
+ \def\arssbfsl{}%
+}
+
+
+\ifarmSCIxmp\else\expandafter\endinput\fi
+
+%  implement transliteration for OT6 encoded input
+
+\DeclareTextCommand{\textarmenARMstring}{L8U}[1]{\textarmenARM@ii#1\@empty\@empty}
+\DeclareTextCommand{\textARM}{L8U}[1]{\textarmenARMstring{#1}}
+\DeclareTextCommand{\textARMenc}{L8U}[1]{#1}
+
+\def\textarmenARM@i#1{\textarmenARM@ii#1}%\@empty}
+\def\textarmenARM@ii#1#2\@empty{\ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textARMenc{#1}}{\textARMenc{#1}\textarmenARM@i#2\@empty}}
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\TeX}{TeX}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\LaTeX}{LaTeX}
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\*}{}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\textbreaklig}{}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\-}{}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\armuh}{\textarmuh}
+
+
+% use these bindings below, for readability
+\global\let\arm@en\liixu@checkemptyornext
+\global\let\arm@nc\liixu@checknextchar
+
+
+%
+% handle the Unconditional Hyphen macro
+%
+\DeclareTextCompositeCommand{\textarmuh}{L8U}{\textarmenARM@i}{\textarmgobblespace}%
+\DeclareTextCommand{\textarmgobblespace}{L8U}{}
+
+\obeyspaces
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\sep}{\sep }%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\textarmuh}{L8U}{ }{\textarmuh}%
+\DeclareTextCompositeCommand{\textarmgobblespace}{L8U}{ }{\textarmenARM@i}%
+\catcode`\ 10 
+
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{A}{Ա}% A
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{B}{Բ}% B
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{G}{%
+ \arm@en{G}{Գ}{\arm@nc{'}{Ժ}{\arm@nc{h}{Ղ}{\arm@nc{H}{Ղ}{Գ}}}}}% G or G' or Gh or GH
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{D}{%
+ \arm@en{D}{Դ}{\arm@nc{z}{Ձ}{\arm@nc{Z}{Ձ}{Դ}}}}% D or Dz or DZ
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{E}{%
+ \arm@en{E}{Ե}{\arm@nc{'}{Է}{Ե}}}% E or E'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{Z}{Զ}% Z
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{I}{Ի}% I
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{L}{Լ}% L
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{X}{Խ}% X
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{K}{Կ}% K
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{H}{Հ}% H
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{M}{Մ}% M
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{Y}{Յ}% Y
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{N}{Ն}% N
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{O}{%
+ \arm@en{O}{Ո}{\arm@nc{'}{Օ}{\arm@nc{W}{ՈՒ}{Ո}}}}% O or O' or OW
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{P}{%
+ \arm@en{P}{Պ}{\arm@nc{'}{Փ}{\arm@nc{h}{Փ}{\arm@nc{H}{Փ}{Պ}}}}}% P or P' or Ph or PH
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{J}{%
+ \arm@en{J}{Ջ}{\arm@nc{'}{Ճ}{Ջ}}}% J or J'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{S}{%
+ \arm@en{S}{Ս}{\arm@nc{h}{Շ}{\arm@nc{H}{Շ}{Ս}}}}% S or Sh or SH
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{V}{Վ}% V
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{T}{%
+ \arm@en{T}{Տ}{\arm@nc{'}{Թ}{\arm@nc{h}{Թ}{\arm@nc{H}{Թ}{Տ}}}}}% T or T' or Th or TH
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{R}{%
+ \arm@en{R}{Ր}{\arm@nc{'}{Ռ}{Ր}}}% R or R'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{C}{%
+ \arm@en{C}{Ց}{\arm@nc{'}{Ծ}{\arm@nc{h}{Չ}{\arm@nc{H}{Չ}{Ց}}}}}% C or C' or Ch or CH
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{W}{Ւ}% W
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{U}{%
+ \arm@en{U}{ՈՒ}{\arm@nc{'}{Ը}{ՈՒ}}}% U or U'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{Q}{Ք}% Q
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{F}{Ֆ}% F
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{a}{ա}% a
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{b}{բ}% b
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{g}{%
+ \arm@en{g}{գ}{\arm@nc{'}{ժ}{\arm@nc{h}{ղ}{գ}}}}% g or g' or gh
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{d}{%
+ \arm@en{d}{դ}{\arm@nc{z}{ձ}{դ}}}% d or dz
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{e}{%
+ \arm@en{e}{ե}{\arm@nc{'}{է}{\arm@nc{v}{և}{ե}}}}% e or e' or ev
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{z}{զ}% z
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{i}{ի}% i
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{l}{լ}% l
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{x}{խ}% x
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{k}{կ}% k
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{h}{հ}% h
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{m}{%
+ \arm@en{m}{մ}{\arm@nc{n}{ﬓ}{\arm@nc{e}{ﬔ}{%
+  \arm@nc{i}{ﬕ}{\arm@nc{k}{ﬗ}{մ}}}}}}%  m or mn or me or mi or mk ligatures
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{y}{յ}% y
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{n}{ն}% n
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{o}{%
+ \arm@en{o}{ո}{\arm@nc{'}{օ}{\arm@nc{w}{ու}{ո}}}}% o or o' or ow
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{p}{%
+ \arm@en{p}{պ}{\arm@nc{'}{փ}{\arm@nc{h}{փ}{պ}}}}% p or p' or ph
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{j}{%
+ \arm@en{j}{ջ}{\arm@nc{'}{ճ}{ջ}}}% j or j'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{s}{%
+ \arm@en{s}{ս}{\arm@nc{h}{շ}{ս}}}% s or sh
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{v}{%
+ \arm@en{v}{վ}{\arm@nc{n}{ﬖ}{վ}}}% v or vn
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{t}{%
+ \arm@en{t}{տ}{\arm@nc{'}{թ}{\arm@nc{h}{թ}{տ}}}}% t or t' or th
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{r}{%
+ \arm@en{r}{ր}{\arm@nc{'}{ռ}{ր}}}% r or r'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{c}{%
+ \arm@en{c}{ց}{\arm@nc{'}{ծ}{\arm@nc{h}{չ}{ց}}}}% c or c' or ch
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{w}{ւ}% w
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{u}{%
+ \arm@en{u}{ու}{\arm@nc{'}{ը}{ու}}}% u or u'
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{q}{ք}% q
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{f}{ֆ}% f
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{~}{ }% no break space
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\{}{\textbraceleft}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\}}{\textbraceright}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\!}{!}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\$}{\textdollar}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\%}{\textpercent}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\?}{?}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\#}{\texthash}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\&}{\textand}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{"}{”}%
+
+% Armenian punctuation
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{:}{։}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{|}{՛}% emphasis mark
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{?}{՞}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{!}{՜}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{,}{,}% same character
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{\|}{—}% 
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{(}{(}% 
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{)}{)}% 
+
+% multi-character punctuation
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{`}{\arm@en{`}{՝}{\arm@nc{`}{“}{՝}}}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{'}{\arm@en{'}{՚}{\arm@nc{'}{”}{՚}}}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{-}{\arm@en{-}{‐}%  - or -- or ---
+ {\arm@nc{-}{\arm@en{-}{֊}{\arm@nc{-}{—}{֊}}}{‐}}}%
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{.}{\arm@en{.}{.}%  . or .. or ... or ....
+ {\arm@nc{.}{\arm@en{.}{..}{\arm@nc{.}{\arm@en{.}{…}{\arm@nc{.}{…․}{…}}}{..}}}{.}}}
+
+% catch active chars < and >
+\catcode `\< \active
+\catcode `\> \active
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{<}{\arm@en{<}{«}{\arm@nc{<}{«}{«}}}
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{>}{\arm@en{>}{»}{\arm@nc{>}{»}{»}}}	
+\catcode `\< 12
+\catcode `\> 12
+
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{\pdfx@lt}{\arm@en{<}{«}{\arm@nc{\pdfx@lt}{«}{«}}}
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{\pdfx@gt}{\arm@en{>}{»}{\arm@nc{\pdfx@gt}{»}{»}}}	
+
+
+
+%  ArmSCII8  encoding
+%
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b2}{Ա}%           Upper-case A  (Ayb)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b4}{Բ}%           Upper-case B  (Ben)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b6}{Գ}%           Upper-case G  (Gim)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b8}{Դ}%            Upper-case D  (Da)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ba}{Ե}%          Upper-case E  (Yech) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^bc}{Զ}%            Upper-case Z  (Za)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^be}{Է}%             Upper-case E' (E)    letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c0}{Ը}%            Upper-case U' (At)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c2}{Թ}%            Upper-case TH (To)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c4}{Ժ}%           Upper-case G' (Zhe)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c6}{Ի}%           Upper-case I  (Ini)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c8}{Լ}%          Upper-case L  (Lyun) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ca}{Խ}%           Upper-case X  (Khe)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^cc}{Ծ}%           Upper-case C' (Tsa)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ce}{Կ}%           Upper-case K  (Ken)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d0}{Հ}%            Upper-case H  (Ho)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d2}{Ձ}%           Upper-case DZ (Dza)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d4}{Ղ}%          Upper-case GH (Ghat) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d6}{Ճ}%          Upper-case J' (Tche) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d8}{Մ}%           Upper-case M  (Men)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^da}{Յ}%            Upper-case Y  (Hi)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^dc}{Ն}%            Upper-case N  (Nu)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^de}{Շ}%           Upper-case SH (Sha)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e0}{Ո}%            Upper-case O  (Vo)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e2}{Չ}%           Upper-case CH (Cha)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e4}{Պ}%            Upper-case P  (Pe)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e6}{Ջ}%            Upper-case J  (Je)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e8}{Ռ}%            Upper-case R' (Ra)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ea}{Ս}%            Upper-case S  (Se)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ec}{Վ}%           Upper-case V  (Vev)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ee}{Տ}%          Upper-case T  (Tyun) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f0}{Ր}%            Upper-case R  (Re)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f2}{Ց}%           Upper-case C  (Tso)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f4}{Ւ}%          Upper-case W  (Vyun) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f6}{Փ}%          Upper-case PH (Pyur) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f8}{Ք}%            Upper-case Q  (Ke)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^fa}{Օ}%             Upper-case O' (O)    letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^fc}{Ֆ}%            Upper-case F  (Fe)   letter.
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b3}{ա}%           Lower-case a  (ayb)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b5}{բ}%           Lower-case b  (ben)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b7}{գ}%           Lower-case g  (gim)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b9}{դ}%            Lower-case d  (da)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^bb}{ե}%          Lower-case e  (eych) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^bd}{զ}%            Lower-case z  (za)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^bf}{է}%             Lower-case e' (e)    letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c1}{ը}%            Lower-case u' (at)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c3}{թ}%            Lower-case th (to)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c5}{ժ}%           Lower-case g' (zhe)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c7}{ի}%           Lower-case i  (ini)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^c9}{լ}%          Lower-case l  (lyun) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^cb}{խ}%           Lower-case x  (khe)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^cd}{ծ}%           Lower-case c' (tsa)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^cf}{կ}%           Lower-case k  (ken)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d1}{հ}%            Lower-case h  (ho)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d3}{ձ}%           Lower-case dz (dza)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d5}{ղ}%          Lower-case gh (ghat) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d7}{ճ}%          Lower-case j' (tche) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^d9}{մ}%           Lower-case m  (men)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^db}{յ}%            Lower-case y  (hi)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^dd}{ն}%            Lower-case n  (nu)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^df}{շ}%           Lower-case sh (sha)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e1}{ո}%            Lower-case o  (vo)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e3}{չ}%           Lower-case ch (cha)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e5}{պ}%            Lower-case p  (pe)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e7}{ջ}%            Lower-case j  (je)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^e9}{ռ}%            Lower-case r' (ra)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^eb}{ս}%            Lower-case s  (se)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ed}{վ}%           Lower-case v  (vev)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ef}{տ}%          Lower-case t  (tyun) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f1}{ր}%            Lower-case r  (re)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f3}{ց}%           Lower-case c  (tso)  letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f5}{ւ}%          Lower-case w  (vyun) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f7}{փ}%          Lower-case ph (pyur) letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^f9}{ք}%            Lower-case q  (ke)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^fb}{օ}%             Lower-case o' (o)    letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^fd}{ֆ}%            Lower-case f  (fe)   letter.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a0}{\ }%                 Non-breakable space             symbol.
+
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a1}{^^d6^^8d}%      Eternity (armeternity)          symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a2}{§}%       Section sign (armsection)       symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a3}{։}%      Verjaket (armfullstop)          symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a4}{)}%    Aj phakagic' (armparenright)    symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a5}{(}%     Dzax phakagic' (armparenleft)   symbol.
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a6}{’}%     Aj chakert (armquotright)       symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a6}{»}% 
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a7}{«}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a7}{‘}%      Dzax chakert(armquotleft)       symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a8}{—}%        Anjatman gic' (armemdash)       symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a9}{.}%           Mijaket (armdot)                symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^aa}{՝}%           Buth (armsep)                   symbol.
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ab}{՝}%        Storaket (armcoma)              symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ab}{,}%         Storaket (armcoma)              symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ac}{‐}%        Miuthyan gc'ik (armendash)      symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ad}{֊}%      Toghadardzi nshan (armyentamna) symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ae}{…}%      Kaxman keter (armellipsis)      symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^af}{՜}%        Bacakanchakan nshan (armexclam) symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b0}{՛}%        Shesht (armaccent)              symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b1}{՞}%      Harcakan nshan (armquestion)    symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^fe}{՚}%    Apatharc (armapostrophe)        symbol.
+\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ff}{՚}%    Apatharc (armapostrophe)        symbol.
+
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a0}{ }% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a1}{\armeternity}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a2}{\armsection}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a3}{\armfullstop}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a4}{\armparenright}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a5}{\armparenleft}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a6}{\armquotright}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a7}{\armquotleft}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a8}{\armemdash}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^a9}{\armdot}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^aa}{\armsep}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ab}{\armcomma}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ac}{\armendash}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ad}{\armyentamna}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^ae}{\armellipsis}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^af}{\armexclam}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b0}{\armaccent}% 
+%\DeclareTextCompositeCommand{\textARMenc}{L8U}{^^b1}{\armquestion}% 
+

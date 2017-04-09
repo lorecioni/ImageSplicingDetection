@@ -1,0 +1,51 @@
+For the file sRGB_IEC61966-2-1_black_scaled.icc:
+
+ Copyright International Color Consortium, 2009
+
+ It is hereby acknowledged that the file "sRGB_IEC61966-2-1_black
+ scaled.icc" is provided "AS IS" WITH NO EXPRESS OR IMPLIED WARRANTY.
+
+ Licensing
+
+ This profile is made available by the International Color Consortium,
+ and may be copied, distributed, embedded, made, used, and sold without
+ restriction. Altered versions of this profile shall have the original
+ identification and copyright information removed and shall not be
+ misrepresented as the original profile.
+
+ Terms of use
+
+ To anyone who acknowledges that the file "sRGB_IEC61966-2-1_black
+ scaled.icc" is provided "AS IS" WITH NO EXPRESS OR IMPLIED WARRANTY,
+ permission to use, copy and distribute these file for any purpose is
+ hereby granted without fee, provided that the file is not changed
+ including the ICC copyright notice tag, and that the name of ICC shall
+ not be used in advertising or publicity pertaining to distribution of
+ the software without specific, written prior permission. ICC makes no
+ representations about the suitability of this software for any
+ purpose. 
+
+For the file coated_FOGRA39L_argl.icc:
+
+ The zlib/libpng License
+
+ Copyright (c) 2008 Kai-Uwe Behrmann
+
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute
+ it freely, subject to the following restrictions:
+
+    1. The origin of this software must not be misrepresented; you
+    must not claim that you wrote the original software. If you use
+    this software in a product, an acknowledgment in the product
+    documentation would be appreciated but is not required.
+
+    2. Altered source versions must be plainly marked as such, and
+    must not be misrepresented as being the original software.
+
+    3. This notice may not be removed or altered from any source
+    distribution.

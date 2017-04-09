@@ -1,0 +1,2522 @@
+%%
+%% This is file `l8umath.def'
+%%
+%% l8umath.def
+%% 
+%% This is a hand-written file, based upon parts 
+%% of puenc.def and other files, with extensions
+%% for more automation.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+%%  defines the following commands 
+%%      \LIIXUmapmathaccents
+%%      \LIIXUmapisomathgreek
+%%      \LIIXUmapmatharrowsA 
+%%      \LIIXUmapmathoperatorsA
+%%      \LIIXUmapmathoperatorsB
+%%      \LIIXUmapmiscmathsymbolsA
+%%      \LIIXUmapsupparrowsA
+%%      \LIIXUmapsupparrowsB
+%%      \LIIXUmapmiscmathsymbolsB
+%%      \LIIXUmapsuppmathoperators
+%%      \LIIXUmapunimathgreek
+%%      \LIIXUmapmathalphabets
+%%
+\ProvidesFile{l8umath.def}
+ [2016/03/18 v0.4
+     Custom LaTeX file, for UTF8 encoded math symbols]
+
+%
+%  Combining accents in math   Ux0300, Ux1DC0 and Ux20D0 blocks
+%
+
+\DeclareTextCommand{\textmathacute}{L8U}[1]{#1́}% U+0301
+\DeclareTextCommand{\textmathbar}{L8U}[1]{#1̄}% U+0304
+\DeclareTextCommand{\textmathbreve}{L8U}[1]{#1̆}% U+0306
+\DeclareTextCommand{\textmathcheck}{L8U}[1]{#1̌}% U+030C
+\DeclareTextCommand{\textmathdot}{L8U}[1]{#1̇}% U+0307
+\DeclareTextCommand{\textmathddot}{L8U}[1]{#1̈}% U+0308
+\DeclareTextCommand{\textmathdddot}{L8U}[1]{#1⃛}% U+20DB
+\DeclareTextCommand{\textmathddddot}{L8U}[1]{#1⃜}% U+20DC
+\DeclareTextCommand{\textmathgrave}{L8U}[1]{#1̀}% U+0300
+\DeclareTextCommand{\textmathhat}{L8U}[1]{#1̂}% U+0302
+\DeclareTextCommand{\textmathring}{L8U}[1]{#1̊}% U+030A
+\DeclareTextCommand{\textmathtilde}{L8U}[1]{#1̃}% U+0303
+\DeclareTextCommand{\textmathvec}{L8U}[1]{#1⃗}% U+20D7
+\DeclareTextCommand{\textmathnot}{L8U}[1]{#1̷}% U+0337
+\DeclareTextCommand{\textmathunderleftarrow}{L8U}[1]{#1⃮}% U+20EE
+
+\DeclareTextCommand{\textmathwidehat}{L8U}[1]{\textmathdowidehat#1}
+\DeclareTextCommand{\textmathdowidehat}{L8U}[2]{#1᷍#2}% U+1DCD
+\DeclareTextCommand{\textmathwidetilde}{L8U}[1]{\textmathdowidetilde#1}
+\DeclareTextCommand{\textmathdowidetilde}{L8U}[2]{#1͠#2}% U+0360
+\DeclareTextCommand{\textmathoverline}{L8U}[1]{\textmathdooverline#1}
+\DeclareTextCommand{\textmathdooverline}{L8U}[2]{#1͞#2}% U+03FE
+\DeclareTextCommand{\textmathunderline}{L8U}[1]{\textmathdounderline#1}
+\DeclareTextCommand{\textmathdounderline}{L8U}[2]{#1͟#2}% U+03FF
+\DeclareTextCommand{\textmathunderrightarrow}{L8U}[1]{\textmathdounderrightarrow#1}
+\DeclareTextCommand{\textmathdounderrightarrow}{L8U}[2]{#1͢#2}% U+0362
+
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\acute}{\liixu@mathreorder\textmathacute}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\bar}{\liixu@mathreorder\textmathbar}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\breve}{\liixu@mathreorder\textmathbreve}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\check}{\liixu@mathreorder\textmathcheck}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\dot}{\liixu@mathreorder\textmathdot}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\ddot}{\liixu@mathreorder\textmathddot}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\dddot}{\liixu@mathreorder\textmathdddot}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\ddddot}{\liixu@mathreorder\textmathddddot}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\grave}{\liixu@mathreorder\textmathgrave}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\hat}{\liixu@mathreorder\textmathhat}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathring}{\liixu@mathreorder\textmathring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\tilde}{\liixu@mathreorder\textmathtilde}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\vec}{\liixu@mathreorder\textmathvec}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\not}{\liixu@mathreorder\textmathnot}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\underleftarrow}{\liixu@mathreorder\textmathunderleftarrow}
+
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\widehat}{\liixu@mathreorder\textmathwidehat}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\widetilde}{\liixu@mathreorder\textmathwidetilde}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\overline}{\liixu@mathreorder\textmathoverline}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\underline}{\liixu@mathreorder\textmathunderline}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\underrightarrow}{\liixu@mathreorder\textmathunderrightarrow}
+
+\def\LIIXUmapmathaccents{%
+ \let\acute\textmathacute
+ \let\bar\textmathbar
+ \let\breve\textmathbreve
+ \let\check\textmathcheck
+ \let\dot\textmathdot
+ \let\ddot\textmathddot
+ \let\dddot\textmathdddot
+ \let\ddddot\textmathddddot
+ \let\grave\textmathgrave
+ \let\hat\textmathhat
+ \let\mathring\textmathring
+ \let\tilde\textmathtilde
+ \let\vec\textmathvec
+ \let\not\textmathnot
+ \let\underleftarrow\textmathunderleftarrow
+%
+ \let\widehat\textmathwidehat
+ \let\widetilde\textmathwidetilde
+ \let\overline\textmathoverline
+ \let\underline\textmathunderline
+ \let\underrightarrow\textmathunderrightarrow
+}
+
+
+%
+%  Letterlike symbols   Ux2100 – Ux214F
+%
+%\DeclareTextCommand{\textcelsius}{L8U}{℃}% U+2103
+%\DeclareTextCommand{\texthslash}{L8U}{ℏ}%* U+210F
+%\DeclareTextCommand{\textIm}{L8U}{ℑ}%* U+2111
+%\DeclareTextCommand{\textell}{L8U}{ℓ}%* U+2113
+%\DeclareTextCommand{\textnumero}{L8U}{№}% U+2116
+%\DeclareTextCommand{\textcircledP}{L8U}{℗}% U+2117
+%\DeclareTextCommand{\textwp}{L8U}{℘}%* U+2118
+%\DeclareTextCommand{\textRe}{L8U}{ℜ}%* U+211C
+%\DeclareTextCommand{\textrecipe}{L8U}{℞}% U+211E
+%\DeclareTextCommand{\textservicemark}{L8U}{℠}% U+2120
+%\DeclareTextCommand{\texttrademark}{L8U}{™}% U+2122
+%\DeclareTextCommand{\textohm}{L8U}{Ω}% U+2126
+%\DeclareTextCommand{\textmho}{L8U}{℧}%* U+2127
+%\DeclareTextCommand{\textriota}{L8U}{℩}%* U+2129
+%\DeclareTextCommand{\textangstrom}{L8U}{Å}% U+212B
+%\DeclareTextCommand{\textestimated}{L8U}{℮}% U+212E
+%\DeclareTextCommand{\textFinv}{L8U}{Ⅎ}%* U+2132
+%\DeclareTextCommand{\textaleph}{L8U}{ℵ}%* U+2135
+%\DeclareTextCommand{\textbeth}{L8U}{ℶ}%* U+2136
+%\DeclareTextCommand{\textgimel}{L8U}{ℷ}%* U+2137
+%\DeclareTextCommand{\textdaleth}{L8U}{ℸ}%* U+2138
+%\DeclareTextCommand{\textfax}{L8U}{℻}%* U+213B
+%\DeclareTextCommand{\textGame}{L8U}{⅁}%* U+2141
+%\DeclareTextCommand{\textinvamp}{L8U}{⅋}% U+214B
+
+
+\def\LIIXUmapisomathgreek{%
+ \let\alpha\textalpha
+ \let\beta\textbeta
+ \let\gamma\textgamma
+ \let\delta\textdelta
+ \let\epsilon\textvarepsilon % note var-swap
+ \let\zeta\textzeta
+ \let\eta\texteta
+ \let\theta\texttheta % possible var-swap
+ \let\iota\textiota
+ \let\kappa\textkappa % possible var-swap
+ \let\lambda\textlambda
+ \let\mu\textmugreek
+ \let\nu\textnu
+ \let\xi\textxi
+ \let\omicron\textomicron  % not used in math
+ \let\pi\textpi
+ \let\rho\textrho   % possible var-swap
+ \let\varsigma\textvarsigma
+ \let\sigma\textsigma
+ \let\tau\texttau
+ \let\upsilon\textupsilon
+ \let\phi\textvarphi  % note var-swap
+ \let\chi\textchi
+ \let\psi\textpsi
+ \let\omega\textomega
+ \let\varepsilon\textepsilon % note var-swap
+ \let\varkappa\textvarkappa % possible var-swap
+ \let\vartheta\textvartheta % possible var-swap
+ \let\varupsilon\textvarupsilon
+ \let\varphi\textphi  % note var-swap
+ \let\varpi\textvarpi
+ \let\varrho\textvarrho  % possible var-swap
+ \let\Alpha\textAlpha % not used in math
+ \let\Beta\textBeta   % not used in math
+ \let\Gamma\textGamma
+ \let\Delta\textDelta
+ \let\Epsilon\textEpsilon
+ \let\Zeta\textZeta
+ \let\Eta\textEta
+ \let\Theta\textTheta
+ \let\Iota\textIota
+ \let\Kappa\textKappa % not used in math
+ \let\Lambda\textLambda
+ \let\Mu\textMu
+ \let\Nu\textNu
+ \let\Xi\textXi
+ \let\Omicron\textOmicron % not used in math
+ \let\Pi\textPi
+ \let\Rho\textRho
+ \let\Sigma\textSigma
+ \let\Tau\textTau
+ \let\Upsilon\textUpsilon
+ \let\Phi\textPhi
+ \let\Chi\textChi
+ \let\Psi\textPsi
+ \let\Omega\textOmega
+ \let\varTheta\textvarTheta
+ \let\Digamma\textDigamma % 
+ \let\digamma\textdigamma % 
+}
+
+%
+%  Arrows   Ux2190 – Ux21FF
+%
+\DeclareTextCommand{\textleftarrow}{L8U}{←}%* U+2190
+\DeclareTextCommand{\textuparrow}{L8U}{↑}%* U+2191
+\DeclareTextCommand{\textrightarrow}{L8U}{→}%* U+2192
+\DeclareTextCommand{\textdownarrow}{L8U}{↓}%* U+2193
+\DeclareTextCommand{\textleftrightarrow}{L8U}{↔}%* U+2194
+\DeclareTextCommand{\textupdownarrow}{L8U}{↕}%* U+2195
+\DeclareTextCommand{\textnwarrow}{L8U}{↖}%* U+2196
+\DeclareTextCommand{\textnearrow}{L8U}{↗}%* U+2197
+\DeclareTextCommand{\textsearrow}{L8U}{↘}%* U+2198
+\DeclareTextCommand{\textswarrow}{L8U}{↙}%* U+2199
+\DeclareTextCommand{\textnleftarrow}{L8U}{↚}%* U+219A
+\DeclareTextCommand{\textnrightarrow}{L8U}{↛}%* U+219B
+\DeclareTextCommand{\texttwoheadleftarrow}{L8U}{↞}%* U+219E
+\DeclareTextCommand{\textntwoheadleftarrow}{L8U}{↞̸}%* U+219E U+0338
+\DeclareTextCommand{\texttwoheaduparrow}{L8U}{↟}%* U+219F
+\DeclareTextCommand{\texttwoheadrightarrow}{L8U}{↠}%* U+21A0
+\DeclareTextCommand{\textntwoheadrightarrow}{L8U}{↠̸}%* U+21A0 U+0338
+\DeclareTextCommand{\texttwoheaddownarrow}{L8U}{↡}%* U+21A1
+\DeclareTextCommand{\textleftarrowtail}{L8U}{↢}%* U+21A2
+\DeclareTextCommand{\textrightarrowtail}{L8U}{↣}%* U+21A3
+\DeclareTextCommand{\textmapsto}{L8U}{↦}%* U+21A6
+\DeclareTextCommand{\texthookleftarrow}{L8U}{↩}%* U+21A9
+\DeclareTextCommand{\texthookrightarrow}{L8U}{↪}%* U+21AA
+\DeclareTextCommand{\textlooparrowleft}{L8U}{↫}%* U+21AB
+\DeclareTextCommand{\textlooparrowright}{L8U}{↬}%* U+21AC
+\DeclareTextCommand{\textnleftrightarrow}{L8U}{↮}%* U+21AE
+\DeclareTextCommand{\textlightning}{L8U}{↯}%* U+21AF
+\DeclareTextCommand{\textdlsh}{L8U}{↵}%* U+21B5
+\DeclareTextCommand{\textcurvearrowleft}{L8U}{↶}%* U+21B6
+\DeclareTextCommand{\textcurvearrowright}{L8U}{↷}%* U+21B7
+\DeclareTextCommand{\textleftharpoonup}{L8U}{↼}%* U+21BC
+\DeclareTextCommand{\textleftharpoondown}{L8U}{↽}%* U+21BD
+\DeclareTextCommand{\textupharpoonright}{L8U}{↾}%* U+21BE
+\DeclareTextCommand{\textupharpoonleft}{L8U}{↿}%* U+21BF
+\DeclareTextCommand{\textrightharpoonup}{L8U}{⇀}%* U+21C0
+\DeclareTextCommand{\textrightharpoondown}{L8U}{⇁}%* U+21C1
+\DeclareTextCommand{\textdownharpoonright}{L8U}{⇂}%* U+21C2
+\DeclareTextCommand{\textdownharpoonleft}{L8U}{⇃}%* U+21C3
+\DeclareTextCommand{\textrightleftarrows}{L8U}{⇄}%* U+21C4
+\DeclareTextCommand{\textupdownarrows}{L8U}{⇅}%* U+21C5
+\DeclareTextCommand{\textleftrightarrows}{L8U}{⇆}%* U+21C6
+\DeclareTextCommand{\textleftleftarrows}{L8U}{⇇}%* U+21C7
+\DeclareTextCommand{\textupuparrows}{L8U}{⇈}%* U+21C8
+\DeclareTextCommand{\textrightrightarrows}{L8U}{⇉}%* U+21C9
+\DeclareTextCommand{\textdowndownarrows}{L8U}{⇊}%* U+21CA
+\DeclareTextCommand{\textleftrightharpoons}{L8U}{⇋}%* U+21CB
+\DeclareTextCommand{\textrightleftharpoons}{L8U}{⇌}%* U+21CC
+\DeclareTextCommand{\textnLeftarrow}{L8U}{⇍}%* U+21CD
+\DeclareTextCommand{\textnLeftrightarrow}{L8U}{⇎}%* U+21CE
+\DeclareTextCommand{\textnRightarrow}{L8U}{⇏}%* U+21CF
+\DeclareTextCommand{\textLeftarrow}{L8U}{⇐}%* U+21D0
+\DeclareTextCommand{\textUparrow}{L8U}{⇑}%* U+21D1
+\DeclareTextCommand{\textRightarrow}{L8U}{⇒}%* U+21D2
+\DeclareTextCommand{\textDownarrow}{L8U}{⇓}%* U+21D3
+\DeclareTextCommand{\textLeftrightarrow}{L8U}{⇔}%* U+21D4
+\DeclareTextCommand{\textUpdownarrow}{L8U}{⇕}%* U+21D5
+\DeclareTextCommand{\textNwarrow}{L8U}{⇖}%* U+21D6
+\DeclareTextCommand{\textNearrow}{L8U}{⇗}%* U+21D7
+\DeclareTextCommand{\textSearrow}{L8U}{⇘}%* U+21D8
+\DeclareTextCommand{\textSwarrow}{L8U}{⇙}%* U+21D9
+\DeclareTextCommand{\textLleftarrow}{L8U}{⇚}%* U+21DA
+\DeclareTextCommand{\textRrightarrow}{L8U}{⇛}%* U+21DB
+\DeclareTextCommand{\textleftsquigarrow}{L8U}{⇜}%* U+21DC
+\DeclareTextCommand{\textrightsquigarrow}{L8U}{⇝}%* U+21DD
+\DeclareTextCommand{\textdashleftarrow}{L8U}{⇠}%* U+21E0
+\DeclareTextCommand{\textdasheduparrow}{L8U}{⇡}%* U+21E1
+\DeclareTextCommand{\textdashrightarrow}{L8U}{⇢}%* U+21E2
+\DeclareTextCommand{\textdasheddownarrow}{L8U}{⇣}%* U+21E3
+\DeclareTextCommand{\textpointer}{L8U}{⇨}%* U+21E8
+\DeclareTextCommand{\textdownuparrows}{L8U}{⇵}%* U+21F5
+\DeclareTextCommand{\textleftarrowtriangle}{L8U}{⇽}%* U+21FD
+\DeclareTextCommand{\textrightarrowtriangle}{L8U}{⇾}%* U+21FE
+\DeclareTextCommand{\textleftrightarrowtriangle}{L8U}{⇿}%* U+21FF
+
+\def\LIIXUmapmatharrowsA{%
+ \let\leftarrow\textleftarrow
+ \let\uparrow\textuparrow
+ \let\rightarrow\textrightarrow
+ \let\downarrow\textdownarrow
+ \let\leftrightarrow\textleftrightarrow
+ \let\updownarrow\textupdownarrow
+ \let\nwarrow\textnwarrow
+ \let\nearrow\textnearrow
+ \let\searrow\textsearrow
+ \let\swarrow\textswarrow
+ \let\nleftarrow\textnleftarrow
+ \let\nrightarrow\textnrightarrow
+ \let\twoheadleftarrow\texttwoheadleftarrow
+ \let\ntwoheadleftarrow\textntwoheadleftarrow
+ \let\twoheaduparrow\texttwoheaduparrow
+ \let\twoheadrightarrow\texttwoheadrightarrow
+ \let\ntwoheadrightarrow\textntwoheadrightarrow
+ \let\twoheaddownarrow\texttwoheaddownarrow
+ \let\leftarrowtail\textleftarrowtail
+ \let\rightarrowtail\textrightarrowtail
+ \let\mapsto\textmapsto
+ \let\hookleftarrow\texthookleftarrow
+ \let\hookrightarrow\texthookrightarrow
+ \let\looparrowleft\textlooparrowleft
+ \let\looparrowright\textlooparrowright
+ \let\nleftrightarrow\textnleftrightarrow
+ \let\lightning\textlightning
+ \let\dlsh\textdlsh
+ \let\curvearrowleft\textcurvearrowleft
+ \let\curvearrowright\textcurvearrowright
+ \let\leftharpoonup\textleftharpoonup
+ \let\leftharpoondown\textleftharpoondown
+ \let\upharpoonright\textupharpoonright
+ \let\upharpoonleft\textupharpoonleft
+ \let\rightharpoonup\textrightharpoonup
+ \let\rightharpoondown\textrightharpoondown
+ \let\downharpoonright\textdownharpoonright
+ \let\downharpoonleft\textdownharpoonleft
+ \let\rightleftarrows\textrightleftarrows
+ \let\updownarrows\textupdownarrows
+ \let\leftrightarrows\textleftrightarrows
+ \let\leftleftarrows\textleftleftarrows
+ \let\upuparrows\textupuparrows
+ \let\rightrightarrows\textrightrightarrows
+ \let\downdownarrows\textdowndownarrows
+ \let\leftrightharpoons\textleftrightharpoons
+ \let\rightleftharpoons\textrightleftharpoons
+ \let\nLeftarrow\textnLeftarrow
+ \let\nLeftrightarrow\textnLeftrightarrow
+ \let\nRightarrow\textnRightarrow
+ \let\Leftarrow\textLeftarrow
+ \let\Uparrow\textUparrow
+ \let\Rightarrow\textRightarrow
+ \let\Downarrow\textDownarrow
+ \let\Leftrightarrow\textLeftrightarrow
+ \let\Updownarrow\textUpdownarrow
+ \let\Nwarrow\textNwarrow
+ \let\Nearrow\textNearrow
+ \let\Searrow\textSearrow
+ \let\Swarrow\textSwarrow
+ \let\Lleftarrow\textLleftarrow
+ \let\Rrightarrow\textRrightarrow
+ \let\leftsquigarrow\textleftsquigarrow
+ \let\rightsquigarrow\textrightsquigarrow
+ \let\dashleftarrow\textdashleftarrow
+ \let\dasheduparrow\textdasheduparrow
+ \let\dashrightarrow\textdashrightarrow
+ \let\dasheddownarrow\textdasheddownarrow
+ \let\pointer\textpointer
+ \let\downuparrows\textdownuparrows
+ \let\leftarrowtriangle\textleftarrowtriangle
+ \let\rightarrowtriangle\textrightarrowtriangle
+ \let\leftrightarrowtriangle\textleftrightarrowtriangle
+}
+
+%
+%  Mathematical operators  Ux2200 — Ux22FF
+%
+
+\DeclareTextCommand{\textforall}{L8U}{∀}%* U+2200
+\DeclareTextCommand{\textcomplement}{L8U}{∁}%* U+2201
+\DeclareTextCommand{\textpartial}{L8U}{∂}%* U+2202
+\DeclareTextCommand{\textexists}{L8U}{∃}%* U+2203
+\DeclareTextCommand{\textnexists}{L8U}{∄}%* U+2204
+\DeclareTextCommand{\textemptyset}{L8U}{∅}%* U+2205
+\DeclareTextCommand{\texttriangle}{L8U}{∆}%* U+2206
+\DeclareTextCommand{\textnabla}{L8U}{∇}%* U+2207
+\DeclareTextCommand{\textin}{L8U}{∈}%* U+2208
+\DeclareTextCommand{\textnotin}{L8U}{∉}%* U+2209
+\DeclareTextCommand{\textsmallin}{L8U}{∊}%* U+220A
+\DeclareTextCommand{\textni}{L8U}{∋}%* U+220B
+\DeclareTextCommand{\textnotowner}{L8U}{∌}%* U+220C
+\DeclareTextCommand{\textsmallowns}{L8U}{∍}%* U+220D
+%
+\DeclareTextCommand{\textprod}{L8U}{∏}%* U+220F
+\DeclareTextCommand{\textamalg}{L8U}{∐}%* U+2210
+\DeclareTextCommand{\textsum}{L8U}{∑}%* U+2211
+\DeclareTextCommand{\textminus}{L8U}{−}% U+2212
+\DeclareTextCommand{\textmp}{L8U}{∓}%* U+2213
+\DeclareTextCommand{\textdotplus}{L8U}{∔}%* U+2214
+\DeclareTextCommand{\textDivides}{L8U}{∕}%* U+2215
+\DeclareTextCommand{\textDividesNot}{L8U}{∕⃒}%* U+2215 U+20D2
+\DeclareTextCommand{\textsetminus}{L8U}{∖}%* U+2216
+\DeclareTextCommand{\textast}{L8U}{∗}%* U+2217
+\DeclareTextCommand{\textcirc}{L8U}{∘}%* U+2218
+\DeclareTextCommand{\textbulletoperator}{L8U}{∙}% U+2219
+\DeclareTextCommand{\textsurd}{L8U}{√}%* U+221A
+%
+\DeclareTextCommand{\textpropto}{L8U}{∝}%* U+221D
+\DeclareTextCommand{\textinfty}{L8U}{∞}%* U+221E
+%
+\DeclareTextCommand{\textangle}{L8U}{∠}%* U+2220
+\DeclareTextCommand{\textmeasuredangle}{L8U}{∡}%* U+2221
+\DeclareTextCommand{\textsphericalangle}{L8U}{∢}%* U+2222
+\DeclareTextCommand{\textmid}{L8U}{∣}%* U+2223
+\DeclareTextCommand{\textnmid}{L8U}{∤}%* U+2224
+\DeclareTextCommand{\textparallel}{L8U}{∥}%* U+2225
+\DeclareTextCommand{\textnparallel}{L8U}{∦}%* U+2226
+\DeclareTextCommand{\textwedge}{L8U}{∧}%* U+2227
+\DeclareTextCommand{\textowedge}{L8U}{∧⃝}%* U+2227 U+20DD
+\DeclareTextCommand{\textvee}{L8U}{∨}%* U+2228
+\DeclareTextCommand{\textovee}{L8U}{∨⃝}%* U+2228 U+20DD
+\DeclareTextCommand{\textcap}{L8U}{∩}%* U+2229
+\DeclareTextCommand{\textcup}{L8U}{∪}%* U+222A
+\DeclareTextCommand{\textint}{L8U}{∫}%* U+222B
+\DeclareTextCommand{\textiint}{L8U}{∬}%* U+222C
+\DeclareTextCommand{\textiiint}{L8U}{∭}%* U+222D
+\DeclareTextCommand{\textoint}{L8U}{∮}%* U+222E
+\DeclareTextCommand{\textoiint}{L8U}{∯}%* U+222F
+%
+\DeclareTextCommand{\textointclockwise}{L8U}{∲}%* U+2232
+\DeclareTextCommand{\textointctrclockwise}{L8U}{∳}%* U+2233
+\DeclareTextCommand{\texttherefore}{L8U}{∴}%* U+2234
+\DeclareTextCommand{\textbecause}{L8U}{∵}%* U+2235
+\DeclareTextCommand{\textvdotdot}{L8U}{∶}%* U+2236
+\DeclareTextCommand{\textsquaredots}{L8U}{∷}%* U+2237
+\DeclareTextCommand{\textdotminus}{L8U}{∸}%* U+2238
+\DeclareTextCommand{\texteqcolon}{L8U}{∹}%* U+2239
+%
+\DeclareTextCommand{\textsim}{L8U}{∼}%* U+223C
+\DeclareTextCommand{\textbacksim}{L8U}{∽}%* U+223D
+\DeclareTextCommand{\textnbacksim}{L8U}{∽̸}%* U+223D U+0338
+\DeclareTextCommand{\textwr}{L8U}{≀}%* U+2240
+\DeclareTextCommand{\textnsim}{L8U}{≁}%* U+2241
+\DeclareTextCommand{\texteqsim}{L8U}{≂}%* U+2242
+\DeclareTextCommand{\textneqsim}{L8U}{≂̸}%* U+2242 U+0338
+\DeclareTextCommand{\textsimeq}{L8U}{≃}%* U+2243
+\DeclareTextCommand{\textnsimeq}{L8U}{≄}%* U+2244
+\DeclareTextCommand{\textcong}{L8U}{≅}%* U+2245
+%
+\DeclareTextCommand{\textncong}{L8U}{≇}%* U+2247
+\DeclareTextCommand{\textapprox}{L8U}{≈}%* U+2248
+\DeclareTextCommand{\textnapprox}{L8U}{≉}%* U+2249
+\DeclareTextCommand{\textapproxeq}{L8U}{≊}%* U+224A
+\DeclareTextCommand{\textnapproxeq}{L8U}{≊̸}%* U+224A U+0338
+\DeclareTextCommand{\texttriplesim}{L8U}{≋}%* U+224B
+\DeclareTextCommand{\textntriplesim}{L8U}{≋̸}%* U+224B U+0338
+\DeclareTextCommand{\textbackcong}{L8U}{≌}%* U+224C
+\DeclareTextCommand{\textnbackcong}{L8U}{≌̸}%* U+224C U+0338
+\DeclareTextCommand{\textasymp}{L8U}{≍}%* U+224D
+\DeclareTextCommand{\textnasymp}{L8U}{≭}%* U+224D U+0338
+\DeclareTextCommand{\textBumpeq}{L8U}{≎}%* U+224E
+\DeclareTextCommand{\textnBumpeq}{L8U}{≎̸}%* U+224E U+0338
+\DeclareTextCommand{\textbumpeq}{L8U}{≏}%* U+224F
+\DeclareTextCommand{\textnbumpeq}{L8U}{≏̸}%* U+224F U+0338
+\DeclareTextCommand{\textdoteq}{L8U}{≐}%* U+2250
+\DeclareTextCommand{\textndoteq}{L8U}{≐̸}%* U+2250 U+0338
+\DeclareTextCommand{\textdoteqdot}{L8U}{≑}%* U+2251
+\DeclareTextCommand{\textnDoteq}{L8U}{≑̸}%* U+2251 U+0338
+\DeclareTextCommand{\textfallingdoteq}{L8U}{≒}%* U+2252
+\DeclareTextCommand{\textnfallingdoteq}{L8U}{≒̸}%* U+2252 U+0338
+\DeclareTextCommand{\textrisingdoteq}{L8U}{≓}%* U+2253
+\DeclareTextCommand{\textnrisingdoteq}{L8U}{≓̸}%* U+2253 U+0338
+\DeclareTextCommand{\textcolonequals}{L8U}{≔}%* U+2254
+\DeclareTextCommand{\textequalscolon}{L8U}{≕}%* U+2255
+\DeclareTextCommand{\texteqcirc}{L8U}{≖}%* U+2256
+\DeclareTextCommand{\textneqcirc}{L8U}{≖̸}%* U+2256 U+0338
+\DeclareTextCommand{\textcirceq}{L8U}{≗}%* U+2257
+\DeclareTextCommand{\textncirceq}{L8U}{≗̸}%* U+2257 U+0338
+%
+\DeclareTextCommand{\texthateq}{L8U}{≙}%* U+2259
+\DeclareTextCommand{\textnhateq}{L8U}{≙̸}%* U+2259 U+0338
+%
+\DeclareTextCommand{\texttriangleeq}{L8U}{≜}%* U+225C
+%
+\DeclareTextCommand{\textneq}{L8U}{≠}%* U+2260
+\DeclareTextCommand{\textne}{L8U}{≠}%* U+2260
+\DeclareTextCommand{\textequiv}{L8U}{≡}%* U+2261
+\DeclareTextCommand{\textnequiv}{L8U}{≢}%* U+2262
+%
+\DeclareTextCommand{\textleq}{L8U}{≤}%* U+2264
+\DeclareTextCommand{\textle}{L8U}{≤}%* U+2264
+\DeclareTextCommand{\textgeq}{L8U}{≥}%* U+2265
+\DeclareTextCommand{\textge}{L8U}{≥}%* U+2265
+\DeclareTextCommand{\textleqq}{L8U}{≦}%* U+2266
+\DeclareTextCommand{\textnleqq}{L8U}{≦̸}%* U+2266 U+0338
+\DeclareTextCommand{\textgeqq}{L8U}{≧}%* U+2267
+\DeclareTextCommand{\textngeqq}{L8U}{≧̸}%* U+2267 U+0338
+\DeclareTextCommand{\textlneqq}{L8U}{≨}%* U+2268
+\DeclareTextCommand{\textgneqq}{L8U}{≩}%* U+2269
+\DeclareTextCommand{\textll}{L8U}{≪}%* U+226A
+\DeclareTextCommand{\textnll}{L8U}{≪̸}%* U+226A U+0338
+\DeclareTextCommand{\textgg}{L8U}{≫}%* U+226B
+\DeclareTextCommand{\textngg}{L8U}{≫̸}%* U+226B U+0338
+\DeclareTextCommand{\textbetween}{L8U}{≬}%* U+226C
+%
+\DeclareTextCommand{\textnless}{L8U}{≮}%* U+226E
+\DeclareTextCommand{\textngtr}{L8U}{≯}%* U+226F
+\DeclareTextCommand{\textnleq}{L8U}{≰}%* U+2270
+\DeclareTextCommand{\textngeq}{L8U}{≱}%* U+2271
+\DeclareTextCommand{\textlesssim}{L8U}{≲}%* U+2272
+\DeclareTextCommand{\textgtrsim}{L8U}{≳}%* U+2273
+\DeclareTextCommand{\textnlesssim}{L8U}{≴}%* U+2274
+\DeclareTextCommand{\textngtrsim}{L8U}{≵}%* U+2275
+\DeclareTextCommand{\textlessgtr}{L8U}{≶}%* U+2276
+\DeclareTextCommand{\textgtrless}{L8U}{≷}%* U+2277
+\DeclareTextCommand{\textngtrless}{L8U}{≸}%* U+2278
+\DeclareTextCommand{\textnlessgtr}{L8U}{≹}%* U+2279
+\DeclareTextCommand{\textprec}{L8U}{≺}%* U+227A
+\DeclareTextCommand{\textsucc}{L8U}{≻}%* U+227B
+\DeclareTextCommand{\textpreccurlyeq}{L8U}{≼}%* U+227C
+\DeclareTextCommand{\textsucccurlyeq}{L8U}{≽}%* U+227D
+\DeclareTextCommand{\textprecsim}{L8U}{≾}%* U+227E
+\DeclareTextCommand{\textnprecsim}{L8U}{≾̸}%* U+227E U+0338
+\DeclareTextCommand{\textsuccsim}{L8U}{≿}%* U+227F
+\DeclareTextCommand{\textnsuccsim}{L8U}{≿̸}%* U+227F U+0338
+\DeclareTextCommand{\textnprec}{L8U}{⊀}%* U+2280
+\DeclareTextCommand{\textnsucc}{L8U}{⊁}%* U+2281
+\DeclareTextCommand{\textsubset}{L8U}{⊂}%* U+2282
+\DeclareTextCommand{\textsupset}{L8U}{⊃}%* U+2283
+\DeclareTextCommand{\textnsubset}{L8U}{⊄}%* U+2284
+\DeclareTextCommand{\textnsupset}{L8U}{⊅}%* U+2285
+\DeclareTextCommand{\textsubseteq}{L8U}{⊆}%* U+2286
+\DeclareTextCommand{\textsupseteq}{L8U}{⊇}%* U+2287
+\DeclareTextCommand{\textnsubseteq}{L8U}{⊈}%* U+2288
+\DeclareTextCommand{\textnsupseteq}{L8U}{⊉}%* U+2289
+\DeclareTextCommand{\textsubsetneq}{L8U}{⊊}%* U+228A
+\DeclareTextCommand{\textsupsetneq}{L8U}{⊋}%* U+228B
+%
+\DeclareTextCommand{\textcupdot}{L8U}{⊍}%* U+228D
+\DeclareTextCommand{\textcupplus}{L8U}{⊎}%* U+228E
+\DeclareTextCommand{\textsqsubset}{L8U}{⊏}%* U+228F
+\DeclareTextCommand{\textnsqsubset}{L8U}{⊏̸}%* U+228F U+0338
+\DeclareTextCommand{\textsqsupset}{L8U}{⊐}%* U+2290
+\DeclareTextCommand{\textnsqsupset}{L8U}{⊐̸}%* U+2290 U+0338
+\DeclareTextCommand{\textsqsubseteq}{L8U}{⊑}%* U+2291
+\DeclareTextCommand{\textnsqsubseteq}{L8U}{⋢}%* U+2291 U+0338
+\DeclareTextCommand{\textsqsupseteq}{L8U}{⊒}%* U+2292
+\DeclareTextCommand{\textnsqsupseteq}{L8U}{⋣}%* U+2292 U+0338
+\DeclareTextCommand{\textsqcap}{L8U}{⊓}%* U+2293
+\DeclareTextCommand{\textsqcup}{L8U}{⊔}%* U+2294
+\DeclareTextCommand{\textoplus}{L8U}{⊕}%* U+2295
+\DeclareTextCommand{\textominus}{L8U}{⊖}%* U+2296
+\DeclareTextCommand{\textotimes}{L8U}{⊗}%* U+2297
+\DeclareTextCommand{\textoslash}{L8U}{⊘}%* U+2298
+\DeclareTextCommand{\textodot}{L8U}{⊙}%* U+2299
+\DeclareTextCommand{\textcircledcirc}{L8U}{⊚}%* U+229A
+\DeclareTextCommand{\textcircledast}{L8U}{⊛}%* U+229B
+%
+\DeclareTextCommand{\textcircleddash}{L8U}{⊝}%* U+229D
+\DeclareTextCommand{\textboxplus}{L8U}{⊞}%* U+229E
+\DeclareTextCommand{\textboxminus}{L8U}{⊟}%* U+229F
+\DeclareTextCommand{\textboxtimes}{L8U}{⊠}%* U+22A0
+\DeclareTextCommand{\textboxdot}{L8U}{⊡}%* U+22A1
+\DeclareTextCommand{\textvdash}{L8U}{⊢}%* U+22A2
+\DeclareTextCommand{\textdashv}{L8U}{⊣}%* U+22A3
+\DeclareTextCommand{\textndashv}{L8U}{⊣̸}%* U+22A3 U+0338
+\DeclareTextCommand{\texttop}{L8U}{⊤}%* U+22A4
+\DeclareTextCommand{\textndownvdash}{L8U}{⊤̸}%* U+22A4 U+0338
+\DeclareTextCommand{\textbot}{L8U}{⊥}%* U+22A5
+\DeclareTextCommand{\textnupvdash}{L8U}{⊥̸}%* U+22A5 U+0338
+%
+\DeclareTextCommand{\textvDash}{L8U}{⊨}%* U+22A8
+\DeclareTextCommand{\textVdash}{L8U}{⊩}%* U+22A9
+\DeclareTextCommand{\textVvdash}{L8U}{⊪}%* U+22AA
+\DeclareTextCommand{\textnVvash}{L8U}{⊪̸}%* U+22AA U+0338
+\DeclareTextCommand{\textVDash}{L8U}{⊫}%* U+22AB
+\DeclareTextCommand{\textnvdash}{L8U}{⊬}%* U+22AC
+\DeclareTextCommand{\textnvDash}{L8U}{⊭}%* U+22AD
+\DeclareTextCommand{\textnVdash}{L8U}{⊮}%* U+22AE
+\DeclareTextCommand{\textnVDash}{L8U}{⊯}%* U+22AF
+%
+\DeclareTextCommand{\textlhd}{L8U}{⊲}%* U+22B2
+\DeclareTextCommand{\textrhd}{L8U}{⊳}%* U+22B3
+\DeclareTextCommand{\textunlhd}{L8U}{⊴}%* U+22B4
+\DeclareTextCommand{\textunrhd}{L8U}{⊵}%* U+22B5
+\DeclareTextCommand{\textmultimapdotbothA}{L8U}{⊶}%* U+22B6
+\DeclareTextCommand{\textmultimapdotbothB}{L8U}{⊷}%* U+22B7
+\DeclareTextCommand{\textmultimap}{L8U}{⊸}%* U+22B8
+%
+\DeclareTextCommand{\textveebar}{L8U}{⊻}%* U+22BB
+\DeclareTextCommand{\textbarwedge}{L8U}{⊼}%* U+22BC
+%
+\DeclareTextCommand{\textstar}{L8U}{⋆}%* U+22C6
+\DeclareTextCommand{\textdivideontimes}{L8U}{⋇}%* U+22C7
+\DeclareTextCommand{\textbowtie}{L8U}{⋈}%* U+22C8
+\DeclareTextCommand{\textltimes}{L8U}{⋉}%* U+22C9
+\DeclareTextCommand{\textrtimes}{L8U}{⋊}%* U+22CA
+\DeclareTextCommand{\textleftthreetimes}{L8U}{⋋}%* U+22CB
+\DeclareTextCommand{\textrightthreetimes}{L8U}{⋌}%* U+22CC
+\DeclareTextCommand{\textbacksimeq}{L8U}{⋍}%* U+22CD
+\DeclareTextCommand{\textnbacksimeq}{L8U}{⋍̸}%* U+22CD U+0338
+\DeclareTextCommand{\textcurlyvee}{L8U}{⋎}%* U+22CE
+\DeclareTextCommand{\textcurlywedge}{L8U}{⋏}%* U+22CF
+\DeclareTextCommand{\textSubset}{L8U}{⋐}%* U+22D0
+\DeclareTextCommand{\textnSubset}{L8U}{⋐̸}%* U+22D0 U+0338
+\DeclareTextCommand{\textSupset}{L8U}{⋑}%* U+22D1
+\DeclareTextCommand{\textnSupset}{L8U}{⋑̸}%* U+22D1 U+0338
+\DeclareTextCommand{\textCap}{L8U}{⋒}%* U+22D2
+\DeclareTextCommand{\textCup}{L8U}{⋓}%* U+22D3
+\DeclareTextCommand{\textpitchfork}{L8U}{⋔}%* U+22D4
+%
+\DeclareTextCommand{\textlessdot}{L8U}{⋖}%* U+22D6
+\DeclareTextCommand{\textgtrdot}{L8U}{⋗}%* U+22D7
+\DeclareTextCommand{\textlll}{L8U}{⋘}%* U+22D8
+\DeclareTextCommand{\textggg}{L8U}{⋙}%* U+22D9
+\DeclareTextCommand{\textlesseqgtr}{L8U}{⋚}%* U+22DA
+\DeclareTextCommand{\textgtreqless}{L8U}{⋛}%* U+22DB
+\DeclareTextCommand{\textcurlyeqprec}{L8U}{⋞}%* U+22DE
+\DeclareTextCommand{\textncurlyeqprec}{L8U}{⋞̸}%* U+22DE U+0338
+\DeclareTextCommand{\textcurlyeqsucc}{L8U}{⋟}%* U+22DF
+\DeclareTextCommand{\textncurlyeqsucc}{L8U}{⋟̸}%* U+22DF U+0338
+\DeclareTextCommand{\textnpreccurlyeq}{L8U}{⋠}%* U+22E0
+\DeclareTextCommand{\textnsucccurlyeq}{L8U}{⋡}%* U+22E1
+\DeclareTextCommand{\textnqsubseteq}{L8U}{⋢}%* U+22E2
+\DeclareTextCommand{\textnqsupseteq}{L8U}{⋣}%* U+22E3
+\DeclareTextCommand{\textsqsubsetneq}{L8U}{⋤}%* U+22E4
+\DeclareTextCommand{\textsqsupsetneq}{L8U}{⋥}%* U+22E5
+\DeclareTextCommand{\textlnsim}{L8U}{⋦}%* U+22E6
+\DeclareTextCommand{\textgnsim}{L8U}{⋧}%* U+22E7
+\DeclareTextCommand{\textprecnsim}{L8U}{⋨}%* U+22E8
+\DeclareTextCommand{\textsuccnsim}{L8U}{⋩}%* U+22E9
+\DeclareTextCommand{\textntriangleleft}{L8U}{⋪}%* U+22EA
+\DeclareTextCommand{\textntriangleright}{L8U}{⋫}%* U+22EB
+\DeclareTextCommand{\textntrianglelefteq}{L8U}{⋬}%* U+22EC
+\DeclareTextCommand{\textntrianglerighteq}{L8U}{⋭}%* U+22ED
+\DeclareTextCommand{\textvdots}{L8U}{⋮}%* U+22EE
+\DeclareTextCommand{\textcdots}{L8U}{⋯}%* U+22EF
+\DeclareTextCommand{\textudots}{L8U}{⋰}%* U+22F0
+\DeclareTextCommand{\textddots}{L8U}{⋱}%* U+22F1
+\DeclareTextCommand{\textbarin}{L8U}{⋶}%* U+22F6
+
+\def\LIIXUmapmathoperatorsA{%
+ \let\forall\textforall
+ \let\complement\textcomplement
+ \let\partial\textpartial
+ \let\exists\textexists
+ \let\nexists\textnexists
+ \let\emptyset\textemptyset
+ \let\triangle\texttriangle
+ \let\nabla\textnabla
+ \let\in\textin
+ \let\notin\textnotin
+ \let\smallin\textsmallin
+ \let\ni\textni
+ \let\notowner\textnotowner
+ \let\smallowns\textsmallowns
+ \let\prod\textprod
+ \let\amalg\textamalg
+ \let\sum\textsum
+ \let\minus\textminus
+ \let\mp\textmp
+ \let\dotplus\textdotplus
+ \let\Divides\textDivides
+ \let\DividesNot\textDividesNot
+ \let\setminus\textsetminus
+ \let\ast\textast
+ \let\circ\textcirc
+ \let\bulletoperator\textbulletoperator
+ \let\surd\textsurd
+ \let\propto\textpropto
+ \let\infty\textinfty
+ \let\angle\textangle
+ \let\measuredangle\textmeasuredangle
+ \let\sphericalangle\textsphericalangle
+ \let\mid\textmid
+ \let\nmid\textnmid
+ \let\parallel\textparallel
+ \let\nparallel\textnparallel
+ \let\wedge\textwedge
+ \let\land\textwedge
+ \let\owedge\textowedge
+ \let\vee\textvee
+ \let\lor\textvee
+ \let\ovee\textovee
+ \let\cap\textcap
+ \let\cup\textcup
+ \let\int\textint
+ \let\iint\textiint
+ \let\iiint\textiiint
+ \let\oint\textoint
+ \let\oiint\textoiint
+ \let\ointclockwise\textointclockwise
+ \let\ointctrclockwise\textointctrclockwise
+ \let\therefore\texttherefore
+ \let\because\textbecause
+ \let\vdotdot\textvdotdot
+ \let\squaredots\textsquaredots
+ \let\dotminus\textdotminus
+ \let\eqcolon\texteqcolon
+ \let\sim\textsim
+ \let\backsim\textbacksim
+ \let\nbacksim\textnbacksim
+ \let\wr\textwr
+ \let\nsim\textnsim
+ \let\eqsim\texteqsim
+ \let\neqsim\textneqsim
+ \let\simeq\textsimeq
+ \let\nsimeq\textnsimeq
+ \let\cong\textcong
+ \let\ncong\textncong
+ \let\approx\textapprox
+ \let\napprox\textnapprox
+ \let\approxeq\textapproxeq
+ \let\napproxeq\textnapproxeq
+ \let\triplesim\texttriplesim
+ \let\ntriplesim\textntriplesim
+ \let\backcong\textbackcong
+ \let\nbackcong\textnbackcong
+ \let\asymp\textasymp
+ \let\nasymp\textnasymp
+ \let\Bumpeq\textBumpeq
+ \let\nBumpeq\textnBumpeq
+ \let\bumpeq\textbumpeq
+ \let\nbumpeq\textnbumpeq
+ \let\doteq\textdoteq
+ \let\ndoteq\textndoteq
+ \let\doteqdot\textdoteqdot
+ \let\nDoteq\textnDoteq
+ \let\fallingdoteq\textfallingdoteq
+ \let\nfallingdoteq\textnfallingdoteq
+ \let\risingdoteq\textrisingdoteq
+ \let\nrisingdoteq\textnrisingdoteq
+ \let\colonequals\textcolonequals
+ \let\equalscolon\textequalscolon
+ \let\eqcirc\texteqcirc
+ \let\neqcirc\textneqcirc
+ \let\circeq\textcirceq
+ \let\ncirceq\textncirceq
+ \let\hateq\texthateq
+ \let\nhateq\textnhateq
+ \let\triangleeq\texttriangleeq
+ \let\neq\textneq
+ \let\ne\textne
+ \let\equiv\textequiv
+ \let\nequiv\textnequiv
+ \let\leq\textleq
+ \let\le\textle
+ \let\geq\textgeq
+ \let\ge\textge
+ \let\leqq\textleqq
+ \let\nleqq\textnleqq
+ \let\geqq\textgeqq
+ \let\ngeqq\textngeqq
+ \let\lneqq\textlneqq
+ \let\gneqq\textgneqq
+ \let\ll\textll
+ \let\nll\textnll
+ \let\gg\textgg
+ \let\ngg\textngg
+ \let\between\textbetween
+ \let\nless\textnless
+ \let\ngtr\textngtr
+ \let\nleq\textnleq
+ \let\ngeq\textngeq
+ \let\lesssim\textlesssim
+ \let\gtrsim\textgtrsim
+ \let\nlesssim\textnlesssim
+ \let\ngtrsim\textngtrsim
+ \let\lessgtr\textlessgtr
+ \let\gtrless\textgtrless
+ \let\ngtrless\textngtrless
+ \let\nlessgtr\textnlessgtr
+ \let\prec\textprec
+ \let\succ\textsucc
+ \let\preccurlyeq\textpreccurlyeq
+ \let\succcurlyeq\textsucccurlyeq
+ \let\precsim\textprecsim
+ \let\nprecsim\textnprecsim
+ \let\succsim\textsuccsim
+ \let\nsuccsim\textnsuccsim
+}
+\def\LIIXUmapmathoperatorsB{%
+ \let\nprec\textnprec
+ \let\nsucc\textnsucc
+ \let\subset\textsubset
+ \let\supset\textsupset
+ \let\nsubset\textnsubset
+ \let\nsupset\textnsupset
+ \let\subseteq\textsubseteq
+ \let\supseteq\textsupseteq
+ \let\nsubseteq\textnsubseteq
+ \let\nsupseteq\textnsupseteq
+ \let\subsetneq\textsubsetneq
+ \let\supsetneq\textsupsetneq
+ \let\cupdot\textcupdot
+ \let\cupplus\textcupplus
+ \let\sqsubset\textsqsubset
+ \let\nsqsubset\textnsqsubset
+ \let\sqsupset\textsqsupset
+ \let\nsqsupset\textnsqsupset
+ \let\sqsubseteq\textsqsubseteq
+ \let\nsqsubseteq\textnsqsubseteq
+ \let\sqsupseteq\textsqsupseteq
+ \let\nsqsupseteq\textnsqsupseteq
+ \let\sqcap\textsqcap
+ \let\sqcup\textsqcup
+ \let\oplus\textoplus
+ \let\ominus\textominus
+ \let\otimes\textotimes
+ \let\oslash\textoslash
+ \let\odot\textodot
+ \let\circledcirc\textcircledcirc
+ \let\ocirc\textcircledcirc
+ \let\circledast\textcircledast
+ \let\oast\textcircledast
+ \let\circleddash\textcircleddash
+ \let\boxplus\textboxplus
+ \let\boxminus\textboxminus
+ \let\boxtimes\textboxtimes
+ \let\boxdot\textboxdot
+ \let\vdash\textvdash
+ \let\dashv\textdashv
+ \let\ndashv\textndashv
+ \let\top\texttop
+ \let\ndownvdash\textndownvdash
+ \let\bot\textbot
+ \let\nupvdash\textnupvdash
+ \let\vDash\textvDash
+ \let\Vdash\textVdash
+ \let\Vvdash\textVvdash
+ \let\nVvash\textnVvash
+ \let\VDash\textVDash
+ \let\nvdash\textnvdash
+ \let\nvDash\textnvDash
+ \let\nVdash\textnVdash
+ \let\nVDash\textnVDash
+ \let\lhd\textlhd
+ \let\rhd\textrhd
+ \let\unlhd\textunlhd
+ \let\unrhd\textunrhd
+ \let\multimapdotbothA\textmultimapdotbothA
+ \let\multimapdotbothB\textmultimapdotbothB
+ \let\multimap\textmultimap
+ \let\veebar\textveebar
+ \let\barwedge\textbarwedge
+ \let\star\textstar
+ \let\divideontimes\textdivideontimes
+ \let\bowtie\textbowtie
+ \let\ltimes\textltimes
+ \let\rtimes\textrtimes
+ \let\leftthreetimes\textleftthreetimes
+ \let\rightthreetimes\textrightthreetimes
+ \let\backsimeq\textbacksimeq
+ \let\nbacksimeq\textnbacksimeq
+ \let\curlyvee\textcurlyvee
+ \let\curlywedge\textcurlywedge
+ \let\Subset\textSubset
+ \let\nSubset\textnSubset
+ \let\Supset\textSupset
+ \let\nSupset\textnSupset
+ \let\Cap\textCap
+ \let\doublecap\textCap
+ \let\Cup\textCup
+ \let\doublecup\textCup
+ \let\pitchfork\textpitchfork
+ \let\lessdot\textlessdot
+ \let\gtrdot\textgtrdot
+ \let\lll\textlll
+ \let\ggg\textggg
+ \let\lesseqgtr\textlesseqgtr
+ \let\gtreqless\textgtreqless
+ \let\curlyeqprec\textcurlyeqprec
+ \let\ncurlyeqprec\textncurlyeqprec
+ \let\curlyeqsucc\textcurlyeqsucc
+ \let\ncurlyeqsucc\textncurlyeqsucc
+ \let\npreccurlyeq\textnpreccurlyeq
+ \let\nsucccurlyeq\textnsucccurlyeq
+ \let\nqsubseteq\textnqsubseteq
+ \let\nqsupseteq\textnqsupseteq
+ \let\sqsubsetneq\textsqsubsetneq
+ \let\sqsupsetneq\textsqsupsetneq
+ \let\lnsim\textlnsim
+ \let\gnsim\textgnsim
+ \let\precnsim\textprecnsim
+ \let\succnsim\textsuccnsim
+ \let\ntriangleleft\textntriangleleft
+ \let\ntriangleright\textntriangleright
+ \let\ntrianglelefteq\textntrianglelefteq
+ \let\ntrianglerighteq\textntrianglerighteq
+ \let\vdots\textvdots
+ \let\cdots\textcdots
+ \let\udots\textudots
+ \let\ddots\textddots
+ \let\barin\textbarin
+}
+
+%
+%  Miscellaneous Math Symbols-A    Ux27C0 – Ux27EF
+%
+\DeclareTextCommand{\textperp}{L8U}{⟂}%* U+27C2
+\DeclareTextCommand{\textnotperp}{L8U}{⟂}%* U+27C2 U+0338
+\DeclareTextCommand{\textveedot}{L8U}{⟇}%* U+27C7
+\DeclareTextCommand{\textwedgedot}{L8U}{⟑}%* U+27D1
+\DeclareTextCommand{\textleftspoon}{L8U}{⟜}%* U+27DC
+\DeclareTextCommand{\textlbrackdbl}{L8U}{⟦}%* U+27E6
+\DeclareTextCommand{\textrbrackdbl}{L8U}{⟧}%* U+27E7
+
+\def\LIIXUmapmiscmathsymbolsA{%
+ \let\perp\textperp
+ \let\notperp\textnotperp
+ \let\veedot\textveedot
+ \let\wedgedot\textwedgedot
+ \let\leftspoon\textleftspoon
+ \let\tlbrackdbl\textlbrackdbl
+ \let\rbrackdbl\textrbrackdbl
+}
+
+%
+%  Supplementary Arrows-A    Ux27F0 – Ux27FF
+%
+\DeclareTextCommand{\textcirclearrowleft}{L8U}{⟲}%* U+27F2
+\DeclareTextCommand{\textcirclearrowright}{L8U}{⟳}%* U+27F3
+%
+\DeclareTextCommand{\textlongleftarrow}{L8U}{⟵}%* U+27F5
+\DeclareTextCommand{\textlongrightarrow}{L8U}{⟶}%* U+27F6
+\DeclareTextCommand{\textlongleftrightarrow}{L8U}{⟷}%* U+27F7
+\DeclareTextCommand{\textLongleftarrow}{L8U}{⟸}%* U+27F8
+\DeclareTextCommand{\textLongrightarrow}{L8U}{⟹}%* U+27F9
+\DeclareTextCommand{\textLongleftrightarrow}{L8U}{⟺}%* U+27FA
+%
+\DeclareTextCommand{\textlongmapsto}{L8U}{⟼}%* U+27FC
+\DeclareTextCommand{\textLongmapsfrom}{L8U}{⟽}%* U+27FD
+\DeclareTextCommand{\textLongmapsto}{L8U}{⟾}%* U+27FE
+%
+
+\def\LIIXUmapsupparrowsA{%
+ \let\circlearrowleft\textcirclearrowleft
+ \let\circlearrowright\textcirclearrowright
+ \let\longleftarrow\textlongleftarrow
+ \let\longrightarrow\textlongrightarrow
+ \let\longleftrightarrow\textlongleftrightarrow
+ \let\Longleftarrow\textLongleftarrow
+ \let\Longrightarrow\textLongrightarrow
+ \let\Longleftrightarrow\textLongleftrightarrow
+ \let\longmapsto\textlongmapsto
+ \let\Longmapsfrom\textLongmapsfrom
+ \let\Longmapsto\textLongmapsto
+}
+
+%
+%  Supplementary Arrows-B    Ux2900 – Ux297F
+%
+\DeclareTextCommand{\textnwsearrow}{L8U}{⤡}%* U+2921
+\DeclareTextCommand{\textneswarrow}{L8U}{⤢}%* U+2922
+\DeclareTextCommand{\textlhooknwarrow}{L8U}{⤣}%* U+2923
+\DeclareTextCommand{\textrhooknearrow}{L8U}{⤤}%* U+2924
+\DeclareTextCommand{\textlhooksearrow}{L8U}{⤥}%* U+2925
+\DeclareTextCommand{\textrhookswarrow}{L8U}{⤦}%* U+2926
+%
+\DeclareTextCommand{\textleadsto}{L8U}{⤳}%* U+2933
+\DeclareTextCommand{\textrcurvearrowne}{L8U}{⤴}%* U+2934
+\DeclareTextCommand{\textlcurvearrowse}{L8U}{⤵}%* U+2935
+\DeclareTextCommand{\textlcurvearrowsw}{L8U}{⤶}%* U+2936
+\DeclareTextCommand{\textrcurvearrowse}{L8U}{⤷}%* U+2937
+\DeclareTextCommand{\textlcurvearrowdown}{L8U}{⤸}%* U+2938
+\DeclareTextCommand{\textrcurvearrowdown}{L8U}{⤹}%* U+2939
+\DeclareTextCommand{\textrcurvearrowleft}{L8U}{⤺}%* U+293A
+\DeclareTextCommand{\textrcurvearrowright}{L8U}{⤻}%* U+293B
+%
+\DeclareTextCommand{\textleftrightharpoon}{L8U}{⥊}%* U+294A
+\DeclareTextCommand{\textrightleftharpoon}{L8U}{⥋}%* U+294B
+\DeclareTextCommand{\textupdownharpoonrightleft}{L8U}{⥌}%* U+294C
+\DeclareTextCommand{\textupdownharpoonleftright}{L8U}{⥍}%* U+294D
+%
+\DeclareTextCommand{\textleftleftharpoons}{L8U}{⥢}%* U+2962
+\DeclareTextCommand{\textupupharpoons}{L8U}{⥣}%* U+2963
+\DeclareTextCommand{\textrightrightharpoons}{L8U}{⥤}%* U+2964
+\DeclareTextCommand{\textdowndownharpoons}{L8U}{⥥}%* U+2965
+%
+\DeclareTextCommand{\textleftbarharpoon}{L8U}{⥪}%* U+296A
+\DeclareTextCommand{\textbarleftharpoon}{L8U}{⥫}%* U+296B
+\DeclareTextCommand{\textrightbarharpoon}{L8U}{⥬}%* U+296C
+\DeclareTextCommand{\textbarrightharpoon}{L8U}{⥭}%* U+296D
+\DeclareTextCommand{\textupdownharpoons}{L8U}{⥮}%* U+296E
+\DeclareTextCommand{\textdownupharpoons}{L8U}{⥯}%* U+296F
+%
+\DeclareTextCommand{\textmoo}{L8U}{⥿̶}%* U+297F U+0336
+
+\def\LIIXUmapsupparrowsB{%
+ \let\nwsearrow\textnwsearrow
+ \let\neswarrow\textneswarrow
+ \let\lhooknwarrow\textlhooknwarrow
+ \let\rhooknearrow\textrhooknearrow
+ \let\lhooksearrow\textlhooksearrow
+ \let\rhookswarrow\textrhookswarrow
+ \let\leadsto\textleadsto
+ \let\rcurvearrowne\textrcurvearrowne
+ \let\lcurvearrowse\textlcurvearrowse
+ \let\lcurvearrowsw\textlcurvearrowsw
+ \let\rcurvearrowse\textrcurvearrowse
+ \let\lcurvearrowdown\textlcurvearrowdown
+ \let\rcurvearrowdown\textrcurvearrowdown
+ \let\rcurvearrowleft\textrcurvearrowleft
+ \let\rcurvearrowright\textrcurvearrowright
+ \let\leftrightharpoon\textleftrightharpoon
+ \let\rightleftharpoon\textrightleftharpoon
+ \let\updownharpoonrightleft\textupdownharpoonrightleft
+ \let\updownharpoonleftright\textupdownharpoonleftright
+ \let\leftleftharpoons\textleftleftharpoons
+ \let\upupharpoons\textupupharpoons
+ \let\rightrightharpoons\textrightrightharpoons
+ \let\downdownharpoons\textdowndownharpoons
+ \let\leftbarharpoon\textleftbarharpoon
+ \let\barleftharpoon\textbarleftharpoon
+ \let\rightbarharpoon\textrightbarharpoon
+ \let\barrightharpoon\textbarrightharpoon
+ \let\updownharpoons\textupdownharpoons
+ \let\downupharpoons\textdownupharpoons
+ \let\moo\textmoo
+}
+
+%
+%  Miscellaneous Math Symbols-B    Ux2980 – Ux29FF
+%
+\DeclareTextCommand{\textllparenthesis}{L8U}{⦇}%* U+2987
+\DeclareTextCommand{\textrrparenthesis}{L8U}{⦈}%* U+2988
+%
+\DeclareTextCommand{\textinvdiameter}{L8U}{⦰}%* U+29B0
+%
+\DeclareTextCommand{\textobar}{L8U}{⦶}%* U+29B6
+%
+\DeclareTextCommand{\textobslash}{L8U}{⦸}%* U+29B8
+%
+\DeclareTextCommand{\textobot}{L8U}{⦺}%* U+29BA
+\DeclareTextCommand{\textNoChemicalCleaning}{L8U}{⦻}%* U+29BB
+%
+\DeclareTextCommand{\textolessthan}{L8U}{⧀}%* U+29C0
+\DeclareTextCommand{\textogreaterthan}{L8U}{⧁}%* U+29C1
+%
+\DeclareTextCommand{\textboxslash}{L8U}{⧄}%* U+29C4
+\DeclareTextCommand{\textboxbslash}{L8U}{⧅}%* U+29C5
+\DeclareTextCommand{\textboxast}{L8U}{⧆}%* U+29C6
+\DeclareTextCommand{\textboxcircle}{L8U}{⧇}%* U+29C7
+\DeclareTextCommand{\textboxbox}{L8U}{⧈}%* U+29C8
+%
+\DeclareTextCommand{\textValve}{L8U}{⧓}%* U+29D3
+\DeclareTextCommand{\textmultimapboth}{L8U}{⧟}%* U+29DF
+%
+\DeclareTextCommand{\textshuffle}{L8U}{⧢}%* U+29E2
+
+\def\LIIXUmapmiscmathsymbolsB{%
+ \let\llparenthesis\textllparenthesis
+ \let\rrparenthesis\textrrparenthesis
+ \let\invdiameter\textinvdiameter
+ \let\obar\textobar
+ \let\obslash\textobslash
+ \let\obot\textobot
+ \let\NoChemicalCleaning\textNoChemicalCleaning
+ \let\olessthan\textolessthan
+ \let\ogreaterthan\textogreaterthan
+ \let\boxslash\textboxslash
+ \let\boxbslash\textboxbslash
+ \let\boxast\textboxast
+ \let\boxcircle\textboxcircle
+ \let\boxbox\textboxbox
+ \let\Valve\textValve
+ \let\multimapboth\textmultimapboth
+ \let\shuffle\textshuffle
+}
+
+%
+%  Supplemental Math Operators  Ux2A00 – Ux2AFF
+%
+\DeclareTextCommand{\textuplus}{L8U}{⨃}%* U+2A04
+\DeclareTextCommand{\textbigdoublewedge}{L8U}{⨇}%* U+2A07
+\DeclareTextCommand{\textbigdoublevee}{L8U}{⨈}%* U+2A08
+\DeclareTextCommand{\textJoin}{L8U}{⨝}%* U+2A1D
+%
+\DeclareTextCommand{\textfatsemi}{L8U}{⨟}%* U+2A1F
+\DeclareTextCommand{\textcircplus}{L8U}{⨢}%* U+2A22
+\DeclareTextCommand{\textminusdot}{L8U}{⨪}%* U+2A2A
+\DeclareTextCommand{\textdottimes}{L8U}{⨰}%* U+2A30
+\DeclareTextCommand{\textdtimes}{L8U}{⨲}%* U+2A32
+\DeclareTextCommand{\textodiv}{L8U}{⨸}%* U+2A38
+\DeclareTextCommand{\textinvneg}{L8U}{⨼}%* U+2A3C
+\DeclareTextCommand{\textcapdot}{L8U}{⩀}%* U+2A40
+\DeclareTextCommand{\textsqdoublecap}{L8U}{⩎}%* U+2A4E
+\DeclareTextCommand{\textsqdoublecup}{L8U}{⩏}%* U+2A4F
+\DeclareTextCommand{\textdoublewedge}{L8U}{⩕}%* U+2A55
+\DeclareTextCommand{\textdoublevee}{L8U}{⩖}%* U+2A56
+\DeclareTextCommand{\textdoublebarwedge}{L8U}{⩞}%* U+2A5E
+\DeclareTextCommand{\textveedoublebar}{L8U}{⩣}%* U+2A63
+\DeclareTextCommand{\texteqdot}{L8U}{⩦}%* U+2A66
+\DeclareTextCommand{\textneqdot}{L8U}{⩦}%* U+2A66 U+0338
+\DeclareTextCommand{\textcoloncolonequals}{L8U}{⩴}%* U+2A74
+\DeclareTextCommand{\textleqslant}{L8U}{⩽}%* U+2A7D
+\DeclareTextCommand{\textnleqslant}{L8U}{⩽̸}%* U+2A7D U+0338
+\DeclareTextCommand{\textgeqslant}{L8U}{⩾}%* U+2A7E
+\DeclareTextCommand{\textngeqslant}{L8U}{⩾̸}%* U+2A7E U+0338
+\DeclareTextCommand{\textlessapprox}{L8U}{⪅}%* U+2A85
+\DeclareTextCommand{\textnlessapprox}{L8U}{⪅̸}%* U+2A85 U+0338
+\DeclareTextCommand{\textgtrapprox}{L8U}{⪆}%* U+2A86
+\DeclareTextCommand{\textngtrapprox}{L8U}{⪆̸}%* U+2A86 U+0338
+\DeclareTextCommand{\textlneq}{L8U}{⪇}%* U+2A87
+\DeclareTextCommand{\textgneq}{L8U}{⪈}%* U+2A88
+\DeclareTextCommand{\textlnapprox}{L8U}{⪉}%* U+2A89
+\DeclareTextCommand{\textgnapprox}{L8U}{⪊}%* U+2A8A
+\DeclareTextCommand{\textlesseqqgtr}{L8U}{⪋}%* U+2A8B
+\DeclareTextCommand{\textgtreqqless}{L8U}{⪌}%* U+2A8C
+\DeclareTextCommand{\texteqslantless}{L8U}{⪕}%* U+2A95
+\DeclareTextCommand{\texteqslantgtr}{L8U}{⪖}%* U+2A96
+\DeclareTextCommand{\textleftslice}{L8U}{⪦}%* U+2AA6
+\DeclareTextCommand{\textrightslice}{L8U}{⪧}%* U+2AA7
+\DeclareTextCommand{\textpreceq}{L8U}{⪯}%* U+2AAF
+\DeclareTextCommand{\textnpreceq}{L8U}{⪯̸}%* U+2AAF U+0338
+\DeclareTextCommand{\textsucceq}{L8U}{⪰}%* U+2AB0
+\DeclareTextCommand{\textnsucceq}{L8U}{⪰̸}%* U+2AB0 U+0338
+\DeclareTextCommand{\textprecneq}{L8U}{⪱}%* U+2AB1
+\DeclareTextCommand{\textsuccneq}{L8U}{⪲}%* U+2AB2
+\DeclareTextCommand{\textpreceqq}{L8U}{⪳}%* U+2AB3
+\DeclareTextCommand{\textnpreceqq}{L8U}{⪳̸}%* U+2AB3 U+0338
+\DeclareTextCommand{\textsucceqq}{L8U}{⪴}%* U+2AB4
+\DeclareTextCommand{\textnsucceqq}{L8U}{⪴̸}%* U+2AB4 U+0338
+\DeclareTextCommand{\textprecneqq}{L8U}{⪵}%* U+2AB5
+\DeclareTextCommand{\textsuccneqq}{L8U}{⪶}%* U+2AB6
+\DeclareTextCommand{\textprecapprox}{L8U}{⪷}%* U+2AB7
+\DeclareTextCommand{\textnprecapprox}{L8U}{⪷̸}%* U+2AB7 U+0338
+\DeclareTextCommand{\textsuccapprox}{L8U}{⪸}%* U+2AB8
+\DeclareTextCommand{\textnsuccapprox}{L8U}{⪸̸}%* U+2AB8 U+0338
+\DeclareTextCommand{\textprecnapprox}{L8U}{⪹}%* U+2AB9
+\DeclareTextCommand{\textsuccnapprox}{L8U}{⪺}%* U+2ABA
+\DeclareTextCommand{\textsubseteqq}{L8U}{⫅}%* U+2AC5
+\DeclareTextCommand{\textnsubseteqq}{L8U}{⫅̸}%* U+2AC5 U+0338
+\DeclareTextCommand{\textsupseteqq}{L8U}{⫆}%* U+2AC6
+\DeclareTextCommand{\textnsupseteqq}{L8U}{⫆̸}%* U+2AC6 U+0338
+\DeclareTextCommand{\textdashV}{L8U}{⫣}%* U+2AE3
+\DeclareTextCommand{\textndashV}{L8U}{⫣̸}%* U+2AE3 U+0338
+\DeclareTextCommand{\textDashv}{L8U}{⫤}%* U+2AE4
+\DeclareTextCommand{\textnDashv}{L8U}{⫤̸}%* U+2AE4 U+0338
+\DeclareTextCommand{\textDashV}{L8U}{⫥}%* U+2AE5
+\DeclareTextCommand{\textnDashV}{L8U}{⫥̸}%* U+2AE5 U+0338
+\DeclareTextCommand{\textdownmodels}{L8U}{⫪}%* U+2AEA
+\DeclareTextCommand{\textndownmodels}{L8U}{⫪̸}%* U+2AEA U+0338
+\DeclareTextCommand{\textupmodels}{L8U}{⫫}%* U+2AEB
+\DeclareTextCommand{\textnupmodels}{L8U}{⫫̸}%* U+2AEB U+0338
+\DeclareTextCommand{\textupspoon}{L8U}{⫯}%* U+2AEF
+\DeclareTextCommand{\textinterleave}{L8U}{⫴}%* U+2AF4
+\DeclareTextCommand{\textsslash}{L8U}{⫽}%* U+2AFD
+%
+
+\def\LIIXUmapsuppmathoperators{%
+ \let\uplus\textuplus
+ \let\bigdoublewedge\textbigdoublewedge
+ \let\bigdoublevee\textbigdoublevee
+ \let\Join\textJoin
+ \let\fatsemi\textfatsemi
+ \let\circplus\textcircplus
+ \let\minusdot\textminusdot
+ \let\dottimes\textdottimes
+ \let\dtimes\textdtimes
+ \let\odiv\textodiv
+ \let\invneg\textinvneg
+ \let\capdot\textcapdot
+ \let\sqdoublecap\textsqdoublecap
+ \let\sqdoublecup\textsqdoublecup
+ \let\doublewedge\textdoublewedge
+ \let\doublevee\textdoublevee
+ \let\doublebarwedge\textdoublebarwedge
+ \let\veedoublebar\textveedoublebar
+ \let\eqdot\texteqdot
+ \let\neqdot\textneqdot
+ \let\coloncolonequals\textcoloncolonequals
+ \let\leqslant\textleqslant
+ \let\nleqslant\textnleqslant
+ \let\geqslant\textgeqslant
+ \let\ngeqslant\textngeqslant
+ \let\lessapprox\textlessapprox
+ \let\nlessapprox\textnlessapprox
+ \let\gtrapprox\textgtrapprox
+ \let\ngtrapprox\textngtrapprox
+ \let\lneq\textlneq
+ \let\gneq\textgneq
+ \let\lnapprox\textlnapprox
+ \let\gnapprox\textgnapprox
+ \let\lesseqqgtr\textlesseqqgtr
+ \let\gtreqqless\textgtreqqless
+ \let\eqslantless\texteqslantless
+ \let\eqslantgtr\texteqslantgtr
+ \let\leftslice\textleftslice
+ \let\rightslice\textrightslice
+ \let\preceq\textpreceq
+ \let\npreceq\textnpreceq
+ \let\succeq\textsucceq
+ \let\nsucceq\textnsucceq
+ \let\precneq\textprecneq
+ \let\succneq\textsuccneq
+ \let\preceqq\textpreceqq
+ \let\npreceqq\textnpreceqq
+ \let\succeqq\textsucceqq
+ \let\nsucceqq\textnsucceqq
+ \let\precneqq\textprecneqq
+ \let\succneqq\textsuccneqq
+ \let\precapprox\textprecapprox
+ \let\nprecapprox\textnprecapprox
+ \let\succapprox\textsuccapprox
+ \let\nsuccapprox\textnsuccapprox
+ \let\precnapprox\textprecnapprox
+ \let\succnapprox\textsuccnapprox
+ \let\subseteqq\textsubseteqq
+ \let\nsubseteqq\textnsubseteqq
+ \let\supseteqq\textsupseteqq
+ \let\nsupseteqq\textnsupseteqq
+ \let\dashV\textdashV
+ \let\ndashV\textndashV
+ \let\Dashv\textDashv
+ \let\nDashv\textnDashv
+ \let\DashV\textDashV
+ \let\nDashV\textnDashV
+ \let\downmodels\textdownmodels
+ \let\ndownmodels\textndownmodels
+ \let\upmodels\textupmodels
+ \let\nupmodels\textnupmodels
+ \let\upspoon\textupspoon
+ \let\interleave\textinterleave
+ \let\sslash\textsslash
+}
+
+%  Plane-1 math alphanumerics
+%
+%   there's a lot that can be done here!
+%
+
+\DeclareTextCommand{\textmathrm}{L8U}[1]{#1}% intended for a single math-roman letter
+\DeclareTextCommand{\textmathbf}{L8U}[1]{#1}% intended for a single math-bold letter or digit
+\DeclareTextCommand{\textmathit}{L8U}[1]{#1}% intended for a single math-italic letter
+\DeclareTextCommand{\textmathbit}{L8U}[1]{#1}% intended for a single math-bold-italic letter
+\DeclareTextCommand{\textmathcal}{L8U}[1]{#1}% intended for a single math-script letter
+\DeclareTextCommand{\textmathbcal}{L8U}[1]{#1}% intended for a single math-bold-script letter
+\DeclareTextCommand{\textmathfrak}{L8U}[1]{#1}% intended for a single fraktur letter
+\DeclareTextCommand{\textmathfrakb}{L8U}[1]{#1}% intended for a single bold fraktur letter
+\DeclareTextCommand{\textmathbb}{L8U}[1]{#1}% intended for a single double-struck letter or digit
+\DeclareTextCommand{\textmathsf}{L8U}[1]{#1}% intended for a single math sans-serif letter or digit
+\DeclareTextCommand{\textmathsfb}{L8U}[1]{#1}% intended for a single math bold sans-serif letter or digit
+\DeclareTextCommand{\textmathsfit}{L8U}[1]{#1}% intended for a single math italic sans-serif letter
+\DeclareTextCommand{\textmathsbit}{L8U}[1]{#1}% intended for a single math bold-italic sans-serif letter
+\DeclareTextCommand{\textmathtt}{L8U}[1]{#1}% intended for a single math monspaced letter or digit
+
+
+\DeclareTextCommand{\textupgreekb}{L8U}[1]{#1}% intended for a single bold upright Greek letter
+\DeclareTextCommand{\textmathgreekit}{L8U}[1]{#1}% intended for a single italiced Greek letter
+\DeclareTextCommand{\textmathgreekbit}{L8U}[1]{#1}% intended for a single bold italiced Greek letter
+\DeclareTextCommand{\textmathgreeksbf}{L8U}[1]{#1}% intended for a single bold sans-serif Greek letter
+\DeclareTextCommand{\textmathgreeksbit}{L8U}[1]{#1}% intended for a single bold italiced sans-serif Greek letter
+
+\def\pdfx@null{}
+\DeclareTextCommand{\textmathrmstring}{L8U}[1]{\textmathrm@ii#1\@empty\@empty}
+\def\textmathrm@i#1{\textmathrm@ii#1}%\@empty}
+\def\textmathrm@ii#1#2\@empty{\textmathrm{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathrm@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathbfstring}{L8U}[1]{\textmathbf@ii#1\@empty\@empty}
+\def\textmathbf@i#1{\textmathbf@ii#1}%\@empty}
+\def\textmathbf@ii#1#2\@empty{\textmathbf{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathbf@ii\fi#2\@empty}
+
+\DeclareTextCommand{\textmathitstring}{L8U}[1]{\textmathit@ii#1\@empty\@empty}
+\def\textmathit@i#1{\textmathit@ii#1}%\@empty}
+\def\textmathit@ii#1#2\@empty{\textmathit{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathit@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathbitstring}{L8U}[1]{\textmathbit@ii#1\@empty\@empty}
+\def\textmathbit@i#1{\textmathbit@ii#1}%\@empty}
+\def\textmathbit@ii#1#2\@empty{\textmathbit{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathbit@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathcalstring}{L8U}[1]{\textmathcal@ii#1\@empty\@empty}
+\def\textmathcal@i#1{\textmathcal@ii#1}%\@empty}
+\def\textmathcal@ii#1#2\@empty{\textmathcal{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathcal@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathbcalstring}{L8U}[1]{\textmathbcal@ii#1\@empty\@empty}
+\def\textmathbcal@i#1{\textmathbcal@ii#1}%\@empty}
+\def\textmathbcal@ii#1#2\@empty{\textmathbcal{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathbcal@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathbbstring}{L8U}[1]{\textmathbb@ii#1\@empty\@empty}
+\def\textmathbb@i#1{\textmathbb@ii#1}%\@empty}
+\def\textmathbb@ii#1#2\@empty{\textmathbb{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathbb@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathfrakstring}{L8U}[1]{\textmathfrak@ii#1\@empty\@empty}
+\def\textmathfrak@i#1{\textmathfrak@ii#1}%\@empty}
+\def\textmathfrak@ii#1#2\@empty{\textmathfrak{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathfrak@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathfrakbstring}{L8U}[1]{\textmathfrakb@ii#1\@empty\@empty}
+\def\textmathfrakb@i#1{\textmathfrakb@ii#1}%\@empty}
+\def\textmathfrakb@ii#1#2\@empty{\textmathfrakb{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathfrakb@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathsfstring}{L8U}[1]{\textmathsf@ii#1\@empty\@empty}
+\def\textmathsf@i#1{\textmathsf@ii#1}%\@empty}
+\def\textmathsf@ii#1#2\@empty{\textmathsf{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathsf@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathsfitstring}{L8U}[1]{\textmathsfit@ii#1\@empty\@empty}
+\def\textmathsfit@i#1{\textmathsfit@ii#1}%\@empty}
+\def\textmathsfit@ii#1#2\@empty{\textmathsfit{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathsfit@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathsfbstring}{L8U}[1]{\textmathsfb@ii#1\@empty\@empty}
+\def\textmathsfb@i#1{\textmathsfb@ii#1}%\@empty}
+\def\textmathsfb@ii#1#2\@empty{\textmathsfb{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathsfb@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathsbitstring}{L8U}[1]{\textmathsbit@ii#1\@empty\@empty}
+\def\textmathsbit@i#1{\textmathsbit@ii#1}%\@empty}
+\def\textmathsbit@ii#1#2\@empty{\textmathsbit{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathsbit@i\fi#2\@empty}
+
+\DeclareTextCommand{\textmathttstring}{L8U}[1]{\textmathtt@ii#1\@empty\@empty}
+\def\textmathtt@i#1{\textmathtt@ii#1}%\@empty}
+\def\textmathtt@ii#1#2\@empty{\textmathtt{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathtt@i\fi#2\@empty}
+
+% allow superscripts and subscripts to be specified
+% within math-string commands.
+% This requires adjustments to the order of the on-coming tokens.
+\def\liixu@mathreorder#1#2\ifx#3\else\expandafter#4\fi#5{#1{#5}#4}
+
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathrm}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathrm}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{_}{\liixu@mathreorder\textsubstring}
+
+\DeclareTextCommand{\textmathnormal}{L8U}[1]{#1}% intended for math generally
+\DeclareTextCommand{\textmathnormalstring}{L8U}[1]{\textmathnormal@ii#1\@empty\@empty}
+\def\textmathnormal@i#1{\textmathnormal@ii#1}% do we gobble \@empty's this way?
+\def\textmathnormal@ii#1#2\@empty{\textmathnormal{#1}%
+ \ifx\@empty#2\@empty\else\expandafter\textmathnormal@i\fi#2\@empty}
+
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{^}{\liixu@mathreorder\textsuperstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{_}{\liixu@mathreorder\textsubstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\\}{\textLF}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\cr}{\textLF}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\crcr}{\textLF}
+
+\DeclareTextCommand{\textinlinemath}{L8U}{\liixu@getinlinemath}
+\def\liixu@getinlinemath#1\){\space\textmathnormalstring{#1}\space}
+\DeclareTextCommand{\textdisplaymath}{L8U}{\liixu@getdisplaymath}
+\def\liixu@getdisplaymath#1\]{\textLF\textmathnormalstring{#1}\textLF}
+
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathrm}{\liixu@mathreorder\textmathrmstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathbf}{\liixu@mathreorder\textmathbfstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathit}{\liixu@mathreorder\textmathitstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathbit}{\liixu@mathreorder\textmathbitstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathcal}{\liixu@mathreorder\textmathcalstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathbcal}{\liixu@mathreorder\textmathbcalstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathbb}{\liixu@mathreorder\textmathbbstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathfrak}{\liixu@mathreorder\textmathfrakstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathfrakb}{\liixu@mathreorder\textmathfrakbstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathsf}{\liixu@mathreorder\textmathsfstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathsfit}{\liixu@mathreorder\textmathsfitstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathsfb}{\liixu@mathreorder\textmathsfbstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathsbit}{\liixu@mathreorder\textmathsbitstring}
+\DeclareTextCompositeCommand{\textmathnormal}{L8U}{\mathtt}{\liixu@mathreorder\textmathttstring}
+
+
+
+\def\LIIXUmapmathalphabets{%
+ \let\(\textinlinemath
+ \let\[\textdisplaymath
+ \let\mathnormal\textmathnormalstring
+ \let\mathrm\textmathrmstring
+ \let\mathup\textmathrmstring
+ \let\mbox\textmathrmstring
+ \let\mathit\textmathitstring
+ \let\mathnormal\textmathitstring
+ \let\mathbf\textmathbfstring
+ \let\mathbfup\textmathbfstring
+ \let\mathbold\textmathbitstring
+ \let\mathbb\textmathbbstring
+ \let\mathcal\textmathcalstring
+ \let\mathscr\textmathcalstring
+ \let\EuScript\textmathcalstring
+ \let\mathcalbf\textmathbcalstring
+ \let\mathbfcal\textmathbcalstring
+ \let\mathbfscr\textmathbcalstring
+ \let\mathsf\textmathsfstring
+ \let\mathsfup\textmathsfstring
+ \let\mathsfsl\textmathsfitstring
+ \let\mathsfbf\textmathsfbstring
+ \let\mathbfsfup\textmathsfbstring
+ \let\mathsfbfit\textmathsbitstring
+ \let\mathbfsfit\textmathsbitstring
+ \let\mathtt\textmathttstring
+ \let\mathfrak\textmathfrakstring
+ \let\EuFrak\textmathfrakstring
+ \let\mathfrakb\textmathfrakbstring
+ \let\mathbffrak\textmathfrakbstring
+}
+
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{A}{𝐀}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{B}{𝐁}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{C}{𝐂}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{D}{𝐃}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{E}{𝐄}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{F}{𝐅}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{G}{𝐆}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{H}{𝐇}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{I}{𝐈}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{J}{𝐉}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{K}{𝐊}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{L}{𝐋}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{M}{𝐌}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{N}{𝐍}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{O}{𝐎}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{P}{𝐏}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{Q}{𝐐}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{R}{𝐑}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{S}{𝐒}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{T}{𝐓}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{U}{𝐔}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{V}{𝐕}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{W}{𝐖}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{X}{𝐗}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{Y}{𝐘}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{Z}{𝐙}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{a}{𝐚}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{b}{𝐛}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{c}{𝐜}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{d}{𝐝}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{e}{𝐞}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{f}{𝐟}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{g}{𝐠}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{h}{𝐡}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{i}{𝐢}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{j}{𝐣}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{k}{𝐤}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{l}{𝐥}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{m}{𝐦}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{n}{𝐧}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{o}{𝐨}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{p}{𝐩}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{q}{𝐪}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{r}{𝐫}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{s}{𝐬}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{t}{𝐭}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{u}{𝐮}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{v}{𝐯}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{w}{𝐰}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{x}{𝐱}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{y}{𝐲}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{z}{𝐳}
+
+\DeclareTextCompositeCommand{\textmathit}{L8U}{A}{𝐴}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{B}{𝐵}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{C}{𝐶}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{D}{𝐷}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{E}{𝐸}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{F}{𝐹}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{G}{𝐺}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{H}{𝐻}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{I}{𝐼}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{J}{𝐽}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{K}{𝐾}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{L}{𝐿}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{M}{𝑀}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{N}{𝑁}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{O}{𝑂}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{P}{𝑃}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{Q}{𝑄}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{R}{𝑅}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{S}{𝑆}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{T}{𝑇}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{U}{𝑈}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{V}{𝑉}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{W}{𝑊}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{X}{𝑋}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{Y}{𝑌}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{Z}{𝑍}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{a}{𝑎}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{b}{𝑏}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{c}{𝑐}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{d}{𝑑}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{e}{𝑒}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{f}{𝑓}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{g}{𝑔}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{h}{ℎ}% U+210E
+\DeclareTextCompositeCommand{\textmathit}{L8U}{i}{𝑖}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{j}{𝑗}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{k}{𝑘}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{l}{𝑙}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{m}{𝑚}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{n}{𝑛}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{o}{𝑜}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{p}{𝑝}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{q}{𝑞}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{r}{𝑟}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{s}{𝑠}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{t}{𝑡}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{u}{𝑢}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{v}{𝑣}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{w}{𝑤}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{x}{𝑥}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{y}{𝑦}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{z}{𝑧}
+
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{A}{𝑨}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{B}{𝑩}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{C}{𝑪}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{D}{𝑫}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{E}{𝑬}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{F}{𝑭}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{G}{𝑮}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{H}{𝑯}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{I}{𝑰}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{J}{𝑱}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{K}{𝑲}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{L}{𝑳}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{M}{𝑴}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{N}{𝑵}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{O}{𝑶}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{P}{𝑷}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{Q}{𝑸}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{R}{𝑹}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{S}{𝑺}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{T}{𝑻}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{U}{𝑼}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{V}{𝑽}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{W}{𝑾}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{X}{𝑿}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{Y}{𝒀}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{Z}{𝒁}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{a}{𝒂}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{b}{𝒃}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{c}{𝒄}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{d}{𝒅}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{e}{𝒆}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{f}{𝒇}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{g}{𝒈}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{h}{𝒉}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{i}{𝒊}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{j}{𝒋}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{k}{𝒌}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{l}{𝒍}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{m}{𝒎}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{n}{𝒏}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{o}{𝒐}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{p}{𝒑}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{q}{𝒒}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{r}{𝒓}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{s}{𝒔}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{t}{𝒕}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{u}{𝒖}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{v}{𝒗}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{w}{𝒘}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{x}{𝒙}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{y}{𝒚}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{z}{𝒛}
+
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{A}{𝒜}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{B}{ℬ}% U+212C
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{C}{𝒞}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{D}{𝒟}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{E}{ℰ}% U+2130
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{F}{ℱ}% U+2131 
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{G}{𝒢}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{H}{ℋ}%  U+210B
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{I}{ℐ}%  U+2110
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{J}{𝒥}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{K}{𝒦}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{L}{ℒ}%  U+2112
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{M}{ℳ}%  U+2133
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{N}{𝒩}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{O}{𝒪}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{P}{𝒫}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{Q}{𝒬}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{R}{ℛ}%  U+211B
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{S}{𝒮}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{T}{𝒯}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{U}{𝒰}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{V}{𝒱}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{W}{𝒲}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{X}{𝒳}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{Y}{𝒴}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{Z}{𝒵}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{a}{𝒶}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{b}{𝒷}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{c}{𝒸}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{d}{𝒹}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{e}{ℯ}%  U+212F
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{f}{𝒻}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{g}{ℊ}%  U+210A
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{h}{𝒽}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{i}{𝒾}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{j}{𝒿}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{k}{𝓀}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{l}{𝓁}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{m}{𝓂}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{n}{𝓃}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{o}{ℴ}%  U+2134
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{p}{𝓅}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{q}{𝓆}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{r}{𝓇}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{s}{𝓈}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{t}{𝓉}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{u}{𝓊}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{v}{𝓋}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{w}{𝓌}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{x}{𝓍}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{y}{𝓎}
+\DeclareTextCompositeCommand{\textmathcal}{L8U}{z}{𝓏}
+
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{A}{𝓐}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{B}{𝓑}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{C}{𝓒}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{D}{𝓓}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{E}{𝓔} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{F}{𝓕} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{G}{𝓖}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{H}{𝓗} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{I}{𝓘} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{J}{𝓙}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{K}{𝓚}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{L}{𝓛} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{M}{𝓜} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{N}{𝓝}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{O}{𝓞}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{P}{𝓟}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{Q}{𝓠}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{R}{𝓡} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{S}{𝓢}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{T}{𝓣}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{U}{𝓤}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{V}{𝓥}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{W}{𝓦}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{X}{𝓧}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{Y}{𝓨}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{Z}{𝓩}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{a}{𝓪}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{b}{𝓫}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{c}{𝓬}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{d}{𝓭}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{e}{𝓮} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{f}{𝓯}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{g}{𝓰} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{h}{𝓱}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{i}{𝓲}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{j}{𝓳}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{k}{𝓴}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{l}{𝓵}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{m}{𝓶}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{n}{𝓷}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{o}{𝓸} 
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{p}{𝓹}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{q}{𝓺}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{r}{𝓻}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{s}{𝓼}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{t}{𝓽}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{u}{𝓾}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{v}{𝓿}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{w}{𝔀}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{x}{𝔁}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{y}{𝔂}
+\DeclareTextCompositeCommand{\textmathbcal}{L8U}{z}{𝔃}
+
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{A}{𝔄}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{B}{𝔅}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{C}{ℭ}%  U+212D
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{D}{𝔇}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{E}{𝔈} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{F}{𝔉} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{G}{𝔊}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{H}{ℌ}%  U+210C 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{I}{ℑ}%  U+2111
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{J}{𝔍}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{K}{𝔎}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{L}{𝔏} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{M}{𝔐} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{N}{𝔑}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{O}{𝔒}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{P}{𝔓}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{Q}{𝔔}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{R}{ℜ}%   U+211C
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{S}{𝔖}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{T}{𝔗}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{U}{𝔘}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{V}{𝔙}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{W}{𝔚}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{X}{𝔛}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{Y}{𝔜}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{Z}{ℨ}%  U+2128
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{a}{𝔞}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{b}{𝔟}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{c}{𝔠}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{d}{𝔡}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{e}{𝔢} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{f}{𝔣}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{g}{𝔤} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{h}{𝔥}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{i}{𝔦}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{j}{𝔧}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{k}{𝔨}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{l}{𝔩}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{m}{𝔪}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{n}{𝔫}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{o}{𝔬} 
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{p}{𝔭}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{q}{𝔮}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{r}{𝔯}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{s}{𝔰}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{t}{𝔱}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{u}{𝔲}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{v}{𝔳}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{w}{𝔴}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{x}{𝔵}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{y}{𝔶}
+\DeclareTextCompositeCommand{\textmathfrak}{L8U}{z}{𝔷}
+
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{A}{𝔸}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{B}{𝔹}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{C}{ℂ}%  Ux2102 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{D}{𝔻}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{E}{𝔼} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{F}{𝔽} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{G}{𝔾}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{H}{ℍ}%  Ux210D
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{I}{𝕀} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{J}{𝕁}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{K}{𝕂}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{L}{𝕃} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{M}{𝕄} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{N}{ℕ}%  Ux2115
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{O}{𝕆}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{P}{ℙ}%  Ux2119
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{Q}{ℚ}%  Ux211A
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{R}{ℝ}%  Ux211D
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{S}{𝕊}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{T}{𝕋}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{U}{𝕌}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{V}{𝕍}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{W}{𝕎}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{X}{𝕏}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{Y}{𝕐}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{Z}{ℤ}%  Ux2124
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{a}{𝕒}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{b}{𝕓}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{c}{𝕔}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{d}{𝕕}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{e}{𝕖} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{f}{𝕗}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{g}{𝕘} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{h}{𝕙}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{i}{𝕚}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{j}{𝕛}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{k}{𝕜}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{l}{𝕝}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{m}{𝕞}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{n}{𝕟}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{o}{𝕠} 
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{p}{𝕡}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{q}{𝕢}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{r}{𝕣}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{s}{𝕤}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{t}{𝕥}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{u}{𝕦}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{v}{𝕧}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{w}{𝕨}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{x}{𝕩}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{y}{𝕪}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{z}{𝕫}
+
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{A}{𝕬}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{B}{𝕭}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{C}{𝕮} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{D}{𝕯}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{E}{𝕰} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{F}{𝕱} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{G}{𝕲}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{H}{𝕳}  
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{I}{𝕴} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{J}{𝕵}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{K}{𝕶}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{L}{𝕷} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{M}{𝕸} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{N}{𝕹}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{O}{𝕺}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{P}{𝕻}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{Q}{𝕼}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{R}{𝕽}  
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{S}{𝕾}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{T}{𝕿}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{U}{𝖀}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{V}{𝖁}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{W}{𝖂}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{X}{𝖃}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{Y}{𝖄}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{Z}{𝖅} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{a}{𝖆}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{b}{𝖇}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{c}{𝖈}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{d}{𝖉}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{e}{𝖊} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{f}{𝖋}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{g}{𝖌} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{h}{𝖍}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{i}{𝖎}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{j}{𝖏}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{k}{𝖐}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{l}{𝖑}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{m}{𝖒}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{n}{𝖓}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{o}{𝖔} 
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{p}{𝖕}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{q}{𝖖}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{r}{𝖗}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{s}{𝖘}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{t}{𝖙}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{u}{𝖚}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{v}{𝖛}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{w}{𝖜}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{x}{𝖝}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{y}{𝖞}
+\DeclareTextCompositeCommand{\textmathfrakb}{L8U}{z}{𝖟}
+
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{A}{𝖠}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{B}{𝖡}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{C}{𝖢} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{D}{𝖣}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{E}{𝖤} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{F}{𝖥} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{G}{𝖦}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{H}{𝖧}  
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{I}{𝖨} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{J}{𝖩}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{K}{𝖪}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{L}{𝖫} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{M}{𝖬} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{N}{𝖭}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{O}{𝖮}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{P}{𝖯}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{Q}{𝖰}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{R}{𝖱}  
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{S}{𝖲}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{T}{𝖳}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{U}{𝖴}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{V}{𝖵}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{W}{𝖶}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{X}{𝖷}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{Y}{𝖸}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{Z}{𝖹} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{a}{𝖺}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{b}{𝖻}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{c}{𝖼}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{d}{𝖽}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{e}{𝖾} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{f}{𝖿}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{g}{𝗀} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{h}{𝗁}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{i}{𝗂}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{j}{𝗃}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{k}{𝗄}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{l}{𝗅}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{m}{𝗆}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{n}{𝗇}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{o}{𝗈} 
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{p}{𝗉}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{q}{𝗊}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{r}{𝗋}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{s}{𝗌}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{t}{𝗍}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{u}{𝗎}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{v}{𝗏}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{w}{𝗐}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{x}{𝗑}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{y}{𝗒}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{z}{𝗓}
+
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{A}{𝗔}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{B}{𝗕}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{C}{𝗖} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{D}{𝗗}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{E}{𝗘} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{F}{𝗙} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{G}{𝗚}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{H}{𝗛}  
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{I}{𝗜} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{J}{𝗝}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{K}{𝗞}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{L}{𝗟} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{M}{𝗠} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{N}{𝗡}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{O}{𝗢}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{P}{𝗣}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{Q}{𝗤}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{R}{𝗥}  
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{S}{𝗦}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{T}{𝗧}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{U}{𝗨}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{V}{𝗩}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{W}{𝗪}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{X}{𝗫}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{Y}{𝗬}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{Z}{𝗭} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{a}{𝗮}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{b}{𝗯}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{c}{𝗰}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{d}{𝗱}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{e}{𝗲} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{f}{𝗳}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{g}{𝗴} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{h}{𝗵}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{i}{𝗶}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{j}{𝗷}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{k}{𝗸}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{l}{𝗹}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{m}{𝗺}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{n}{𝗻}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{o}{𝗼} 
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{p}{𝗽}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{q}{𝗾}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{r}{𝗿}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{s}{𝘀}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{t}{𝘁}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{u}{𝘂}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{v}{𝘃}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{w}{𝘄}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{x}{𝘅}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{y}{𝘆}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{z}{𝘇}
+
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{A}{𝘈}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{B}{𝘉}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{C}{𝘊} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{D}{𝘋}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{E}{𝘌} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{F}{𝘍} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{G}{𝘎}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{H}{𝘏}  
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{I}{𝘐} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{J}{𝘑}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{K}{𝘒}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{L}{𝘓} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{M}{𝘔} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{N}{𝘕}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{O}{𝘖}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{P}{𝘗}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{Q}{𝘘}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{R}{𝘙}  
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{S}{𝘚}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{T}{𝘛}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{U}{𝘜}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{V}{𝘝}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{W}{𝘞}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{X}{𝘟}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{Y}{𝘠}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{Z}{𝘡} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{a}{𝘢}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{b}{𝘣}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{c}{𝘤}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{d}{𝘥}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{e}{𝘦} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{f}{𝘧}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{g}{𝘨} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{h}{𝘩}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{i}{𝘪}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{j}{𝘫}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{k}{𝘬}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{l}{𝘭}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{m}{𝘮}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{n}{𝘯}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{o}{𝘰} 
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{p}{𝘱}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{q}{𝘲}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{r}{𝘳}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{s}{𝘴}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{t}{𝘵}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{u}{𝘶}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{v}{𝘷}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{w}{𝘸}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{x}{𝘹}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{y}{𝘺}
+\DeclareTextCompositeCommand{\textmathsfit}{L8U}{z}{𝘻}
+
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{A}{𝘼}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{B}{𝘽}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{C}{𝘾} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{D}{𝘿}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{E}{𝙀} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{F}{𝙁} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{G}{𝙂}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{H}{𝙃}  
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{I}{𝙄} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{J}{𝙅}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{K}{𝙆}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{L}{𝙇} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{M}{𝙈} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{N}{𝙉}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{O}{𝙊}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{P}{𝙋}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{Q}{𝙌}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{R}{𝙍}  
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{S}{𝙎}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{T}{𝙏}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{U}{𝙐}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{V}{𝙑}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{W}{𝙒}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{X}{𝙓}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{Y}{𝙔}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{Z}{𝙕} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{a}{𝙖}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{b}{𝙗}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{c}{𝙘}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{d}{𝙙}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{e}{𝙚} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{f}{𝙛}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{g}{𝙜} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{h}{𝙝}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{i}{𝙞}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{j}{𝙟}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{k}{𝙠}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{l}{𝙡}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{m}{𝙢}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{n}{𝙣}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{o}{𝙤} 
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{p}{𝙥}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{q}{𝙦}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{r}{𝙧}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{s}{𝙨}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{t}{𝙩}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{u}{𝙪}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{v}{𝙫}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{w}{𝙬}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{x}{𝙭}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{y}{𝙮}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{z}{𝙯}
+
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{A}{𝙰}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{B}{𝙱}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{C}{𝙲} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{D}{𝙳}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{E}{𝙴} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{F}{𝙵} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{G}{𝙶}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{H}{𝙷}  
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{I}{𝙸} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{J}{𝙹}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{K}{𝙺}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{L}{𝙻} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{M}{𝙼} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{N}{𝙽}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{O}{𝙾}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{P}{𝙿}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{Q}{𝚀}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{R}{𝚁}  
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{S}{𝚂}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{T}{𝚃}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{U}{𝚄}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{V}{𝚅}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{W}{𝚆}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{X}{𝚇}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{Y}{𝚈}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{Z}{𝚉} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{a}{𝚊}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{b}{𝚋}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{c}{𝚌}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{d}{𝚍}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{e}{𝚎} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{f}{𝚏}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{g}{𝚐} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{h}{𝚑}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{i}{𝚒}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{j}{𝚓}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{k}{𝚔}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{l}{𝚕}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{m}{𝚖}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{n}{𝚗}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{o}{𝚘} 
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{p}{𝚙}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{q}{𝚚}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{r}{𝚛}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{s}{𝚜}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{t}{𝚝}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{u}{𝚞}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{v}{𝚟}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{w}{𝚠}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{x}{𝚡}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{y}{𝚢}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{z}{𝚣}
+
+\DeclareTextCommand{\mathimath}{L8U}{𝚤}
+\DeclareTextCommand{\mathjmath}{L8U}{𝚥}
+
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Alpha}{𝚨}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Beta}{𝚩}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Gamma}{𝚪}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Delta}{𝚫}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Epsilon}{𝚬}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Zeta}{𝚭}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Eta}{𝚮}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Theta}{𝚯}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Iota}{𝚰}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Kappa}{𝚱}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Lambda}{𝚲}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Mu}{𝚳}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Nu}{𝚴}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Xi}{𝚵}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Omicron}{𝚶}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Pi}{𝚷}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Rho}{𝚸}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varTheta}{𝚹}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Sigma}{𝚺}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Tau}{𝚻}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Upsilon}{𝚼}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Phi}{𝚽}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Chi}{𝚾}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Psi}{𝚿}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Omega}{𝛀}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\nabla}{𝛁}
+
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\alpha}{𝛂}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\beta}{𝛃}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\gamma}{𝛄}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\delta}{𝛅}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varepsilon}{𝛆}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\zeta}{𝛇}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\eta}{𝛈}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\theta}{𝛉}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\iota}{𝛊}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\kappa}{𝛋}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\lambda}{𝛌}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\mu}{𝛍}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\nu}{𝛎}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\xi}{𝛏}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\omicron}{𝛐}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\pi}{𝛑}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\rho}{𝛒}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varsigma}{𝛓}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\sigma}{𝛔}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\tau}{𝛕}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\upsilon}{𝛖}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varphi}{𝛗}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\chi}{𝛘}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\psi}{𝛙}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\omega}{𝛚}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\partial}{𝛛}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\epsilon}{𝛜}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\vartheta}{𝛝}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varkappa}{𝛞}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\phi}{𝛟}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varrho}{𝛠}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\varpi}{𝛡}
+
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Alpha}{𝛢}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Beta}{𝛣}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Gamma}{𝛤}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Delta}{𝛥}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Epsilon}{𝛦}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Zeta}{𝛧}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Eta}{𝛨}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Theta}{𝛩}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Iota}{𝛪}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Kappa}{𝛫}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Lambda}{𝛬}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Mu}{𝛭}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Nu}{𝛮}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Xi}{𝛯}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Omicron}{𝛰}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Pi}{𝛱}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Rho}{𝛲}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\varTheta}{𝛳}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Sigma}{𝛴}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Tau}{𝛵}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Upsilon}{𝛶}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Phi}{𝛷}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Chi}{𝛸}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Psi}{𝛹}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\Omega}{𝛺}
+\DeclareTextCompositeCommand{\textmathit}{L8U}{\nabla}{𝛻}
+
+
+\DeclareTextCommand{\textmathalpha}{L8U}{𝛼}
+\DeclareTextCommand{\textmathbeta}{L8U}{𝛽}
+\DeclareTextCommand{\textmathgamma}{L8U}{𝛾}
+\DeclareTextCommand{\textmathdelta}{L8U}{𝛿}
+\DeclareTextCommand{\textmathvarepsilon}{L8U}{𝜀}
+\DeclareTextCommand{\textmathzeta}{L8U}{𝜁}
+\DeclareTextCommand{\textmatheta}{L8U}{𝜂}
+\DeclareTextCommand{\textmaththeta}{L8U}{𝜃}
+\DeclareTextCommand{\textmathiota}{L8U}{𝜄}
+\DeclareTextCommand{\textmathkappa}{L8U}{𝜅}
+\DeclareTextCommand{\textmathlambda}{L8U}{𝜆}
+\DeclareTextCommand{\textmathmu}{L8U}{𝜇}
+\DeclareTextCommand{\textmathnu}{L8U}{𝜈}
+\DeclareTextCommand{\textmathxi}{L8U}{𝜉}
+\DeclareTextCommand{\textmathomicron}{L8U}{𝜊}
+\DeclareTextCommand{\textmathpi}{L8U}{𝜋}
+\DeclareTextCommand{\textmathrho}{L8U}{𝜌}
+\DeclareTextCommand{\textmathvarsigma}{L8U}{𝜍}
+\DeclareTextCommand{\textmathsigma}{L8U}{𝜎}
+\DeclareTextCommand{\textmathtau}{L8U}{𝜏}
+\DeclareTextCommand{\textmathupsilon}{L8U}{𝜐}
+\DeclareTextCommand{\textmathvarphi}{L8U}{𝜑}
+\DeclareTextCommand{\textmathchi}{L8U}{𝜒}
+\DeclareTextCommand{\textmathpsi}{L8U}{𝜓}
+\DeclareTextCommand{\textmathomega}{L8U}{𝜔}
+\DeclareTextCommand{\textmathpartial}{L8U}{𝜕}
+\DeclareTextCommand{\textmathepsilon}{L8U}{𝜖}
+\DeclareTextCommand{\textmathvartheta}{L8U}{𝜗}
+\DeclareTextCommand{\textmathvarkappa}{L8U}{𝜘}
+\DeclareTextCommand{\textmathphi}{L8U}{𝜙}
+\DeclareTextCommand{\textmathvarrho}{L8U}{𝜚}
+\DeclareTextCommand{\textmathvarpi}{L8U}{𝜛}
+
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Alpha}{𝜜}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Beta}{𝜝}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Gamma}{𝜞}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Delta}{𝜟}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Epsilon}{𝜠}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Zeta}{𝜡}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Eta}{𝜢}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Theta}{𝜣}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Iota}{𝜤}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Kappa}{𝜥}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Lambda}{𝜦}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Mu}{𝜧}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Nu}{𝜨}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Xi}{𝜩}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Omicron}{𝜪}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Pi}{𝜫}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Rho}{𝜬}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varTheta}{𝜭}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Sigma}{𝜮}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Tau}{𝜯}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Upsilon}{𝜰}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Phi}{𝜱}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Chi}{𝜲}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Psi}{𝜳}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\Omega}{𝜴}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\nabla}{𝜵}
+
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\alpha}{𝜶}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\beta}{𝜷}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\gamma}{𝜸}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\delta}{𝜹}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varepsilon}{𝜺}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\zeta}{𝜻}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\eta}{𝜼}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\theta}{𝜽}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\iota}{𝜾}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\kappa}{𝜿}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\lambda}{𝝀}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\mu}{𝝁}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\nu}{𝝂}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\xi}{𝝃}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\omicron}{𝝄}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\pi}{𝝅}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\rho}{𝝆}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varsigma}{𝝇}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\sigma}{𝝈}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\tau}{𝝉}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\upsilon}{𝝊}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varphi}{𝝋}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\chi}{𝝌}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\psi}{𝝍}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\omega}{𝝎}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\partial}{𝝏}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\epsilon}{𝝐}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\vartheta}{𝝑}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varkappa}{𝝒}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\phi}{𝝓}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varrho}{𝝔}
+\DeclareTextCompositeCommand{\textmathbit}{L8U}{\varpi}{𝝕}
+
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Alpha}{𝝖}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Beta}{𝝗}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Gamma}{𝝘}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Delta}{𝝙}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Epsilon}{𝝚}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Zeta}{𝝛}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Eta}{𝝜}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Theta}{𝝝}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Iota}{𝝞}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Kappa}{𝝟}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Lambda}{𝝠}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Mu}{𝝡}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Nu}{𝝢}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Xi}{𝝣}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Omicron}{𝝤}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Pi}{𝝥}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Rho}{𝝦}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varTheta}{𝝧}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Sigma}{𝝨}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Tau}{𝝩}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Upsilon}{𝝪}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Phi}{𝝫}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Chi}{𝝬}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Psi}{𝝭}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\Omega}{𝝮}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\nabla}{𝝯}
+
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\alpha}{𝝰}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\beta}{𝝱}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\gamma}{𝝲}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\delta}{𝝳}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varepsilon}{𝝴}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\zeta}{𝝵}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\eta}{𝝶}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\theta}{𝝷}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\iota}{𝝸}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\kappa}{𝝹}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\lambda}{𝝺}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\mu}{𝝻}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\nu}{𝝼}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\xi}{𝝽}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\omicron}{𝝾}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\pi}{𝝿}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\rho}{𝞀}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varsigma}{𝞁}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\sigma}{𝞂}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\tau}{𝞃}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\upsilon}{𝞄}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varphi}{𝞅}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\chi}{𝞆}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\psi}{𝞇}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\omega}{𝞈}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\partial}{𝞉}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\epsilon}{𝞊}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\vartheta}{𝞋}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varkappa}{𝞌}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\phi}{𝞍}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varrho}{𝞎}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{\varpi}{𝞏}
+
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Alpha}{𝞐}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Beta}{𝞑}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Gamma}{𝞒}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Delta}{𝞓}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Epsilon}{𝞔}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Zeta}{𝞕}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Eta}{𝞖}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Theta}{𝞗}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Iota}{𝞘}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Kappa}{𝞙}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Lambda}{𝞚}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Mu}{𝞛}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Nu}{𝞜}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Xi}{𝞝}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Omicron}{𝞞}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Pi}{𝞟}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Rho}{𝞠}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varTheta}{𝞡}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Sigma}{𝞢}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Tau}{𝞣}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Upsilon}{𝞤}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Phi}{𝞥}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Chi}{𝞦}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Psi}{𝞧}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\Omega}{𝞨}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\nabla}{𝞩}
+
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\alpha}{𝞪}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\beta}{𝞫}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\gamma}{𝞬}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\delta}{𝞭}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varepsilon}{𝞮}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\zeta}{𝞯}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\eta}{𝞰}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\theta}{𝞱}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\iota}{𝞲}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\kappa}{𝞳}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\lambda}{𝞴}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\mu}{𝞵}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\nu}{𝞶}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\xi}{𝞷}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\omicron}{𝞸}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\pi}{𝞹}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\rho}{𝞺}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varsigma}{𝞻}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\sigma}{𝞼}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\tau}{𝞽}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\upsilon}{𝞾}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varphi}{𝞿}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\chi}{𝟀}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\psi}{𝟁}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\omega}{𝟂}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\partial}{𝟃}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\epsilon}{𝟄}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\vartheta}{𝟅}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varkappa}{𝟆}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\phi}{𝟇}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varrho}{𝟈}
+\DeclareTextCompositeCommand{\textmathsbit}{L8U}{\varpi}{𝟉}
+
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\Digamma}{𝟊}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{\digamma}{𝟋}
+
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{0}{𝟎}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{1}{𝟏}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{2}{𝟐}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{3}{𝟑}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{4}{𝟒}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{5}{𝟓}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{6}{𝟔}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{7}{𝟕}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{8}{𝟖}
+\DeclareTextCompositeCommand{\textmathbf}{L8U}{9}{𝟗}
+
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{0}{𝟘}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{1}{𝟙}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{2}{𝟚}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{3}{𝟛}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{4}{𝟜}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{5}{𝟝}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{6}{𝟞}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{7}{𝟟}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{8}{𝟠}
+\DeclareTextCompositeCommand{\textmathbb}{L8U}{9}{𝟡}
+
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{0}{𝟢}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{1}{𝟣}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{2}{𝟤}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{3}{𝟥}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{4}{𝟦}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{5}{𝟧}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{6}{𝟨}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{7}{𝟩}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{8}{𝟪}
+\DeclareTextCompositeCommand{\textmathsf}{L8U}{9}{𝟫}
+
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{0}{𝟬}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{1}{𝟭}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{2}{𝟮}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{3}{𝟯}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{4}{𝟰}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{5}{𝟱}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{6}{𝟲}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{7}{𝟳}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{8}{𝟴}
+\DeclareTextCompositeCommand{\textmathsfb}{L8U}{9}{𝟵}
+
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{0}{𝟶}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{1}{𝟷}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{2}{𝟸}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{3}{𝟹}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{4}{𝟺}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{5}{𝟻}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{6}{𝟼}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{7}{𝟽}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{8}{𝟾}
+\DeclareTextCompositeCommand{\textmathtt}{L8U}{9}{𝟿}
+
+
+\def\LIIXUmapunimathgreek{%
+ \let\alpha\textmathalpha
+ \let\beta\textmathbeta
+ \let\gamma\textmathgamma
+ \let\delta\textmathdelta
+ \let\epsilon\textmathepsilon
+ \let\zeta\textmathzeta
+ \let\eta\textmatheta
+ \let\theta\textmaththeta
+ \let\iota\textmathiota
+ \let\kappa\textmathkappa
+ \let\lambda\textmathlambda
+ \let\mu\textmathmu
+ \let\nu\textmathnu
+ \let\xi\textmathxi
+ \let\omicron\textmathomicron
+ \let\pi\textmathpi
+ \let\rho\textmathrho
+ \let\varsigma\textmathvarsigma
+ \let\sigma\textmathsigma
+ \let\tau\textmathtau
+ \let\upsilon\mathupsilon
+ \let\phi\textmathphi
+ \let\chi\textmathchi
+ \let\psi\textmathpsi
+ \let\omega\textmathomega
+ \let\varepsilon\textmathvarepsilon
+ \let\vartheta\textmathvartheta
+ \let\varupsilon\textmathvarupsilon
+ \let\varkappa\textmathvarkappa
+ \let\varphi\textmathvarphi
+ \let\varpi\textmathvarpi
+ \let\partial\textmathpartial
+ \let\nabla\textmathnabla
+ \let\Alpha\textAlpha
+ \let\Beta\textBeta
+ \let\Gamma\textGamma
+ \let\Delta\textDelta
+ \let\Epsilon\textEpsilon
+ \let\Zeta\textZeta
+ \let\Eta\textEta
+ \let\Theta\textTheta
+ \let\Iota\textIota
+ \let\Kappa\textKappa
+ \let\Lambda\textLambda
+ \let\Mu\textMu
+ \let\Nu\textNu
+ \let\Xi\textXi
+ \let\Omicron\textOmicron
+ \let\Pi\textPi
+ \let\Rho\textRho
+ \let\Sigma\textSigma
+ \let\Tau\textTau
+ \let\Upsilon\textUpsilon
+ \let\Phi\textPhi
+ \let\Chi\textChi
+ \let\Psi\textPsi
+ \let\Omega\textOmega
+ \let\varTheta\textvarTheta
+ \let\partial\textmathpartial
+ \let\imath\mathimath
+ \let\jmath\mathjmath
+}
+
+\endinput
+%%
+%% End of file `l8umath.def'.

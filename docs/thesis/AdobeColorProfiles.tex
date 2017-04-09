@@ -1,0 +1,323 @@
+% This file gives macros to specify CMYK Color Profiles as supported by Adobe's Acrobat Pro DC software.
+% Identifying names, comments and descriptions are taken from AC/DC's "Color Setup" Preferences panel.
+%  --- user-command ---   CMYK profile needed with  PDF/X-??  files
+%  \setCMYKcolorprofile{<filename>}{<output intent>}{<identifier>}{<registry URL>}
+%  e.g.
+%\pdfx@setcmykprofile{coated_FOGRA39L_argl.icc}|
+% {Coated FOGRA39}|
+% {FOGRA39 \string\(ISO Coated v2 300%\space \string\(ECI\string\)\string\)}|
+% {http://www.argyllcms.com/}|{http://www.color.org}|
+
+% Location of Adobe profiles on Mac OS X:
+%\gdef\AdobeMacOSdir{/Library/Application Support/Adobe/Color/Profiles/Recommended/}
+% Use  \pdfxSetCMYKcolorProfileDir{\AdobeMacOSdir}  within the  .xmpdata file
+% Location of Adobe profiles under Windows:
+%\xdef\WindowsColordir{C:\string\Windows\string\System32\string\Spool\string\Drivers\string\Color\string/}
+
+% FOGRA39
+% "Europe General Purpose 3"
+% General-purpose color settings for screen and print in Europe. Profile warnings are disabled.
+% Uses the FOGRA39 press characterization. It is designed to produce quality separations for standard ISO printing using: 350% total ink coverage, positive film, and coated paper.
+\gdef\FOGRAXXXIX{\setCMYKcolorprofile{CoatedFOGRA39.icc}%
+ {CoatedFOGRA39}%
+ {Coated FOGRA39 \string\(ISO 12647-2:2004\string\)}%  /ProfileName
+ {http://www.color.org}% /RegistryName
+}%
+
+% Coated GRACoL — no
+% Coated GRACoL 2006 \(ISO 12647-2:2004\)
+\gdef\CoatedGRACoL{\setCMYKcolorprofile{CoatedGRACoL2006.icc}%
+ {CGATS TR 006}%  /OutputConditionIdentifier 
+% {GRACoL2006_Coated1v2.icc}%  /ProfileName
+ {Coated GRACoL 2006 \string\(ISO 12647-2:2004\string\)}% 
+ {http://www.color.org}% /RegistryName
+}%   does not validate ???
+
+
+% ISO Web Coated
+% Web Coated FOGRA28 \(ISO 12647-2:2004\)
+% Uses the FOGRA28 press characterization. 
+% It is designed to produce quality separations for standard ISO printing using: 
+%    350% total ink coverage, positive film, and coated paper.
+\gdef\ISOWebCoated{\setCMYKcolorprofile{WebCoatedFOGRA28.icc}%
+ {FOGRA28}%  /OutputConditionIdentifier
+% {ISO Web Coated}%  /ProfileName
+ {Web Coated FOGRA28 \string\(ISO 12647-2:2004\string\)}%
+ {http://www.color.org}% /RegistryName
+}%    does not validate
+
+
+% Japan Color 2001 Coated
+% "Japan General Purpose 2"
+% General-purpose color settings for screen and print in Japan. Profile warnings are disabled.
+% Uses the Japan Color 2001 specification for type 3 (coated) paper. 
+% It is designed to produce quality separations using: 
+%    350% total ink coverage, positive film and coated paper.
+\gdef\JapanColorMMICoated{\setCMYKcolorprofile{JapanColor2001Coated.icc}%
+ {JC200103}%  /OutputConditionIdentifier 
+ {Japan Color 2001 Coated}%  /ProfileName
+% {Japan Color 2001 Coated: Printing process definition: ISO 12647-2:2004, sheet-fed offset printing, positive plates, paper type 3 \string\(coated, 105 gsm\string\), screen frequency 69/cm.}%
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% Japan Color 2001 Uncoated
+% Uses the Japan Color 2001 specification for type 4 (uncoated) paper. 
+% It is designed to produce quality separations using: 
+%   310% total ink coverage, positive film and uncoated paper.
+\gdef\JapanColorMMIUncoated{\setCMYKcolorprofile{JapanColor2001Uncoated.icc}%
+ {JCN200104}%  /OutputConditionIdentifier 
+ {Japan Color 2001 Uncoated}%  /ProfileName
+% {Japan Color 2001 Uncoated: Printing process definition: ISO 12647-2:2004, sheet-fed offset printing, positive plates, paper type 4 \(uncoated, 105 gsm\), screen frequency 69/cm.}% 
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% Japan Color 2002 Newspaper
+% "Japan Color for Newspaper"
+% Preparation of content for common newspaper press conditions in Japan. CMYK values are preserved. Profile warnings are enabled.
+% Uses the Japan Color 2002 for Newspapers specification. It is designed to produce quality separations using: 240% total ink coverage, positive film and standard newsprint paper.
+\gdef\JapanColorMMIINewspaper{\setCMYKcolorprofile{JapanColor2002Newspaper.icc}%
+ {JCN2002}%  /OutputConditionIdentifier 
+ {Japan Color 2002 Newspaper}%  /ProfileName
+% {Japan Color 2002 for Newspaper Printing: Printing process definition: ISO/DIS 12647-3:2004, coldset offset printing, negative plates, newsprint, screen frequency 39/cm.}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% Japan Web Coated (Ad)
+% "Japan Magazine Advertisement Color"
+% Preparation of content using the Japan Magazine Publisher Association color standard for the Japan magazine and advertising market. 
+% CMYK values are preserved. Profile warnings are enabled.
+% Uses specifications developed by the Japan Magazine Publisher Association for digital proofing of images in the Japanese magazine/advertising market.
+\gdef\JapanWebCoatedAd{\setCMYKcolorprofile{JapanColor2003WebCoated.icc}%
+ {JCW2003}%  /OutputConditionIdentifier 
+ {Japan Web Coated \string\(Ad\string\)}%  /ProfileName
+% {Japan Color 2003 for Web Offset: Printing process definition: ISO 12647-2:2004, heat-set web offset printing, positive plates, paper type 3 \string\(coated, 70 gsm\string\), screen frequency 69/cm.}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%
+
+\gdef\JapanWebCoated{\setCMYKcolorprofile{JapanWebCoated.icc}%
+ {JCW2002}% ????  /OutputConditionIdentifier 
+ {Japan Web Coated}%  /ProfileName
+% {Japan Color 2003 for Web Offset: Printing process definition: ISO 12647-2:2004, heat-set web offset printing, positive plates, paper type 3 \(coated, 70 gsm\), screen frequency 69/cm.}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%
+
+
+
+% U.S. Web Coated (SWOP) v2
+% "North America General Purpose 2"
+% General-purpose color settings for screen and print in North America. Profile warnings are disabled.
+\gdef\SWOPCGATSI{\setCMYKcolorprofile{USWebCoatedSWOP.icc}%
+ {CGATS TR 001}%  /OutputConditionIdentifier 
+ {U.S. Web Coated \string\(SWOP\string\) v2}%  /ProfileName
+% {SWOP \string\(Publication\string\) printing in USA \string\(Printing process definition: ANSI CGATS.6\string\).}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% US Newsprint (SNAP 2007)
+% "North America Newspaper"
+% Preparation of content for common newspaper press conditions in Japan. CMYK values are preserved. Profile warnings are enabled.
+\gdef\SNAPCGATSII{\setCMYKcolorprofile{USNewsprintSNAP2007.icc}%
+ {CGATS TR 002}%  /OutputConditionIdentifier 
+ {US Newsprint \string\(SNAP 2007\string\)}%  /ProfileName
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% U.S. Web Coated (SWOP) 3v2 – no
+\gdef\SWOPCGATSIII{\setCMYKcolorprofile{WebCoatedSWOP2006Grade3.icc}%
+ {CGATS TR 003}%  /OutputConditionIdentifier
+ {SWOP2006_Coated3v2.icc}%  /ProfileName
+% {Web Offset CTP plates ISO 2846-1 Inks - Variable screen frequency / G7 Methodology / Grade #3 paper}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%  does not validate
+
+
+% U.S. Web Coated (SWOP) 5v2 – no
+\gdef\SWOPCGATSV{\setCMYKcolorprofile{WebCoatedSWOP2006Grade5.icc}%
+ {CGATS TR 005}%  /OutputConditionIdentifier
+ {SWOP2006_Coated5v2.icc}%  /ProfileName
+% {Web Offset CTP plates ISO 2846-1 Inks - Variable screen frequency / G7 Methodology / grade #5 Paper}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%   does not validate
+
+
+
+% ISO Coated v2 (ECI) – no
+\gdef\ISOCoatedECI{\setCMYKcolorprofile{CoatedFOGRA39.icc}%
+ {FOGRA39}%  /OutputConditionIdentifier
+ {ISO Coated v2 \string\(ECI\string\)}%  /ProfileName
+% {Offset commercial and specialty printing according to ISO 12647-2:2004 / Amd 1, paper type 1 or 2 \(gloss or matte coated offset, 115 g/m2\), screen frequency 60/cm.}% /OutputCondition
+ {http://www.color.org}% /RegistryName
+}%  does not validate
+
+
+% FOGRA29
+% Uncoated FOGRA29 \(ISO 12647-2:2004\)
+\gdef\UncoatedFOGRA{\setCMYKcolorprofile{UncoatedFOGRA29.icc}%
+ {FOGRA29}%
+ {Uncoated FOGRA29 \string\(ISO 12647-2:2004\string\)}%  /ProfileName
+% Uses the FOGRA29 press characterization. It is designed to produce quality separations for standard ISO printing using: 350% total ink coverage, positive film, and coated paper.
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% FOGRA28
+% Web Coated FOGRA28 \(ISO 12647-2:2004\)
+\gdef\WebCoatedFOGRA{\setCMYKcolorprofile{WebCoatedFOGRA28.icc}%
+ {FOGRA28}%
+ {Web Coated FOGRA28 \(ISO 12647-2:2004\)}%
+% Uses the FOGRA28 press characterization. It is designed to produce quality separations for standard ISO printing using: 350% total ink coverage, positive film, and coated paper.
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% FOGRA27
+% Coated FOGRA27 \(ISO 12647-2:2004\)
+\gdef\CoatedFOGRA{\setCMYKcolorprofile{CoatedFOGRA27.icc}%
+ {FOGRA27}%
+ {Coated FOGRA27 \(ISO 12647-2:2004\)}%
+%Uses the FOGRA27 press characterization. It is designed to produce quality separations for standard ISO printing using: 350% total ink coverage, positive film and coated paper.
+ {http://www.color.org}% /RegistryName
+}%
+
+
+\endinput
+
+
+% U.S. Sheetfed Coated v2
+% USSheetfedCoated.icc
+\gdef\SheetfedCoated{\setCMYKcolorprofile{USSheetfedCoated.icc}%
+ {}%  ????
+ {U.S. Sheetfed Coated v2}%
+ {http://www.color.org}% /RegistryName
+}%
+
+
+% U.S. Sheetfed Uncoated v2
+% USSheetfedUncoated.icc
+\gdef\SheetfedUncoated{\setCMYKcolorprofile{USSheetfedUncoated.icc}%
+ {}%  ????
+ {U.S. Sheetfed Uncoated v2}%
+ {http://www.color.org}% /RegistryName
+}%
+
+
+
+% ISO Newspaper (IFRA 26%) – no
+\gdef\IFRAXXVI{\setEXTERNALprofile{ISOnewspaper26v4}%  /ProfileName
+ {Printing process definition: ISO/DIS 12647-3:2004, Coldset offset printing, contact exposed negative acting plates or computer to plate \(tone value increase of 26\%\), newsprint, screen ruling 40 lines per cm.}% /OutputCondition
+ {IFRA26}%  /OutputConditionIdentifier   /OutputCondition (dIDS_OUTPUTCOND_IFRA26_long)
+ {http://www.color.org}% /RegistryName
+ {CMYK}% /ProfileCS
+ {02400000}%  /ICCVersion < ... >
+ {http://www.ifra.com}% URL
+ {ISOnewspaper26v4}%  /Info
+ {BCA21A6AFA3A4B5CEF9CA8E91565C1B7}% /CheckSum < ... >
+}%
+
+
+% ISO Newspaper (IFRA 30%) – no
+\gdef\IFRAXXX{\setEXTERNALprofile{ISOnewspaper30v4}%  /ProfileName
+ {Printing process definition: ISO/DIS 12647-3:2004, Coldset offset printing, contact exposed negative acting plates or computer to plate \(tone value increase of 30\%\), newsprint, screen ruling 40 lines per cm. \(Principally applicable to the USA\).}% /OutputCondition
+ {IFRA30}%  /OutputConditionIdentifier    /OutputCondition (dIDS_OUTPUTCOND_IFRA30_long)
+ {http://www.color.org}% /RegistryName
+ {CMYK}% /ProfileCS
+ {02400000}%  /ICCVersion < ... >
+ {http://www.ifra.com}% URL
+ {ISOnewspaper30v4}%  /Info
+ {EE473D92AE08B385A0128F87B0D9EFC0}% /CheckSum < ... >
+}%
+%/OutputIntents[<</DestOutputProfileRef<</CheckSum<EE473D92AE08B385A0128F87B0D9EFC0>/ICCVersion<02400000>/ProfileCS(CMYK)/ProfileName(ISOnewspaper30v4)/URLs[<</F(http://www.ifra.com)/FS/URL>>]>>/Info(ISOnewspaper30v4)/OutputCondition(Printing process definition: ISO/DIS 12647-3:2004, Coldset offset printing, contact exposed negative acting plates or computer to plate \(tone value increase of 30%\), newsprint, screen ruling 40 lines per cm. \(Principally applicable to the USA\).)/OutputConditionIdentifier(IFRA30)/RegistryName(http://www.color.org)/S/GTS_PDFX/Type/OutputIntent>>]    does not validate
+
+
+
+
+
+% Others available through "Custom"
+%  Adobe RGB (1998)
+% Grayscale: Dot Gain 15%
+
+
+
+% JapanColor2003
+% Uses the Japan Color 2003 specification for type 3 (coated) paper. It is designed to produce quality separations using: 350% total ink coverage, positive film and coated paper on heat-set web offset presses.
+% Japan Color 2003 Web Coated
+
+% EuroscaleCoated
+% Uses specifications designed to produce quality separations using Euroscale inks under the following printing conditions: 350% total area of ink coverage, positive plate, bright white coated stock.
+% Euroscale Coated v2
+
+% EuroscaleUnCoated
+% Uses specifications designed to produce quality separations using Euroscale inks under the following printing conditions: 260% total area of ink coverage, positive plate, uncoated white offset stock.
+% Euroscale Uncoated v2
+
+% U.S. Sheetfed Coated v2
+% USSheetfedCoated.icc
+
+% U.S. Sheetfed Uncoated v2
+% USSheetfedUncoated.icc
+
+% US Web UnCoated v2
+
+% Generic CMYK Profile
+
+
+
+
+\endinput
+
+
+
+/Library/Application Support/Adobe/Color
+/Library/Application Support/Adobe/Color/Profiles
+/Library/Application Support/Adobe/Color/Profiles/BlackWhite.icc
+/Library/Application Support/Adobe/Color/Profiles/CIERGB.icc
+/Library/Application Support/Adobe/Color/Profiles/EuroscaleCoated.icc
+/Library/Application Support/Adobe/Color/Profiles/EuroscaleUncoated.icc
+/Library/Application Support/Adobe/Color/Profiles/PAL_SECAM.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended
+/Library/Application Support/Adobe/Color/Profiles/Recommended/AdobeRGB1998.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/AppleRGB.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/CoatedFOGRA27.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/CoatedFOGRA39.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/CoatedGRACoL2006.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/ColorMatchRGB.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/JapanColor2001Coated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/JapanColor2001Uncoated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/JapanColor2002Newspaper.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/JapanColor2003WebCoated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/JapanWebCoated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/ProPhoto.icm
+/Library/Application Support/Adobe/Color/Profiles/Recommended/USNewsprintSNAP2007.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/USSheetfedCoated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/USSheetfedUncoated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/USWebCoatedSWOP.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/USWebUncoated.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/UncoatedFOGRA29.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/WebCoatedFOGRA28.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/WebCoatedSWOP2006Grade3.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/WebCoatedSWOP2006Grade5.icc
+/Library/Application Support/Adobe/Color/Profiles/Recommended/sRGB Color Space Profile.icm
+/Library/Application Support/Adobe/Color/Profiles/SMPTE-C.icc
+/Library/Application Support/Adobe/Color/Profiles/WideGamutRGB.icc
+/Library/Application Support/Adobe/Color/Settings
+/Library/Application Support/Adobe/Color/Settings/Europe General Purpose 3.csf
+/Library/Application Support/Adobe/Color/Settings/Europe Prepress 3.csf
+/Library/Application Support/Adobe/Color/Settings/Europe Web Internet 2.csf
+/Library/Application Support/Adobe/Color/Settings/Japan General Purpose.csf
+/Library/Application Support/Adobe/Color/Settings/Japan Magazine.csf
+/Library/Application Support/Adobe/Color/Settings/Japan Newspaper.csf
+/Library/Application Support/Adobe/Color/Settings/Japan Prepress.csf
+/Library/Application Support/Adobe/Color/Settings/Japan Web Internet.csf
+/Library/Application Support/Adobe/Color/Settings/Monitor Color.csf
+/Library/Application Support/Adobe/Color/Settings/North America General Purpose.csf
+/Library/Application Support/Adobe/Color/Settings/North America Newspaper.csf
+/Library/Application Support/Adobe/Color/Settings/North America Prepress.csf
+/Library/Application Support/Adobe/Color/Settings/North America Web Internet.csf
+
+
+

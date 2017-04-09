@@ -1,0 +1,195 @@
+%%
+%% This is file `l8uarb.def'
+%%
+%% l8uarb.def
+%% 
+%% This is a hand-written file, based upon  t1enc.def 
+%% with extensions for more composite characters.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+\ProvidesFile{l8udev.def}
+ [2016/03/18 v0.4
+         Devanagari support for UTF8 in XMP metadata]
+
+%
+% uses macro names from ucs.sty
+%
+%  defines command:  \LIIXUmapdevaccents
+%
+%%%% Devanagari Characters and signs  Ux0900 – Ux097F
+%
+\DeclareTextCommand{\textdevanagariinvcandrabindu}{L8U}[1]{#1ऀ}
+\DeclareTextCommand{\textdevanagaricandrabindu}{L8U}[1]{#1ँ}
+\DeclareTextCommand{\textdevanagarianusvara}{L8U}[1]{#1ं}
+\DeclareTextCommand{\textdevanagarivisarga}{L8U}[1]{#1ः}
+%
+\DeclareTextCommand{\textdevanagaria}{L8U}{अ}
+\DeclareTextCommand{\textdevanagariaa}{L8U}{आ}
+\DeclareTextCommand{\textdevanagarii}{L8U}{इ}
+\DeclareTextCommand{\textdevanagariii}{L8U}{ई}
+\DeclareTextCommand{\textdevanagariu}{L8U}{उ}
+\DeclareTextCommand{\textdevanagariuu}{L8U}{ऊ}
+\DeclareTextCommand{\textdevanagarivocalicr}{L8U}{ऋ}
+\DeclareTextCommand{\textdevanagarivocalicl}{L8U}{ऌ}
+\DeclareTextCommand{\textdevanagaricandrae}{L8U}{ऍ}
+\DeclareTextCommand{\textdevanagarishorte}{L8U}{ऎ}
+\DeclareTextCommand{\textdevanagarie}{L8U}{ए}
+% Ux0910
+\DeclareTextCommand{\textdevanagariai}{L8U}{ऐ}
+\DeclareTextCommand{\textdevanagaricandrao}{L8U}{ऑ}
+\DeclareTextCommand{\textdevanagarishorto}{L8U}{ऒ}
+\DeclareTextCommand{\textdevanagario}{L8U}{ओ}
+\DeclareTextCommand{\textdevanagariau}{L8U}{औ}
+\DeclareTextCommand{\textdevanagarika}{L8U}{क}
+\DeclareTextCommand{\textdevanagarikha}{L8U}{ख}
+\DeclareTextCommand{\textdevanagariga}{L8U}{ग}
+\DeclareTextCommand{\textdevanagarigha}{L8U}{घ}
+\DeclareTextCommand{\textdevanagaringa}{L8U}{ङ}
+\DeclareTextCommand{\textdevanagarica}{L8U}{च}
+\DeclareTextCommand{\textdevanagaricha}{L8U}{छ}
+\DeclareTextCommand{\textdevanagarija}{L8U}{ज}
+\DeclareTextCommand{\textdevanagarijha}{L8U}{झ}
+\DeclareTextCommand{\textdevanagarinya}{L8U}{ञ}
+\DeclareTextCommand{\textdevanagaritta}{L8U}{ट}
+% Ux0920
+\DeclareTextCommand{\textdevanagarittha}{L8U}{ठ}
+\DeclareTextCommand{\textdevanagaridda}{L8U}{ड}
+\DeclareTextCommand{\textdevanagariddha}{L8U}{ढ}
+\DeclareTextCommand{\textdevanagarinna}{L8U}{ण}
+\DeclareTextCommand{\textdevanagarita}{L8U}{त}
+\DeclareTextCommand{\textdevanagaritha}{L8U}{थ}
+\DeclareTextCommand{\textdevanagarida}{L8U}{द}
+\DeclareTextCommand{\textdevanagaridha}{L8U}{ध}
+\DeclareTextCommand{\textdevanagarina}{L8U}{न}
+\DeclareTextCommand{\textdevanagarinnna}{L8U}{ऩ}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagarina}{ऩ}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{न}{ऩ}
+\DeclareTextCommand{\textdevanagaripa}{L8U}{प}
+\DeclareTextCommand{\textdevanagaripha}{L8U}{फ}
+\DeclareTextCommand{\textdevanagariba}{L8U}{ब}
+\DeclareTextCommand{\textdevanagaribha}{L8U}{भ}
+\DeclareTextCommand{\textdevanagarima}{L8U}{म}
+\DeclareTextCommand{\textdevanagariya}{L8U}{य}
+% Ux0930
+\DeclareTextCommand{\textdevanagarira}{L8U}{र}
+\DeclareTextCommand{\textdevanagarirra}{L8U}{ऱ}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagarira}{ऱ}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{र}{ऱ}
+\DeclareTextCommand{\textdevanagarila}{L8U}{ल}
+\DeclareTextCommand{\textdevanagarilla}{L8U}{ळ}
+\DeclareTextCommand{\textdevanagarillla}{L8U}{ऴ}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagarilla}{ऴ}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{ळ}{ऴ}
+\DeclareTextCommand{\textdevanagariva}{L8U}{व}
+\DeclareTextCommand{\textdevanagarisha}{L8U}{श}
+\DeclareTextCommand{\textdevanagarissa}{L8U}{ष}
+\DeclareTextCommand{\textdevanagarisa}{L8U}{स}
+\DeclareTextCommand{\textdevanagariha}{L8U}{ह}
+%\DeclareTextCommand{\textdevanagarivoweloe}{L8U}[1]{#1ऺ}
+%\DeclareTextCommand{\textdevanagarivowelooe}{L8U}[1]{#1ऻ}
+\DeclareTextCommand{\textdevanagarinukta}{L8U}[1]{#1़}
+\DeclareTextCommand{\textdevanagariavagraha}{L8U}{ऽ}
+\DeclareTextCommand{\textdevanagarivowelaa}{L8U}[1]{#1ा}
+\DeclareTextCommand{\textdevanagarivoweli}{L8U}[1]{#1ि}
+% Ux0940
+\DeclareTextCommand{\textdevanagarivowelii}{L8U}[1]{#1ी}
+\DeclareTextCommand{\textdevanagarivowelu}{L8U}[1]{#1ु}
+\DeclareTextCommand{\textdevanagarivoweluu}{L8U}[1]{#1ू}
+\DeclareTextCommand{\textdevanagarivowelvocalicr}{L8U}[1]{#1ृ}
+\DeclareTextCommand{\textdevanagarivowelvocalicrr}{L8U}[1]{#1ॄ}
+\DeclareTextCommand{\textdevanagarivowelcandrae}{L8U}[1]{#1ॅ}
+\DeclareTextCommand{\textdevanagarivowelshorte}{L8U}[1]{#1ॆ}
+\DeclareTextCommand{\textdevanagarivowele}{L8U}[1]{#1े}
+\DeclareTextCommand{\textdevanagarivowelai}{L8U}[1]{#1ै}
+\DeclareTextCommand{\textdevanagarivowelcandrao}{L8U}[1]{#1ॉ}
+\DeclareTextCommand{\textdevanagarivowelshorto}{L8U}[1]{#1ॊ}
+\DeclareTextCommand{\textdevanagarivowelo}{L8U}[1]{#1ो}
+\DeclareTextCommand{\textdevanagarivowelau}{L8U}[1]{#1ौ}
+\DeclareTextCommand{\textdevanagarivirama}{L8U}[1]{#1्}
+%\DeclareTextCommand{\textdevanagarivowelpristhe}{L8U}[1]{#1ॎ}
+%\DeclareTextCommand{\textdevanagarivowelaw}{L8U}[1]{#1ॏ}
+%  Ux0950
+\DeclareTextCommand{\textdevanagariom}{L8U}{ॐ}
+\DeclareTextCommand{\textdevanagariudatta}{L8U}[1]{#1॑}
+\DeclareTextCommand{\textdevanagarianudatta}{L8U}[1]{#1॒}
+\DeclareTextCommand{\textdevanagarigrave}{L8U}[1]{#1॓}
+%\DeclareTextCommand{\`}{L8U}[1]{#1॓}% which letters can receive this?
+\DeclareTextCommand{\textdevanagariacute}{L8U}[1]{#1॔}
+%\DeclareTextCommand{\'}{L8U}[1]{#1॔}% which letters can receive this?
+%\DeclareTextCommand{\textdevanagarivowellonge}{L8U}[1]{#1ॕ}
+%\DeclareTextCommand{\textdevanagarivowelue}{L8U}[1]{#1ॖ}
+%\DeclareTextCommand{\textdevanagarivoweluue}{L8U}[1]{#1ॗ}
+
+\def\LIIXUmapdevaccents{%
+ \let\devacccandrabindu\textdevanagaricandrabindu
+ \let\devaccanusvara\textdevanagarianusvara
+ \let\devaccvisarga\textdevanagarivisarga
+ \let\devaccacute\textdevanagariacute
+ \let\devaccgrave\textdevanagarigrave
+ \let\devaccnukta\textdevanagarinukta
+}
+%
+\DeclareTextCommand{\textdevanagariqa}{L8U}{क़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagarika}{क़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{क}{क़}
+\DeclareTextCommand{\textdevanagarikhha}{L8U}{ख़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagarikha}{ख़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{ख}{ख़}
+\DeclareTextCommand{\textdevanagarighha}{L8U}{ग़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagariga}{ग़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{ग}{ग़}
+\DeclareTextCommand{\textdevanagariza}{L8U}{ज़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagarija}{ज़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{ज}{ज़}
+\DeclareTextCommand{\textdevanagaridddha}{L8U}{ड़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagaridda}{ड़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{ड}{ड़}
+\DeclareTextCommand{\textdevanagarirha}{L8U}{ढ़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagariddha}{ढ़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{ढ}{ढ़}
+\DeclareTextCommand{\textdevanagarifa}{L8U}{फ़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagaripha}{L8U}{फ़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{फ}{L8U}{फ़}
+\DeclareTextCommand{\textdevanagariyya}{L8U}{य़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{\textdevanagariya}{य़}
+\DeclareTextCompositeCommand{\textdevanagarinukta}{L8U}{य}{य़}
+% Ux0960
+\DeclareTextCommand{\textdevanagarivocalicrr}{L8U}{ॠ}
+\DeclareTextCommand{\textdevanagarivocalicll}{L8U}{ॡ}
+\DeclareTextCommand{\textdevanagarivowelvocalicl}{L8U}[1]{#1ॢ}
+\DeclareTextCommand{\textdevanagarivowelvocalicll}{L8U}[1]{#1ॣ}
+\DeclareTextCommand{\textdevanagaridanda}{L8U}{।}
+\DeclareTextCommand{\textdevanagaridoubledanda}{L8U}{॥}
+\DeclareTextCommand{\textdevanagarizero}{L8U}{०}
+\DeclareTextCommand{\textdevanagarione}{L8U}{१}
+\DeclareTextCommand{\textdevanagaritwo}{L8U}{२}
+\DeclareTextCommand{\textdevanagarithree}{L8U}{३}
+\DeclareTextCommand{\textdevanagarifour}{L8U}{४}
+\DeclareTextCommand{\textdevanagarifive}{L8U}{५}
+\DeclareTextCommand{\textdevanagarisix}{L8U}{६}
+\DeclareTextCommand{\textdevanagariseven}{L8U}{७}
+\DeclareTextCommand{\textdevanagarieight}{L8U}{८}
+\DeclareTextCommand{\textdevanagarinine}{L8U}{९}
+% Ux0970
+\DeclareTextCommand{\textdevanagariabbreviation}{L8U}{॰}
+\DeclareTextCommand{\textdevanagarihighdot}{L8U}[1]{#1ॱ}
+\DeclareTextCommand{\textdevanagaricandraa}{L8U}{ॲ}
+\DeclareTextCommand{\textdevanagarioe}{L8U}{ॳ}
+\DeclareTextCommand{\textdevanagariooe}{L8U}{ॴ}
+\DeclareTextCommand{\textdevanagariaw}{L8U}{ॵ}
+\DeclareTextCommand{\textdevanagariue}{L8U}{ॶ}
+\DeclareTextCommand{\textdevanagariuue}{L8U}{ॷ}
+\DeclareTextCommand{\textdevanagarimarwaridda}{L8U}{ॸ}
+\DeclareTextCommand{\textdevanagarizha}{L8U}{ॹ}
+\DeclareTextCommand{\textdevanagarijjya}{L8U}{ॺ}
+\DeclareTextCommand{\textdevanagarigga}{L8U}{ॻ}
+\DeclareTextCommand{\textdevanagarijja}{L8U}{ॼ}
+\DeclareTextCommand{\textdevanagariglottal}{L8U}{ॽ}
+\DeclareTextCommand{\textdevanagariddda}{L8U}{ॾ}
+\DeclareTextCommand{\textdevanagaribba}{L8U}{ॿ}
+
+\endinput
+
+
+

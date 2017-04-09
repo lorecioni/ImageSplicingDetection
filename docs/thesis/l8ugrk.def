@@ -1,0 +1,1336 @@
+%%
+%% This is file `l8ugrk.def'
+%%
+%% l8ugrk.def
+%% 
+%% This is a hand-written file, based upon  t1enc.def 
+%% with extensions for more composite characters.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+\ProvidesFile{l8ugrk.def}
+ [2016/03/18 v0.4
+         Greek support for UTF8 in XMP metadata]
+
+%
+% uses macro names mostly from  greek.ucs 
+%
+%
+%  defines command:  \LIIXUmapgreekletters
+%
+
+%%%% Greek Accent commands 
+%%  Combining accents  Ux0300 – Ux036F  
+
+\DeclareTextCommand{\textdialytika}{L8U}[1]{#1̈\restarttextLGR}%  Ux0308  diaeresis
+\DeclareTextCommand{\textvaria}{L8U}[1]{#1̀\restarttextLGR}% tone mark  Ux0340
+\DeclareTextCommand{\textoxia}{L8U}[1]{#1́\restarttextLGR}%  tone mark  Ux0341
+\DeclareTextCommand{\textperispomeni}{L8U}[1]{#1͂\restarttextLGR}%  Ux0342
+\DeclareTextCommand{\textkoronis}{L8U}[1]{#1̓\restarttextLGR}%  Ux0343
+\DeclareTextCommand{\textdialytikaoxia}{L8U}[1]{#1̈́\restarttextLGR}%  Ux0344
+\DeclareTextCommand{\textsubiota}{L8U}[1]{#1ͅ\restarttextLGR}% Ux0345
+\DeclareTextCommand{\textsubiotachar}{L8U}{ͅ\restarttextLGR}%  Ux0345  placed after characters
+
+\DeclareTextCommand{\textdasia}{L8U}[1]{#1͑\restarttextLGR}%  left half-ring  Ux0351
+\DeclareTextCommand{\textpsili}{L8U}[1]{#1͗\restarttextLGR}%  tone mark  Ux0357
+\DeclareTextCommand{\textdialytikaperispomeni}{L8U}[1]{῁#1\restarttextLGR}
+\DeclareTextCommand{\textpsilivaria}{L8U}[1]{῍#1\restarttextLGR}
+\DeclareTextCommand{\textpsilioxia}{L8U}[1]{῎#1\restarttextLGR}
+\DeclareTextCommand{\textpsiliperispomeni}{L8U}[1]{῏#1\restarttextLGR}
+\DeclareTextCommand{\textdasiavaria}{L8U}[1]{῝#1\restarttextLGR}
+\DeclareTextCommand{\textdasiaoxia}{L8U}[1]{῞#1\restarttextLGR}
+\DeclareTextCommand{\textdasiaperispomeni}{L8U}[1]{῟#1\restarttextLGR}
+
+\DeclareTextCommand{\textdialytikavaria}{L8U}[1]{#1̈̀\restarttextLGR}% 
+
+\let\liixu@checksubiota\@firstoftwo
+\let\liixu@lookforsubiota\@firstoftwo
+\let\restarttextgreekLGR\@empty
+
+
+%%%% Greek Characters + diacritics  Ux0370 – Ux03FF
+%
+%\DeclareTextCommand{\textdexiakeraia}{L8U}[1]{#1ʹ}
+%\DeclareTextCommand{\textaristerikeraia}{L8U}[1]{#1͵}
+%\DeclareTextCommand{\textsubiota}{L8U}[1]{#1ͺ}
+
+%
+% Heta upper+lower 
+% Archaic Sampi upper+lower heta & old sampi
+\DeclareTextCommand{\textnumeralsigngreek}{L8U}{ʹ}
+\DeclareTextCommand{\textdexiakeraia}{L8U}{ʹ}
+%%\DeclareTextCommand{\anwtonos}{L8U}{ʹ}
+\DeclareTextCommand{\textnumeralsignlowergreek}{L8U}{͵}
+\DeclareTextCommand{\textaristerikeraia}{L8U}{͵}
+%%\DeclareTextCommand{\katwtonos}{L8U}{͵}
+% PamphylliaDigamma  upper+lower
+%  undefined
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\empty}{ͺ}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textcompwordmark}{ͺ}
+\DeclareTextCommand{\textsubiotaaccent}{L8U}{ͺ}
+%%\DeclareTextCommand{\Ypogegrammeni}{L8U}{͵}
+% lunate sigma  reversed + dotted combinations
+%\DeclareTextCommand{\textquestion}{L8U}{;}
+\DeclareTextCommand{\texterotimatiko}{L8U}{;}
+%  undefined
+\DeclareTextCompositeCommand{\'}{L8U}{\empty}{΄}
+\DeclareTextCommand{\textdialytikatonos}{L8U}[1]{#1΅}
+\DeclareTextCompositeCommand{\textdialytikatonos}{L8U}{\empty}{΅}
+\DeclareTextCompositeCommand{\textdialytikatonos}{L8U}{\textcompwordmark}{΅}
+% uppercase  Ux0386 – Ux03AB
+\DeclareTextCompositeCommand{\'}{L8U}{\textAlpha}{Ά\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Α}{Ά\restarttextLGR}
+%\DeclareTextCompositeCommand{\'}{L8U}{A}{Ά\restarttextLGR}%  overrides Á
+\DeclareTextCommand{\textanoteleia}{L8U}{·}
+\DeclareTextCommand{\anoteleia}{L8U}{·}
+\DeclareTextCompositeCommand{\'}{L8U}{\textEpsilon}{Έ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Ε}{Έ\restarttextLGR}
+%\DeclareTextCompositeCommand{\'}{L8U}{E}{Έ\restarttextLGR}%  overrides É
+\DeclareTextCompositeCommand{\'}{L8U}{\textEta}{Ή\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Η}{Ή\restarttextLGR}
+%\DeclareTextCompositeCommand{\'}{L8U}{H}{Ή\restarttextLGR}%
+\DeclareTextCompositeCommand{\'}{L8U}{\textIota}{Ί\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Ι}{Ί\restarttextLGR}
+%\DeclareTextCompositeCommand{\'}{L8U}{I}{Ί\restarttextLGR}%  overrides Í
+\DeclareTextCompositeCommand{\'}{L8U}{\textOmicron}{Ό\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Ο}{Ό\restarttextLGR}
+%\DeclareTextCompositeCommand{\'}{L8U}{O}{Ό\restarttextLGR}%  overrides Ó
+\DeclareTextCompositeCommand{\'}{L8U}{\textUpsilon}{Ύ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Υ}{Ύ\restarttextLGR}
+%\DeclareTextCompositeCommand{\'}{L8U}{Y}{Ύ\restarttextLGR}%  overrides Ý
+\DeclareTextCompositeCommand{\'}{L8U}{\textOmega}{Ώ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{Ω}{Ώ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{\textIotadieresis}{ΐ\restarttextLGR}%  PD1
+\DeclareTextCompositeCommand{\textdialytikatonos}{L8U}{\textiota}{ΐ\restarttextLGR}
+\DeclareTextCommand{\textAlpha}{L8U}{\liixu@fookforsubiota{Α}{ᾼ}}
+\DeclareTextCommand{\textBeta}{L8U}{Β}
+\DeclareTextCommand{\textGamma}{L8U}{Γ}
+\DeclareTextCommand{\textDelta}{L8U}{Δ}
+\DeclareTextCommand{\textEpsilon}{L8U}{Ε}
+\DeclareTextCommand{\textZeta}{L8U}{Ζ}
+\DeclareTextCommand{\textEta}{L8U}{\liixu@lookforsubiota{Η}{ῌ}}
+\DeclareTextCommand{\textTheta}{L8U}{Θ}
+\DeclareTextCommand{\textIota}{L8U}{Ι}
+\DeclareTextCommand{\textKappa}{L8U}{Κ}
+\DeclareTextCommand{\textLambda}{L8U}{Λ}
+\DeclareTextCommand{\textMu}{L8U}{Μ}
+\DeclareTextCommand{\textNu}{L8U}{Ν}
+\DeclareTextCommand{\textXi}{L8U}{Ξ}
+\DeclareTextCommand{\textOmicron}{L8U}{Ο}
+\DeclareTextCommand{\textPi}{L8U}{Π}
+\DeclareTextCommand{\textRho}{L8U}{Ρ}
+%
+\DeclareTextCommand{\textSigma}{L8U}{Σ}
+\DeclareTextCommand{\textTau}{L8U}{Τ}
+\DeclareTextCommand{\textUpsilon}{L8U}{Υ}
+\DeclareTextCommand{\textPhi}{L8U}{Φ}
+\DeclareTextCommand{\textChi}{L8U}{Χ}
+\DeclareTextCommand{\textPsi}{L8U}{Ψ}
+\DeclareTextCommand{\textOmega}{L8U}{\liixu@lookforsubiota{Ω}{ῼ}}
+\DeclareTextCompositeCommand{\"}{L8U}{\textIota}{Ϊ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{Ι}{Ϊ\restarttextLGR}
+\DeclareTextCommand{\textIotadieresis}{L8U}{Ϊ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{I}{Ϊ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{\textUpsilon}{Ϋ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{Υ}{Ϋ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{Y}{Ϋ\restarttextLGR}
+% lowercase  Ux03AC – Ux03D6
+\DeclareTextCompositeCommand{\'}{L8U}{\textalpha}{\liixu@lookforsubiota{ά}{ᾴ}}
+\DeclareTextCompositeCommand{\'}{L8U}{α}{\liixu@lookforsubiota{ά}{ᾴ}}
+\DeclareTextCompositeCommand{\'}{L8U}{\textepsilon}{έ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{ε}{έ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{\texteta}{\liixu@lookforsubiota{ή}{ῄ}}
+\DeclareTextCompositeCommand{\'}{L8U}{η}{\liixu@lookforsubiota{ή}{ῄ}}
+\DeclareTextCompositeCommand{\'}{L8U}{\textiota}{ί\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{ι}{ί\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikatonos}{L8U}{\textupsilon}{ΰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikatonos}{L8U}{υ}{ΰ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{\textupsilonacute}{ΰ\restarttextLGR}% PD1
+\DeclareTextCommand{\textalpha}{L8U}{\liixu@lookforsubiota{α}{ᾳ}}
+\DeclareTextCommand{\textbeta}{L8U}{β}
+\DeclareTextCommand{\textgamma}{L8U}{γ}
+\DeclareTextCommand{\textdelta}{L8U}{δ}
+\DeclareTextCommand{\textepsilon}{L8U}{ε}
+\DeclareTextCommand{\textzeta}{L8U}{ζ}
+\DeclareTextCommand{\texteta}{L8U}{\liixu@lookforsubiota{η}{ῃ}}
+\DeclareTextCommand{\texttheta}{L8U}{θ}%  or  ϑ  Ux03D1
+\DeclareTextCommand{\textiota}{L8U}{ι}
+\DeclareTextCommand{\textkappa}{L8U}{κ}%  or  ϰ  Ux03F0
+\DeclareTextCommand{\textlambda}{L8U}{λ}
+\DeclareTextCommand{\textmugreek}{L8U}{μ}%  PD1
+%\DeclareTextCommand{\textmu}{L8U}{μ}%  beware µ
+\DeclareTextCommand{\textnu}{L8U}{ν}
+\DeclareTextCommand{\textxi}{L8U}{ξ}
+\DeclareTextCommand{\textomicron}{L8U}{ο}
+\DeclareTextCommand{\textpi}{L8U}{π}
+\DeclareTextCommand{\textrho}{L8U}{ρ}%  or  ϱ   Ux03F1
+\DeclareTextCommand{\textgrsigma}{L8U}{ς}
+\DeclareTextCommand{\textvarsigma}{L8U}{ς}
+%\DeclareTextCommand{\varsigma}{L8U}{ς}% beware math usage
+\DeclareTextCommand{\textsigma}{L8U}{σ}
+\DeclareTextCommand{\texttau}{L8U}{τ}
+\DeclareTextCommand{\textupsilon}{L8U}{υ}
+\DeclareTextCommand{\textphi}{L8U}{φ}
+\DeclareTextCommand{\textchi}{L8U}{χ}
+\DeclareTextCommand{\textpsi}{L8U}{ψ}
+\DeclareTextCommand{\textomega}{L8U}{\liixu@lookforsubiota{ω}{ῳ}}
+\DeclareTextCompositeCommand{\"}{L8U}{\textiota}{ϊ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{ι}{ϊ}
+\DeclareTextCompositeCommand{\"}{L8U}{\textupsilon}{ϋ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{υ}{ϋ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{\textomicron}{ό\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{ο}{ό\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{\textupsilon}{ύ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{υ}{ύ\restarttextLGR}
+\DeclareTextCommand{\textupsilonacute}{L8U}{ύ\restarttextLGR}%  PD1
+\DeclareTextCompositeCommand{\'}{L8U}{\textomega}{ώ\restarttextLGR}
+\DeclareTextCompositeCommand{\'}{L8U}{ω}{ώ\restarttextLGR}
+\DeclareTextCommand{\textKai}{L8U}{Ϗ}
+\DeclareTextCommand{\textvarbeta}{L8U}{ϐ}
+%\DeclareTextCommand{\varbeta}{L8U}{ϐ}
+\DeclareTextCommand{\textvartheta}{L8U}{ϑ}%  or  θ
+%\DeclareTextCommand{\vartheta}{L8U}{ϑ}% beware math usage
+\DeclareTextCommand{\textvarupsilon}{L8U}{ϒ}
+\DeclareTextCompositeCommand{\'}{L8U}{\textupsilon}{ϓ\restarttextLGR}
+\DeclareTextCompositeCommand{\"}{L8U}{\textupsilon}{ϔ\restarttextLGR}
+\DeclareTextCommand{\textvarphi}{L8U}{ϕ}
+%\DeclareTextCommand{\varphi}{L8U}{ϕ}% beware math usage
+\DeclareTextCommand{\textvarpi}{L8U}{ϖ}
+%\DeclareTextCommand{\varpi}{L8U}{ϖ}% beware math usage
+\DeclareTextCommand{\textkai}{L8U}{ϗ}
+\DeclareTextCommand{\textQoppa}{L8U}{Ϙ}
+%%\DeclareTextCommand{\textoldKoppa}{L8U}{Ϙ}
+%%\DeclareTextCommand{\Qoppa}{L8U}{Ϙ}
+\DeclareTextCommand{\textqoppa}{L8U}{ϙ}
+%%\DeclareTextCommand{\textoldkoppa}{L8U}{ϙ}
+%%\DeclareTextCommand{\qoppa}{L8U}{ϙ}
+\DeclareTextCommand{\textStigmagreek}{L8U}{Ϛ}%  PD1
+\DeclareTextCommand{\textStigma}{L8U}{Ϛ}
+%\DeclareTextCommand{\Stigma}{L8U}{Ϛ}
+\DeclareTextCommand{\textstigmagreek}{L8U}{ϛ}%  PD1
+\DeclareTextCommand{\textstigma}{L8U}{ϛ}
+%\DeclareTextCommand{\stigma}{L8U}{ϛ}
+\DeclareTextCommand{\textDigammagreek}{L8U}{Ϝ}%  PD1
+\DeclareTextCommand{\textDigamma}{L8U}{Ϝ}
+%\DeclareTextCommand{\Digamma}{L8U}{Ϝ}
+\DeclareTextCommand{\textdigammagreek}{L8U}{ϝ}%  PD1
+\DeclareTextCommand{\textdigamma}{L8U}{ϝ}
+%\DeclareTextCommand{\ddigamma}{L8U}{ϝ}
+\DeclareTextCommand{\textKoppagreek}{L8U}{Ϟ}%  PD1
+%\DeclareTextCommand{\textQoppa}{L8U}{Ϟ}%  !!!
+\DeclareTextCommand{\textkoppagreek}{L8U}{ϟ}%  PD1
+\DeclareTextCommand{\textkoppa}{L8U}{ϟ}
+%\DeclareTextCommand{\koppa}{L8U}{ϟ}
+%\DeclareTextCommand{\textqoppa}{L8U}{ϟ}%  !!!
+\DeclareTextCommand{\textSampi}{Ugreek}{Ϡ}%  PD1
+\DeclareTextCommand{\textSampi}{L8U}{Ϡ}
+%\DeclareTextCommand{\Sampi}{L8U}{Ϡ}
+\DeclareTextCommand{\textsampigreek}{L8U}{ϡ}%  PD1
+\DeclareTextCommand{\textsampi}{L8U}{ϡ}
+%\DeclareTextCommand{\sampi}{L8U}{ϡ}
+\DeclareTextCommand{\textsanpi}{L8U}{ϡ}%  mistaken spelling in greek.ucs
+%  Coptic  Ux03E2 – Ux03EF
+%\DeclareTextCommand{\textShei}{L8U}{Ϣ}
+%\DeclareTextCommand{\textshei}{L8U}{ϣ}
+%\DeclareTextCommand{\textFei}{L8U}{Ϥ}
+%\DeclareTextCommand{\textfei}{L8U}{ϥ}
+%\DeclareTextCommand{\textKhei}{L8U}{Ϧ}
+%\DeclareTextCommand{\textkhei}{L8U}{ϧ}
+%\DeclareTextCommand{\textHori}{L8U}{Ϩ}
+%\DeclareTextCommand{\texthori}{L8U}{ϩ}
+%\DeclareTextCommand{\textGangia}{L8U}{Ϫ}
+%\DeclareTextCommand{\textgangia}{L8U}{ϫ}
+%\DeclareTextCommand{\textShima}{L8U}{Ϭ}
+%\DeclareTextCommand{\textshima}{L8U}{ϭ}
+%\DeclareTextCommand{\textDei}{L8U}{Ϯ}
+%\DeclareTextCommand{\textdei}{L8U}{ϯ}
+%  ancient and variant letter glyphs
+\DeclareTextCommand{\textvarkappa}{L8U}{ϰ}%  or  κ
+%\DeclareTextCommand{\varkappa}{L8U}{ϰ}%  beware math usage
+\DeclareTextCommand{\textvarrho}{L8U}{ϱ}%  or  ρ
+%\DeclareTextCommand{\varrho}{L8U}{ϱ}%  beware math usage
+%\DeclareTextCommand{\textlunatesigma}{L8U}{ϲ}
+%\DeclareTextCommand{\textjot}{L8U}{ϳ}
+\DeclareTextCommand{\textvarTheta}{L8U}{ϴ}%
+%\DeclareTextCommand{\varTheta}{L8U}{ϴ}%  beware math usage
+\DeclareTextCommand{\textvarepsilon}{L8U}{ϵ}%
+%\DeclareTextCommand{\varepsilon}{L8U}{ϵ}%  beware math usage
+%\DeclareTextCommand{\textrevepsilon}{L8U}{϶}
+%\DeclareTextCommand{\textSho}{L8U}{Ϸ}
+%\DeclareTextCommand{\textsho}{L8U}{ϸ}
+%\DeclareTextCommand{\textlunateSigma}{L8U}{Ϲ}
+%\DeclareTextCommand{\textSan}{L8U}{Ϻ}
+%\DeclareTextCommand{\textsan}{L8U}{ϻ}
+%\DeclareTextCommand{\textbarrho}{L8U}{ϼ}
+%\DeclareTextCommand{\textrevlunateSigma}{L8U}{Ͻ}
+%\DeclareTextCommand{\textdotlunateSigma}{L8U}{Ͼ}
+%\DeclareTextCommand{\textrevdotlunateSigma}{L8U}{Ͽ}
+
+\def\LIIXUmapgreekletters{%
+ \let\accdialytika\textdialytika		% "
+ \let\acctonos\textoxia					% '
+ \let\accdasia\textdasia				% <
+ \let\accpsili\textpsili				% >
+ \let\accvaria\textvaria				% `
+ \let\accperispomeni\textperispomeni	% ~
+%\let\prosgegrammeni\textsubiotaaccent  % |
+%\let\ypogegrammeni\textsubiotaaccent   % |
+ \let\ypogegrammeni |%
+ \let\prosgegrammeni |%
+%
+ \let\accdialytikaperispomeni\textdialytikaperispomeni	%  ῁
+ \let\accdialytikatonos\textdialytikaoxia		        %  ΅
+ \let\accdialytikavaria\textdialytikavaria		        %  ῭
+ \let\accdasiaperispomeni\textdasiaperispomeni     		%  ῟
+ \let\accdasiavaria\textdasiavaria		          		%  ῝
+ \let\accdasiaoxia\textdasiaoxia			          	%  ῞
+ \let\accpsiliperispomeni\textpsiliperispomeni     		%  ῏
+ \let\accpsilioxia\textpsilioxia		              	%  ῎
+ \let\accpsilivaria\textpsilivaria	        	  		%  ῍
+ \let\sampi\textsampi
+ \let\Sampi\textSampi
+ \let\koppa\textkoppa
+ \let\Koppa\textKoppa
+ \let\digamma\textdigamma
+ \let\ddigamma\textdigamma
+ \let\Digamma\textDigamma
+ \let\stigma\textstigma
+ \let\Stigma\textStigma
+ \let\accinvertedbrevebelow\textsubarch
+ \let\varbeta\textvarbeta
+ \let\varepsilon\textvarepsilon
+ \let\varpi\textvarpi
+ \let\varphi\textvarphi
+ \let\vartheta\textvartheta
+ \let\varupsilon\textvarupsilon
+ \let\varrho\textvarrho
+ \let\varTheta\textvarTheta
+ \let\textgreek\textLGR
+}
+
+%
+%  Greek Extended  Ux1F00 – Ux1FFF
+%
+%  these are already defined above, using combining characters
+%
+%\DeclareTextCommand{\textkoronis}{L8U}[1]{#1᾽}
+%\DeclareTextCommand{\textpsili}{L8U}[1]{#1᾿}
+%\DeclareTextCommand{\textperispomeni}{L8U}[1]{#1῀}
+%\DeclareTextCommand{\textdialytikaperispomeni}{L8U}[1]{#1῁}
+%\DeclareTextCommand{\textpsilivaria}{L8U}[1]{#1῍}
+%\DeclareTextCommand{\textpsilioxia}{L8U}[1]{#1῎}
+%\DeclareTextCommand{\textpsiliperispomeni}{L8U}[1]{#1῏}
+%\DeclareTextCommand{\textdasiavaria}{L8U}[1]{#1῝}
+%\DeclareTextCommand{\textdasiaoxia}{L8U}[1]{#1῞}
+%\DeclareTextCommand{\textdasiaperispomeni}{L8U}[1]{#1῟}
+%\DeclareTextCommand{\textdialytikavaria}{L8U}[1]{#1῭}
+%\DeclareTextCommand{\textdialytikaoxia}{L8U}[1]{#1΅}
+%\DeclareTextCommand{\textvaria}{L8U}[1]{#1`}
+%\DeclareTextCommand{\textoxia}{L8U}[1]{#1´}
+%\DeclareTextCommand{\textdasia}{L8U}[1]{#1῾}
+
+\DeclareTextCommand{\textpsiliiota}{L8U}[1]{#1̓ͅ}
+\DeclareTextCommand{\textdasiaiota}{L8U}[1]{#1͑ͅ}
+\DeclareTextCommand{\textoxiaiota}{L8U}[1]{#1́ͅ}
+\DeclareTextCommand{\textvariaiota}{L8U}[1]{#1̀ͅ}
+\DeclareTextCommand{\textpsilivariaiota}{L8U}[1]{῍#1ͅ}
+\DeclareTextCommand{\textdasiavariaiota}{L8U}[1]{῝#1ͅ}
+\DeclareTextCommand{\textpsilioxiaiota}{L8U}[1]{῎#1ͅ}
+\DeclareTextCommand{\textdasiaoxiaiota}{L8U}[1]{῞#1ͅ}
+\DeclareTextCommand{\textpsiliperispomeniiota}{L8U}[1]{῏#1ͅ}
+\DeclareTextCommand{\textdasiaperispomeniiota}{L8U}[1]{῟#1ͅ}
+
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textpsili}{\textpsiliiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textdasia}{\textdasiaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textoxia}{\textoxiaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textvaria}{\textvariaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textpsilivaria}{\textpsilivariaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textdasiavaria}{\textdasiavariaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textpsilioxia}{\textpsilioxiaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textdasiaoxia}{\textdasiaoxiaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textpsiliperispomeni}{\textpsiliperispomeniiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textdasiaperispomeni}{\textdasiaperispomeniiota}
+
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{>}{\textpsiliiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{<}{\textdasiaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{'}{\textoxiaiota}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{`}{\textvariaiota}
+
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textalpha}{\liixu@checksubiota{ἀ}{ᾀ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textalpha}{\liixu@checksubiota{ἁ}{ᾁ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textalpha}{\liixu@checksubiota{ἂ}{ᾂ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textalpha}{\liixu@checksubiota{ἃ}{ᾃ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textalpha}{\liixu@checksubiota{ἄ}{ᾄ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textalpha}{\liixu@checksubiota{ἅ}{ᾅ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textalpha}{\liixu@checksubiota{ἆ}{ᾆ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textalpha}{\liixu@checksubiota{ἇ}{ᾇ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textAlpha}{\liixu@checksubiota{Ἀ}{ᾈ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textAlpha}{\liixu@checksubiota{Ἁ}{ᾉ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textAlpha}{\liixu@checksubiota{Ἂ}{ᾊ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textAlpha}{\liixu@checksubiota{Ἃ}{ᾋ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textAlpha}{\liixu@checksubiota{Ἄ}{ᾌ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textAlpha}{\liixu@checksubiota{Ἅ}{ᾍ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textAlpha}{\liixu@checksubiota{Ἆ}{ᾎ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textAlpha}{\liixu@checksubiota{Ἇ}{ᾏ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textepsilon}{ἐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textepsilon}{ἑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textepsilon}{ἒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textepsilon}{ἓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textepsilon}{ἔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textepsilon}{ἕ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textepsilon}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textepsilon}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textEpsilon}{Ἐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textEpsilon}{Ἑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textEpsilon}{Ἒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textEpsilon}{Ἓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textEpsilon}{Ἔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textEpsilon}{Ἕ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textEpsilon}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textEpsilon}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\texteta}{\liixu@checksubiota{ἠ}{ᾐ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\texteta}{\liixu@checksubiota{ἡ}{ᾑ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\texteta}{\liixu@checksubiota{ἢ}{ᾒ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\texteta}{\liixu@checksubiota{ἣ}{ᾓ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\texteta}{\liixu@checksubiota{ἤ}{ᾔ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\texteta}{\liixu@checksubiota{ἥ}{ᾕ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\texteta}{\liixu@checksubiota{ἦ}{ᾖ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\texteta}{\liixu@checksubiota{ἧ}{ᾗ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textEta}{\liixu@checksubiota{Ἠ}{ᾘ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textEta}{\liixu@checksubiota{Ἡ}{ᾙ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textEta}{\liixu@checksubiota{Ἢ}{ᾚ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textEta}{\liixu@checksubiota{Ἣ}{ᾛ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textEta}{\liixu@checksubiota{Ἤ}{ᾜ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textEta}{\liixu@checksubiota{Ἥ}{ᾝ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textEta}{\liixu@checksubiota{Ἦ}{ᾞ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textEta}{\liixu@checksubiota{Ἧ}{ᾟ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textiota}{ἰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textiota}{ἱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textiota}{ἲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textiota}{ἳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textiota}{ἴ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textiota}{ἵ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textiota}{ἶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textiota}{ἷ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textIota}{Ἰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textIota}{Ἱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textIota}{Ἲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textIota}{Ἳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textIota}{Ἴ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textIota}{Ἵ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textIota}{Ἶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textIota}{Ἷ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textomicron}{ὀ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textomicron}{ὁ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textomicron}{ὂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textomicron}{ὃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textomicron}{ὄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textomicron}{ὅ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textomicron}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textomicron}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textOmicron}{Ὀ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textOmicron}{Ὁ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textOmicron}{Ὂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textOmicron}{Ὃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textOmicron}{Ὄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textOmicron}{Ὅ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textOmicron}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textOmicron}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textupsilon}{ὐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textupsilon}{ὑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textupsilon}{ὒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textupsilon}{ὓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textupsilon}{ὔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textupsilon}{ὕ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textupsilon}{ὖ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textupsilon}{ὗ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsili}{L8U}{\textUpsilon}{}% not used
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textUpsilon}{Ὑ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textUpsilon}{}% not used
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textUpsilon}{Ὓ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textUpsilon}{}% not used
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textUpsilon}{Ὕ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textUpsilon}{}% not used
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textUpsilon}{Ὗ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textomega}{\liixu@checksubiota{ὠ}{ᾠ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textomega}{\liixu@checksubiota{ὡ}{ᾡ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textomega}{\liixu@checksubiota{ὢ}{ᾢ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textomega}{\liixu@checksubiota{ὣ}{ᾣ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textomega}{\liixu@checksubiota{ὤ}{ᾤ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textomega}{\liixu@checksubiota{ὥ}{ᾥ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textomega}{\liixu@checksubiota{ὦ}{ᾦ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textomega}{\liixu@checksubiota{ὧ}{ᾧ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textOmega}{\liixu@checksubiota{Ὠ}{ᾨ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textOmega}{\liixu@checksubiota{Ὡ}{ᾩ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{\textOmega}{\liixu@checksubiota{Ὢ}{ᾪ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textOmega}{\liixu@checksubiota{Ὣ}{ᾫ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{\textOmega}{\liixu@checksubiota{Ὤ}{ᾬ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textOmega}{\liixu@checksubiota{Ὥ}{ᾭ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{\textOmega}{\liixu@checksubiota{Ὦ}{ᾮ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textOmega}{\liixu@checksubiota{Ὧ}{ᾯ}}
+% Ux1F70
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textalpha}{\liixu@checksubiota{ὰ}{ᾲ}}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textalpha}{\liixu@checksubiota{ά}{ᾴ}}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textepsilon}{ὲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textepsilon}{έ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\texteta}{\liixu@checksubiota{ὴ}{ῂ}}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\texteta}{\liixu@checksubiota{ή}{ῄ}}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textiota}{ὶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textiota}{ί\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textomicron}{ὸ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textomicron}{ό\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textupsilon}{ὺ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textupsilon}{ύ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textomega}{\liixu@checksubiota{ὼ}{ῲ}}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textomega}{\liixu@checksubiota{ώ}{ῴ}}
+% Ux1F80
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{\textalpha}{ᾀ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{\textalpha}{ᾁ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{\textalpha}{ᾂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{\textalpha}{ᾃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{\textalpha}{ᾄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{\textalpha}{ᾅ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{\textalpha}{ᾆ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{\textalpha}{ᾇ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{\textAlpha}{ᾈ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{\textAlpha}{ᾉ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{\textAlpha}{ᾊ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{\textAlpha}{ᾋ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{\textAlpha}{ᾌ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{\textAlpha}{ᾍ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{\textAlpha}{ᾎ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{\textAlpha}{ᾏ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{\texteta}{ᾐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{\texteta}{ᾑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{\texteta}{ᾒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{\texteta}{ᾓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{\texteta}{ᾔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{\texteta}{ᾕ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{\texteta}{ᾖ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{\texteta}{ᾗ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{\textEta}{ᾘ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{\textEta}{ᾙ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{\textEta}{ᾚ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{\textEta}{ᾛ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{\textEta}{ᾜ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{\textEta}{ᾝ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{\textEta}{ᾞ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{\textEta}{ᾟ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{\textomega}{ᾠ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{\textomega}{ᾡ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{\textomega}{ᾢ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{\textomega}{ᾣ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{\textomega}{ᾤ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{\textomega}{ᾥ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{\textomega}{ᾦ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{\textomega}{ᾧ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{\textOmega}{ᾨ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{\textOmega}{ᾩ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{\textOmega}{ᾪ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{\textOmega}{ᾫ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{\textOmega}{ᾬ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{\textOmega}{ᾭ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{\textOmega}{ᾮ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{\textOmega}{ᾯ\restarttextLGR}
+% Ux1FB0
+\DeclareTextCompositeCommand{\u}{L8U}{\textalpha}{ᾰ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{\textalpha}{ᾱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvariaiota}{L8U}{\textalpha}{ᾲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textalpha}{ᾳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxiaiota}{L8U}{\textalpha}{ᾴ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\textalpha}{ᾶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeniiota}{L8U}{\textalpha}{ᾷ\restarttextLGR}
+\DeclareTextCompositeCommand{\u}{L8U}{\textAlpha}{Ᾰ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{\textAlpha}{Ᾱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textAlpha}{Ὰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textAlpha}{Ά\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textAlpha}{ᾼ\restarttextLGR}
+\DeclareTextCompositeCommand{\textkoronis}{L8U}{\empty}{᾽\restarttextLGR}
+\DeclareTextCompositeCommand{\textkoronis}{L8U}{\textcompwordmark}{᾽\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\empty}{ι\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textcompwordmark}{ι\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\empty}{᾿\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textcompwordmark}{᾿\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\empty}{῀\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\textcompwordmark}{῀\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaperispomeni}{L8U}{\empty}{῁\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaperispomeni}{L8U}{\textcompwordmark}{῁\restarttextLGR}
+\DeclareTextCompositeCommand{\textvariaiota}{L8U}{\texteta}{ῂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\texteta}{ῃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxiaiota}{L8U}{\texteta}{ῄ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\texteta}{ῆ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeniiota}{L8U}{\texteta}{ῇ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textEpsilon}{Ὲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textEpsilon}{Έ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textEta}{Ὴ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textEta}{Ή\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textEta}{ῌ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\empty}{῍\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textcompwordmark}{῍\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\empty}{῎\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textcompwordmark}{῎\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\empty}{῏\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textcompwordmark}{῏\restarttextLGR}
+\DeclareTextCompositeCommand{\u}{L8U}{\textiota}{ῐ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{\textiota}{ῑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikavaria}{L8U}{\textiota}{ῒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaoxia}{L8U}{\textiota}{ΐ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\textiota}{ῖ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaperispomeni}{L8U}{\textiota}{ῗ\restarttextLGR}
+\DeclareTextCompositeCommand{\u}{L8U}{\textIota}{Ῐ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{\textIota}{Ῑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textIota}{Ὶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textIota}{Ί\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\empty}{῝\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{\textcompwordmark}{῝\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\empty}{῞\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\textcompwordmark}{῞\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{\empty}{῞\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{\textcompwordmark}{῟\restarttextLGR}
+\DeclareTextCompositeCommand{\u}{L8U}{\textupsilon}{ῠ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{\textupsilon}{ῡ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikavaria}{L8U}{\textupsilon}{ῢ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaoxia}{L8U}{\textupsilon}{ΰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textrho}{ῤ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textrho}{ῥ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\textupsilon}{ῦ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaperispomeni}{L8U}{\textupsilon}{ῧ\restarttextLGR}
+\DeclareTextCompositeCommand{\u}{L8U}{\textUpsilon}{Ῠ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{\textUpsilon}{Ῡ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textUpsilon}{Ὺ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textUpsilon}{Ύ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textRho}{Ῥ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikavaria}{L8U}{\empty}{῭\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikavaria}{L8U}{\textcompwordmark}{῭\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaoxia}{L8U}{\empty}{΅\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaoxia}{L8U}{\textcompwordmark}{΅\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\empty}{`\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textcompwordmark}{`\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textvariaiota}{L8U}{\textomega}{ῲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textomega}{ῳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxiaiota}{L8U}{\textomega}{ῴ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\textomega}{ῶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeniiota}{L8U}{\textomega}{ῷ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textOmicron}{Ὸ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textOmicron}{Ό\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textOmega}{Ὼ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textOmega}{Ώ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textOmega}{ῼ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\empty}{´\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textcompwordmark}{´\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\empty}{῾\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textcompwordmark}{῾\restarttextLGR}
+
+%
+%   Attic numbers   Ux010140 block
+%
+\DeclareTextCommand{\textpentedeka}{L8U}{𐅄}%   	Ux010144  attic 50
+\DeclareTextCommand{\textpentehekaton}{L8U}{𐅅}%	Ux010145  attic 500
+\DeclareTextCommand{\textpenteqilioi}{L8U}{𐅆}%		Ux010146  attic 5000
+\DeclareTextCommand{\textpentemuria}{L8U}{𐅇}%		Ux010147  attic 50000
+%\DeclareTextCommand{\textpentedeka}{L8U}{𐅊}%     Ux01014A  attic 50 talents
+%\DeclareTextCommand{\textpentehekaton}{L8U}{𐅌}%  Ux01014C  attic 500 talents
+
+
+
+\ifgrkLGRxmp\else\expandafter\endinput\fi
+
+%\InputIfFileExists{greek.ldf}{%
+% \let\BabelModifiers\relax
+%}{}
+
+\DeclareTextCommand{\textgreekLGRstring}{L8U}[1]{\textgreekLGR@ii#1\@empty\@empty}
+\def\textgreekLGR@i#1{\textgreekLGR@ii#1}%\@empty}
+\def\textgreekLGR@ii#1#2\@empty{% \textLGRenc{#1}%
+ \ifx\@empty#2\@empty %\else\expandafter\textgreekLGR@i\fi#2\@empty}
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textLGRenc{#1}\@empty}{\textLGRenc{#1}\textgreekLGR@i#2\@empty}}
+
+\DeclareTextCommand{\textLGRenc}{L8U}[1]{#1}
+\DeclareTextCommand{\textLGR}{L8U}[1]{\textgreekLGRstring{#1}}
+
+
+% use these bindings below, for readability
+\global\let\grk@en\liixu@checkemptyornext
+\global\let\grk@nc\liixu@checknextchar
+
+
+
+\DeclareTextCommand{\textsubarch}{L8U}[1]{#1̯}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textsubarch}{\liixu@textreorder\textsubarch}
+% this will not convert Latin characters into Greek ones.  !!!!
+
+%\DeclareTextCommand{\accdialytika}{L8U}[1]{#1̈́}
+%\DeclareTextCommand{\acctonos}{L8U}[1]{#1́}
+%\DeclareTextCommand{\accdasia}{L8U}[1]{#1͑}%  Ux0351
+%\DeclareTextCommand{\accpsili}{L8U}[1]{#1͗}%  Ux0357
+%%\DeclareTextCommand{\accdasia}{L8U}[1]{#1҅}%  Ux0485
+%%\DeclareTextCommand{\accpsili}{L8U}[1]{#1҆}%  Ux0486
+%\DeclareTextCommand{\accvaria}{L8U}[1]{#1̀}
+%\DeclareTextCommand{\accperispomeni}{L8U}[1]{#1͂}
+%\DeclareTextCommand{\prosgegrammeni}{L8U}[1]{#1ͅ}
+%\DeclareTextCommand{\ypogegrammeni}{L8U}[1]{#1ͅ}
+
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{\textgreekLGR@i}{\textdialytika}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{\textgreekLGR@i}{\textoxia}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{\textgreekLGR@i}{\textvaria}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{\textgreekLGR@i}{\textperispomeni}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\textgreekLGR@i}{\textdasia}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\textgreekLGR@i}{\textpsili}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{\textgreekLGR@i}{\textsubiota}
+
+
+
+%% Are these needed, as the bare characters suffice???
+%%
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\"}{\accdialytika}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\'}{\acctonos}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\`}{\accvaria}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\~}{\accperispomeni}
+
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{\'}{\accdialytikatonos}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{'}{\accdialytikatonos}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{\`}{\accdialytikavaria}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{`}{\accdialytikavaria}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{\~}{\accdialytikaperispomeni}
+\DeclareTextCompositeCommand{\textdialytika}{L8U}{~}{\accdialytikaperispomeni}
+
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\'}{\accdasiaoxia}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{'}{\accdasiaoxia}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\`}{\accdasiavaria}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{`}{\accdasiavaria}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{\~}{\accdasiaperispomeni}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{~}{\accdasiaperispomeni}
+
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\'}{\accpsilioxia}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{'}{\accpsilioxia}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\`}{\accpsilivaria}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{`}{\accpsilivaria}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{\~}{\accpsiliperispomeni}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{~}{\accpsiliperispomeni}
+
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{>}{\accpsiliperispomeni}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{<}{\accdasiaperispomeni}
+
+
+
+%\def\liixu@dohardchecksubiota#1#2\ifx#3\else\expandafter#4\fi#5{%
+% \ifx|#5\@empty %% #2\expandafter#4\else#1\expandafter#4\expandafter#5\fi}
+% \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+% {#2#4}{#1#4#5}}
+
+\def\liixu@dohardchecksubiota#1#2\textgreekLGR@i#3{%
+ \ifx|#3\@empty\expandafter\@firstoftwo
+ \else\expandafter\@secondoftwo\fi
+ {#2\restarttextLGR}{#1\restarttextLGR#3}}%
+
+\def\liixu@dosimplechecksubiota#1#2#3{%
+ \ifx|#3\@empty\expandafter\@firstoftwo
+ \else\expandafter\@secondoftwo\fi
+ {#2\restarttextLGR}{#1\restarttextLGR#3}}%
+
+\let\liixu@checksubiota\liixu@dosimplechecksubiota
+%\let\liixu@lookforsubiota\liixu@dohardchecksubiota
+\let\restarttextLGR\textgreekLGR@ii
+
+\def\liixu@lookforsubiota#1#2{%
+ \grk@en{}{#1}{\liixu@dohardchecksubiota{#1}{#2}}}
+
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{!}{!}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{;}{.}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{?}{;}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{`}{\grk@en{`}{`}{\grk@nc{`}{`}{`}}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{'}{\grk@en{'}{'}{\grk@nc{'}{'}{\textoxia}}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{(}{\grk@en{(}{(}{\grk@nc{(}{\textguillemotleft}{(}}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{)}{\grk@en{)}{)}{\grk@nc{)}{\textguillemotright}{)}}}
+
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{"}{\textdialytika}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{##}{\textdialytikaoxia}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{$}{\textdialytikavaria}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\%}{}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{&}{·}% ano teleia
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{'}{\textoxia}% gobble \textgreekLGR@i
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{(}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{)}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{*}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{+}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{,}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{-}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{.}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{/}{}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{<}{\textdasia}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{>}{\textpsili}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{;}{;}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{@}{\textpsiliperispomeni}% dbl accent
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{A}{\liixu@lookforsubiota{Α}{ᾼ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{B}{Β}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{C}{\textdasiavaria}% dbl accent
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{D}{Δ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{E}{Ε}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{F}{Φ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{G}{Γ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{H}{\liixu@lookforsubiota{Η}{ῌ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{I}{Ι}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{J}{Θ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{K}{Κ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{L}{Λ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{M}{Μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{N}{Ν}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{O}{Ο}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{P}{Π}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{Q}{Χ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{R}{Ρ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{S}{Σ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{T}{Τ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{U}{Υ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{V}{\textdasiaoxia}% dbl accent
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{W}{\liixu@lookforsubiota{Ω}{ῼ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{X}{Ξ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{Y}{Ψ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{Z}{Ζ}
+%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\\}{\textdasiaperispomeni}% dbl accent
+%
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^}{\textdasiaoxia}% dbl accent
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{_}{\textdasiavaria}% dbl accent
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{`}{\textvaria}% grave accent
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{a}{\liixu@lookforsubiota{α}{ᾳ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{b}{β}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{c}{ς}% final sigma
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{d}{δ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{e}{ε}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{f}{φ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{g}{γ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{h}{\liixu@lookforsubiota{η}{ῃ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{i}{ι}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{j}{ϑ}%  or  θ
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{k}{ϰ}%  or  κ
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{l}{λ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{m}{μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{n}{ν}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{o}{ο}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{p}{π}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{q}{χ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{r}{ϱ}%  or  ρ
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{s}{σ}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{s}{\text@checkfinalsigma}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{t}{τ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{u}{υ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{v}{}% non-final marker
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{w}{\liixu@lookforsubiota{ω}{ῳ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{x}{ξ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{y}{ψ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{z}{ζ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\{}{\guillemotleft}%
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{|}{\textsubiotaaccent}% place the combining char
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\}}{\guillemotright}%
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{~}{\textperispomeni}%
+
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textAlpha}{\liixu@lookforsubiota{Α}{ᾼ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textBeta}{Β}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textGamma}{Γ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textDelta}{Δ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textEpsilon}{Ε}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textZeta}{Ζ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textEta}{\liixu@lookforsubiota{Η}{ῌ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textTheta}{Θ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textIota}{Ι}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textKappa}{Κ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textLambda}{Λ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textMu}{Μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textNu}{Ν}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textXi}{Ξ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textOmicron}{Ο}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textPi}{Π}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textRho}{Ρ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textSigma}{Σ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textTau}{Τ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textUpsilon}{Υ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textPhi}{Φ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textChi}{Χ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textPsi}{Ψ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textOmega}{\liixu@lookforsubiota{Ω}{ῼ}}
+
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textalpha}{\liixu@lookforsubiota{α}{ᾳ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textbeta}{β}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textgamma}{γ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textdelta}{δ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textepsilon}{ε}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textzeta}{ζ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\texteta}{\liixu@lookforsubiota{η}{ῃ}}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\texttheta}{θ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textiota}{ι}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textkappa}{κ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textlambda}{λ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textmugreek}{μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textmu}{μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textnu}{ν}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textxi}{ξ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textomicron}{ο}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textpi}{π}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textrho}{ρ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textgrsigma}{ς}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textvarsigma}{ς}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textsigma}{\text@checkfinalsigma}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\texttau}{τ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textupsilon}{υ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textphi}{φ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textchi}{χ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textpsi}{ψ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\textomega}{\liixu@lookforsubiota{ω}{ῳ}}
+
+
+\def\liixu@recover@empty#1{#1\@empty}
+\DeclareTextCommand{\text@checkfinalsigma}{L8U}[1]{\textsigma\textgreekLGR@i#1}
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{v}{\textsigma}
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{\noboundary}{\textsigma}
+\obeyspaces
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{\sep}{\sep }%
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{ }{\space}%
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{ }{\textvarsigma\space}%
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{s}{\grk@en{s}{ς}{\grk@nc{ }{ς}{σ}}}
+\catcode`\ 10 
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{\ }{\textvarsigma\space}
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{\@empty}{\textvarsigma\@empty}
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{\textgreekLGR@i}{\textvarsigma\textgreekLGR@i}
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{;}{\textvarsigma.}
+\DeclareTextCompositeCommand{\text@checkfinalsigma}{L8U}{?}{\textvarsigma;}
+
+\let\liixu@firstoftwo\@firstoftwo  % only within \textLGR  else \@empty
+
+%\DeclareTextCompositeCommand{\textdasia}{L8U}{`}{\textdasiavaria}
+%\DeclareTextCompositeCommand{\textdasia}{L8U}{\`}{\textdasiavaria}
+%\DeclareTextCompositeCommand{\textdasia}{L8U}{'}{\textdasiaoxia}
+%\DeclareTextCompositeCommand{\textdasia}{L8U}{\'}{\textdasiaoxia}
+%\DeclareTextCompositeCommand{\textdasia}{L8U}{~}{\textdasiaperispomeni}
+%\DeclareTextCompositeCommand{\textdasia}{L8U}{\~}{\textdasiaperispomeni}
+
+
+\DeclareTextCompositeCommand{\textpsili}{L8U}{a}{\liixu@checksubiota{ἀ}{ᾀ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{a}{\liixu@checksubiota{ἁ}{ᾁ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{a}{\liixu@checksubiota{ἂ}{ᾂ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{a}{\liixu@checksubiota{ἃ}{ᾃ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{a}{\liixu@checksubiota{ἄ}{ᾄ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{a}{\liixu@checksubiota{ἅ}{ᾅ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{a}{\liixu@checksubiota{ἆ}{ᾆ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{a}{\liixu@checksubiota{ἇ}{ᾇ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{A}{\liixu@checksubiota{Ἀ}{ᾈ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{A}{\liixu@checksubiota{Ἁ}{ᾉ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{A}{\liixu@checksubiota{Ἂ}{ᾊ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{A}{\liixu@checksubiota{Ἃ}{ᾋ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{A}{\liixu@checksubiota{Ἄ}{ᾌ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{A}{\liixu@checksubiota{Ἅ}{ᾍ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{A}{\liixu@checksubiota{Ἆ}{ᾎ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{A}{\liixu@checksubiota{Ἇ}{ᾏ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{e}{ἐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{e}{ἑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{e}{ἒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{e}{ἓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{e}{ἔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{e}{ἕ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{e}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{e}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{E}{Ἐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{E}{Ἑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{E}{Ἒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{E}{Ἓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{E}{Ἔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{E}{Ἕ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{E}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{E}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{h}{\liixu@checksubiota{ἠ}{ᾐ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{h}{\liixu@checksubiota{ἡ}{ᾑ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{h}{\liixu@checksubiota{ἢ}{ᾒ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{h}{\liixu@checksubiota{ἣ}{ᾓ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{h}{\liixu@checksubiota{ἤ}{ᾔ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{h}{\liixu@checksubiota{ἥ}{ᾕ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{h}{\liixu@checksubiota{ἦ}{ᾖ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{h}{\liixu@checksubiota{ἧ}{ᾗ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{H}{\liixu@checksubiota{Ἠ}{ᾘ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{H}{\liixu@checksubiota{Ἡ}{ᾙ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{H}{\liixu@checksubiota{Ἢ}{ᾚ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{H}{\liixu@checksubiota{Ἣ}{ᾛ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{H}{\liixu@checksubiota{Ἤ}{ᾜ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{H}{\liixu@checksubiota{Ἥ}{ᾝ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{H}{\liixu@checksubiota{Ἦ}{ᾞ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{H}{\liixu@checksubiota{Ἧ}{ᾟ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{i}{ἰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{i}{ἱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{i}{ἲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{i}{ἳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{i}{ἴ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{i}{ἵ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{i}{ἶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{i}{ἷ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{I}{Ἰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{I}{Ἱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{I}{Ἲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{I}{Ἳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{I}{Ἴ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{I}{Ἵ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{I}{Ἶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{I}{Ἷ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{o}{ὀ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{o}{ὁ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{o}{ὂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{o}{ὃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{o}{ὄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{o}{ὅ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{o}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{o}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{O}{Ὀ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{O}{Ὁ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{O}{Ὂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{O}{Ὃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{O}{Ὄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{O}{Ὅ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{O}{}% not used
+%\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{O}{}% not used
+\DeclareTextCompositeCommand{\textpsili}{L8U}{u}{ὐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{u}{ὑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{u}{ὒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{u}{ὓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{u}{ὔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{u}{ὕ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{u}{ὖ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{u}{ὗ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsili}{L8U}{U}{}% not used
+\DeclareTextCompositeCommand{\textdasia}{L8U}{U}{Ὑ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{U}{}% not used
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{U}{Ὓ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{U}{}% not used
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{U}{Ὕ\restarttextLGR}
+%\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{U}{}% not used
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{U}{Ὗ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{w}{\liixu@checksubiota{ὠ}{ᾠ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{w}{\liixu@checksubiota{ὡ}{ᾡ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{w}{\liixu@checksubiota{ὢ}{ᾢ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{w}{\liixu@checksubiota{ὣ}{ᾣ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{w}{\liixu@checksubiota{ὤ}{ᾤ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{w}{\liixu@checksubiota{ὥ}{ᾥ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{w}{\liixu@checksubiota{ὦ}{ᾦ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{w}{\liixu@checksubiota{ὧ}{ᾧ}}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{W}{\liixu@checksubiota{Ὠ}{ᾨ}}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{W}{\liixu@checksubiota{Ὡ}{ᾩ}}
+\DeclareTextCompositeCommand{\textpsilivaria}{L8U}{W}{\liixu@checksubiota{Ὢ}{ᾪ}}
+\DeclareTextCompositeCommand{\textdasiavaria}{L8U}{W}{\liixu@checksubiota{Ὣ}{ᾫ}}
+\DeclareTextCompositeCommand{\textpsilioxia}{L8U}{W}{\liixu@checksubiota{Ὤ}{ᾬ}}
+\DeclareTextCompositeCommand{\textdasiaoxia}{L8U}{W}{\liixu@checksubiota{Ὥ}{ᾭ}}
+\DeclareTextCompositeCommand{\textpsiliperispomeni}{L8U}{W}{\liixu@checksubiota{Ὦ}{ᾮ}}
+\DeclareTextCompositeCommand{\textdasiaperispomeni}{L8U}{W}{\liixu@checksubiota{Ὧ}{ᾯ}}
+
+\DeclareTextCompositeCommand{\textvaria}{L8U}{a}{\liixu@checksubiota{ὰ}{ᾲ}}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{a}{\liixu@checksubiota{ά}{ᾴ}}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{e}{ὲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{e}{έ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{h}{\liixu@checksubiota{ὴ}{ῂ}}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{h}{\liixu@checksubiota{ή}{ῄ}}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{i}{ὶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{i}{ί\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{o}{ὸ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{o}{ό\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{u}{ὺ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{u}{ύ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{w}{\liixu@checksubiota{ὼ}{ῲ}}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{w}{\liixu@checksubiota{ώ}{ῴ}}
+
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{a}{ᾀ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{a}{ᾁ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{a}{ᾂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{a}{ᾃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{a}{ᾄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{a}{ᾅ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{a}{ᾆ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{a}{ᾇ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{A}{ᾈ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{A}{ᾉ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{A}{ᾊ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{A}{ᾋ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{A}{ᾌ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{A}{ᾍ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{A}{ᾎ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{A}{ᾏ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{h}{ᾐ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{h}{ᾑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{h}{ᾒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{h}{ᾓ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{h}{ᾔ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{h}{ᾕ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{h}{ᾖ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{h}{ᾗ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{H}{ᾘ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{H}{ᾙ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{H}{ᾚ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{H}{ᾛ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{H}{ᾜ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{H}{ᾝ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{H}{ᾞ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{H}{ᾟ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{w}{ᾠ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{w}{ᾡ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{w}{ᾢ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{w}{ᾣ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{w}{ᾤ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{w}{ᾥ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{w}{ᾦ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{w}{ᾧ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliiota}{L8U}{W}{ᾨ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaiota}{L8U}{W}{ᾩ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilivariaiota}{L8U}{W}{ᾪ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiavariaiota}{L8U}{W}{ᾫ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsilioxiaiota}{L8U}{W}{ᾬ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaoxiaiota}{L8U}{W}{ᾭ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsiliperispomeniiota}{L8U}{W}{ᾮ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasiaperispomeniiota}{L8U}{W}{ᾯ\restarttextLGR}
+% Ux1FB0
+%\DeclareTextCompositeCommand{\u}{L8U}{a}{ᾰ\restarttextLGR}
+%\DeclareTextCompositeCommand{\=}{L8U}{a}{ᾱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvariaiota}{L8U}{a}{ᾲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{a}{ᾳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxiaiota}{L8U}{a}{ᾴ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{a}{ᾶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeniiota}{L8U}{a}{ᾷ\restarttextLGR}
+%\DeclareTextCompositeCommand{\u}{L8U}{\textAlpha}{Ᾰ\restarttextLGR}
+%\DeclareTextCompositeCommand{\=}{L8U}{\textAlpha}{Ᾱ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{A}{Ὰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{A}{Ά\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{A}{ᾼ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvariaiota}{L8U}{h}{ῂ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{h}{ῃ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxiaiota}{L8U}{h}{ῄ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{h}{ῆ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeniiota}{L8U}{h}{ῇ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{E}{Ὲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{E}{Έ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{H}{Ὴ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{H}{Ή\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{H}{ῌ\restarttextLGR}
+%\DeclareTextCompositeCommand{\u}{L8U}{\textiota}{ῐ\restarttextLGR}
+%\DeclareTextCompositeCommand{\=}{L8U}{\textiota}{ῑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikavaria}{L8U}{i}{ῒ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaoxia}{L8U}{i}{ΐ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{i}{ῖ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaperispomeni}{L8U}{i}{ῗ\restarttextLGR}
+%\DeclareTextCompositeCommand{\u}{L8U}{\textIota}{Ῐ\restarttextLGR}
+%\DeclareTextCompositeCommand{\=}{L8U}{\textIota}{Ῑ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{I}{Ὶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{I}{Ί\restarttextLGR}
+%
+%\DeclareTextCompositeCommand{\u}{L8U}{\textupsilon}{ῠ\restarttextLGR}
+%\DeclareTextCompositeCommand{\=}{L8U}{\textupsilon}{ῡ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikavaria}{L8U}{u}{ῢ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaoxia}{L8U}{u}{ΰ\restarttextLGR}
+\DeclareTextCompositeCommand{\textpsili}{L8U}{r}{ῤ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{r}{ῥ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{u}{ῦ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdialytikaperispomeni}{L8U}{u}{ῧ\restarttextLGR}
+\DeclareTextCompositeCommand{\u}{L8U}{U}{Ῠ\restarttextLGR}
+\DeclareTextCompositeCommand{\=}{L8U}{U}{Ῡ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{U}{Ὺ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{U}{Ύ\restarttextLGR}
+\DeclareTextCompositeCommand{\textdasia}{L8U}{R}{Ῥ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textvariaiota}{L8U}{w}{ῲ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{w}{ῳ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxiaiota}{L8U}{w}{ῴ\restarttextLGR}
+%
+\DeclareTextCompositeCommand{\textperispomeni}{L8U}{w}{ῶ\restarttextLGR}
+\DeclareTextCompositeCommand{\textperispomeniiota}{L8U}{w}{ῷ\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{O}{Ὸ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{O}{Ό\restarttextLGR}
+\DeclareTextCompositeCommand{\textvaria}{L8U}{W}{Ὼ\restarttextLGR}
+\DeclareTextCompositeCommand{\textoxia}{L8U}{W}{Ώ\restarttextLGR}
+\DeclareTextCompositeCommand{\textsubiota}{L8U}{W}{ῼ\restarttextLGR}
+
+
+
+
+%  direct input — upper 8-bit:   ISO-8859-7 
+
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^80}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^81}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^82}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^83}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^84}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^85}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^86}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^87}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^88}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^89}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^8a}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^8b}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^8c}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^8d}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^8e}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^8f}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^90}{}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^91}{``}%  ????
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^92}{''}%  ????
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^93}{``}%  ????
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^94}{''}%  ????
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^95}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^96}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^97}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^98}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^99}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^9a}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^9b}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^9c}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^9d}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^9e}{}%
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^9f}{}%   unused
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a0}{ }
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a1}{‘}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a2}{’}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a3}{£}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a4}{€}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a5}{₯}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a6}{¦}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a7}{§}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a8}{¨}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^a9}{©}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^aa}{ͺ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ab}{«}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ac}{¬}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ad}{­}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ae}{}% unused
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^af}{―}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b0}{°}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b1}{±}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b2}{²}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b3}{³}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b4}{΄}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b5}{΅}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b6}{Ά}%  Ux0386
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b7}{·}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b8}{Έ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^b9}{Ή}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ba}{Ί}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^bb}{»}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^bc}{Ό}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^bd}{½}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^be}{Ύ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^bf}{Ώ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c0}{ΐ}%  Ux0390
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c1}{Α}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c2}{Β}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c3}{Γ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c4}{Δ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c5}{Ε}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c6}{Ζ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c7}{Η}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c8}{Θ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^c9}{Ι}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ca}{Κ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^cb}{Λ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^cc}{Μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^cd}{Ν}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ce}{Ξ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^cf}{Ο}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d0}{Π}%  Ux03A0
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d1}{Ρ}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d2}{}%  unused
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d3}{Σ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d4}{Τ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d5}{Υ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d6}{Φ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d7}{Χ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d8}{Ψ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^d9}{Ω}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^da}{Ϊ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^db}{Ϋ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^dc}{ά}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^dd}{έ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^de}{ή}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^df}{ί}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e0}{ΰ}%  Ux03B0
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e1}{α}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e2}{β}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e3}{γ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e4}{δ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e5}{ε}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e6}{ζ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e7}{η}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e8}{θ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^e9}{ι}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ea}{κ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^eb}{λ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ec}{μ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ed}{ν}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ee}{ξ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ef}{ο}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f0}{π}%  Ux03C0
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f1}{ρ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f2}{ς}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f3}{σ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f4}{τ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f5}{υ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f6}{φ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f7}{χ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f8}{ψ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^f9}{ω}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^fa}{ϊ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^fb}{ϋ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^fc}{ό}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^fd}{ύ}
+\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^fe}{ώ}
+%\DeclareTextCompositeCommand{\textLGRenc}{L8U}{^^ff}{}%  not used
+
+
+
+% Greek numerals — upper & lower case
+%% this cannot work, due to place-value considerations.
+%% Instead, see \pdfxGreeknumeralsHack  in  l8uenc.def .
+
+\DeclareTextCommand{\textgreekNUMstring}{L8U}[1]{\textgreekNUM@ii#1\@empty\@empty}
+\def\textgreekNUM@i#1{\textgreekNUM@ii#1}
+\def\textgreekNUM@ii#1#2\@empty{%
+ \ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textgrkNUMenc{#1}\@empty}{\textgrkNUMenc{#1}\textgreekNUM@i#2\@empty}}
+
+\DeclareTextCommand{\textgreeknumstring}{L8U}[1]{\textgreeknum@ii#1\@empty\@empty}
+\def\textgreeknum@i#1{\textgreeknum@ii#1}
+\def\textgreeknum@ii#1#2\@empty{%
+ \ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textgrknumenc{#1}\@empty}{\textgrknumenc{#1}\textgreekNUM@i#2\@empty}}
+
+\DeclareTextCommand{\textgrkNUMenc}{L8U}[1]{#1}
+\DeclareTextCommand{\textgrknumenc}{L8U}[1]{#1}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{0}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{1}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{2}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{3}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{4}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{5}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{6}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{7}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{8}{}
+\DeclareTextCompositeCommand{\textgrkNUMenc}{L8U}{9}{}
+
+\DeclareTextCommand{\textgrknumenc}{L8U}[1]{#1}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{0}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{1}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{2}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{3}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{4}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{5}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{6}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{7}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{8}{}
+\DeclareTextCompositeCommand{\textgrknumenc}{L8U}{9}{}
+
+
+\endinput
+
+
+

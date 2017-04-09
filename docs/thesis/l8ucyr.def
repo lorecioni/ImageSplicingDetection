@@ -1,0 +1,762 @@
+%%
+%% This is file `l8ucyr.def'
+%%
+%% l8ucyr.def
+%% 
+%% This is a hand-written file, based upon  t1enc.def 
+%% with extensions for more composite characters.
+%% 
+%% Copyright 2016 Ross Moore <ross.moore@mq.edu.au>
+%% 
+\ProvidesFile{l8ucyr.def}
+ [2016/03/18 v0.4
+         Cyrillic support for UTF8 in XMP metadata]
+
+%
+% uses macro names mostly from  uni-4.def  of the ucs.sty  package 
+%
+%%%% Cyrillic Characters + accents  Ux0400 – Ux04FF
+%
+%\DeclareTextCommand{\U}{L8U}[1]{#1̆}% clashes with IPA usage
+\DeclareTextCommand{\U}{L8U}[1]{\u{#1}}%
+\DeclareTextCommand{\C}{L8U}[1]{#1̏}%
+\DeclareTextCommand{\CYRtitlo}{L8U}[1]{#1҃}%
+\DeclareTextCommand{\CYRpalatal}{L8U}[1]{#1҄}%
+\DeclareTextCommand{\CYRdasia}{L8U}[1]{#1҅}%
+\DeclareTextCommand{\CYRpsili}{L8U}[1]{#1҆}%
+\DeclareTextCommand{\CYRpokrytie}{L8U}[1]{#1҇}%
+\DeclareTextCommand{\cyrlegion}{L8U}[1]{#1҈}%
+\DeclareTextCommand{\cyrleodr}{L8U}[1]{#1҉}%
+%
+%
+% Ux0400 — uppercase accents + extras
+%
+\DeclareTextCompositeCommand{\`}{L8U}{\CYRE}{Ѐ}
+%%\DeclareTextCompositeCommand{\`}{L8U}{Е}{Ѐ}
+%\DeclareTextCompositeCommand{\`}{L8U}{E}{Ѐ}% overrides È
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRE}{Ё}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Е}{Ё}
+\DeclareTextCommand{\CYRYO}{L8U}{Ё}
+%\DeclareTextCompositeCommand{\"}{L8U}{E}{Ё}% overrides Ë
+\DeclareTextCommand{\CYRDJE}{L8U}{Ђ}
+\DeclareTextCompositeCommand{\'}{L8U}{\CYRG}{Ѓ}
+%%\DeclareTextCompositeCommand{\'}{L8U}{Г}{Ѓ}
+\DeclareTextCommand{\CYRGJE}{L8U}{Ѓ}
+\DeclareTextCommand{\CYRIE}{L8U}{Є}
+\DeclareTextCommand{\CYRDZE}{L8U}{Ѕ}
+\DeclareTextCommand{\CYRII}{L8U}{І}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRII}{Ї}
+%%\DeclareTextCompositeCommand{\"}{L8U}{І}{Ї}
+\DeclareTextCommand{\CYRYI}{L8U}{Ї}
+%\DeclareTextCompositeCommand{\"}{L8U}{I}{Ї}% overrides Ï
+\DeclareTextCommand{\CYRJE}{L8U}{Ј}
+\DeclareTextCommand{\CYRLJE}{L8U}{Љ}
+\DeclareTextCommand{\CYRNJE}{L8U}{Њ}
+\DeclareTextCommand{\CYRTSHE}{L8U}{Ћ}
+\DeclareTextCompositeCommand{\'}{L8U}{\CYRK}{Ќ}
+%%\DeclareTextCompositeCommand{\'}{L8U}{К}{Ќ}
+\DeclareTextCommand{\CYRKJE}{L8U}{Ќ}
+%\DeclareTextCompositeCommand{\"}{L8U}{K}{Ќ}%  ascii-K
+\DeclareTextCompositeCommand{\`}{L8U}{\CYRI}{Ѝ}
+%%\DeclareTextCompositeCommand{\`}{L8U}{И}{Ѝ}
+\DeclareTextCompositeCommand{\u}{L8U}{\CYRU}{Ў}
+\DeclareTextCompositeCommand{\U}{L8U}{\CYRU}{Ў}
+%%\DeclareTextCompositeCommand{\u}{L8U}{У}{Ў}
+%%\DeclareTextCompositeCommand{\U}{L8U}{У}{Ў}
+\DeclareTextCommand{\CYRUSHRT}{L8U}{Ў}
+\DeclareTextCommand{\CYRDZHE}{L8U}{Џ}
+% Ux0410 — uppercase
+\DeclareTextCommand{\CYRA}{L8U}{А}
+\DeclareTextCommand{\CYRB}{L8U}{Б}
+\DeclareTextCommand{\CYRV}{L8U}{В}
+\DeclareTextCommand{\CYRG}{L8U}{Г}
+\DeclareTextCommand{\CYRD}{L8U}{Д}
+\DeclareTextCommand{\CYRE}{L8U}{Е}
+\DeclareTextCommand{\CYRZH}{L8U}{Ж}
+\DeclareTextCommand{\CYRZ}{L8U}{З}
+\DeclareTextCommand{\CYRI}{L8U}{И}
+\DeclareTextCompositeCommand{\u}{L8U}{\CYRI}{Й}
+\DeclareTextCompositeCommand{\U}{L8U}{\CYRI}{Й}
+%%\DeclareTextCompositeCommand{\u}{L8U}{И}{Й}
+%%\DeclareTextCompositeCommand{\U}{L8U}{И}{Й}
+\DeclareTextCommand{\CYRISHRT}{L8U}{Й}
+\DeclareTextCommand{\CYRK}{L8U}{К}
+\DeclareTextCommand{\CYRL}{L8U}{Л}
+\DeclareTextCommand{\CYRM}{L8U}{М}
+\DeclareTextCommand{\CYRN}{L8U}{Н}
+\DeclareTextCommand{\CYRO}{L8U}{О}
+\DeclareTextCommand{\CYRP}{L8U}{П}
+\DeclareTextCommand{\CYRR}{L8U}{Р}
+\DeclareTextCommand{\CYRS}{L8U}{С}
+\DeclareTextCommand{\CYRT}{L8U}{Т}
+\DeclareTextCommand{\CYRU}{L8U}{У}
+\DeclareTextCommand{\CYRF}{L8U}{Ф}
+\DeclareTextCommand{\CYRH}{L8U}{Х}
+\DeclareTextCommand{\CYRC}{L8U}{Ц}
+\DeclareTextCommand{\CYRCH}{L8U}{Ч}
+\DeclareTextCommand{\CYRSH}{L8U}{Ш}
+\DeclareTextCommand{\CYRSHCH}{L8U}{Щ}
+\DeclareTextCommand{\CYRHRDSN}{L8U}{Ъ}
+\DeclareTextCommand{\texthardsign}{L8U}{Ъ}
+\DeclareTextCommand{\CYRERY}{L8U}{Ы}
+\DeclareTextCommand{\CYRDZHE}{L8U}{Ь}
+\DeclareTextCommand{\CYRSFTSN}{L8U}{Ь}
+\DeclareTextCommand{\textsoftsign}{L8U}{Ь}
+\DeclareTextCommand{\CYREREV}{L8U}{Э}
+\DeclareTextCommand{\CYRYU}{L8U}{Ю}
+\DeclareTextCommand{\CYRYA}{L8U}{Я}
+% Ux0430 — lowercase
+\DeclareTextCommand{\cyra}{L8U}{а}
+\DeclareTextCommand{\cyrb}{L8U}{б}
+\DeclareTextCommand{\cyrv}{L8U}{в}
+\DeclareTextCommand{\cyrg}{L8U}{г}
+\DeclareTextCommand{\cyrd}{L8U}{д}
+\DeclareTextCommand{\cyre}{L8U}{е}
+\DeclareTextCommand{\cyrzh}{L8U}{ж}
+\DeclareTextCommand{\cyrz}{L8U}{з}
+\DeclareTextCommand{\cyri}{L8U}{и}
+\DeclareTextCompositeCommand{\u}{L8U}{\cyri}{й}
+\DeclareTextCompositeCommand{\U}{L8U}{\cyri}{й}
+%%\DeclareTextCompositeCommand{\u}{L8U}{и}{й}
+%%\DeclareTextCompositeCommand{\U}{L8U}{и}{й}
+\DeclareTextCommand{\cyrishrt}{L8U}{й}
+\DeclareTextCommand{\cyrk}{L8U}{к}
+\DeclareTextCommand{\cyrl}{L8U}{л}
+\DeclareTextCommand{\cyrm}{L8U}{м}
+\DeclareTextCommand{\cyrn}{L8U}{н}
+\DeclareTextCommand{\cyro}{L8U}{о}
+\DeclareTextCommand{\cyrp}{L8U}{п}
+\DeclareTextCommand{\cyrr}{L8U}{р}
+\DeclareTextCommand{\cyrs}{L8U}{с}
+\DeclareTextCommand{\cyrt}{L8U}{т}
+\DeclareTextCommand{\cyru}{L8U}{у}
+\DeclareTextCommand{\cyrf}{L8U}{ф}
+\DeclareTextCommand{\cyrh}{L8U}{х}
+\DeclareTextCommand{\cyrc}{L8U}{ц}
+\DeclareTextCommand{\cyrch}{L8U}{ч}
+\DeclareTextCommand{\cyrsh}{L8U}{ш}
+\DeclareTextCommand{\cyrshch}{L8U}{щ}
+\DeclareTextCommand{\cyrhrdsn}{L8U}{ъ}
+\DeclareTextCommand{\cyrery}{L8U}{ы}
+\DeclareTextCommand{\cyrdzhe}{L8U}{ь}
+\DeclareTextCommand{\cyrsftsn}{L8U}{ь}
+\DeclareTextCommand{\cyrerev}{L8U}{э}
+\DeclareTextCommand{\cyryu}{L8U}{ю}
+\DeclareTextCommand{\cyrya}{L8U}{я}
+% Ux0450 — lowercase accents + extras
+\DeclareTextCompositeCommand{\`}{L8U}{\cyre}{ѐ}
+%%\DeclareTextCompositeCommand{\`}{L8U}{е}{ѐ}
+%\DeclareTextCompositeCommand{\`}{L8U}{e}{ѐ}%  overrides è
+\DeclareTextCompositeCommand{\"}{L8U}{\cyre}{ё}
+%%\DeclareTextCompositeCommand{\"}{L8U}{е}{ё}
+\DeclareTextCommand{\cyryo}{L8U}{ё}
+%\DeclareTextCompositeCommand{\`}{L8U}{e}{ё}%  overrides ë
+\DeclareTextCommand{\cyrdje}{L8U}{ђ}
+\DeclareTextCompositeCommand{\'}{L8U}{\cyrg}{ѓ}
+%%\DeclareTextCompositeCommand{\'}{L8U}{г}{ѓ}
+\DeclareTextCommand{\cyrgje}{L8U}{ѓ}
+\DeclareTextCommand{\cyrie}{L8U}{є}
+\DeclareTextCommand{\cyrdze}{L8U}{ѕ}
+\DeclareTextCommand{\cyrii}{L8U}{і}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrii}{ї}
+%%\DeclareTextCompositeCommand{\"}{L8U}{і}{ї}
+\DeclareTextCommand{\cyryi}{L8U}{ї}
+%\DeclareTextCompositeCommand{\"}{L8U}{i}{ї}% overrides ï
+\DeclareTextCommand{\cyrje}{L8U}{ј}
+\DeclareTextCommand{\cyrlje}{L8U}{љ}
+\DeclareTextCommand{\cyrnje}{L8U}{њ}
+\DeclareTextCommand{\cyrtshe}{L8U}{ћ}
+\DeclareTextCompositeCommand{\'}{L8U}{\cyrk}{ќ}
+%%\DeclareTextCompositeCommand{\'}{L8U}{к}{ќ}
+\DeclareTextCommand{\cyrkje}{L8U}{ќ}
+%\DeclareTextCompositeCommand{\"}{L8U}{k}{ќ}%  ascii-k
+\DeclareTextCompositeCommand{\`}{L8U}{\cyri}{ѝ}
+%%\DeclareTextCompositeCommand{\`}{L8U}{и}{ѝ}
+\DeclareTextCompositeCommand{\u}{L8U}{\cyru}{ў}
+\DeclareTextCompositeCommand{\U}{L8U}{\cyru}{ў}
+\DeclareTextCompositeCommand{\U}{L8U}{\curu}{ў}% mistake in PD1 (2009)
+%%\DeclareTextCompositeCommand{\u}{L8U}{у}{ў}
+%%\DeclareTextCompositeCommand{\U}{L8U}{у}{ў}
+%\DeclareTextCompositeCommand{\u}{L8U}{y}{ў}%  ascii-y
+\DeclareTextCommand{\cyrushrt}{L8U}{ў}
+\DeclareTextCommand{\cyrdzhe}{L8U}{џ}
+% Ux0460
+\DeclareTextCommand{\CYROMEGA}{L8U}{Ѡ}
+\DeclareTextCommand{\cyromega}{L8U}{ѡ}
+\DeclareTextCommand{\CYRYAT}{L8U}{Ѣ}
+\DeclareTextCommand{\cyryat}{L8U}{ѣ}
+\DeclareTextCommand{\CYRIOTEST}{L8U}{Ѥ}% mistake in ucs.sty ?
+\DeclareTextCommand{\CYRIOTE}{L8U}{Ѥ}
+\DeclareTextCommand{\cyriotest}{L8U}{ѥ}% mistake in ucs.sty ?
+\DeclareTextCommand{\cyriote}{L8U}{ѥ}
+\DeclareTextCommand{\CYRLYUS}{L8U}{Ѧ}
+\DeclareTextCommand{\cyrlyus}{L8U}{ѧ}
+\DeclareTextCommand{\CYRIOTLYUS}{L8U}{Ѩ}
+\DeclareTextCommand{\cyriotlyus}{L8U}{ѩ}
+\DeclareTextCommand{\CYRBYUS}{L8U}{Ѫ}
+\DeclareTextCommand{\cyrbyus}{L8U}{ѫ}
+\DeclareTextCommand{\CYRIOTBYUS}{L8U}{Ѭ}
+\DeclareTextCommand{\cyriotbyus}{L8U}{ѭ}
+\DeclareTextCommand{\CYRKSI}{L8U}{Ѯ}
+\DeclareTextCommand{\cyrksi}{L8U}{ѯ}
+\DeclareTextCommand{\CYRPSI}{L8U}{Ѱ}
+\DeclareTextCommand{\cyrpsi}{L8U}{ѱ}
+\DeclareTextCommand{\CYRFITA}{L8U}{Ѳ}
+\DeclareTextCommand{\cyrfita}{L8U}{ѳ}
+\DeclareTextCommand{\CYRIZH}{L8U}{Ѵ}
+\DeclareTextCommand{\cyrizh}{L8U}{ѵ}
+\DeclareTextCompositeCommand{\C}{L8U}{\CYRIZH}{Ѷ}
+%%\DeclareTextCompositeCommand{\C}{L8U}{Ѵ}{Ѷ}
+\DeclareTextCompositeCommand{\C}{L8U}{\cyrizh}{ѷ}
+%%\DeclareTextCompositeCommand{\C}{L8U}{ѵ}{ѷ}
+\DeclareTextCommand{\CYRVARUK}{L8U}{Ѹ}
+\DeclareTextCommand{\CYRUK}{L8U}{Ѹ}
+\DeclareTextCommand{\cyrvaruk}{L8U}{ѹ}
+\DeclareTextCommand{\cyruk}{L8U}{ѹ}
+\DeclareTextCommand{\CYROMRND}{L8U}{Ѻ}
+\DeclareTextCommand{\CYROMEGARND}{L8U}{Ѻ}
+\DeclareTextCommand{\cyromrnd}{L8U}{ѻ}
+\DeclareTextCommand{\cyromegarnd}{L8U}{ѻ}
+\DeclareTextCompositeCommand{\CYRtitlo}{L8U}{\CYROMEGA}{Ѽ}
+%%\DeclareTextCompositeCommand{\CYRtitlo}{L8U}{Ѡ}{Ѽ}
+\DeclareTextCommand{\CYROMEGATITLO}{L8U}{Ѽ}
+\DeclareTextCommand{\CYROMTLO}{L8U}{Ѽ}
+\DeclareTextCompositeCommand{\CYRtitlo}{L8U}{\cyromega}{ѽ}
+%%\DeclareTextCompositeCommand{\CYRtitlo}{L8U}{ѡ}{ѽ}
+\DeclareTextCommand{\cyromegatitlo}{L8U}{ѽ}
+\DeclareTextCommand{\cyromtlo}{L8U}{ѽ}
+\DeclareTextCommand{\CYROT}{L8U}{Ѿ}
+\DeclareTextCommand{\cyrot}{L8U}{ѿ}
+\DeclareTextCommand{\CYRKOPPA}{L8U}{Ҁ}
+\DeclareTextCommand{\cyrkoppa}{L8U}{ҁ}
+% Ux0482  more accents and diacritics
+\DeclareTextCommand{\CYRthousands}{L8U}{҂}
+\DeclareTextCompositeCommand{\CYRtitlo}{L8U}{\empty}{ ҃}
+\DeclareTextCompositeCommand{\CYRpalatal}{L8U}{\empty}{ ҄}
+\DeclareTextCompositeCommand{\CYRdasia}{L8U}{\empty}{ ҅}
+\DeclareTextCompositeCommand{\CYRpsili}{L8U}{\empty}{ ҆}
+\DeclareTextCompositeCommand{\CYRpokrytie}{L8U}{\empty}{ ҇}
+\DeclareTextCompositeCommand{\cyrlegion}{L8U}{\empty}{ ҈}
+\DeclareTextCompositeCommand{\cyrleodr}{L8U}{\empty}{ ҉}
+
+%\DeclareTextCompositeCommand{\???}{L8U}{\CYRISHRT}{Ҋ}
+%\DeclareTextCompositeCommand{\???}{L8U}{Й}{Ҋ}
+\DeclareTextCommand{\CYRISHRTDSC}{L8U}{Ҋ}
+%\DeclareTextCompositeCommand{\???}{L8U}{\cyrishrt}{ҋ}
+%\DeclareTextCompositeCommand{\???}{L8U}{й}{ҋ}
+\DeclareTextCommand{\cyrishrtdsc}{L8U}{ҋ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{Ь}{Ҍ}
+\DeclareTextCommand{\CYRSEMISFTSN}{L8U}{Ҍ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{ь}{ҍ}
+\DeclareTextCommand{\cyrsemisftsn}{L8U}{ҍ}
+\DeclareTextCommand{\CYRRTICK}{L8U}{Ҏ}
+\DeclareTextCommand{\cyrrtick}{L8U}{ҏ}
+% Ux0490
+\DeclareTextCommand{\CYRGUP}{L8U}{Ґ}
+\DeclareTextCommand{\cyrgup}{L8U}{ґ}
+\DeclareTextCompositeCommand{\B}{L8U}{\CYRG}{Ғ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{Г}{Ғ}
+\DeclareTextCommand{\CYRGHCRS}{L8U}{Ғ}
+\DeclareTextCompositeCommand{\B}{L8U}{\cyrg}{ғ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{г}{ғ}
+\DeclareTextCommand{\cyrghcrs}{L8U}{ғ}
+\DeclareTextCommand{\CYRGHK}{L8U}{Ҕ}
+\DeclareTextCommand{\cyrghk}{L8U}{ҕ}
+\DeclareTextCommand{\CYRZHDSC}{L8U}{Җ}
+\DeclareTextCommand{\cyrzhdsc}{L8U}{җ}
+\DeclareTextCompositeCommand{\c}{L8U}{\CYRZ}{Ҙ}
+%%\DeclareTextCompositeCommand{\c}{L8U}{З}{Ҙ}
+\DeclareTextCommand{\CYRZDSC}{L8U}{Ҙ}
+\DeclareTextCompositeCommand{\c}{L8U}{\cyrz}{ҙ}
+%%\DeclareTextCompositeCommand{\c}{L8U}{з}{ҙ}
+\DeclareTextCommand{\cyrzdsc}{L8U}{ҙ}
+\DeclareTextCommand{\CYRKDSC}{L8U}{Қ}
+\DeclareTextCommand{\cyrkdsc}{L8U}{қ}
+\DeclareTextCommand{\CYRKVCRS}{L8U}{Ҝ}
+\DeclareTextCommand{\cyrkvcrs}{L8U}{ҝ}
+\DeclareTextCompositeCommand{\B}{L8U}{\CYRK}{Ҟ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{К}{Ҟ}
+\DeclareTextCommand{\CYRKHCRS}{L8U}{Ҟ}
+\DeclareTextCompositeCommand{\B}{L8U}{\cyrk}{ҟ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{к}{ҟ}
+\DeclareTextCommand{\cyrkhcrs}{L8U}{ҟ}
+% Ux04A0
+\DeclareTextCommand{\CYRKBEAK}{L8U}{Ҡ}
+\DeclareTextCommand{\cyrkbeak}{L8U}{ҡ}
+\DeclareTextCommand{\CYRNDSC}{L8U}{Ң}
+\DeclareTextCommand{\cyrndsc}{L8U}{ң}
+\DeclareTextCommand{\CYRNG}{L8U}{Ҥ}
+\DeclareTextCommand{\cyrng}{L8U}{ҥ}
+\DeclareTextCommand{\CYRPHK}{L8U}{Ҧ}
+\DeclareTextCommand{\cyrphk}{L8U}{ҧ}
+\DeclareTextCommand{\CYRABHHA}{L8U}{Ҩ}
+\DeclareTextCommand{\cyrabhha}{L8U}{ҩ}
+\DeclareTextCompositeCommand{\CYRSDSC}{L8U}{\CYRS}{Ҫ}% error in PD1 (2009)
+\DeclareTextCompositeCommand{\c}{L8U}{\CYRS}{Ҫ}
+%%\DeclareTextCompositeCommand{\c}{L8U}{С}{Ҫ}
+\DeclareTextCompositeCommand{\k}{L8U}{\CYRS}{Ҫ}% PD1
+%%\DeclareTextCompositeCommand{\k}{L8U}{С}{Ҫ}% PD1
+\DeclareTextCommand{\CYRSDSC}{L8U}{Ҫ}
+\DeclareTextCompositeCommand{\c}{L8U}{\cyrs}{ҫ}
+%%\DeclareTextCompositeCommand{\k}{L8U}{с}{ҫ}% PD1
+\DeclareTextCompositeCommand{\k}{L8U}{\cyrs}{ҫ}% PD1
+%%\DeclareTextCompositeCommand{\c}{L8U}{с}{ҫ}
+\DeclareTextCommand{\cyrsdsc}{L8U}{ҫ}
+\DeclareTextCommand{\CYRTDSC}{L8U}{Ҭ}
+\DeclareTextCommand{\cyrtdsc}{L8U}{ҭ}
+\DeclareTextCommand{\CYRY}{L8U}{Ү}
+\DeclareTextCommand{\cyry}{L8U}{ү}
+% Ux04B0
+\DeclareTextCompositeCommand{\B}{L8U}{\CYRY}{Ұ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{Ү}{Ұ}
+\DeclareTextCommand{\CYRYHCRS}{L8U}{Ұ}
+\DeclareTextCompositeCommand{\B}{L8U}{\cyry}{ұ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{ү}{ұ}
+\DeclareTextCommand{\cyryhcrs}{L8U}{ұ}
+\DeclareTextCommand{\CYRHDSC}{L8U}{Ҳ}
+\DeclareTextCommand{\cyrhdsc}{L8U}{Ҳ}
+\DeclareTextCommand{\CYRTETSE}{L8U}{Ҵ}
+\DeclareTextCommand{\cyrtetse}{L8U}{ҵ}
+\DeclareTextCommand{\CYRCHRDSC}{L8U}{Ҷ}
+\DeclareTextCommand{\cyrchrdsc}{L8U}{ҷ}
+\DeclareTextCommand{\CYRCHVCRS}{L8U}{Ҹ}
+\DeclareTextCommand{\cyrchvcrs}{L8U}{ҹ}
+\DeclareTextCommand{\CYRSHHA}{L8U}{Һ}
+\DeclareTextCommand{\cyrshha}{L8U}{һ}
+\DeclareTextCommand{\CYRABHCH}{L8U}{Ҽ}
+\DeclareTextCommand{\cyrabhch}{L8U}{ҽ}
+\DeclareTextCompositeCommand{\k}{L8U}{\CYRABHCH}{Ҿ}
+%%\DeclareTextCompositeCommand{\k}{L8U}{Ҽ}{Ҿ}
+\DeclareTextCommand{\CYRABHCHDSC}{L8U}{Ҿ}
+\DeclareTextCompositeCommand{\k}{L8U}{\cyrabhch}{ҿ}
+%%\DeclareTextCompositeCommand{\k}{L8U}{ҽ}{ҿ}
+\DeclareTextCommand{\cyrabhchdsc}{L8U}{ҿ}
+% Ux04C0
+\DeclareTextCommand{\CYRpalochka}{L8U}{Ӏ}
+\DeclareTextCompositeCommand{\u}{L8U}{\CYRZH}{Ӂ}
+\DeclareTextCompositeCommand{\U}{L8U}{\CYRZH}{Ӂ}
+%%\DeclareTextCompositeCommand{\u}{L8U}{Ж}{ӂ}
+%%\DeclareTextCompositeCommand{\U}{L8U}{Ж}{ӂ}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{\CYRK}{Ӄ}
+%%\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{К}{Ӄ}
+\DeclareTextCommand{\CYRKHK}{L8U}{Ӄ}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{\cyrk}{ӄ}
+%%\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{к}{ӄ}
+\DeclareTextCommand{\cyrkhk}{L8U}{ӄ}
+\DeclareTextCommand{\CYRLDSC}{L8U}{Ӆ}
+\DeclareTextCommand{\cyrldsc}{L8U}{ӆ}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{\CYRN}{Ӈ}
+%%\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{Н}{Ӈ}
+\DeclareTextCommand{\CYRNHK}{L8U}{Ӈ}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{\cyrn}{ӈ}
+%%\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{н}{ӈ}
+\DeclareTextCommand{\cyrnhk}{L8U}{ӈ}
+\DeclareTextCommand{\CYRNTL}{L8U}{Ӊ}%  ??? with tail
+\DeclareTextCommand{\cyrntl}{L8U}{ӊ}%  ??? with tail
+\DeclareTextCommand{\CYRCHLDSC}{L8U}{Ӌ}
+\DeclareTextCommand{\cyrchldsc}{L8U}{ӌ}
+\DeclareTextCommand{\CYRMDSC}{L8U}{Ӎ}% PD1
+\DeclareTextCommand{\CYRMTL}{L8U}{Ӎ}%  ??? with tail
+\DeclareTextCommand{\cyrmdsc}{L8U}{ӎ}%  PD1
+\DeclareTextCommand{\cyrmtl}{L8U}{ӎ}%  ??? with tail
+\DeclareTextCommand{\cyrpalochka}{L8U}{ӏ}% ???
+% Ux04D0 — Ux04FF
+\DeclareTextCompositeCommand{\u}{L8U}{\CYRA}{Ӑ}
+\DeclareTextCompositeCommand{\U}{L8U}{\CYRA}{Ӑ}
+%%\DeclareTextCompositeCommand{\u}{L8U}{А}{Ӑ}
+%%\DeclareTextCompositeCommand{\U}{L8U}{А}{Ӑ}
+\DeclareTextCompositeCommand{\u}{L8U}{\cyra}{ӑ}
+\DeclareTextCompositeCommand{\U}{L8U}{\cyra}{ӑ}
+%%\DeclareTextCompositeCommand{\u}{L8U}{а}{ӑ}
+%%\DeclareTextCompositeCommand{\U}{L8U}{а}{ӑ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRA}{Ӓ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{А}{Ӓ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyra}{ӓ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{а}{ӓ}
+\DeclareTextCommand{\CYRAE}{L8U}{Ӕ}
+\DeclareTextCommand{\cyrae}{L8U}{ӕ}
+\DeclareTextCompositeCommand{\u}{L8U}{\CYRE}{Ӗ}
+\DeclareTextCompositeCommand{\U}{L8U}{\CYRE}{Ӗ}
+%%\DeclareTextCompositeCommand{\u}{L8U}{Е}{Ӗ}
+%%\DeclareTextCompositeCommand{\U}{L8U}{Е}{Ӗ}
+\DeclareTextCompositeCommand{\u}{L8U}{\cyre}{ӗ}
+\DeclareTextCompositeCommand{\U}{L8U}{\cyre}{ӗ}
+%%\DeclareTextCompositeCommand{\u}{L8U}{е}{ӗ}
+%%\DeclareTextCompositeCommand{\U}{L8U}{е}{ӗ}
+\DeclareTextCommand{\CYRSCHWA}{L8U}{Ә}
+\DeclareTextCommand{\cyrschwa}{L8U}{ә}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRSCHWA}{Ӛ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Ә}{Ӛ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrschwa}{ӛ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{ә}{ӛ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRZH}{Ӝ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Ж}{Ӝ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrzh}{ӝ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{ж}{ӝ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRZ}{Ӟ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{З}{Ӟ}
+\DeclareTextCommand{\CYRABHDZE}{L8U}{Ӡ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrz}{ӟ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{з}{ӟ}
+\DeclareTextCommand{\cyrabhdze}{L8U}{ӡ}
+\DeclareTextCompositeCommand{\=}{L8U}{\CYRI}{Ӣ}
+%%\DeclareTextCompositeCommand{\=}{L8U}{И}{Ӣ}
+\DeclareTextCompositeCommand{\=}{L8U}{\cyri}{ӣ}
+%%\DeclareTextCompositeCommand{\=}{L8U}{и}{ӣ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRI}{Ӥ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{И}{Ӥ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyri}{ӥ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{и}{ӥ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRO}{Ӧ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{О}{Ӧ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyro}{ӧ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{о}{ӧ}
+\DeclareTextCommand{\CYROTLD}{L8U}{Ө}
+\DeclareTextCommand{\cyrotld}{L8U}{ө}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYROTLD}{Ӫ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Ө}{Ӫ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrotld}{ӫ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{ө}{ӫ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYREREV}{Ӭ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Э}{Ӭ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrerev}{ӭ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{э}{ӭ}
+\DeclareTextCompositeCommand{\=}{L8U}{\CYRU}{Ӯ}
+%%\DeclareTextCompositeCommand{\=}{L8U}{У}{Ӯ}
+\DeclareTextCompositeCommand{\=}{L8U}{\cyru}{ӯ}
+%%\DeclareTextCompositeCommand{\=}{L8U}{у}{ӯ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRU}{Ӱ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{У}{Ӱ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyru}{ӱ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{у}{ӱ}
+\DeclareTextCompositeCommand{\H}{L8U}{\CYRU}{Ӳ}
+%%\DeclareTextCompositeCommand{\H}{L8U}{У}{Ӳ}
+\DeclareTextCompositeCommand{\H}{L8U}{\cyru}{ӳ}
+%%\DeclareTextCompositeCommand{\H}{L8U}{у}{ӳ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRCH}{Ӵ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Ч}{Ӵ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrch}{ӵ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{ч}{ӵ}
+\DeclareTextCommand{\CYRGDSC}{L8U}{Ӷ}
+\DeclareTextCommand{\cyrgdsc}{L8U}{ӷ}
+\DeclareTextCompositeCommand{\"}{L8U}{\CYRERY}{Ӹ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{Ы}{Ӹ}
+\DeclareTextCompositeCommand{\"}{L8U}{\cyrery}{ӹ}
+%%\DeclareTextCompositeCommand{\"}{L8U}{ы}{ӹ}
+\DeclareTextCompositeCommand{\textpalhook}{L8U}{\CYRGHCRS}{Ӻ}
+%%\DeclareTextCompositeCommand{\textpalhook}{L8U}{Ғ}{Ӻ}
+\DeclareTextCompositeCommand{\textpalhook}{L8U}{\cyrghcrs}{ӻ}
+%%\DeclareTextCompositeCommand{\textpalhook}{L8U}{ғ}{ӻ}
+\DeclareTextCompositeCommand{\textpalhook}{L8U}{\CYRH}{Ӽ}
+%%\DeclareTextCompositeCommand{\textpalhook}{L8U}{Х}{Ӽ}
+\DeclareTextCommand{\CYRHHK}{L8U}{Ӽ}%  PD1
+\DeclareTextCompositeCommand{\textpalhook}{L8U}{\cyrh}{ӽ}
+%%\DeclareTextCompositeCommand{\textpalhook}{L8U}{х}{ӽ}
+\DeclareTextCommand{\cyrhhk}{L8U}{ӽ}%  PD1
+\DeclareTextCompositeCommand{\B}{L8U}{\CYRH}{Ӿ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{Х}{Ӿ}
+\DeclareTextCompositeCommand{\B}{L8U}{\cyrh}{ӿ}
+%%\DeclareTextCompositeCommand{\B}{L8U}{х}{ӿ}
+
+
+%
+%  Cyrillic Supplement  Ux0500 – Ux0527
+%
+\DeclareTextCommand{\CYRKDE}{L8U}{Ԁ}
+\DeclareTextCommand{\cyrkde}{L8U}{ԁ}
+\DeclareTextCommand{\CYRKDJE}{L8U}{Ԃ}
+\DeclareTextCommand{\cyrkdje}{L8U}{ԃ}
+\DeclareTextCommand{\CYRKZJE}{L8U}{Ԅ}
+\DeclareTextCommand{\cyrkzje}{L8U}{ԅ}
+\DeclareTextCommand{\CYRKDZJE}{L8U}{Ԇ}
+\DeclareTextCommand{\cyrkdzje}{L8U}{ԇ}
+\DeclareTextCommand{\CYRKLJE}{L8U}{Ԉ}
+\DeclareTextCommand{\cyrklje}{L8U}{ԉ}
+\DeclareTextCommand{\CYRKNJE}{L8U}{Ԋ}
+\DeclareTextCommand{\cyrknje}{L8U}{ԋ}
+\DeclareTextCommand{\CYRKSJE}{L8U}{Ԍ}
+\DeclareTextCommand{\cyrksje}{L8U}{ԍ}
+\DeclareTextCommand{\CYRKTJE}{L8U}{Ԏ}
+\DeclareTextCommand{\cyrktje}{L8U}{ԏ}
+\DeclareTextCommand{\CYREPS}{L8U}{Ԑ}
+\DeclareTextCommand{\cyreps}{L8U}{ԑ}
+\DeclareTextCommand{\CYRLHK}{L8U}{Ԓ}
+\DeclareTextCommand{\cyrlhk}{L8U}{ԓ}
+\DeclareTextCommand{\CYRLHA}{L8U}{Ԕ}
+\DeclareTextCommand{\cyrlha}{L8U}{ԕ}
+\DeclareTextCommand{\CYRRHA}{L8U}{Ԗ}
+\DeclareTextCommand{\cyrrha}{L8U}{ԗ}
+\DeclareTextCommand{\CYRYAE}{L8U}{Ԙ}
+\DeclareTextCommand{\cyryae}{L8U}{ԙ}
+\DeclareTextCommand{\CYRQ}{L8U}{Ԛ}
+\DeclareTextCommand{\cyrq}{L8U}{ԛ}
+\DeclareTextCommand{\CYRW}{L8U}{Ԝ}
+\DeclareTextCommand{\cyrw}{L8U}{ԝ}
+\DeclareTextCommand{\CYRALKA}{L8U}{Ԟ}
+\DeclareTextCommand{\cyralka}{L8U}{ԟ}
+\DeclareTextCommand{\CYRLHK}{L8U}{Ԡ}
+\DeclareTextCommand{\cyrlhk}{L8U}{ԡ}
+\DeclareTextCommand{\CYRNHK}{L8U}{Ԣ}
+\DeclareTextCommand{\cyrnhk}{L8U}{ԣ}
+\DeclareTextCommand{\CYRPEDSC}{L8U}{Ԥ}
+\DeclareTextCommand{\cyrpedsc}{L8U}{ԥ}
+\DeclareTextCommand{\CYRSHHADSC}{L8U}{Ԧ}
+\DeclareTextCommand{\cyrshhadsc}{L8U}{ԧ}
+%
+%\endinput
+
+\ifcyrKOIxmp\else\expandafter\endinput\fi
+
+
+%  direct input — upper 8-bit:   ISO-8859-7 
+
+\DeclareTextCommand{\textcyrKOIstring}{L8U}[1]{\textcyrKOI@ii#1\@empty\@empty}
+\def\textcyrKOI@i#1{\textcyrKOI@ii#1}%\@empty}
+\def\textcyrKOI@ii#1#2\@empty{%
+ \ifx\@empty#2\@empty
+ \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
+ {\textKOIenc{#1}}{\textKOIenc{#1}\textcyrKOI@i#2\@empty}}
+
+% \textKOIenc{#1}%
+% \ifx\@empty#2\@empty\else\expandafter\textcyrKOI@i\fi#2\@empty}
+
+\DeclareTextCommand{\textKOIenc}{L8U}[1]{#1}
+\DeclareTextCommand{\textKOI}{L8U}[1]{\textcyrKOIstring{#1}}
+
+%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{\sep}{\sep}%\restarttextKOI}
+
+\obeyspaces
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{\sep}{\sep }%
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{ }{\space}%
+\catcode`\ 10 
+
+
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^80}{─}% Ux2500 
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^81}{│}% Ux2502
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^82}{┌}% Ux250C
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^83}{┐}% Ux2510
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^84}{└}% Ux2514
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^85}{┘}% Ux2518
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^86}{├}% Ux251C
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^87}{┤}% Ux2524
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^88}{┬}% Ux252C
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^89}{┴}% Ux2534
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^8a}{┼}% Ux253C
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^8b}{▀}% Ux2580
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^8c}{▄}% Ux2584
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^8d}{█}% Ux2588
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^8e}{▌}% Ux258C
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^8f}{▐}% Ux2590
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^90}{░}% Ux2591
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^91}{▒}% Ux2592
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^92}{▓}% Ux2593
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^93}{⌠}% Ux2320
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^94}{■}% Ux25A0
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^95}{∙}% Ux2022
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^96}{√}%* U+221A
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^97}{∼}%* U+223C
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^98}{≤}%* U+2264
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^99}{≥}%* U+2265
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^9a}{\textnobreakspace}%
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^9b}{⌡}% Ux2321
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^9c}{\textdegree}%
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^9d}{\texttwosuperior}%
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^9e}{\textperiodcentered}%
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^9f}{\textdivide}%
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a0}{═}% Ux2550
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a1}{║}% Ux2551
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a2}{╒}% Ux2552
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a3}{\cyryo}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a4}{\cyrie}
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a5}{╔}% Ux2554
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a6}{\cyrii}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a7}{\cyryi}
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a8}{╗}% Ux2557
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^a9}{╘}% Ux2558
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^aa}{╙}% Ux2559
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ab}{╚}% Ux255A
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ac}{╛}% Ux255B
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ad}{\cyrgup}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ae}{\cyrushrt}
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^af}{╞}% Ux255E
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b0}{╟}% Ux255F
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b1}{╠}% Ux2560
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b2}{╡}% Ux2561
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b3}{\CYRYO}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b4}{\CYRIE}
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b5}{╣}% Ux2563
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b6}{\CYRII}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b7}{\CYRYI}
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b8}{╦}% Ux2566
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^b9}{╧}% Ux2567
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ba}{╨}% Ux2568
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^bb}{╩}% Ux2569
+%%\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^bc}{╪}% Ux256A
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^bd}{\CYRGUP}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^be}{\CYRUSHRT}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^bf}{\textcopyright}
+
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c0}{\cyryu}%
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c1}{\cyra}% Ux0410
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c2}{\cyrb}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c3}{\cyrc}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c4}{\cyrd}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c5}{\cyre}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c6}{\cyrf}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c7}{\cyrg}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c8}{\cyrh}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^c9}{\cyri}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ca}{\cyrishrt}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^cb}{\cyrk}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^cc}{\cyrl}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^cd}{\cyrm}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ce}{\cyrn}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^cf}{\cyro}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d0}{\cyrp}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d1}{\cyrya}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d2}{\cyrr}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d3}{\cyrs}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d4}{\cyrt}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d5}{\cyru}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d6}{\cyrzh}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d7}{\cyrv}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d8}{\cyrsftsn}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^d9}{\cyrery}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^da}{\cyrz}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^db}{\cyrsh}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^dc}{\cyrerev}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^dd}{\cyrshch}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^de}{\cyrch}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^df}{\cyrhrdsn}
+
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e0}{\CYRYU}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e1}{\CYRA}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e2}{\CYRB}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e3}{\CYRC}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e4}{\CYRD}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e5}{\CYRE}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e6}{\CYRF}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e7}{\CYRG}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e8}{\CYRH}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^e9}{\CYRI}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ea}{\CYRISHRT}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^eb}{\CYRK}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ec}{\CYRL}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ed}{\CYRM}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ee}{\CYRN}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ef}{\CYRO}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f0}{\CYRP}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f1}{\CYRYA}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f2}{\CYRR}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f3}{\CYRS}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f4}{\CYRT}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f5}{\CYRU}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f6}{\CYRZH}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f7}{\CYRV}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f8}{\CYRSFTSN}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^f9}{\CYRERY}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^fa}{\CYRZ}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^fb}{\CYRSH}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^fc}{\CYREREV}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^fd}{\CYRSHCH}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^fe}{\CYRCH}
+\DeclareTextCompositeCommand{\textKOIenc}{L8U}{^^ff}{\CYRHRDSN}
+
+%%  These suspend \textKOI string parsing, so ...
+%
+\DeclareTextCompositeCommand{\'}{L8U}{\textcyrKOI@i}{\'}
+\DeclareTextCompositeCommand{\"}{L8U}{\textcyrKOI@i}{\"}
+\DeclareTextCompositeCommand{\`}{L8U}{\textcyrKOI@i}{\`}
+\DeclareTextCompositeCommand{\u}{L8U}{\textcyrKOI@i}{\u}
+\DeclareTextCompositeCommand{\U}{L8U}{\textcyrKOI@i}{\U}
+\DeclareTextCompositeCommand{\c}{L8U}{\textcyrKOI@i}{\c}
+\DeclareTextCompositeCommand{\k}{L8U}{\textcyrKOI@i}{\k}
+\DeclareTextCompositeCommand{\C}{L8U}{\textcyrKOI@i}{\C}
+\DeclareTextCompositeCommand{\CYRtitlo}{L8U}{\textcyrKOI@i}{\CYRtitlo}
+\DeclareTextCompositeCommand{\CYRpalatal}{L8U}{\textcyrKOI@i}{\CYRpalatal}
+\DeclareTextCompositeCommand{\CYRdasia}{L8U}{\textcyrKOI@i}{\CYRdasia}
+\DeclareTextCompositeCommand{\CYRpsili}{L8U}{\textcyrKOI@i}{\CYRpsili}
+\DeclareTextCompositeCommand{\CYRpokrytie}{L8U}{\textcyrKOI@i}{\CYRpokrytie}
+\DeclareTextCompositeCommand{\cyrlegion}{L8U}{\textcyrKOI@i}{\cyrlegion}
+\DeclareTextCompositeCommand{\cyrleodr}{L8U}{\textcyrKOI@i}{\cyrleodr}
+
+% ... we need a way to restart KOI string parsing after accents
+%
+\let\restarttextKOI\textcyrKOI@ii
+
+\DeclareTextCompositeCommand{\`}{L8U}{^^e5}{Ѐ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^e5}{Ё\restarttextKOI}
+\DeclareTextCompositeCommand{\'}{L8U}{^^e7}{Ѓ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^b6}{Ї\restarttextKOI}
+\DeclareTextCompositeCommand{\'}{L8U}{^^eb}{Ќ\restarttextKOI}
+\DeclareTextCompositeCommand{\`}{L8U}{^^e9}{Ѝ\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^f5}{Ў\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^f5}{Ў\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^e9}{Й\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^e9}{Й\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^c9}{й\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^c9}{й\restarttextKOI}
+\DeclareTextCompositeCommand{\`}{L8U}{^^c5}{ѐ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^c5}{ё\restarttextKOI}
+\DeclareTextCompositeCommand{\'}{L8U}{^^c7}{ѓ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^a6}{ї\restarttextKOI}
+\DeclareTextCompositeCommand{\'}{L8U}{^^cb}{ќ\restarttextKOI}
+\DeclareTextCompositeCommand{\`}{L8U}{^^c9}{ѝ\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^d5}{ў\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^d5}{ў\restarttextKOI}
+
+\DeclareTextCompositeCommand{\B}{L8U}{^^e7}{Ғ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{^^c7}{ғ\restarttextKOI}
+\DeclareTextCompositeCommand{\c}{L8U}{^^fa}{Ҙ\restarttextKOI}
+\DeclareTextCompositeCommand{\c}{L8U}{^^da}{ҙ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{^^eb}{Ҟ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{^^cb}{ҟ\restarttextKOI}
+\DeclareTextCompositeCommand{\CYRSDSC}{L8U}{^^f3}{Ҫ\restarttextKOI}
+\DeclareTextCompositeCommand{\c}{L8U}{^^f3}{Ҫ\restarttextKOI}
+\DeclareTextCompositeCommand{\k}{L8U}{^^f3}{Ҫ\restarttextKOI}
+\DeclareTextCompositeCommand{\c}{L8U}{^^d3}{ҫ\restarttextKOI}
+\DeclareTextCompositeCommand{\k}{L8U}{^^d3}{ҫ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{\CYRY}{Ұ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{\cyry}{ұ\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^f6}{Ӂ\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^f6}{Ӂ\restarttextKOI}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{^^eb}{Ӄ\restarttextKOI}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{^^cb}{ӄ\restarttextKOI}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{^^ee}{Ӈ\restarttextKOI}
+\DeclareTextCompositeCommand{\textpalhookbelow}{L8U}{^^ce}{ӈ\restarttextKOI}
+
+\DeclareTextCompositeCommand{\u}{L8U}{^^e1}{Ӑ\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^e1}{Ӑ\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^c1}{ӑ\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^c1}{ӑ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^e1}{Ӓ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^c1}{ӓ\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^e5}{Ӗ\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^e5}{Ӗ\restarttextKOI}
+\DeclareTextCompositeCommand{\u}{L8U}{^^c5}{ӗ\restarttextKOI}
+\DeclareTextCompositeCommand{\U}{L8U}{^^c5}{ӗ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^f6}{Ӝ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^d6}{ӝ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^fa}{Ӟ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^da}{ӟ\restarttextKOI}
+\DeclareTextCompositeCommand{\=}{L8U}{^^e9}{Ӣ\restarttextKOI}
+\DeclareTextCompositeCommand{\=}{L8U}{^^c9}{ӣ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^e9}{Ӥ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^c9}{ӥ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^ef}{Ӧ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^cf}{ӧ\restarttextKOI}
+\DeclareTextCompositeCommand{\=}{L8U}{^^f5}{Ӯ\restarttextKOI}
+\DeclareTextCompositeCommand{\=}{L8U}{^^d5}{ӯ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^f5}{Ӱ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^d5}{ӱ\restarttextKOI}
+\DeclareTextCompositeCommand{\H}{L8U}{^^f5}{Ӳ\restarttextKOI}
+\DeclareTextCompositeCommand{\H}{L8U}{^^d5}{ӳ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^fe}{Ӵ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^de}{ӵ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^f9}{Ӹ\restarttextKOI}
+\DeclareTextCompositeCommand{\"}{L8U}{^^d9}{ӹ\restarttextKOI}
+\DeclareTextCompositeCommand{\textpalhook}{L8U}{^^e8}{Ӽ\restarttextKOI}
+\DeclareTextCompositeCommand{\textpalhook}{L8U}{^^c8}{ӽ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{^^e8}{Ӿ\restarttextKOI}
+\DeclareTextCompositeCommand{\B}{L8U}{^^c8}{ӿ\restarttextKOI}
+

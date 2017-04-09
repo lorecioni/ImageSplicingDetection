@@ -1,0 +1,120 @@
+<?xpacket begin='' id='W5M0MpCehiHzreSzNTczkc9d' ?> 
+
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 4.0-c316 44.253921, Sun Oct 01 2006 17:14:39"> 
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"> 
+      <rdf:Description rdf:about="" xmlns:pdfaExtension="http://www.aiim.org/pdfa/ns/extension/" 
+                       xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#" 
+                       xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#" 
+       > 
+        <pdfaExtension:schemas> 
+          <rdf:Bag> 
+            <rdf:li rdf:parseType="Resource"> 
+               <pdfaSchema:namespaceURI>http://ns.adobe.com/pdfx/1.3/</pdfaSchema:namespaceURI> 
+               <pdfaSchema:prefix>pdfx</pdfaSchema:prefix> 
+               <pdfaSchema:schema>PDF/X Schema</pdfaSchema:schema> 
+               <pdfaSchema:property> 
+                 <rdf:Seq> 
+                   <rdf:li rdf:parseType="Resource"> 
+                     <pdfaProperty:category>external</pdfaProperty:category> 
+                     <pdfaProperty:description>URL to an online version or preprint</pdfaProperty:description> 
+                     <pdfaProperty:name>AuthoritativeDomain</pdfaProperty:name> 
+                     <pdfaProperty:valueType>Text</pdfaProperty:valueType> 
+                   </rdf:li> 
+                 </rdf:Seq> 
+               </pdfaSchema:property> 
+            </rdf:li> 
+            <rdf:li rdf:parseType="Resource"> 
+              <pdfaSchema:schema>PRISM metadata</pdfaSchema:schema> 
+              <pdfaSchema:namespaceURI>http://prismstandard.org/namespaces/basic/2.2/</pdfaSchema:namespaceURI> 
+              <pdfaSchema:prefix>prism</pdfaSchema:prefix> 
+              <pdfaSchema:property> 
+               <rdf:Seq> 
+   <rdf:li rdf:parseType="Resource">
+    <pdfaProperty:name>aggregationType</pdfaProperty:name>
+    <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+    <pdfaProperty:category>external</pdfaProperty:category>
+    <pdfaProperty:description>The type of publication. If defined, must be one of book, catalog, feed, journal, magazine, manual, newsletter, pamphlet.</pdfaProperty:description>
+  </rdf:li> 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <rdf:li rdf:parseType="Resource">
+    <pdfaProperty:name>doi</pdfaProperty:name>
+    <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+    <pdfaProperty:category>external</pdfaProperty:category>
+    <pdfaProperty:description>Digital Object Identifier, DOI, for the article</pdfaProperty:description>
+  </rdf:li>
+  <rdf:li rdf:parseType="Resource">
+    <pdfaProperty:name>url</pdfaProperty:name>
+    <pdfaProperty:valueType>URL</pdfaProperty:valueType>
+    <pdfaProperty:category>external</pdfaProperty:category>
+    <pdfaProperty:description>URL for the article or unit of content</pdfaProperty:description>
+  </rdf:li>
+              </rdf:Seq></pdfaSchema:property> 
+            </rdf:li> 
+          </rdf:Bag> 
+        </pdfaExtension:schemas> 
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:pdf="http://ns.adobe.com/pdf/1.3/"> 
+         <pdf:Producer>pdfTeX</pdf:Producer> 
+         
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"> 
+         <dc:format>application/pdf</dc:format> 
+         <dc:title><rdf:Alt><rdf:li xml:lang="x-default">Illuminant map analysis for image splicing detection</rdf:li></rdf:Alt></dc:title>
+         <dc:creator><rdf:Seq><rdf:li>Lorenzo Cioni</rdf:li></rdf:Seq></dc:creator>
+         <dc:publisher><rdf:Bag><rdf:li>Università degli Studi di Firenze</rdf:li></rdf:Bag></dc:publisher>
+         <dc:identifier>doi:0.0.0.0</dc:identifier>
+         <dc:rights><rdf:Alt><rdf:li xml:lang="x-default">Università degli Studi di Firenze</rdf:li></rdf:Alt></dc:rights>
+         <dc:description><rdf:Alt><rdf:li xml:lang="x-default">Metadata for PDF/A conforming documents</rdf:li></rdf:Alt></dc:description>
+         <dc:subject><rdf:Bag><rdf:li>Illuminant map,splicing detection, image forensics</rdf:li></rdf:Bag></dc:subject>
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:prism="http://prismstandard.org/namespaces/basic/2.2/"> 
+         
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <prism:doi>0.0.0.0</prism:doi>
+ <prism:url>http://dx.doi.org/0.0.0.0</prism:url>
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/"> 
+ 
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/"> 
+         <pdfaid:part>1</pdfaid:part> 
+         <pdfaid:conformance>B</pdfaid:conformance> 
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"> 
+         <xmp:CreatorTool>pdfTeX + pdfx.sty with options a-1b</xmp:CreatorTool> 
+         <xmp:ModifyDate>2017-04-09T19:46:51+02:00</xmp:ModifyDate> 
+         <xmp:CreateDate>2017-04-09T19:46:51+02:00</xmp:CreateDate> 
+         <xmp:MetadataDate>2017-04-09T19:46:51+02:00</xmp:MetadataDate> 
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:xmpRights = "http://ns.adobe.com/xap/1.0/rights/"> 
+         <xmpRights:Marked>True</xmpRights:Marked>
+<xmpRights:UsageTerms><rdf:Alt><rdf:li xml:lang="x-default">Università degli Studi di Firenze</rdf:li></rdf:Alt></xmpRights:UsageTerms>
+      <xmpRights:WebStatement>http://www.ingegneria.unifi.it/</xmpRights:WebStatement>
+      </rdf:Description> 
+      <rdf:Description rdf:about="" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"> 
+         <xmpMM:DocumentID>uuid:03D28DDE-F9EC-3F33-FD10-51B5A3A279A6</xmpMM:DocumentID> 
+         <xmpMM:InstanceID>uuid:F1D8A0F7-7819-9B3B-2293-6E396D8BFE4A</xmpMM:InstanceID> 
+      </rdf:Description> 
+   </rdf:RDF> 
+</x:xmpmeta> 
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+                                                                                                                                
+<?xpacket end='w'?> 

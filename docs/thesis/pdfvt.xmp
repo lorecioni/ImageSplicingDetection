@@ -1,0 +1,292 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 
+%%  File: pdfx.xmp                                         
+%% 
+%%  Copyright (c) 2016, CV Radhakrishnan <cvr@river-valley.org>,
+%%    Han The Thanh <thanh@river-valley.org>,
+%%    Ross Moore <ross.moore@mq.edu.au>,
+%%    Peter Selinger <selinger@mathstat.dal.ca>
+%% 
+%%  This file may be distributed and/or modified under the conditions
+%%  of the LaTeX Project Public License, either version 1.2 of this
+%%  license or (at your option) any later version.  The latest version
+%%  of this license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%%  and version 1.2 or later is part of all distributions of LaTeX
+%%  version 1999/12/01 or later.
+%%
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c014 81.156655, 2014/07/22-00:39:16        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about="" 
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/"
+            xmlns:pdf="http://ns.adobe.com/pdf/1.3/"
+            xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/"
+            xmlns:pdfxid="http://www.npes.org/pdfx/ns/id/"
+            xmlns:pdfvtid="http://www.npes.org/pdfvt/ns/id/"
+            xmlns:pdfaExtension="http://www.aiim.org/pdfa/ns/extension/"
+            xmlns:pdfaSchema="http://www.aiim.org/pdfa/ns/schema#"
+            xmlns:pdfaProperty="http://www.aiim.org/pdfa/ns/property#"
+            >
+%%            xmlns:xmpRights = "http://ns.adobe.com/xap/1.0/rights/"
+%%            xmlns:dcterms   = "http://purl.org/dc/terms/"
+%%            xmlns:pdfaField     = "http://www.aiim.org/pdfa/ns/field#"
+%%            xmlns:pdfaType      = "http://www.aiim.org/pdfa/ns/type#"
+%%	    xmlns:prism     = "http://prismstandard.org/namespaces/basic/2.2/"
+%%% RRM: Other possible namespaces.
+%%% If these are used, then appropriate tags need to be declared, using
+%%%  pdfaExtension:schemas  similarly to below for  prism:
+%%	    xmlns:pim       = "http://prismstandard.org/namespaces/pim/2.2/"
+%%	    xmlns:prl       = "http://prismstandard.org/namespaces/prl/2.1/"
+%%	    xmlns:pur       = "http://prismstandard.org/namespaces/primusagerights/2.1/"
+%%      >
+%      <rdf:Description rdf:about="" xmlns:pdf="http://www.adobe.com/pdf/1.3/">
+         <dc:format>application/pdf</dc:format>
+         <dc:rights><rdf:Alt><rdf:li xml:lang="x-default">\xmp@Copyright</rdf:li></rdf:Alt></dc:rights>
+         \ifx\xmp@@Author\@empty\else<dc:creator><rdf:Seq><rdf:li>\xmp@@Author</rdf:li></rdf:Seq></dc:creator>\fi
+         \ifx\xmp@Subject\@empty\else<dc:description><rdf:Alt><rdf:li xml:lang="x-default">\xmp@Subject</rdf:li></rdf:Alt></dc:description>\fi
+         \ifx\xmp@Title\@empty\else<dc:title><rdf:Alt><rdf:li xml:lang="x-default">\xmp@Title</rdf:li></rdf:Alt></dc:title>\fi
+         <xmp:CreateDate>\xmp@convDate</xmp:CreateDate>
+         <xmp:CreatorTool>\xmp@CreatorTool</xmp:CreatorTool>
+         <xmp:ModifyDate>\xmp@convDate</xmp:ModifyDate>
+         <xmp:MetadataDate>\xmp@convDate</xmp:MetadataDate>
+         <xmpMM:VersionID>1</xmpMM:VersionID>
+         <xmpMM:DocumentID>uuid:\xmp@docid</xmpMM:DocumentID>
+         <xmpMM:InstanceID>uuid:\xmp@instid</xmpMM:InstanceID>
+         <xmpMM:RenditionClass>default</xmpMM:RenditionClass>
+          <pdfxid:GTS_PDFXVersion>PDF/X-\xmp@Part\xmp@Conformance</pdfxid:GTS_PDFXVersion>
+          <pdfvtid:GTS_PDFVTVersion>PDF/VT-\xmp@vtPart\xmp@vtConformance</pdfvtid:GTS_PDFVTVersion>
+          <pdfvtid:GTS_PDFVTModDate>\xmp@convDate</pdfvtid:GTS_PDFVTModDate>
+         \ifx\xmp@AuthoritativeDomain\@empty\else <pdfx:AuthoritativeDomain>^^J      <rdf:Bag>^^J       <rdf:li>\xmp@AuthoritativeDomain</rdf:li>^^J      </rdf:Bag>^^J        </pdfx:AuthoritativeDomain>\fi
+         \ifx\xmp@@Keywords\@empty\else<pdf:Keywords>\xmp@@Keywords</pdf:Keywords>\fi
+         <pdf:Producer>\xmp@Producer</pdf:Producer>
+         <pdf:Trapped>False</pdf:Trapped>
+%         <pdfxid:GTS_PDFXVersion>PDF/X-\xmp@Part\xmp@Conformance</pdfxid:GTS_PDFXVersion>
+        <pdfaExtension:schemas>
+          <rdf:Bag>
+               <rdf:li rdf:parseType="Resource">
+                  <pdfaSchema:namespaceURI>http://ns.adobe.com/pdf/1.3/</pdfaSchema:namespaceURI>
+                  <pdfaSchema:prefix>pdf</pdfaSchema:prefix>
+                  <pdfaSchema:schema>Adobe PDF Schema</pdfaSchema:schema>
+                  <pdfaSchema:property>
+                     <rdf:Seq>
+                        <rdf:li rdf:parseType="Resource">
+                           <pdfaProperty:category>internal</pdfaProperty:category>
+                           <pdfaProperty:description>A name object indicating whether the document has been modified to include trapping information</pdfaProperty:description>
+                           <pdfaProperty:name>Trapped</pdfaProperty:name>
+                           <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+                        </rdf:li>
+                     </rdf:Seq>
+                  </pdfaSchema:property>
+               </rdf:li>
+               <rdf:li rdf:parseType="Resource">
+                  <pdfaSchema:namespaceURI>http://ns.adobe.com/pdfx/1.3/</pdfaSchema:namespaceURI>
+                  <pdfaSchema:prefix>pdfx</pdfaSchema:prefix>
+                  <pdfaSchema:schema>PDF/X ID Schema</pdfaSchema:schema>
+                  <pdfaSchema:property>
+                     <rdf:Seq>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>ID of PDF/X standard</pdfaProperty:description>
+%                           <pdfaProperty:name>GTS_PDFXVersion</pdfaProperty:name>
+%                           <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+%                        </rdf:li>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>Conformance level of PDF/X standard</pdfaProperty:description>
+%                           <pdfaProperty:name>GTS_PDFXConformance</pdfaProperty:name>
+%                           <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+%                        </rdf:li>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>Company creating the PDF</pdfaProperty:description>
+%                           <pdfaProperty:name>Company</pdfaProperty:name>
+%                           <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+%                        </rdf:li>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>Date when document was last modified</pdfaProperty:description>
+%                           <pdfaProperty:name>SourceModified</pdfaProperty:name>
+%                           <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+%                        </rdf:li>
+                        <rdf:li rdf:parseType="Resource">
+                           <pdfaProperty:category>external</pdfaProperty:category>
+                           <pdfaProperty:description>URI to author's online version of the document</pdfaProperty:description>
+                           <pdfaProperty:name>AuthoritativeDomain</pdfaProperty:name>
+                           <pdfaProperty:valueType>URI</pdfaProperty:valueType>
+                        </rdf:li>
+                    </rdf:Seq>
+                  </pdfaSchema:property>
+               </rdf:li>
+%               <rdf:li rdf:parseType="Resource">
+%                  <pdfaSchema:namespaceURI>http://ns.adobe.com/xap/1.0/mm/</pdfaSchema:namespaceURI>
+%                  <pdfaSchema:prefix>xmpMM</pdfaSchema:prefix>
+%                  <pdfaSchema:schema>XMP Media Management Schema</pdfaSchema:schema>
+%                  <pdfaSchema:property>
+%                     <rdf:Seq>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>UUID based identifier for specific incarnation of a document</pdfaProperty:description>
+%                           <pdfaProperty:name>InstanceID</pdfaProperty:name>
+%                           <pdfaProperty:valueType>URI</pdfaProperty:valueType>
+%                        </rdf:li>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>The common identifier for all versions and renditions of a document.</pdfaProperty:description>
+%                           <pdfaProperty:name>OriginalDocumentID</pdfaProperty:name>
+%                           <pdfaProperty:valueType>URI</pdfaProperty:valueType>
+%                        </rdf:li>
+%                     </rdf:Seq>
+%                  </pdfaSchema:property>
+%               </rdf:li>
+%               <rdf:li rdf:parseType="Resource">
+%                  <pdfaSchema:namespaceURI>http://www.npes.org/pdfx/ns/id/</pdfaSchema:namespaceURI>
+%                  <pdfaSchema:prefix>pdfxid</pdfaSchema:prefix>
+%                  <pdfaSchema:schema>PDF/X ID Schema</pdfaSchema:schema>
+%                  <pdfaSchema:property>
+%                     <rdf:Seq>
+%                        <rdf:li rdf:parseType="Resource">
+%                           <pdfaProperty:category>internal</pdfaProperty:category>
+%                           <pdfaProperty:description>ID of PDF/X standard</pdfaProperty:description>
+%                           <pdfaProperty:name>GTS_PDFXVersion</pdfaProperty:name>
+%                           <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+%                        </rdf:li>
+%                     </rdf:Seq>
+%                  </pdfaSchema:property>
+%               </rdf:li>
+%% RRM: this declares the namespace resource for PRISM metadata
+            <rdf:li rdf:parseType="Resource">
+              <pdfaSchema:schema>PRISM metadata</pdfaSchema:schema>
+              <pdfaSchema:namespaceURI>http://prismstandard.org/namespaces/basic/2.2/</pdfaSchema:namespaceURI>
+              <pdfaSchema:prefix>prism</pdfaSchema:prefix>
+              <pdfaSchema:property>
+               <rdf:Seq>
+%% RRM: Only need to define the tags that are actually used below. But \ifx ... \fi  must be all on one line.
+%% declare prism:aggregationType
+  \ifx\xmp@PublicationType\@empty\else <rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>aggregationType</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>The type of publication. If defined, must be one of book, catalog, feed, journal, magazine, manual, newsletter, pamphlet.</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:issn
+  \ifx\xmp@Journalnumber\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>issn</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>The ISSN for the publication in which the resource was published</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:volume
+  \ifx\xmp@Volume\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>volume</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Additional identifier for the publication where the resource appeared, providing the Volume portion of the common Volume, Number scheme</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:number
+  \ifx\xmp@Issue\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>number</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Number of the Issue within the Volume</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:coverDisplayDate
+  \ifx\xmp@CoverDisplayDate\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>coverDisplayDate</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Date on the cover of a magazine issue, as a human-readable text string</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:coverDate
+  \ifx\xmp@CoverDate\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>coverDate</pdfaProperty:name>^^J    <pdfaProperty:valueType>Date</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Date on the cover of a magazine issue, suitable for storing in a database field with a 'date' data type</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:issueName
+  \ifx\xmp@Journaltitle\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>issueName</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Additional identifier, typically used for major issues of a magazine or other resource</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:pageRange
+  \ifx\xmp@Firstpage\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>pageRange</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Page range for the published print version of the resource</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:startingPage
+  \ifx\xmp@Firstpage\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>startingPage</pdfaProperty:name>^^J    <pdfaProperty:valueType>Integer</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>First page number for the published version of the resource</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:endingPage
+  \ifx\xmp@Lastpage\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>endingPage</pdfaProperty:name>^^J    <pdfaProperty:valueType>Integer</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>The last page number for the printed resource</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:doi
+  \ifx\xmp@Doi\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>doi</pdfaProperty:name>^^J    <pdfaProperty:valueType>Text</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>Digital Object Identifier, DOI, for the article</pdfaProperty:description>^^J  </rdf:li>\fi
+%% declare prism:url
+  \ifx\xmp@Doi\@empty\else<rdf:li rdf:parseType="Resource">^^J    <pdfaProperty:name>url</pdfaProperty:name>^^J    <pdfaProperty:valueType>URL</pdfaProperty:valueType>^^J    <pdfaProperty:category>external</pdfaProperty:category>^^J    <pdfaProperty:description>URL for the article or unit of content</pdfaProperty:description>^^J  </rdf:li>\fi
+%% RRM: more tags can be declared
+%                <rdf:li rdf:parseType="Resource">
+%                  <pdfaProperty:name></pdfaProperty:name>
+%                  <pdfaProperty:valueType>Text</pdfaProperty:valueType>
+%                  <pdfaProperty:category>external</pdfaProperty:category>
+%                  <pdfaProperty:description></pdfaProperty:description>
+%                </rdf:li>
+              </rdf:Seq></pdfaSchema:property>
+            </rdf:li>
+          </rdf:Bag>
+        </pdfaExtension:schemas>
+%        \ifx\xmp@AuthoritativeDomain\@empty\else <pdfx:AuthoritativeDomain>^^J      <rdf:Bag>^^J       <rdf:li>\xmp@AuthoritativeDomain</rdf:li>^^J      </rdf:Bag>^^J        </pdfx:AuthoritativeDomain>\fi
+      </rdf:Description>
+%      <rdf:Description rdf:about="" xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/">
+%         <pdfx:GTS_PDFXVersion>PDF/X-\xmp@Part\xmp@Conformance\ifnum\xmp@Part<3:\xmp@ReleaseDate\fi</pdfx:GTS_PDFXVersion>
+%         \ifnum\xmp@Part<3 <pdfx:GTS_PDFXConformance>PDF/X-\xmp@Part\xmp@Conformance:\xmp@ReleaseDate</pdfx:GTS_PDFXConformance>\fi
+%      </rdf:Description>
+%      <rdf:Description rdf:about="" xmlns:pdfxid="http://www.npes.org/pdfx/ns/id/">
+%        \ifnum\xmp@Part>3 <pdfxid:GTS_PDFXVersion>PDF/X-\xmp@Part</pdfxid:GTS_PDFXVersion>\fi
+%      </rdf:Description>
+%      <rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">
+%         \ifnum\xmp@Part> 3<pdfaid:part>\xmp@Part</pdfaid:part>^^J    <pdfaid:conformance>\xmp@Conformance</pdfaid:conformance>\fi
+%      </rdf:Description>
+%      <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+%         <xmp:CreatorTool>\xmp@CreatorTool</xmp:CreatorTool>
+%         <xmp:ModifyDate>\xmp@convDate</xmp:ModifyDate>
+%         <xmp:CreateDate>\xmp@convDate</xmp:CreateDate>
+%         <xmp:MetadataDate>\xmp@convDate</xmp:MetadataDate>
+%      </rdf:Description>
+      <rdf:Description rdf:about="" xmlns:xmpRights = "http://ns.adobe.com/xap/1.0/rights/">
+         \ifx\xmp@Copyright\@empty\else<xmpRights:Marked>\ifx\xmp@Copyrighted\@empty True\else\xmp@Copyrighted\fi</xmpRights:Marked>^^J<xmpRights:UsageTerms><rdf:Alt><rdf:li xml:lang="x-default">\xmp@@Copyright</rdf:li></rdf:Alt></xmpRights:UsageTerms>\fi
+      \ifx\xmp@WebStatement\@empty\else<xmpRights:WebStatement>\xmp@WebStatement</xmpRights:WebStatement>\fi
+}
+      </rdf:Description>
+%%% extra  <dc>  fields not already covered above
+%      <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">
+%%         <dc:format>application/pdf</dc:format>
+%%         \ifx\xmp@Subject\@empty\else<dc:description><rdf:Alt><rdf:li xml:lang="x-default">\xmp@Subject</rdf:li></rdf:Alt></dc:description>\fi
+%%         \ifx\xmp@Title\@empty\else<dc:title><rdf:Alt><rdf:li xml:lang="x-default">\xmp@Title</rdf:li></rdf:Alt></dc:title>\fi
+%%         \ifx\xmp@@Author\@empty\else<dc:creator><rdf:Seq><rdf:li>\xmp@@Author</rdf:li></rdf:Seq></dc:creator>\fi
+%         \ifx\xmp@Org\@empty\else<dc:publisher><rdf:Bag><rdf:li>\xmp@Org</rdf:li></rdf:Bag></dc:publisher>\fi
+%         \ifx\xmp@Doi\@empty\else<dc:identifier>doi:\xmp@Doi</dc:identifier>\fi
+%         \ifx\xmp@Copyright\@empty\else<dc:rights><rdf:Alt><rdf:li xml:lang="x-default">\xmp@Copyright</rdf:li></rdf:Alt></dc:rights>\fi
+%         \ifx\xmp@Keywords\@empty\else<dc:subject><rdf:Bag><rdf:li>\xmp@Keywords</rdf:li></rdf:Bag></dc:subject>\fi
+%      </rdf:Description>
+      <rdf:Description rdf:about="" xmlns:prism="http://prismstandard.org/namespaces/basic/2.2/">
+         \ifx\xmp@PublicationType\@empty\else<prism:aggregationType>\xmp@PublicationType</prism:aggregationType>\fi
+	 \ifx\xmp@Journalnumber\@empty\else<prism:issn>\xmp@Journalnumber</prism:issn>\fi
+	 \ifx\xmp@Volume\@empty\else<prism:volume>\xmp@Volume</prism:volume>\fi
+	 \ifx\xmp@Issue\@empty\else<prism:number>\xmp@Issue</prism:number>\fi
+	 \ifx\xmp@CoverDisplayDate\@empty\else<prism:coverDisplayDate>\xmp@CoverDisplayDate</prism:coverDisplayDate>\fi
+	 \ifx\xmp@CoverDate\@empty\else<prism:coverDate>\xmp@CoverDate</prism:coverDate>\fi
+	 \ifx\xmp@Journaltitle\@empty\else<prism:issueName>\xmp@Journaltitle</prism:issueName>\fi
+	 \ifx\xmp@Firstpage\@empty\else<prism:pageRange>\xmp@Firstpage-\xmp@Lastpage</prism:pageRange>\fi
+	 \ifx\xmp@Firstpage\@empty\else<prism:startingPage>\xmp@Firstpage</prism:startingPage>\fi
+	 \ifx\xmp@Lastpage\@empty\else<prism:endingPage>\xmp@Lastpage</prism:endingPage>\fi
+	 \ifx\xmp@Doi\@empty\else<prism:doi>\xmp@Doi</prism:doi>\fi
+	 \ifx\xmp@Doi\@empty\else<prism:url>http://dx.doi.org/\xmp@Doi</prism:url>\fi
+      </rdf:Description>
+%      <rdf:Description rdf:about=""
+%            xmlns:dc="http://purl.org/dc/elements/1.1/">
+%         <dc:format>application/pdf</dc:format>
+%         <dc:title>
+%            <rdf:Alt>
+%               <rdf:li xml:lang="x-default">\xmp@Title</rdf:li>
+%            </rdf:Alt>
+%         </dc:title>
+%         <dc:description>
+%            <rdf:Alt>
+%               <rdf:li xml:lang="x-default">\xmp@Subject</rdf:li>
+%            </rdf:Alt>
+%         </dc:description>
+%         <dc:creator>
+%            <rdf:Bag>
+%               <rdf:li>\xmp@Author</rdf:li>
+%            </rdf:Bag>
+%         </dc:creator>
+%         <dc:subject>
+%            <rdf:Bag>
+%               <rdf:li>\xmp@Keywords</rdf:li>
+%            </rdf:Bag>
+%         </dc:subject>
+%      </rdf:Description>
+%      <rdf:Description rdf:about=""
+%            xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/">
+%         <xmpMM:DocumentID>uuid:\xmp@docid</xmpMM:DocumentID>
+%         <xmpMM:InstanceID>uuid:\xmp@instid</xmpMM:InstanceID>
+%      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>
+% padding with 512 space characters to allow easier editing within a PDF
+\paddingline
+\paddingline
+\paddingline
+\paddingline
+%%
+%% End of pdfx.xmp
+%%
+%%
+                                                                                                    
+
