@@ -4,7 +4,7 @@
 
 With the rapid development of multimedia and network technology, digital images, as an effective carrier of information, are having a more and more important impact on people's daily lives. 
 
-However, the image content can easily be tampered with the increasingly powerful image processing software, which threatens the integrity and authenticity of digital images. Moreover, if the tampered images were used for illegal purposes, there would be no doubt causing extremely bad effects on both the individual and society.
+However, the image content can easily be tampered with the increasingly powerful image processing software, which threatens the integrity and authenticity of digital images. Moreover, if the tampered images were used for illegal purposes, they may entail negative consequences both for the individual and for the society.
 
 Images manipulated with the purpose of manipulating and deceiving user opinions are present in almost all communication channels including newspapers, magazines, TV shows and, obviously, on Internet.\cite{rocha2011vision}
 
@@ -22,7 +22,7 @@ In this scenario, there are mainly two approaches:
 
 We focused our attention on the illuminant-based approach, which assumes that a scene is lit by the same light source. More light sources are admitted but only far enough such as to produce a constant brightness across the image. In this condition, pristine images will show a coherent illuminant representation; on the other hand, inconsistencies among illuminant maps will be exploited for splicing detection. 
 
-\emph{Illuminant maps} locally describes the lighting in a small region of the image. In the computer vision literature exist many different approaches for determining the illuminant of an image. In particular, such techniques are divided into two main groups: statistical-based and physics-based approaches.
+\emph{Illuminant maps} locally describe the lighting in a small region of the image. In the computer vision literature many different approaches exist for determining the illuminant of an image. In particular, such techniques are divided into two main groups: statistical-based and physics-based approaches.
 
 Regarding the first group, we start investigating on the \emph{Grey-World algorithm} \cite{Buchsbaum19801}, which is based on the Grey-World assumption, i.e. the average reflectance in a scene is achromatic. In \cite{finlayson2004shades}, this algorithm proved to be special instances of the Minkowski-norm. Van de Weijer \emph{et al.} \cite{van2007edge} than proposed an extension of the Gray-World assumption, called \emph{Gray-Edge hypothesis} \cite{van2007edge}, which assumes that the average of the reflectance differences in a scene is achromatic. 
 
@@ -35,4 +35,6 @@ Carvalho \emph{et al.} \cite{carvalho2016illuminant} then presented a method tha
 
 Finally, in \cite{fan2015image} Fan \emph{et al.} used inconsistencies of the illuminant color in the object region in order to detect the region splicing forgeries based on local illumination estimation. They proposed to combine five low-level statistics-based algorithms to estimate illuminant of each horizontal and each vertical band.
 
-This work is structured as follows. Chapter 2 describes the main methods grounded on illumination inconsistencies for detecting image composition and the background theories on which this work is based on. Chapter 3 collects the experimental results, putting our research in perspective and discussing new research opportunities.
+This thesis propose two different approaches, divided into two modules, starting from the works presented in \cite{carvalho2016illuminant} and \cite{fan2015image}. We analyzed illuminant maps entailing the interaction between the light source and the objects contained in a scene in order to detect image forgeries.  The first module is aimed at detecting forgeries involving people; the second approach is based on considering a set of different low-level illuminant color estimators  and a simple image segmentation for detecting forgeries without any \emph{a priori} knowledge about the image content. 
+
+This work is structured as follows. In Chapter 1, image composition is defined and the importance of devising and developing methods able to detect this kind of forgery is discussed. Some recent methods in the literature that consider illuminant information for detection of image splicing are also presented. Chapter 2 describes the main methods grounded on illumination inconsistencies for detecting image composition and the background theories on which this work is based on. Chapter 3 collects the experimental results, putting our research in perspective and discussing new research opportunities.
