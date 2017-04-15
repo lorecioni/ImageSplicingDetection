@@ -94,10 +94,10 @@ class FaceSplicingDetector:
             TP, TN, FN, FP = 0, 0, 0, 0
 
             for i in predictions:
-                if predictions[i]/counters[i] > threshold:
-                    if score < predictions[i]/counters[i]:
-                        score = predictions[i]/counters[i]
+                if score < predictions[i] / counters[i]:
+                    score = predictions[i] / counters[i]
 
+                if predictions[i]/counters[i] > threshold:
                     fakeFaces.append(i)
                     print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(score) )
 
