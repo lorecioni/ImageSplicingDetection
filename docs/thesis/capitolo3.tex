@@ -81,7 +81,7 @@ Test 4 &	DSI-1 & DSO-1 & 0.58 & 0.55 & 0.51 & \textbf{0.59}\\ [1ex]
 \label{table:colordescriptorperformance}
 \end{table}
 
-Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of training and test set. The classification results show that, generally, LCH color descriptor yielded the higher accurary, but there is not a descriptor that clearly outperforms the others.
+Table \ref{table:colordescriptorperformance} shows the results of all tested combinations of training and test set. The classification results show that, generally, LCH color descriptor yielded the higher accuracy, but there is not a descriptor that clearly outperforms the others.
 
 \subsection{Test cases}
 
@@ -493,7 +493,7 @@ Good results are also achieved over internet images (the DSI-1 dataset), also un
 
 Results shown in Table \ref{table:performancefacedetnonun} also highlight that the final classification accuracy depends a lot on the kNN models strength: especially in a cross-dataset scenario better results are achieved using a varied training set. 
 
-Regarding the second considered module, the more promising results are obtained using a machine learning approach for regional features classification. Table \ref{table:performanceregionaldet} shows distinctly that the experiments led using SVM classifiers insted of a simple detection map based on the sum of distances achieved preferable performances. We noted also that using a global image illuminant reference color instead of evaluating the median of the illuminants for each direction is a more suitable approach.
+Regarding the second considered module, the more promising results are obtained using a machine learning approach for regional features classification. Table \ref{table:performanceregionaldet} shows distinctly that the experiments led using SVM classifiers instead of a simple detection map based on the sum of distances achieved preferable performances. We noted also that using a global image illuminant reference color instead of evaluating the median of the illuminants for each direction is a more suitable approach.
 
 Also in this case, the better the SVM models trained, the higher the classification accuracies reached for the evaluation set. Using the models trained over a set of images closer to those occurring in the test set led to better results, as in the case of the \emph{SplicedDSO} as training set and DSO-1 as test set, which reached the higher accuracy score, 61\% of image pixels correctly classified.
 
