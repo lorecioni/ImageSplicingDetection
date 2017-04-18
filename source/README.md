@@ -74,7 +74,7 @@ Run the algorithm with **main.py** script passing arguments.
 Detect forgeries over human faces in the image using the face splicing detection module. Display the results in a visual way.
 
 ```
-python3 main.py --face-detector --detect --img data/sample.png --display-result
+python3 main.py --face-detector --detect --img data/sample.png --use-default-facedetector --display-result
 ```
 
 #### Regional forgery detection
