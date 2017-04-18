@@ -126,3 +126,22 @@ def rgb2grayValue(rgb):
     r, g, b = rgb[0], rgb[1], rgb[2]
     gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
     return gray
+
+'''Reading detected faces bounding boxes
+
+'''
+def readExtractedFacesFile(path):
+    if os.path.isfile(path):
+        fid = open(path, 'r')
+        fid.seek(0)
+        lines = fid.readlines()
+        fid.close()
+        faces = []
+        for i in lines:
+            entry = i.split(" ")
+            #xmin ymin xmax ymax
+            face = (int(entry[0]), int(entry[1]), int(entry[2]) - int(entry[0]), int(entry[3]) - int(entry[1]))
+            faces.append(face)
+        return faces, None
+    else:
+        return [], None

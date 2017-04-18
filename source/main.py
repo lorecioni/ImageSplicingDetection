@@ -24,10 +24,18 @@ def execute(args, detector):
 
     elif args.detect:
         #Detecting splice over a selected image
-        if len(args.img) > 0:
-            detector.detect(args.img)
+        detectionScore = -1
+        if len(args.img) > 0 and len(args.faces) > 0:
+            detectionScore = detector.detect(args.img, args.faces)
+        elif len(args.img) > 0 and args.use_default_facedetector:
+            detectionScore = detector.detect(args.img)
         else:
-            print('No image selected for splicing detection. Must specify the --img argument.')
+            if len(args.img) == 0:
+                print('No image selected. Must specify the --img argument.')
+            elif len(args.faces) == 0:
+                print('No extracted faces selected. Must specify the --faces argument or --use-default-facedetector for using the Viola&Jones face detector')
+        #Print detection output
+        print('Detection SCORE: ' + str(detectionScore))
 
     elif args.extract_single_features:
         #Extract feature vector for a selected image
@@ -55,13 +63,17 @@ def main():
     parser.add_argument("--detect", help="detect splice over an image", dest='detect', action='store_true')
     parser.add_argument("--evaluate", help="evaluate trained models over a set of images", dest='evaluate', action='store_true')
 
+    parser.add_argument("--img", help="the path of the suspicious image")
+    parser.add_argument("--faces", help="the path of the detected human faces (a txt file)")
+
     parser.add_argument("--display-result", help="display mask", dest="display_result", action="store_true")
 
     parser.add_argument("--crossvalidate", help="cross-validate the dataset", dest='cross_validation', action='store_true')
     parser.add_argument("--extract-single-features", help="extract feature vector for a specific image", dest='extract_single_features', action='store_true')
     parser.add_argument("--no-extract-features", help="no extract all training images features", dest='extract_features', action='store_false')
     parser.add_argument("--no-extract-maps", help="no extract all training images features", dest='extract_maps', action='store_false')
-    parser.add_argument("--img", help="the path of the suspicious image")
+
+    parser.add_argument("--use-default-facedetector", help="use default Viola&Jones face detector", dest='use_default_facedetector', action='store_true')
 
     parser.add_argument("--heat-map", help="display the heat map between GGE and IIC maps", dest='heat_map', action='store_true')
     parser.add_argument("--verbose", help="display all messages", dest='verbose', action='store_true')
@@ -80,6 +92,7 @@ def main():
     parser.set_defaults(display_result=False)
     parser.set_defaults(face_detector = False)
     parser.set_defaults(region_detector = False)
+    parser.set_defaults(use_default_facedetector=False)
 
     args = parser.parse_args()
 
