@@ -96,7 +96,7 @@ class FaceSplicingDetector:
 
                 if predictions[i]/counters[i] > threshold:
                     fakeFaces.append(i)
-                    print('\tFace ' + str(i + 1) + ' is FAKE.' + str(score) )
+                    print('\tFace ' + str(i + 1) + ' is FAKE. Score ' + str(score) )
 
                     if not detected:
                         detected = not detected
@@ -319,14 +319,6 @@ class FaceSplicingDetector:
             print('Detecting image faces')
         if label is not None:
             faces, labels = utils.readExtractedFacesFile(label)
-            '''
-            for entry in label:
-                face = (int(entry[2]), int(entry[4]), int(entry[3]) - int(entry[2]), int(entry[5]) - int(entry[4]))
-                if entry[1] != config.positiveLabel:
-                    labels.append(1)
-                else:
-                    labels.append(0)
-                faces.append(face)'''
         else:
             faces = self.face_cascade.detectMultiScale(
                 orig,
@@ -341,7 +333,7 @@ class FaceSplicingDetector:
         if display:
             for (x, y, w, h) in faces:
                 cv2.rectangle(orig, (x, y), (x + w, y + h), (0, 255, 0), 8)
-            orig = utils.resizeImage(orig, 500)
+            orig = utils.resizeImage(orig, 800)
             cv2.imshow('img', orig)
             cv2.waitKey(0)
 

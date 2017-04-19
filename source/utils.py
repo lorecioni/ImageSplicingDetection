@@ -127,8 +127,19 @@ def rgb2grayValue(rgb):
     gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
     return gray
 
-'''Reading detected faces bounding boxes
 
+'''
+Utility function for parsing a string into an integer
+'''
+def str2int(s):
+    try:
+        value = int(s)
+    except ValueError:
+        value = int(float(s))
+    return value
+
+'''
+Reading detected faces bounding boxes
 '''
 def readExtractedFacesFile(path):
     if os.path.isfile(path):
@@ -138,9 +149,13 @@ def readExtractedFacesFile(path):
         fid.close()
         faces = []
         for i in lines:
-            entry = i.split(" ")
+            entry = i.strip().split(" ")
+            x_min = str2int(entry[0])
+            y_min = str2int(entry[1])
+            x_max = str2int(entry[2])
+            y_max = str2int(entry[3])
             #xmin ymin xmax ymax
-            face = (int(entry[0]), int(entry[1]), int(entry[2]) - int(entry[0]), int(entry[3]) - int(entry[1]))
+            face = (x_min, y_min, x_max - x_min, y_max - y_min)
             faces.append(face)
         return faces, None
     else:
