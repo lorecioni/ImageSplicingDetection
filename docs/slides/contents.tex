@@ -97,16 +97,27 @@ Two different starting points:
 
 \end{tframe}
 
-\begin{tframe}{Face forgery detection module}
+\begin{tframe}{Face forgery detection module - 1}
 
 \begin{center}
 \includegraphics[width=1\textwidth]{images/pipeline_faces.jpg}
 \end{center}
-Introducing a \emph{face detector} and a \emph{soft classification}.
+Introducing a \emph{face detector} and \emph{soft classification scores}.
 \end{tframe}
 
 
-\begin{tframe}{Regional forgery detection module}
+\begin{tframe}{Face forgery detection module - 2}
+\vspace{0.1cm}
+The output of the algorithm consist in a \textbf{forgery score} for the image and a score for each detected face.
+
+\vspace{0.2cm}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/facedetectionoutput.jpg}
+\end{center}
+\end{tframe}
+
+
+\begin{tframe}{Regional forgery detection module - 1}
 \begin{center}
 \includegraphics[width=1\textwidth]{images/pipeline_regions.jpg}
 \end{center}
@@ -119,6 +130,20 @@ Two different considered \textbf{reference colors} are considered:
 \item \emph{Global}: the whole image illuminant color
 \end{itemize}
 \end{tframe}
+
+\begin{tframe}{Regional forgery detection module - 2}
+\vspace{0.1cm}
+The output of the algorithm consist in a \textbf{forgery score} for the image and the forgery \textbf{regional mask}.
+\vspace{0.2cm}
+\begin{center}
+\includegraphics[width=1\textwidth]{images/regionalresult.jpg}
+\end{center}
+
+\vspace{0.2cm}
+Work best in presence of \textbf{uniform backgrounds colors} and simple light settings.
+\end{tframe}
+
+
 
 \begin{tframe}{Evaluation datasets}
 \begin{itemize}
@@ -159,11 +184,13 @@ Test 4 &	DSI-1 & DSO-1 & 0.63 & 0.60 & 0.54\\ [1ex]
 \caption{Performance of face forgery detection module over paired faces using non-uniform weights.}
 \end{table}
 \end{footnotesize}
+\vspace{0.2cm}
+Good results in cross-validation evaluations. In a cross dataset approach, the dataset used for training makes the difference.
 \end{tframe}
 
 
 \begin{tframe}{Experimental results - 2}
-Experimental results for regional forgery detection module.
+Experimental results for regional forgery detection module. 
 \begin{footnotesize}
 \begin{table}[h!]
 \centering
@@ -179,10 +206,14 @@ Test 5 &	 SplicedDSO & Median & 0.53 & 0.50 & 0.27\\
 Test 6 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
 \hline
 \end{tabular}
-\caption{Performance of region forgery detection module.}
+\caption{Performance of region forgery detection module}
 \label{table:performanceregionaldet}
 \end{table}
 \end{footnotesize}
+Better results achieved using the\textbf{ global illuminant color }as reference.\\
+
+\vspace{0.2cm}
+\textbf{Very low accuracy}: not suitable for a forensic approach.
 \end{tframe}
 
 \begin{tframe}{Conclusions}
