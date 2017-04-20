@@ -171,17 +171,19 @@ Experimental results for face forgery detection module.
 \begin{footnotesize}
 \begin{table}[h!]
 \centering
-\begin{tabular}{l c c c c c} 
+\begin{tabular}{l c c c c c c c} 
 \hline \hline 
-\textbf{Test case} & \textbf{Train} & \textbf{Test} & \textbf{Accuracy} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
+\textbf{N.} & \textbf{Train} & \textbf{Test} & \textbf{Faces} & \textbf{PREC} & \textbf{REC} & \textbf{Accuracy} & \textbf{F-Score} \\ [0.5ex]
 \hline
-Test 1 & DSO-1 & DSO-1 &	0.84 & 0.90	& 0.78\\
-Test 2 & DSI-1 & DSI-1 &	0.89 & 0.92 & 0.89\\
-Test 3 &	DSO-1 &	DSI-1 &	0.59 & 0.58 & 0.64\\
-Test 4 &	DSI-1 & DSO-1 & 0.63 & 0.60 & 0.54\\ [1ex]
+1 & DSO-1 & DSO-1 &	540 & 0.58 & 0.89 & 0.81	& 0.64\\
+2 & DSI-1 & DSI-1 &	133 & 0.56 & 0.95 & 0.75 & 0.66\\
+3 &	DSO-1 & DSI-1 & 540 & 0.41 & 0.18 & 0.63 & 0.25\\ 
+4 &	DSI-1 &	DSO-1 &	130 & 0.44 & 0.43 & 0.67 & 0.37\\[1ex]
+
 \hline
 \end{tabular}
-\caption{Performance of face forgery detection module over paired faces using non-uniform weights.}
+\caption{Performance of face forgery detection module over single faces using non-uniform weights.}
+\label{table:forgerydetections}
 \end{table}
 \end{footnotesize}
 \vspace{0.2cm}

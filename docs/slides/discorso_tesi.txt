@@ -1,0 +1,117 @@
+1.
+
+Buongiorno a tutti,
+vi presento il lavoro di tesi dal titolo “Analisi della sorgente luminosa per la rivelazione di fotomontaggi” (“Illuminant maps analysis for image splicing detection”)
+
+
+2.
+
+La rapida diffusione di dispositivi poco costosi di acquisizione di dati visivi, quasi tutti hanno la possibilità di registrare, memorizzare e condividere una grande quantità di immagini digitali.
+
+Allo stesso tempo, la grande disponibilità di potenti strumenti di manipolazione di immagini rende estremamente semplice modificarne il contenuto e crearne di nuove.
+
+A causa di questo fatto, la manomissione e contraffazione dei contenuti visivi non è più limitata ai soli esperti del settore, rendendo necessari dei metodi che consentano di verificare l’autenticità di un’immagine digitale. In particolare modo, soprattutto in ambito forense, è di attuale importanza individuare eventuali fotomontaggi atti a imbrogliare lo spettatore finale.
+
+
+3.
+
+Le tecniche alla base dell’image forensics consistono nell’individuazione di tracce (footprints) lasciate nei contenuti multimediali durante il loro intero ciclo di vita, dalla creazione passando per tutte le eventuali manipolazioni.
+
+Le tracce di questo tipo possono essere suddivise in due categorie principali:
+- A livello di segnale: consistono in particolari proprietà a livello del segnale dell’immagine, tipicamente invisibili ad occhio umano, che però possono essere evidenziate  tramite specifici strumenti di elaborazione.
+- A livello di scena: consistono in incongruenze dal punto di vista fisico e geometrico nell’immagine a livello di ombre, luci, prospettiva e geometrie degli oggetti.
+Quest’ultimo tipo di tracce sono più robuste perché indipendenti dalle caratteristiche di basso livello come lo sono quelle del primo gruppo, ma spesso è richiesto l’intervento umano per la loro individuazione finale.
+
+
+4.
+
+Questo lavoro si basa sulla ricerca di incongruenze a livello di scena, in particolare modo a livello di sorgente luminosa. In generale, i metodi che si basano sulle incongruenze della luce sono più robusti perché è molto difficile creare manipolazioni con una perfetta regolazione della luce.
+I metodi che utilizzano questo tipo di approccio si possono suddividere in due categorie:
+- quelli che ricercano incongruenze della direzione della luce e delle ombre)
+- quelli che ricercano incongruenze del colore della sorgente luminosa
+E quindi, per il secondo caso, i metodi che si basano sui Modelli di riflettanza speculare bicromi (introdotti da Gholap e Bora nel 2008) e quelli che si fondano sull’analisi delle mappe dell’illuminante, o illuminant maps.
+
+Come ulteriore semplificazione, si presume che le superfici degli oggetti siano di tipo lambertiano (ovvero che riflettano la luce in modo isotropico, indipendenti cioè dalla direzione di provenienza), abbiano un valore di riflettanza costante e siano illuminate da una sorgente luminosa puntiforme infinitamente lontana.
+
+
+5.
+
+Le illuminant maps visualizzano le stime di colore dell’illuminante (sorgente luminosa) a livello locale, ovvero dei singoli pixel dell’immagine. Per la stima di queste particolare mappe colore sono stati considerati due diversi approcci presenti in letteratura allo stato dell’arte.
+Il primo, generalized gray world, presentato da van de Weijer nel 2007, è un’approccio che si delle ipotesi relative alla statistica dei pixel nell’immagine, come la gray world assumption, che assume la riflettanza media in una scena come acromatica (tendente al grigio).
+Il secondo, inverse intensity-chromaticity estimation, proposto da Riess nel 2010, si basa invece su modelli che riguardano l’interazione della luce tra gli oggetti, con base nel dichromatic reflectance model)
+
+
+6.
+
+I metodi attualmente allo stato dell’arte che utilizzano le illuminant maps per l’individuazione di fotomontaggi richiedono però, in misure diverse, una forte interazione da parte di un operatore.
+Il principale obiettivo di questo lavoro è stato quello di automatizzare e rendere indipendente dall’interazione umana il processo di analisi ed individuazione, partendo da due lavori allo stato dell’arte presenti in letteratura.
+Il primo consiste in un modulo di individuazione di fotomontaggi che riguardano volti di persone nelle immagini, basato sul lavoro presentato da Carvalho e Riess nel corso del 2016. In questo caso, oltre a rendere il processo completamente automatico, sono state apportate delle modifiche volte a migliorarlo.
+Il secondo è invece un approccio molto più generale e completamente indipendente dal contenuto delle immagini analizzate che punta a individuare generiche zone dell’immagine manipolate. In questa direzione il lavoro è sperimentale. Il punto di partenza è stato il lavoro presentato da Fan nel 2015.
+
+
+7.
+
+Vediamo ora in cosa consiste più nel dettaglio il primo approccio implementato. Il primo approccio parte dalla considerazione che, dati due oggetti con caratteristiche fisiche simili, come ad esempio due volti umani, il colore dell’illuminante deve mantenersi pressoché invariato. Dunque andrà ad analizzare le facce a coppie alla ricerca di eventuali incongruenze.
+Data un’immagine in ingresso da analizzare contenente almeno 2 facce, vengono calcolate le illuminant maps relative considerando entrambe le tecniche precedenti e se ne estraggono le regioni relative alle facce, individuate tramite un generico face detector (ad esempio Viola&Jones). 
+Per ciascuna immagine relativa ad una singola faccia, viene estratto un vettore di features tramite una serie di descrittori colore. Vengono poi considerate tutte le possibili coppie di facce e costruito un descrittore della coppia concatenando i due descrittori delle facce contenute in essa.
+A questo punto la coppia di facce viene classificata da una serie di classificatori kNN (un classificatore per ciascun descrittore colore utilizzato) pesati in modo diverso. In questo modo ciascuna faccia viene valutata più volte ed ottiene uno score finale che se supera una certa soglia la fa considerare come manipolata. 
+
+
+8.
+
+L’output dell’algoritmo consiste in uno score associato all’immagine (pari allo score maggiore delle facce in essa contenute). Se almeno una faccia dell’immagine è classificata come falsa, l’intera immagina è considerata falsificata.
+Per ciascuna faccia vengono poi restituiti i relativi valori di score.
+Nell’immagine che vediamo l’uomo sulla destra era stato aggiunto artificialmente e risulta infatti quello con uno score maggiore rispetto alle altre figure presenti.
+
+
+9.
+
+Il secondo approccio non ha invece requisiti per quanto riguarda il contenuto dell’immagine e ricerca delle incongruenze in singole regioni rispetto ad un valore di riferimento.
+In questo caso, l’immagine da analizzare viene segmentata in bande orizzontali e verticali. Per ciascuna banda estratta, viene calcolato il valore dell’illuminante utilizzando 5 diverse varianti dell’algoritmo GGE (variando i parametri). Per ciascun algoritmo viene poi stabilito un valore di riferimento del colore dell’illuminante mediano tra tutte le bande per ciascuna direzione. 
+
+Per l’individuazione della zona manipolata viene costruita una detection map in cui i pixel con valori più alti saranno quelli considerati falsificati. Per la costruzione di questa mappa sono stati adottati due diversi approcci.
+Nel primo caso, per ciascuna banda, vengono calcolate le 5 distanze tra il valore dell’illuminante di banda ed il valore di riferimento e questi valori sommati ai valori dei pixel relativi nella mappa.
+Nel secondo caso, i 5 valori delle distanze costituiscono un vettore di feature classificato mediante un classificatore SVM addestrato appositamente. Il valore di output della classificazione sarà poi sommato ai pixel relativi alla banda considerata.
+
+Infine, per il calcolo del valore di riferimento sono state adottate due diverse strategie: quella del valore mediano per direzione (come descritto sopra) e quella del calcolo dell’illuminante globale dell’immagine.
+
+
+10.
+
+L’output dell’algoritmo precedente consiste dunque in una mappa che consente di individuare la zona manipolata. Nel caso in figura, la zona falsificata è costituita dalla persona al centro della foto. Dalla mappa è possibile individuare la zona relativa. Andando poi a sogliare, il risultato finale costituisce le zone ritenute falsificate.
+
+Questo metodo da risultati migliori in caso di immagini con sfondo uniforme e condizioni di luce semplici, cioè con singola sorgente luminosa, ma in generale presenta molti falsi positivi.
+
+
+11.
+
+Per la valutazione sperimentale dei due metodi sono stati utilizzati due dataset. Il DSO è costituito da 200 immagini di scene interne ed esterne con condizioni di luce variabili, ma tutte con la medesima risoluzioni. Il DSI è invece costituito da 50 immagini scaricate dalla rete.
+
+
+12.
+
+Per quanto riguarda il primo modulo, quello che riguarda le facce i principali i risultati ottenuti sono presentati in tabella. In generale si può notare buoni risultati in cross-validazione con un’accuratezza dell’81% sul DSO e dell’75% sul DSI nella classificazione di coppie di facce.
+Nel contesto cross-dataset il risultato migliore è invece ottenuto effettuando il training sul DSI ed il test sul DSO, con un’accuratezza del 67%.
+
+13.
+
+Nel secondo modulo vengono riportati i risultati in tabella.  In questo caso le performance sono valutate considerando la classificazione dei singoli pixels dell’immagine considerando unicamente le immagini falsificate del DSO-1.
+I primi due casi sono relativi all’approccio che non richiede la fase di training, per gli altri viene indicato il dataset costruito su cui è stato effettuato l’addestramento del classificatore SVM.
+In generale i risultati migliori sono ottenuti considerando come valore dell’illuminante di riferimento quello calcolato a livello di immagine globale ed utilizzando gli approcci con addestramento. Si nota poi che, addestrano il modello su un dataset costruito a partire da immagini dello stesso dataset di test i risultati sono migliori.
+L’accuratezza raggiunta è però molto bassa, rendendo il metodo non idoneo per un’applicazione così com’è ad un’analisi forense.
+
+14.
+
+In conclusione, sono stati presentati due diversi approcci per l’individuazione di manipolazioni nelle immagini. Uno specifico per falsificazione che riguardano persone, uno più generico e sperimentale.
+Il primo modulo ha ottenuto risultati più promettenti, ma può essere applicato solo in contesti limitati (devono infatti essere presenti almeno due persone nell’immagine). 
+Come possibile sviluppo futuro, partendo dal primo modulo, poiché questo sfrutta la comparazione di materiali tra loro simili come la pelle, considerare altre parti visibili del corpo per aumentare la confidenza.
+In generale però i metodi di estrazione delle illuminati maps sono molto complessi e portano ad errori. Risultati migliori possono essere raggiunti quando verranno implementati migliori stimatori.
+
+15.
+
+Grazie per l’attenzione
+
+
+
+
+
