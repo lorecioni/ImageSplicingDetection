@@ -10,6 +10,8 @@ Created on 05 ott 2016
 #The name of the dataset to be load
 dataset = 'DSO-1'
 
+output_score_file = 'output.txt'
+
 #The path of the images
 imagesFolder = '../datasets/' + dataset + '/Images/'
 #The path of the images labels

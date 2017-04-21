@@ -9,6 +9,7 @@ import faceSplicingDetector
 import regionSplicingDetection
 import sys
 import loadDatasets
+import config
 
 __version__ = '0.6.5'
 __date__ = '2016-10-14'
@@ -23,6 +24,7 @@ def execute(args, detector):
             detector.train(images, labels)
 
     elif args.detect:
+        out = open(config.output_score_file, 'w')
         #Detecting splice over a selected image
         detectionScore = -1
         if len(args.img) > 0 and len(args.faces) > 0:
@@ -36,6 +38,8 @@ def execute(args, detector):
                 print('No extracted faces selected. Must specify the --faces argument or --use-default-facedetector for using the Viola&Jones face detector')
         #Print detection output
         print('Detection SCORE: ' + str(detectionScore))
+        out.write(str(detectionScore))
+        out.close()
 
     elif args.extract_single_features:
         #Extract feature vector for a selected image
