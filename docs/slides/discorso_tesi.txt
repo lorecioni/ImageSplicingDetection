@@ -20,7 +20,7 @@ Le tecniche alla base dell’image forensics consistono nell’individuazione di
 Le tracce di questo tipo possono essere suddivise in due categorie principali:
 - A livello di segnale: consistono in particolari proprietà a livello del segnale dell’immagine, tipicamente invisibili ad occhio umano, che però possono essere evidenziate  tramite specifici strumenti di elaborazione.
 - A livello di scena: consistono in incongruenze dal punto di vista fisico e geometrico nell’immagine a livello di ombre, luci, prospettiva e geometrie degli oggetti.
-Quest’ultimo tipo di tracce sono più robuste perché indipendenti dalle caratteristiche di basso livello come lo sono quelle del primo gruppo, ma spesso è richiesto l’intervento umano per la loro individuazione finale.
+Quest’ultimo tipo di tracce sono più robuste alla compressione, modifica ed in generale dalle operazioni di manipolazione perché indipendenti dalle caratteristiche di basso livello, ma spesso è richiesto l’intervento umano per la loro individuazione finale.
 
 
 4.
@@ -59,14 +59,15 @@ A questo punto la coppia di facce viene classificata da una serie di classificat
 
 8.
 
-L’output dell’algoritmo consiste in uno score associato all’immagine (pari allo score maggiore delle facce in essa contenute). Se almeno una faccia dell’immagine è classificata come falsa, l’intera immagina è considerata falsificata.
-Per ciascuna faccia vengono poi restituiti i relativi valori di score.
+L’output dell’algoritmo consiste in uno score associato a ciascuna faccia contenuta nell’immagine. Se almeno una faccia dell’immagine è classificata come falsa, l’intera immagina è considerata falsificata.
 Nell’immagine che vediamo l’uomo sulla destra era stato aggiunto artificialmente e risulta infatti quello con uno score maggiore rispetto alle altre figure presenti.
 
 
 9.
 
 Il secondo approccio non ha invece requisiti per quanto riguarda il contenuto dell’immagine e ricerca delle incongruenze in singole regioni rispetto ad un valore di riferimento.
+
+Non basandosi su facce o comunque contenuti che hanno una stessa risposta teorica alle illuminant map, il problema si complica molto ed i metodi per la stima del colore dell’illuminante diventano molto rumorosi. Per mitigare gli errori ne faccio la mediana.
 In questo caso, l’immagine da analizzare viene segmentata in bande orizzontali e verticali. Per ciascuna banda estratta, viene calcolato il valore dell’illuminante utilizzando 5 diverse varianti dell’algoritmo GGE (variando i parametri). Per ciascun algoritmo viene poi stabilito un valore di riferimento del colore dell’illuminante mediano tra tutte le bande per ciascuna direzione. 
 
 Per l’individuazione della zona manipolata viene costruita una detection map in cui i pixel con valori più alti saranno quelli considerati falsificati. Per la costruzione di questa mappa sono stati adottati due diversi approcci.

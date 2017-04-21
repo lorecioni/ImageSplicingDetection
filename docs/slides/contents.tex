@@ -9,15 +9,15 @@ Digital images are easy to manipulate thanks to the availability of the \textbf{
 
 \begin{minipage}{\textwidth}
 \begin{columns}[T]
-\begin{column}{0.5\textwidth}
+\begin{column}{0.46\textwidth}
 \vspace{0.1cm}
 The development of methods for verifying \textbf{image authenticity} is a real need in forensics.
 
 \vspace{0.8cm}
 \textbf{Purpose}: to detect image splicing  aimed at \emph{deceiving} the viewer.
 \end{column}
-\begin{column}{0.4\textwidth}
-\includegraphics[width=0.8\textwidth]{images/image-editing.jpg}
+\begin{column}{0.45\textwidth}
+\includegraphics[width=1\textwidth]{images/iraq.jpg}
 \end{column}
 \end{columns}
 \end{minipage}
@@ -29,16 +29,14 @@ The development of methods for verifying \textbf{image authenticity} is a real n
 \begin{tframe}{Forgery detection approaches}
 
 \vspace{0.2cm}
-Image forensic detection techniques search for \textit{traces} that can be grouped into:
+Image forensic detection techniques search for \textit{traces}, called \emph{footprints}, that can be grouped into:
 \vspace{0.3cm}
 \begin{enumerate}
-\item \textbf{\textit{Signal} level}: signal specific properties, called \emph{footprints}, left during the editing phase that can be revealed using signal processing-based tools.
+\item \textbf{\textit{Signal} level}: signal specific properties left during the editing phase that can be revealed using signal processing-based tools.
 \vspace{0.3cm}
-\item \textbf{\textit{Scene} level}: exploiting inconsistencies in scene shadows, lights, reflections, perspective, and geometry of objects. Main advantage: being fairly independent on low-level characteristics of images, they are extremely robust to compression, altering, and other image processing operations
+\item \textbf{\textit{Scene} level}: exploiting inconsistencies in scene shadows, lights, reflections, perspective, and geometry of objects. \textit{Main advantage}: being fairly independent on low-level characteristics of images, they are extremely robust to compression, altering, and other image processing operations
 \end{enumerate}
 \vspace{0.3cm}
-%
-%One of the main advantages of these techniques is that, being fairly independent on low-level characteristics of images, they are extremely robust to com- pression, �ltering, and other image processing operations, remaining applicable even when the quality of the image is low.
 \end{tframe}
 
 %-- Light based detection --%
@@ -54,9 +52,9 @@ Methods based on \textbf{lighting inconsistencies} are particularly \emph{robust
 \item \textbf{Illuminant colors inconsistencies}
 \vspace{0.1cm}
 \begin{enumerate}
-\item \textit{Specular dichromatic reflectance models} [5]
+\item \textit{Specular dichromatic reflectance models} {\tiny (Gholap and Bora, 2008 [5])}
 \vspace{0.1cm}
-\item \textit{Illuminant Maps (IMs)}
+\item \textbf{\uline{Illuminant Maps (IMs)}}
 \end{enumerate}
 \end{enumerate}
 \vspace{0.3cm}
@@ -67,11 +65,13 @@ Methods based on \textbf{lighting inconsistencies} are particularly \emph{robust
 \vspace{0.2cm}
 For the \emph{Illuminant Maps} estimation, two different \emph{state-of-art} techniques are used: 
 \vspace{0.3cm}
+\begin{small}
 \begin{enumerate}
-\item A \emph{statistical-based} approach using \textbf{Generalized Grayworld Estimate (GGE)} algorithm [2]. Rely on hypotheses related to statistics of image pixels (e.g.  the \emph{gray world assumption} [6]).
+\item A \emph{statistical-based} approach using \textbf{Generalized Grayworld Estimate (GGE)} algorithm {\tiny (Van de Weijer \emph{et al.}, 2007 [3])}. Rely on hypotheses related to statistics of image pixels (e.g.  the \emph{gray world assumption}).
 \vspace{0.2cm}
-\item A \emph{physics-based} approach using \textbf{Inverse-Intensity Chromaticity (IIC)} method [4]. Rely on theoretical formulations of how light interacts with objects (e.g. \emph{the dichromatic reflectance model})
+\item A \emph{physics-based} approach using \textbf{Inverse-Intensity Chromaticity (IIC)} method {\tiny (Riess and Angelopoulou, 2010 [4])}. Rely on theoretical formulations of how light interacts with objects (e.g. \emph{the dichromatic reflectance model})
 \end{enumerate}
+\end{small}
 
 \begin{center}
 \includegraphics[width=0.55\textwidth]{images/riess.jpg}
@@ -79,48 +79,127 @@ For the \emph{Illuminant Maps} estimation, two different \emph{state-of-art} tec
 
 \end{tframe}
 
-
-
 \begin{tframe}{Proposed approach}
-The current \emph{state of the art} approaches requires human interaction. 
+\uncover<1->{The current \emph{state of the art} approaches requires human interaction. }\uncover<2->{
 $$\Downarrow$$
+\vspace{-1cm}}
+\uncover<3->{
 \begin{center}
-\textbf{Main goal}: make the approach user independent.
+\textbf{Main goal}: \emph{remove the Human from the Loop}
 \end{center}
 Two different starting points:
 \vspace{0.1cm}
 \begin{itemize}
-\item \textbf{Face forgery detection module}: specifically for detecting forgeries involving people. Based on the work presented by Carvalho et al. [1]. Improving and automating the detection process.
+\item \textbf{Face forgery detection module}: specifically for detecting forgeries involving people. Based on the work presented by Carvalho \emph{et al. }2016 [1]. Improving and automating the detection process.
 
-\item \textbf{Regional forgery detection module}: image content independent. Based on the work presented by Fan et al. [2]. A more general and experimental approach.
-\end{itemize}
-
+\item \textbf{Regional forgery detection module}: image content independent. Based on the work presented by Fan \emph{et al.} in 2015 [2]. A more general and experimental approach.
+\end{itemize}}
 \end{tframe}
 
 \begin{tframe}{Face forgery detection module - 1}
-
+\only<1>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces.jpg}
+\includegraphics[width=1\textwidth]{images/pipeline_faces_1.jpg}
 \end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_faces_2.jpg}
+\end{center}
+}
+\only<3>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_faces_3.jpg}
+\end{center}
+}
+\only<4>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_faces_4.jpg}
+\end{center}
+}
+\only<5>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_faces_5.jpg}
+\end{center}
+}
+\only<6->{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_faces_6.jpg}
+\end{center}
+}
+\only<7>{
 Introducing a \emph{face detector} and \emph{soft classification scores}.
+}
 \end{tframe}
 
 
 \begin{tframe}{Face forgery detection module - 2}
 \vspace{0.1cm}
-The output of the algorithm consist in a \textbf{forgery score} for the image and a score for each detected face.
+The output of the algorithm consist in a \textbf{forgery score} for each detected face.
 
 \vspace{0.2cm}
+\begin{minipage}{\textwidth}
+\begin{columns}[T]
+\begin{column}{0.2\textwidth}
+
+\vspace{1cm}
 \begin{center}
-\includegraphics[width=0.6\textwidth]{images/facedetectionoutput.jpg}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l c} 
+\hline \hline 
+\textbf{Face} & \textbf{Score}\\ [0.5ex]
+\hline
+A & 0.354\\
+B & 0.354\\
+C &	0.375\\
+D &	0.396\\
+\textbf{E} & \textbf{0.936}\\[1ex]
+\hline
+\end{tabular}
+\end{table}
 \end{center}
+\end{column}
+\begin{column}{0.7\textwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/facedetectionoutput_letters.jpg}
+\end{center}
+\end{column}
+\end{columns}
+\end{minipage}
+
+
 \end{tframe}
 
 
 \begin{tframe}{Regional forgery detection module - 1}
+\only<1>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_regions.jpg}
+\includegraphics[width=1\textwidth]{images/pipeline_regions_1.jpg}
 \end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_regions_2.jpg}
+\end{center}
+}
+\only<3>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_regions_3.jpg}
+\end{center}
+}
+\only<4>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_regions_4.jpg}
+\end{center}
+}
+\only<5->{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/pipeline_regions_5.jpg}
+\end{center}
+}
+
+\only<6>{
 \vspace{0.2cm}
 Two different considered \textbf{reference colors} are considered:
 \vspace{0.3cm}
@@ -129,21 +208,28 @@ Two different considered \textbf{reference colors} are considered:
 \vspace{0.1cm}
 \item \emph{Global}: the whole image illuminant color
 \end{itemize}
+}
+
 \end{tframe}
 
 \begin{tframe}{Regional forgery detection module - 2}
 \vspace{0.1cm}
 The output of the algorithm consist in a \textbf{forgery score} for the image and the forgery \textbf{regional mask}.
 \vspace{0.2cm}
+\only<1>{
 \begin{center}
 \includegraphics[width=1\textwidth]{images/regionalresult.jpg}
 \end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=1\textwidth]{images/regionalresult_2.jpg}
+\end{center}
+}
 
 \vspace{0.2cm}
 Work best in presence of \textbf{uniform backgrounds colors} and simple light settings.
 \end{tframe}
-
-
 
 \begin{tframe}{Evaluation datasets}
 \begin{itemize}
@@ -200,12 +286,10 @@ Experimental results for regional forgery detection module.
 \hline \hline 
 \textbf{Test case} & \textbf{Train} & \textbf{RC} & \textbf{ACC} & \textbf{AUC} &\textbf{ F-Score} \\ [0.5ex]
 \hline
-Test 1 & - & Median & 0.49 & 0.32 & 0.25\\
-Test 2 & - & Global & 0.52 & 0.40 & 0.27\\
-Test 3 & SplicedCC & Median & 0.54 & 0.53 & 0.26\\
-Test 4 & SplicedCC & Global & 0.57 & 0.57 & 0.31\\
-Test 5 &	 SplicedDSO & Median & 0.53 & 0.50 & 0.27\\
-Test 6 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
+Test 1 & SplicedCC & Median & 0.54 & 0.53 & 0.26\\
+Test 2 & SplicedCC & Global & 0.57 & 0.57 & 0.31\\
+Test 3 &	 SplicedDSO & Median & 0.53 & 0.50 & 0.27\\
+Test 4 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
 \hline
 \end{tabular}
 \caption{Performance of region forgery detection module}
@@ -225,7 +309,7 @@ Better results achieved using the\textbf{ global illuminant color }as reference.
 \vspace{0.1cm}
 \item Face module achieved most promising results, but it works only with images involving people forgeries.
 \vspace{0.1cm}
-\item \textbf{Future developments}: given that our method compares skin material, it is feasible to use additional body parts, such as arms and legs, to increase the detection and confidence of the method.
+\item \textbf{Future developments}: extend the approach to generic objects with composed by similar material.
 \vspace{0.1cm}
 \item Further improvements can be achieved when more advanced illuminant color estimators become available.
 \end{itemize}
