@@ -50,7 +50,16 @@ class FaceSplicingDetector:
 
         image = cv2.imread(img)
         if image is None:
-            print('Error processing ' + filename + ': image not found')
+            print('ERROR processing ' + filename + ': image not found')
+            return -1
+
+        #Check if image is colored
+        try:
+            _, _, channels = image.shape
+            if channels < 3:
+                raise Exception()
+        except Exception as e:
+            print('ERROR: image is grayscale. Illuminant maps analysis cannot be performed.')
             return -1
 
         #Loads classifier
