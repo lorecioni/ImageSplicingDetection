@@ -25,7 +25,7 @@ def prepareImageIlluminants(img, sigma, k, min_size, max_intensity, min_intensit
             command = config.voleBinary + " felzenszwalb -I " + img + " --deterministic_coloring -O " + outfile + " --sigma " + str(sigma) + " --k " + str(k) + " --min_size " + str(min_size) + " --max_intensity " + str(max_intensity) + " --min_intensity " + str(min_intensity)    
         else:
             command = config.voleBinary + " felzenszwalb -I " + img + " --deterministic_coloring -O " + outfile +" --k " + str(k) + " --max_intensity 255"   
-        subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
+        subprocess.call([command], stdout = devnull, shell = True)
         if verbose:
             print('Image segmented')
 
@@ -46,7 +46,7 @@ def extractGGEMap(img, segmentedImg, sigma, n, p, verbose, output = None):
             command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --n " +  str(n) + " --p " + str(p) + " --sigma " + str(sigma)
         else:
             command = config.voleBinary + " lgrayworld --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --n " + str(n) + " --p " + str(p) + " --sigma " + str(sigma)
-        subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
+        subprocess.call([command], stdout = devnull, shell = True)
         if verbose:
             print('GGE map extracted')
 
@@ -86,6 +86,6 @@ def extractIICMap(img, segmentedImg, verbose):
         if verbose:
             print('Extracting IIC map...')
         command = config.voleBinary + " liebv --img.image " + img + " -S " + segmentedImg + " -O " + outfile + " --iebv_config " + config.config_iic
-        subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
+        subprocess.call([command], stdout = devnull, shell = True)
         if verbose:
             print('IIC map extracted')

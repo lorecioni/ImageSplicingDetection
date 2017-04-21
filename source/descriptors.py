@@ -45,12 +45,12 @@ def extractDescriptor(img, descriptor, space = 0, channel = 3):
     cv2.imwrite(nname, destImg)
 
     command = config.convertBinary + " " + nname + " " + newName
-    subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
+    subprocess.call([command], stdout = devnull, shell = True)
     command = "descriptors/" + descriptor.lower() + "/source/bin/./" + descriptor.lower() + "_extraction " + newName + " " + descriptorName
 
     if descriptor.lower() == 'sasi' or descriptor.lower() == 'las' or descriptor.lower() == 'unser':
         command += ' 1'
-    subprocess.call([command], stdout = devnull, stderr = devnull, shell = True)
+    subprocess.call([command], stdout = devnull, shell = True)
 
 
 def buildFaceFeatureVector(firstPath, secondPath, descriptor):
