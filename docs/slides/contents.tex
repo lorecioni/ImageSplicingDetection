@@ -32,11 +32,14 @@ The development of methods for verifying \textbf{image authenticity} is a real n
 Image forensic detection techniques search for \textit{traces}, called \emph{footprints}, that can be grouped into:
 \vspace{0.3cm}
 \begin{enumerate}
-\item \textbf{\textit{Signal} level}: signal specific properties left during the editing phase that can be revealed using signal processing-based tools.
+\item<1-> \textbf{\textit{Signal} level}: signal specific properties left during the editing phase that can be revealed using signal processing-based tools.
 \vspace{0.3cm}
-\item \textbf{\textit{Scene} level}: exploiting inconsistencies in scene shadows, lights, reflections, perspective, and geometry of objects. \textit{Main advantage}: being fairly independent on low-level characteristics of images, they are extremely robust to compression, altering, and other image processing operations
+\item<2-> \textbf{\textit{Scene} level}: exploiting inconsistencies in scene shadows, lights, reflections, perspective, and geometry of objects.
 \end{enumerate}
 \vspace{0.3cm}
+\only<3>{
+\textit{Main advantage}: being fairly independent on low-level characteristics of images, they are extremely robust to compression, altering, and other image processing operations
+}
 \end{tframe}
 
 %-- Light based detection --%
@@ -46,17 +49,19 @@ Methods based on \textbf{lighting inconsistencies} are particularly \emph{robust
 \begin{center}
 \includegraphics[width=0.4\textwidth]{images/lighting-based.jpg}
 \end{center}
+\only<1->{
 \begin{enumerate}
-\item \textbf{Object light source inconsistencies}
+\item<2-> \textbf{Object light source inconsistencies}
 \vspace{0.1cm}
-\item \textbf{Illuminant colors inconsistencies}
+\item<3-> \textbf{\uline{Illuminant colors inconsistencies}}
 \vspace{0.1cm}
 \begin{enumerate}
-\item \textit{Specular dichromatic reflectance models} {\tiny (Gholap and Bora, 2008 [5])}
+\item<4-> \textit{Specular dichromatic reflectance models} {\tiny (Gholap and Bora, 2008 [5])}
 \vspace{0.1cm}
-\item \textbf{\uline{Illuminant Maps (IMs)}}
+\item<4> \textbf{\uline{Illuminant Maps (IMs)}}
 \end{enumerate}
 \end{enumerate}
+}
 \vspace{0.3cm}
 \end{tframe}
 
@@ -84,11 +89,10 @@ For the \emph{Illuminant Maps} estimation, two different \emph{state-of-art} tec
 $$\Downarrow$$
 \vspace{-1cm}
 \begin{center}
-\textbf{Main goal}: \emph{remove the Human from the Loop}
+\textbf{Main goal}: \emph{starting from two different approaches, remove the Human from the Loop and introducing some improvements}
 \end{center}
 }
 \uncover<3->{
-Two different starting points:
 \vspace{0.1cm}
 \begin{itemize}
 \item \textbf{Face forgery detection module}: specifically for detecting forgeries involving people. Based on the work presented by Carvalho \emph{et al. }2016 [1]. Improving and automating the detection process.
@@ -199,16 +203,30 @@ D &	0.396\\
 \includegraphics[width=1\textwidth]{images/pipeline_regions_5.jpg}
 \end{center}
 }
-
+\vspace{-0.5cm}
+\only<3->{
+\begin{footnotesize}
+$$
+\textrm{GGE estimation} \qquad k\textbf{e}^{n, p, \sigma} = (\int |\frac{\vartheta^{n}\textbf{f}^{\sigma}(\textbf{x})}{\vartheta\textbf{x}^{n}}|^{p}  d\textbf{x})^{\frac{1}{p}}
+$$
+\end{footnotesize}
+%
+%where $\textbf{x}$ denotes a pixel coordinate, $k$ is a scale factor, $|\cdot|$ is the absolute value operator, $\vartheta$ the partial differential operator, $\textbf{f}^{\sigma}$ is the observed intensities at position $\textbf{x}$, smoothed by a Gaussian kernel $\sigma$, $p$ is the \emph{Minkowski norm}, and $n$ is the derivative order.\\
+%
+}
 \only<6>{
+
+\begin{footnotesize}
 \vspace{0.2cm}
 Two different \textbf{reference colors} are considered:
-\vspace{0.3cm}
+\vspace{0.5cm}
 \begin{itemize}
 \item \emph{Median}: the median illuminant color for each direction
 \vspace{0.1cm}
 \item \emph{Global}: the whole image illuminant color
 \end{itemize}
+\end{footnotesize}
+
 }
 
 \end{tframe}
@@ -260,12 +278,12 @@ Experimental results for face forgery detection module.
 \centering
 \begin{tabular}{l c c c c c c c} 
 \hline \hline 
-\textbf{N.} & \textbf{Train} & \textbf{Test} & \textbf{Faces} & \textbf{PREC} & \textbf{REC} & \textbf{Accuracy} & \textbf{F-Score} \\ [0.5ex]
+\textbf{N.} & \textbf{Train} & \textbf{Test} & \textbf{Faces} & \textbf{Accuracy} & \textbf{F-Score} \\ [0.5ex]
 \hline
-1 & DSO-1 & DSO-1 &	540 & 0.58 & 0.89 & 0.81	& 0.64\\
-2 & DSI-1 & DSI-1 &	133 & 0.56 & 0.95 & 0.75 & 0.66\\
-3 &	DSO-1 & DSI-1 & 540 & 0.41 & 0.18 & 0.63 & 0.25\\ 
-4 &	DSI-1 &	DSO-1 &	130 & 0.44 & 0.43 & 0.67 & 0.37\\[1ex]
+1 & DSO-1 & DSO-1 &	540 & 0.81	& 0.64\\
+2 & DSI-1 & DSI-1 &	133 & 0.75 & 0.66\\
+3 &	DSO-1 & DSI-1 & 540 & 0.63 & 0.25\\ 
+4 &	DSI-1 &	DSO-1 &	130 & 0.67 & 0.37\\[1ex]
 
 \hline
 \end{tabular}
