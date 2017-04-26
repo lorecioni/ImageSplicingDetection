@@ -14,7 +14,9 @@ Digital images are easy to manipulate thanks to the availability of the \textbf{
 The development of methods for verifying \textbf{image authenticity} is a real need in forensics.
 
 \vspace{0.8cm}
+\only<2>{
 \textbf{Purpose}: to detect image splicing  aimed at \emph{deceiving} the viewer.
+}
 \end{column}
 \begin{column}{0.45\textwidth}
 \includegraphics[width=1\textwidth]{images/iraq.jpg}
@@ -32,12 +34,12 @@ The development of methods for verifying \textbf{image authenticity} is a real n
 Image forensic detection techniques search for \textit{traces}, called \emph{footprints}, that can be grouped into:
 \vspace{0.3cm}
 \begin{enumerate}
-\item<1-> \textbf{\textit{Signal} level}: signal specific properties left during the editing phase that can be revealed using signal processing-based tools.
+\item<2-> \textbf{\textit{Signal} level}: signal specific properties left during the editing phase that can be revealed using signal processing-based tools.
 \vspace{0.3cm}
-\item<2-> \textbf{\textit{Scene} level}: exploiting inconsistencies in scene shadows, lights, reflections, perspective, and geometry of objects.
+\item<3-> \textbf{\textit{Scene} level}: exploiting inconsistencies in scene shadows, lights, reflections, perspective, and geometry of objects.
 \end{enumerate}
 \vspace{0.3cm}
-\only<3>{
+\only<4>{
 \textit{Main advantage}: being fairly independent on low-level characteristics of images, they are extremely robust to compression, altering, and other image processing operations
 }
 \end{tframe}
@@ -101,35 +103,58 @@ $$\Downarrow$$
 \end{itemize}}
 \end{tframe}
 
+
+
 \begin{tframe}{Face forgery detection module - 1}
+
 \only<1>{
+
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces_1.jpg}
+\vspace{-.5cm}
+\begin{adjustwidth}{-1cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_faces_1.jpg}
+\end{adjustwidth}
 \end{center}
+
 }
 \only<2>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces_2.jpg}
+\vspace{-.5cm}
+\begin{adjustwidth}{-1cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_faces_2.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<3>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces_3.jpg}
+\vspace{-.5cm}
+\begin{adjustwidth}{-1cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_faces_3_stroke.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<4>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces_4.jpg}
+\vspace{-.5cm}
+\begin{adjustwidth}{-1cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_faces_4.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<5>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces_5.jpg}
+\vspace{-.5cm}
+\begin{adjustwidth}{-1cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_faces_5.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<6->{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_faces_6.jpg}
+\vspace{-.5cm}
+\begin{adjustwidth}{-1cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_faces_6.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<7>{
@@ -180,27 +205,42 @@ D &	0.396\\
 \begin{tframe}{Regional forgery detection module - 1}
 \only<1>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_regions_1.jpg}
+\vspace{-0.7cm}
+\begin{adjustwidth}{-0.85cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_regions_1.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<2>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_regions_2.jpg}
+\vspace{-0.7cm}
+\begin{adjustwidth}{-0.85cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_regions_2.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<3>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_regions_3.jpg}
+\vspace{-0.7cm}
+\begin{adjustwidth}{-0.85cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_regions_3.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<4>{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_regions_4.jpg}
+\vspace{-0.7cm}
+\begin{adjustwidth}{-0.85cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_regions_4.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \only<5->{
 \begin{center}
-\includegraphics[width=1\textwidth]{images/pipeline_regions_5.jpg}
+\vspace{-0.7cm}
+\begin{adjustwidth}{-0.85cm}{} 
+\includegraphics[width=1.15\textwidth]{images/pipeline_regions_5.jpg}
+\end{adjustwidth}
 \end{center}
 }
 \vspace{-0.5cm}
@@ -292,7 +332,7 @@ Experimental results for face forgery detection module.
 \end{table}
 \end{footnotesize}
 \vspace{0.2cm}
-Good results in cross-validation evaluations. In a cross dataset approach, the dataset used for training makes the difference.
+Good results in \textbf{cross-validation} evaluations. In a cross dataset approach, the dataset used for training makes the difference.
 \end{tframe}
 
 
@@ -315,10 +355,24 @@ Test 4 &	 SplicedDSO & Global & 0.61 & 0.63 & 0.33\\ [1ex]
 \label{table:performanceregionaldet}
 \end{table}
 \end{footnotesize}
+\only<2>{
+\begin{figure}[!htb]
+\minipage{0.5\textwidth}
+\centering
+  \includegraphics[width=0.65\linewidth]{images/splicedcchor}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+\centering
+  \includegraphics[width=0.6\linewidth]{images/spliceddsover}
+\endminipage
+\end{figure}
+}
+\only<3>{
 Better results achieved using the\textbf{ global illuminant color }as reference.\\
 
 \vspace{0.2cm}
 \textbf{Very low accuracy}: not suitable for a forensic approach.
+}
 \end{tframe}
 
 \begin{tframe}{Conclusions}
